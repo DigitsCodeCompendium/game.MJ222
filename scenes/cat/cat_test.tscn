@@ -3,32 +3,21 @@
 [ext_resource type="Script" uid="uid://omnx7rux4hfl" path="res://scripts/cat/cat.gd" id="1_2td3s"]
 [ext_resource type="PackedScene" uid="uid://bx4h1vdiwf4n7" path="res://assets/cat/DangoCatSKMesh.fbx" id="1_sa38v"]
 [ext_resource type="Script" uid="uid://5ujy7bucvhco" path="res://scripts/cat/cat_animate.gd" id="2_glebu"]
-[ext_resource type="Script" uid="uid://0dh1ylvu2kme" path="res://scripts/cat/click_box.gd" id="4_f0s6i"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_eu1mp"]
 radius = 1.0
 
-[node name="Cat" type="Node3D" unique_id=879888050]
+[node name="Cat" type="CharacterBody3D" unique_id=726276206]
 script = ExtResource("1_2td3s")
 
 [node name="DangoCatSKMesh" parent="." unique_id=1085920197 instance=ExtResource("1_sa38v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.069523215, 0)
 script = ExtResource("2_glebu")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=33294838]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9036608, 0)
-input_ray_pickable = false
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1188262258]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1476894318]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09383166, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1476894318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99749243, 0)
 shape = SubResource("SphereShape3D_eu1mp")
 
-[node name="ClickBox" type="Area3D" parent="RigidBody3D" unique_id=503277523]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9036608, 0)
-script = ExtResource("4_f0s6i")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/ClickBox" unique_id=32473602]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9922281, 0)
-shape = SubResource("SphereShape3D_eu1mp")
-
-[connection signal="input_event" from="RigidBody3D/ClickBox" to="RigidBody3D/ClickBox" method="_on_input_event"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
