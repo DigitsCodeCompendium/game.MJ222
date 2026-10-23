@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://buo8lt1arwccv"]
 
+[ext_resource type="Texture2D" uid="uid://1vmgykdcxwl3" path="res://assets/floor/ss1-4.png" id="1_w3u4m"]
 [ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="1_y6135"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="2_0ahxg"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/air.tres" id="2_w3u4m"]
@@ -7,8 +8,16 @@
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/fire.tres" id="4_ljddl"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/water.tres" id="5_diwea"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_eu1mp"]
-size = Vector3(10.041046, 0.5001221, 9.997192)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2t3p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxpcf"]
+albedo_texture = ExtResource("1_w3u4m")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eu1mp"]
+lightmap_size_hint = Vector2i(62, 62)
+size = Vector2(16, 16)
 
 [node name="CatsTest" type="Node3D" unique_id=27853933]
 
@@ -23,7 +32,11 @@ transform = Transform3D(1, 0, 0, 0, 0.40216753, 0.9155661, 0, -0.9155661, 0.4021
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Floor/StaticBody3D" unique_id=1453034164]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.019577026, -0.24993896, 0.00982666)
-shape = SubResource("BoxShape3D_eu1mp")
+shape = SubResource("WorldBoundaryShape3D_j2t3p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Floor" unique_id=536101122]
+material_override = SubResource("StandardMaterial3D_xxpcf")
+mesh = SubResource("PlaneMesh_eu1mp")
 
 [node name="Cats" type="Node3D" parent="." unique_id=1049633039]
 
@@ -51,4 +64,4 @@ transform = Transform3D(1, 0, 0, 0, 0.80195254, 0.59738773, 0, -0.59738773, 0.80
 script = ExtResource("2_0ahxg")
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1347866223]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.63563037, 7.9485636)
+transform = Transform3D(1, 0, 0, 0, 0.8490884, 0.5282508, 0, -0.5282508, 0.8490884, 0, 0.6356306, 7.9485636)
