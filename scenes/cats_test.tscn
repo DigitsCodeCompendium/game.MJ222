@@ -2,6 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="1_y6135"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="2_0ahxg"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/air.tres" id="2_w3u4m"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/earth.tres" id="3_0ek6n"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/fire.tres" id="4_ljddl"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/water.tres" id="5_diwea"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eu1mp"]
 size = Vector3(10.041046, 0.5001221, 9.997192)
@@ -25,18 +29,22 @@ shape = SubResource("BoxShape3D_eu1mp")
 
 [node name="Cat" parent="Cats" unique_id=879888050 instance=ExtResource("1_y6135")]
 cat_name = "qwill"
+enchantment = ExtResource("2_w3u4m")
 
 [node name="Cat2" parent="Cats" unique_id=181071333 instance=ExtResource("1_y6135")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4824328, 0, 1.9213696)
 cat_name = "spot"
+enchantment = ExtResource("3_0ek6n")
 
 [node name="Cat3" parent="Cats" unique_id=980553939 instance=ExtResource("1_y6135")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1576273, 0, -2.782158)
 cat_name = "fish"
+enchantment = ExtResource("4_ljddl")
 
 [node name="Cat4" parent="Cats" unique_id=2108138856 instance=ExtResource("1_y6135")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.813074, 0, -2.4997506)
 cat_name = "dog"
+enchantment = ExtResource("5_diwea")
 
 [node name="Player" type="Node3D" parent="." unique_id=720284898]
 transform = Transform3D(1, 0, 0, 0, 0.80195254, 0.59738773, 0, -0.59738773, 0.80195254, 0, 0, 0)
