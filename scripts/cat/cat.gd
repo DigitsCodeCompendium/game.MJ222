@@ -2,15 +2,22 @@ extends CharacterBody3D
 
 @export var cat_name = "default_cat"
 @export var movement_speed: float = 4.0
+@export var pickup_height: float = 2.0
+@export var pickup_speed: float = 6.0
 
 @export var enchantment: Enchantment
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 enum State { IDLE, PICKED, WANDERING, WATCHING }
-var ai_state = State.WATCHING
+var ai_state = State.WANDERING
 
 var is_picked = false
+var _state_before_pickup = State.WANDERING
+var _position_before_pickup: Vector3
+var _rotation_before_pickup: Vector3
+var _drop_position: Vector3
+var _is_dropping = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,6 +32,16 @@ func _ready() -> void:
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
 
 func _physics_process(delta: float) -> void:
+	if is_picked and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		_release_pickup()
+	if _is_dropping:
+		global_position = global_position.move_toward(_drop_position, pickup_speed * delta)
+		if global_position.is_equal_approx(_drop_position):
+			global_rotation = _rotation_before_pickup
+			_is_dropping = false
+			ai_state = _state_before_pickup
+		return
+
 	match ai_state:
 		State.IDLE:
 			_process_idle(delta)
@@ -32,6 +49,8 @@ func _physics_process(delta: float) -> void:
 			_process_wander(delta)
 		State.WATCHING:
 			_process_watch(delta)
+		State.PICKED:
+			_process_picked(delta)
 
 func _process_idle(delta: float) -> void:
 	pass
@@ -71,6 +90,46 @@ func _process_watch(_delta: float) -> void:
 	if global_position.distance_squared_to(look_target) > 0.0001:
 		look_at(look_target, Vector3.UP)
 
+func _process_picked(delta: float) -> void:
+	var camera = get_viewport().get_camera_3d()
+	var raised_height = _position_before_pickup.y + pickup_height
+	global_position.y = move_toward(global_position.y, raised_height, pickup_speed * delta)
+	if camera != null:
+		var mouse_position = get_viewport().get_mouse_position()
+		var drag_plane = Plane(Vector3.UP, raised_height)
+		var cursor_position = drag_plane.intersects_ray(
+			camera.project_ray_origin(mouse_position),
+			camera.project_ray_normal(mouse_position)
+		)
+		if cursor_position != null:
+			global_position.x = cursor_position.x
+			global_position.z = cursor_position.z
+		# Look toward the lens while keeping the cat upright relative to the screen.
+		var camera_direction = global_position.direction_to(camera.global_position)
+		var screen_up = camera.global_basis.y.normalized()
+		if not camera_direction.is_zero_approx() and absf(camera_direction.dot(screen_up)) < 0.999:
+			look_at(camera.global_position, screen_up)
+
+func _begin_pickup() -> void:
+	if is_picked or _is_dropping:
+		return
+	_state_before_pickup = ai_state
+	_position_before_pickup = global_position
+	_rotation_before_pickup = global_rotation
+	velocity = Vector3.ZERO
+	navigation_agent.set_velocity(Vector3.ZERO)
+	is_picked = true
+	ai_state = State.PICKED
+
+func _release_pickup() -> void:
+	_drop_position = Vector3(global_position.x, _position_before_pickup.y, global_position.z)
+	is_picked = false
+	_is_dropping = true
+
+func _input(event: InputEvent) -> void:
+	if is_picked and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		_release_pickup()
+
 func find_new_wander_target():
 	var finding_move_target = true
 	var tries = 0
@@ -87,6 +146,8 @@ func find_new_wander_target():
 			return;
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
+	if ai_state != State.WANDERING or is_picked or _is_dropping:
+		return
 	velocity = safe_velocity
 	move_and_slide()
 
@@ -95,5 +156,6 @@ func set_movement_target(target_position: Vector3) -> void:
 
 func _on_input_event(camera: Node, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_begin_pickup()
 		$DangoCatSKMesh.squish()
 		print(cat_name + " was clicked")
