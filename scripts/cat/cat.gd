@@ -3,11 +3,7 @@ extends CharacterBody3D
 @export var cat_name = "default_cat"
 @export var movement_speed: float = 4.0
 
-@export
-var enchantment: Enchantment
-
-@onready
-var click_box = $RigidBody3D/ClickBox
+@export var enchantment: Enchantment
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 enum State { IDLE, WANDERING, WATCHING }
@@ -25,10 +21,9 @@ func _ready() -> void:
 		
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if navigation_agent.is_navigation_finished():
-		var random_offset = Vector3(randf_range(-10, 10), 0, randf_range(-10, 10))
-		set_movement_target(global_position + random_offset)
+		find_new_wander_target()
 	
 	var current_agent_position: Vector3 = global_position
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
@@ -39,7 +34,10 @@ func _process(delta: float) -> void:
 		var look_target = current_agent_position + Vector3(new_velocity.x, 0, new_velocity.z)
 		look_at(look_target, Vector3.UP)
 
-	navigation_agent.set_velocity(new_velocity)
+	if navigation_agent.avoidance_enabled:
+		navigation_agent.set_velocity(new_velocity)
+	else:
+		_on_velocity_computed(new_velocity)
 	
 	match ai_state:
 		State.IDLE:
@@ -57,6 +55,21 @@ func _process_wander(delta: float) -> void:
 
 func _process_watch(delta: float) -> void:
 	pass
+
+func find_new_wander_target():
+	var finding_move_target = true
+	var tries = 0
+	const MAX_TRIES = 5
+	while finding_move_target:
+		var random_offset = Vector3(randf_range(-10, 10), 0, randf_range(-10, 10))
+		set_movement_target(global_position + random_offset)
+		if navigation_agent.is_target_reachable():
+			finding_move_target = false
+			return
+		
+		tries+= 1
+		if tries > MAX_TRIES:
+			return;
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	velocity = safe_velocity
