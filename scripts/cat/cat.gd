@@ -6,8 +6,10 @@ extends CharacterBody3D
 @export var enchantment: Enchantment
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
-enum State { IDLE, WANDERING, WATCHING }
-var ai_state = State.IDLE
+enum State { IDLE, PICKED, WANDERING, WATCHING }
+var ai_state = State.WATCHING
+
+var is_picked = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,6 +24,18 @@ func _ready() -> void:
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
 
 func _physics_process(delta: float) -> void:
+	match ai_state:
+		State.IDLE:
+			_process_idle(delta)
+		State.WANDERING:
+			_process_wander(delta)
+		State.WATCHING:
+			_process_watch(delta)
+
+func _process_idle(delta: float) -> void:
+	pass
+
+func _process_wander(_delta: float) -> void:
 	if navigation_agent.is_navigation_finished():
 		find_new_wander_target()
 	
@@ -38,23 +52,23 @@ func _physics_process(delta: float) -> void:
 		navigation_agent.set_velocity(new_velocity)
 	else:
 		_on_velocity_computed(new_velocity)
-	
-	match ai_state:
-		State.IDLE:
-			_process_idle(delta)
-		State.WANDERING:
-			_process_wander(delta)
-		State.WATCHING:
-			_process_watch(delta)
 
-func _process_idle(delta: float) -> void:
-	pass
+func _process_watch(_delta: float) -> void:
+	var camera = get_viewport().get_camera_3d()
+	if camera == null:
+		return
 
-func _process_wander(delta: float) -> void:
-	pass
+	var mouse_position = get_viewport().get_mouse_position()
+	var ray_origin = camera.project_ray_origin(mouse_position)
+	var ray_direction = camera.project_ray_normal(mouse_position)
+	var watch_plane = Plane(Vector3.UP, global_position.y)
+	var cursor_position = watch_plane.intersects_ray(ray_origin, ray_direction)
+	if cursor_position == null:
+		return
 
-func _process_watch(delta: float) -> void:
-	pass
+	var look_target: Vector3 = cursor_position
+	if global_position.distance_squared_to(look_target) > 0.0001:
+		look_at(look_target, Vector3.UP)
 
 func find_new_wander_target():
 	var finding_move_target = true
