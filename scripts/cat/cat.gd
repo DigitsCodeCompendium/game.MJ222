@@ -1,3 +1,4 @@
+class_name Cat
 extends CharacterBody3D
 
 @export var cat_name = "default_cat"

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dvyymv650jnrw"]
+
+[ext_resource type="Texture2D" uid="uid://dghtvoyu5vqhp" path="res://assets/blender/blender.png" id="1_c88f8"]
+[ext_resource type="Script" uid="uid://c3f4haqr266eo" path="res://scripts/blender/cat_blender.gd" id="1_iayqv"]
+[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="2_hg322"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fad8g"]
+albedo_texture = ExtResource("1_c88f8")
+
+[sub_resource type="BoxMesh" id="BoxMesh_cvtqb"]
+material = SubResource("StandardMaterial3D_fad8g")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gpf5u"]
+
+[node name="Blender" type="Area3D" unique_id=561537591]
+script = ExtResource("1_iayqv")
+cat_scene = ExtResource("2_hg322")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=876914362]
+mesh = SubResource("BoxMesh_cvtqb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1217881468]
+shape = SubResource("BoxShape3D_gpf5u")
