@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_ps681")
 display_name = "Water"
-primary_color = Color(0, 0, 1, 1)
+primary_color = Color(0.26666668, 0.6039216, 0.6784314, 1)
 metadata/_custom_type_script = "uid://ye2d8uylmwoh"

@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_pd8x5")
 display_name = "Fire"
-primary_color = Color(1, 0, 0, 1)
+primary_color = Color(0.6, 0.2, 0.15686275, 1)
 metadata/_custom_type_script = "uid://ye2d8uylmwoh"

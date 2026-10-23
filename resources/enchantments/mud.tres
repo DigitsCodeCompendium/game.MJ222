@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_whl70")
 display_name = "Mud"
-primary_color = Color(0.2802822, 0.17195332, 4.813075e-08, 1)
+primary_color = Color(0.23921569, 0.21176471, 0.105882354, 1)
 component1 = ExtResource("1_hoejg")
 component2 = ExtResource("2_dbe1j")
 metadata/_custom_type_script = "uid://ye2d8uylmwoh"

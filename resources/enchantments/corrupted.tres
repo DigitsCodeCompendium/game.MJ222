@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_36v70")
 display_name = "Corrupted"
-primary_color = Color(1, 0, 1, 1)
+primary_color = Color(0.5019608, 0, 0.7058824, 1)
 metadata/_custom_type_script = "uid://ye2d8uylmwoh"

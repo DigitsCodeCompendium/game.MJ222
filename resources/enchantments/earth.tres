@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_3jrbt")
 display_name = "Earth"
-primary_color = Color(0, 1, 0, 1)
+primary_color = Color(0.40784314, 0.3882353, 0.28627452, 1)
 metadata/_custom_type_script = "uid://ye2d8uylmwoh"

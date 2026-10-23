@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_y8mkm")
 display_name = "Ice"
-primary_color = Color(0.7058824, 0.7058824, 1, 1)
+primary_color = Color(0.09803922, 0.36078432, 0.42352942, 1)
 component1 = ExtResource("1_fx4ty")
 component2 = ExtResource("1_fx4ty")
 metadata/_custom_type_script = "uid://ye2d8uylmwoh"

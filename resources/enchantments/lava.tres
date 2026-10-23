@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="Enchantment" format=3 uid="uid://buv0pfxe5j41k"]
+[gd_resource type="Resource" script_class="Enchantment" format=3 uid="uid://c3lym23b4q8y5"]
 
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="1_l4fru"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/fire.tres" id="1_m1ygy"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/earth.tres" id="2_6o5yv"]
 
 [resource]
 script = ExtResource("1_l4fru")
 display_name = "Lava"
-primary_color = Color(1, 0.3137255, 0, 1)
+primary_color = Color(0.5294118, 0.29803923, 0.18039216, 1)
 component1 = ExtResource("1_m1ygy")
-component2 = ExtResource("1_m1ygy")
+component2 = ExtResource("2_6o5yv")
 metadata/_custom_type_script = "uid://ye2d8uylmwoh"
