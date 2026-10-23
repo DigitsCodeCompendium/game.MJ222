@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bpd5anpsvyvf2"]
+
+[ext_resource type="Texture2D" uid="uid://bgrknf0frernv" path="res://assets/cat/GattoDiffuse.png" id="1_gxw04"]
+
+[resource]
+albedo_texture = ExtResource("1_gxw04")
