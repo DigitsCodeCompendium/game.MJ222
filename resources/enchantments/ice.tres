@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Enchantment" format=3 uid="uid://ikw6m5nlys72"]
+
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/water.tres" id="1_fx4ty"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="1_y8mkm"]
+
+[resource]
+script = ExtResource("1_y8mkm")
+display_name = "Ice"
+primary_color = Color(0.7058824, 0.7058824, 1, 1)
+component1 = ExtResource("1_fx4ty")
+component2 = ExtResource("1_fx4ty")
+metadata/_custom_type_script = "uid://ye2d8uylmwoh"

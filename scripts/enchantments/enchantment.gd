@@ -1,6 +1,7 @@
 class_name Enchantment
 extends Resource
 
+@export var display_name: String
 @export var primary_color: Color
 
 @export var component1: Enchantment

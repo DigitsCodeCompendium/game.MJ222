@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Enchantment" format=3 uid="uid://bvt4851shyjg5"]
+
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/earth.tres" id="1_cpecp"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="1_d8np6"]
+
+[resource]
+script = ExtResource("1_d8np6")
+display_name = "Mountain"
+primary_color = Color(0.47238886, 0.28559777, 0.13494626, 1)
+component1 = ExtResource("1_cpecp")
+component2 = ExtResource("1_cpecp")
+metadata/_custom_type_script = "uid://ye2d8uylmwoh"
