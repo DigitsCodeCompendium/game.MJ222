@@ -22,7 +22,9 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("move_down"):
 		velocity += Vector3(0, 0, 1)
 	
-	position += velocity * move_speed * delta
+	var basis = Basis(Vector3.UP, rotation.y)
+	
+	position += basis * velocity * move_speed * delta
 	
 	if Input.is_action_pressed("rotate") or Input.is_action_just_released("rotate"):
 		# For the rotation vector, x is pitch, y is yaw
