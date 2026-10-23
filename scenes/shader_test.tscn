@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dxyrqpbkwroe3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gpf5u"]
+size = Vector3(2.3842773, 0.94921875, 2.517456)
+
+[node name="ShaderTest" type="Node3D" unique_id=941487135]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1365246144]
+transform = Transform3D(1, 0, 0, 0, 0.987671, 0.15654379, 0, -0.15654379, 0.987671, 0, 0.34040046, 2.9218926)
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=362041189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19213867, -0.98499227, 0.758728)
+mesh = SubResource("BoxMesh_gpf5u")
