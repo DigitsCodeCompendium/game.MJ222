@@ -1,6 +1,15 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://bpd5anpsvyvf2"]
 
 [ext_resource type="Texture2D" uid="uid://bgrknf0frernv" path="res://assets/cat/GattoDiffuse.png" id="1_gxw04"]
+[ext_resource type="Shader" uid="uid://dswcojd2kc8wq" path="res://shaders/cell.tres" id="2_m6ma3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rauuf"]
+render_priority = 0
+shader = ExtResource("2_m6ma3")
+shader_parameter/Albedo = Color(0, 0, 0, 1)
+shader_parameter/ShadowColor = Color(0, 0, 0, 1)
+shader_parameter/LightColor = Color(0, 0, 0, 1)
 
 [resource]
+next_pass = SubResource("ShaderMaterial_rauuf")
 albedo_texture = ExtResource("1_gxw04")

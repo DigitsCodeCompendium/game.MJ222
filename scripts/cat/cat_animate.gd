@@ -9,5 +9,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not animation_player.is_playing():
-		$AnimationPlayer.play("Armature|Squish")
+	pass
+
+func squish():
+	$AnimationPlayer.play("Armature|Squish")

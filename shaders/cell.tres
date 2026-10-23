@@ -1,0 +1,54 @@
+[gd_resource type="VisualShader" format=3 uid="uid://dswcojd2kc8wq"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_bwl45"]
+parameter_name = "Albedo"
+
+[sub_resource type="VisualShaderNodeStep" id="VisualShaderNodeStep_14ap8"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_55vd1"]
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_wunaa"]
+input_name = "light"
+
+[sub_resource type="VisualShaderNodeDotProduct" id="VisualShaderNodeDotProduct_7x44f"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_b5k1a"]
+constant = 0.1
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_nbvsf"]
+parameter_name = "ShadowColor"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_ww4xv"]
+parameter_name = "LightColor"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_1bm2v"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[resource]
+preview_params/Albedo = "Color(1, 0.1764706, 0.24313726, 1)"
+preview_params/LightColor = "Color(0.69803923, 0.59607846, 0.7490196, 1)"
+preview_params/ShadowColor = "Color(0.08143618, 0.10852612, 0.08335344, 1)"
+nodes/vertex/0/position = Vector2(700, 160)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_bwl45")
+nodes/fragment/2/position = Vector2(-440, 60)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)
+nodes/light/0/position = Vector2(1060, 40)
+nodes/light/2/node = SubResource("VisualShaderNodeInput_55vd1")
+nodes/light/2/position = Vector2(-500, 60)
+nodes/light/3/node = SubResource("VisualShaderNodeInput_wunaa")
+nodes/light/3/position = Vector2(-500, 180)
+nodes/light/4/node = SubResource("VisualShaderNodeDotProduct_7x44f")
+nodes/light/4/position = Vector2(-160, 60)
+nodes/light/6/node = SubResource("VisualShaderNodeFloatConstant_b5k1a")
+nodes/light/6/position = Vector2(-120, 240)
+nodes/light/7/node = SubResource("VisualShaderNodeColorParameter_nbvsf")
+nodes/light/7/position = Vector2(140, 260)
+nodes/light/8/node = SubResource("VisualShaderNodeColorParameter_ww4xv")
+nodes/light/8/position = Vector2(140, 440)
+nodes/light/9/node = SubResource("VisualShaderNodeMix_1bm2v")
+nodes/light/9/position = Vector2(640, 20)
+nodes/light/10/node = SubResource("VisualShaderNodeStep_14ap8")
+nodes/light/10/position = Vector2(140, 40)
+nodes/light/connections = PackedInt32Array(2, 0, 4, 0, 3, 0, 4, 1, 7, 0, 9, 0, 8, 0, 9, 1, 9, 0, 0, 0, 4, 0, 10, 0, 6, 0, 10, 1, 10, 0, 9, 2)
