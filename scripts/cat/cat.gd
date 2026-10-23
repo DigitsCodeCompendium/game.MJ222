@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var movement_speed: float = 4.0
 
 @export var enchantment: Enchantment
+
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 enum State { IDLE, PICKED, WANDERING, WATCHING }

@@ -1,13 +1,15 @@
 extends Node3D
 
-const speed = 10
+@export var move_speed = 10
+@export var rotate_speed = 0.02
 
-# Called when the node enters the scene tree for the first time.
+@onready var camera = $Camera3D
+
+var _rotation_input: Vector2
+
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var velocity = Vector3.ZERO
 	
@@ -20,7 +22,15 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("move_down"):
 		velocity += Vector3(0, 0, 1)
 	
-	position += velocity * speed * delta
+	position += velocity * move_speed * delta
 	
-	
-	pass
+	if Input.is_action_pressed("rotate") or Input.is_action_just_released("rotate"):
+		# For the rotation vector, x is pitch, y is yaw
+		rotation.x = clamp(rotation.x - _rotation_input.y * rotate_speed, -PI/2, PI/2)
+		rotation.y -= _rotation_input.x * rotate_speed
+		_rotation_input = Vector2.ZERO
+
+func _input(event):
+	if Input.is_action_pressed("rotate") and event is InputEventMouseMotion:
+		var mouse_event = event as InputEventMouseMotion
+		_rotation_input += mouse_event.screen_relative
