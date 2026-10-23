@@ -15,7 +15,6 @@ var ai_state = State.IDLE
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	click_box.connect("clicked", _on_clicked)
 	if enchantment != null:
 		# Ok this is probably an awful way to do this, just using it as a hack to test things out for now
 		var mesh = $DangoCatSKMesh/Armature/Skeleton3D/Cube_004.mesh as ArrayMesh
