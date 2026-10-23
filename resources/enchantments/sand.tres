@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Enchantment" format=3 uid="uid://iinnsq87jlk6"]
 
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="1_de0tr"]
-[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/fire.tres" id="1_h0de8"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/air.tres" id="1_h0de8"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/earth.tres" id="2_6hr2d"]
 
 [resource]
