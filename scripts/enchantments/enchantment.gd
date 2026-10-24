@@ -11,4 +11,8 @@ extends Resource
 func has_components() -> bool:
 	return component1 != null and component2 != null
 	
-@abstract func on_battle_turn(cats: BattleCatsManager, cat: BattleCat)
+func on_battle_turn_begin(cats: BattleCatsManager, cat: BattleCat):
+	pass
+
+func on_battle_turn_end(cats: BattleCatsManager, cat: BattleCat):
+	pass
