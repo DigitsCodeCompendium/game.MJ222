@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://den4o5q0vyw3x"]
+
+[ext_resource type="Script" uid="uid://dbng0xgpqvuik" path="res://scripts/battle/battle_cat.gd" id="1_0xck0"]
+[ext_resource type="PackedScene" uid="uid://bx4h1vdiwf4n7" path="res://assets/cat/DangoCatSKMesh.fbx" id="2_y1v3c"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gpf5u"]
+
+[node name="BattleCat" type="Area3D" unique_id=103363178]
+script = ExtResource("1_0xck0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2062784825]
+shape = SubResource("SphereShape3D_gpf5u")
+
+[node name="DangoCatSKMesh" parent="." unique_id=1032857223 instance=ExtResource("2_y1v3c")]

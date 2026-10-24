@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://gxpgowactvyt"]
+
+[ext_resource type="Script" uid="uid://d088ofhpi6nlt" path="res://scripts/battle/battle_cats_manager.gd" id="1_7gynk"]
+[ext_resource type="PackedScene" uid="uid://den4o5q0vyw3x" path="res://scenes/battle/battle_cat.tscn" id="2_ffvsa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r1e00"]
+size = Vector3(20, 1, 10)
+
+[node name="Battle" type="Node3D" unique_id=1369554804]
+
+[node name="Level" type="Node3D" parent="." unique_id=1175366046]
+
+[node name="Floor" type="MeshInstance3D" parent="Level" unique_id=1100610001]
+mesh = SubResource("BoxMesh_r1e00")
+
+[node name="Cats" type="Node3D" parent="." unique_id=1907730968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("1_7gynk")
+battle_cat_scene = ExtResource("2_ffvsa")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=235324837]
+transform = Transform3D(1, 0, 0, 0, 0.8671596, 0.4980304, 0, -0.4980304, 0.8671596, 0, 2.7611682, 6.5424714)
