@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnchantmentFire" format=3 uid="uid://d20wlj6j525hw"]
+
+[ext_resource type="Script" uid="uid://0m4e2f534iq6" path="res://scripts/enchantments/basic/enchantment_fire.gd" id="1_fnq6a"]
+
+[resource]
+script = ExtResource("1_fnq6a")
+display_name = "Fire"
+primary_color = Color(0.6, 0.2, 0.15686275, 1)
+description = "+1 attack for each fire or fire-derived cat on the team at beginning of combat"
+metadata/_custom_type_script = "uid://0m4e2f534iq6"

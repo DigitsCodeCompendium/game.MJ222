@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnchantmentStorm" format=3 uid="uid://da8qa04v2s7t"]
+
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="1_lpcnh"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="2_fofva"]
+[ext_resource type="Script" uid="uid://dg3ob4b3ejokc" path="res://scripts/enchantments/composite/enchantment_storm.gd" id="3_rdnqw"]
+
+[resource]
+script = ExtResource("3_rdnqw")
+display_name = "Storm"
+primary_color = Color(0.38039216, 0.5294118, 0.5058824, 1)
+component1 = ExtResource("1_lpcnh")
+component2 = ExtResource("2_fofva")
+metadata/_custom_type_script = "uid://dg3ob4b3ejokc"

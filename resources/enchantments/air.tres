@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="EnchantmentAir" format=3 uid="uid://bvm82266xpvqn"]
-
-[ext_resource type="Script" uid="uid://bhoi860tg2cpb" path="res://scripts/enchantments/enchantment_air.gd" id="1_8yn8k"]
-
-[resource]
-script = ExtResource("1_8yn8k")
-display_name = "Air"
-primary_color = Color(0.7372549, 0.83137256, 0.7921569, 1)
-metadata/_custom_type_script = "uid://bhoi860tg2cpb"

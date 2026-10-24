@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnchantmentCorrupted" format=3 uid="uid://dtpywd7n86tr4"]
 
-[ext_resource type="Script" uid="uid://br5uktgkxfwa5" path="res://scripts/enchantments/enchantment_corrupted.gd" id="1_36v70"]
+[ext_resource type="Script" uid="uid://br5uktgkxfwa5" path="res://scripts/enchantments/special/enchantment_corrupted.gd" id="1_36v70"]
 
 [resource]
 script = ExtResource("1_36v70")

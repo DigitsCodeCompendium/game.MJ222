@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentMountain" format=3 uid="uid://bvt4851shyjg5"]
 
-[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/earth.tres" id="1_cpecp"]
-[ext_resource type="Script" uid="uid://c6d6wuaa3pnaj" path="res://scripts/enchantments/enchantment_mountain.gd" id="1_d8np6"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="1_cpecp"]
+[ext_resource type="Script" uid="uid://c6d6wuaa3pnaj" path="res://scripts/enchantments/composite/enchantment_mountain.gd" id="1_d8np6"]
 
 [resource]
 script = ExtResource("1_d8np6")

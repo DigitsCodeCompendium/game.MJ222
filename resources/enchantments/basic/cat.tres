@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnchantmentCat" format=3 uid="uid://bpwjkho87u0l5"]
 
-[ext_resource type="Script" uid="uid://ce45xqpfeewag" path="res://scripts/enchantments/enchantment_cat.gd" id="1_jgee8"]
+[ext_resource type="Script" uid="uid://ce45xqpfeewag" path="res://scripts/enchantments/basic/enchantment_cat.gd" id="1_jgee8"]
 
 [resource]
 script = ExtResource("1_jgee8")

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="EnchantmentFire" format=3 uid="uid://d20wlj6j525hw"]
-
-[ext_resource type="Script" uid="uid://0m4e2f534iq6" path="res://scripts/enchantments/enchantment_fire.gd" id="1_pd8x5"]
-
-[resource]
-script = ExtResource("1_pd8x5")
-display_name = "Fire"
-primary_color = Color(0.6, 0.2, 0.15686275, 1)
-metadata/_custom_type_script = "uid://0m4e2f534iq6"

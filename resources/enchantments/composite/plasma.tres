@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentPlasma" format=3 uid="uid://c7rrcvdyyoqwr"]
 
-[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/fire.tres" id="1_yrp2p"]
-[ext_resource type="Script" uid="uid://b11bt44n1g236" path="res://scripts/enchantments/enchantment_plasma.gd" id="2_ddk5y"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="1_yrp2p"]
+[ext_resource type="Script" uid="uid://b11bt44n1g236" path="res://scripts/enchantments/composite/enchantment_plasma.gd" id="2_ddk5y"]
 
 [resource]
 script = ExtResource("2_ddk5y")

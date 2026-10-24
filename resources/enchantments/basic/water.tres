@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnchantmentWater" format=3 uid="uid://o4pwc6nev4eu"]
+
+[ext_resource type="Script" uid="uid://b0fu3tdrrgk2j" path="res://scripts/enchantments/basic/enchantment_water.gd" id="1_8fewc"]
+
+[resource]
+script = ExtResource("1_8fewc")
+display_name = "Water"
+primary_color = Color(0.26666668, 0.6039216, 0.6784314, 1)
+description = "+1 attack for each Water or Water-derived cat on the team at beginning of combat"
+metadata/_custom_type_script = "uid://b0fu3tdrrgk2j"

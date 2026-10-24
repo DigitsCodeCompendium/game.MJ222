@@ -26,12 +26,12 @@ func load_cats():
 	pass # TODO spawn in cats based on some kind of data being passed in somehow
 	
 	# TODO Placeholder cats for testing
-	add_cat(cats_left, load("res://resources/enchantments/cat.tres"), 10, 10)
-	add_cat(cats_left, load("res://resources/enchantments/air.tres"), 10, 10)
-	add_cat(cats_left, load("res://resources/enchantments/water.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/cat.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/earth.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/fire.tres"), 10, 10)
+	add_cat(cats_left, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	add_cat(cats_left, load("res://resources/enchantments/basic/air.tres"), 10, 10)
+	add_cat(cats_left, load("res://resources/enchantments/basic/water.tres"), 10, 10)
+	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	add_cat(cats_right, load("res://resources/enchantments/basic/earth.tres"), 10, 10)
+	add_cat(cats_right, load("res://resources/enchantments/basic/fire.tres"), 10, 10)
 	
 	move_all_cats(true)
 	
@@ -39,6 +39,7 @@ func load_cats():
 		cat.enchantment.after_battle_start(self, cat)
 	for cat in cats_right:
 		cat.enchantment.after_battle_start(self, cat)
+	sync_ui()
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_click"):
@@ -49,6 +50,7 @@ func do_turn():
 		cat.enchantment.before_battle_turn(self, cat)
 	for cat in cats_right:
 		cat.enchantment.before_battle_turn(self, cat)
+	sync_ui()
 	
 	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
@@ -56,6 +58,7 @@ func do_turn():
 	
 	deal_damage_to_cat(cats_left[0], cats_right[0], cats_left[0].attack)
 	deal_damage_to_cat(cats_right[0], cats_left[0], cats_right[0].attack)
+	sync_ui()
 	
 	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
@@ -65,10 +68,17 @@ func do_turn():
 		cat.enchantment.after_battle_turn(self, cat)
 	for cat in cats_right:
 		cat.enchantment.after_battle_turn(self, cat)
+	sync_ui()
 	
 	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
+
+func sync_ui():
+	for cat in cats_left:
+		cat.attached_ui.update_cat()
+	for cat in cats_right:
+		cat.attached_ui.update_cat()
 
 func add_cat(team: Array[BattleCat], enchantment: Enchantment, health: int, attack: int):
 	var cat = battle_cat_scene.instantiate() as BattleCat

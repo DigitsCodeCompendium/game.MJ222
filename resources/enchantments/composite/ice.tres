@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentIce" format=3 uid="uid://ikw6m5nlys72"]
 
-[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/water.tres" id="1_fx4ty"]
-[ext_resource type="Script" uid="uid://bi1rol8rd0tfn" path="res://scripts/enchantments/enchantment_ice.gd" id="1_y8mkm"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="1_fx4ty"]
+[ext_resource type="Script" uid="uid://bi1rol8rd0tfn" path="res://scripts/enchantments/composite/enchantment_ice.gd" id="1_y8mkm"]
 
 [resource]
 script = ExtResource("1_y8mkm")

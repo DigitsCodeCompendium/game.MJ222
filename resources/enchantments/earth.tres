@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="EnchantmentEarth" format=3 uid="uid://c2pwv42mxvpwn"]
-
-[ext_resource type="Script" uid="uid://bf18rkhp4kt6h" path="res://scripts/enchantments/enchantment_earth.gd" id="1_3jrbt"]
-
-[resource]
-script = ExtResource("1_3jrbt")
-display_name = "Earth"
-primary_color = Color(0.40784314, 0.3882353, 0.28627452, 1)
-metadata/_custom_type_script = "uid://bf18rkhp4kt6h"

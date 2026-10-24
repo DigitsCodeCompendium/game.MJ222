@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnchantmentPlant" format=3 uid="uid://ek7ia0t8v8f1"]
+
+[ext_resource type="Script" uid="uid://byipkniu07x1c" path="res://scripts/enchantments/composite/enchantment_plant.gd" id="1_4ab1k"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="1_axuep"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="2_p807g"]
+
+[resource]
+script = ExtResource("1_4ab1k")
+display_name = "Plant"
+primary_color = Color(0.2509804, 0.56078434, 0.3372549, 1)
+component1 = ExtResource("1_axuep")
+component2 = ExtResource("2_p807g")
+metadata/_custom_type_script = "uid://byipkniu07x1c"

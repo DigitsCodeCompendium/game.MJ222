@@ -4,6 +4,7 @@ extends Resource
 
 @export var display_name: String
 @export var primary_color: Color
+@export_multiline var description: String
 
 @export var component1: Enchantment
 @export var component2: Enchantment
