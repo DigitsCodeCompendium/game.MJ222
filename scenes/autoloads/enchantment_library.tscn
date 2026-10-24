@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bd0mkyrxkarc3"]
 
-[ext_resource type="Script" uid="uid://058f6io41g7f" path="res://scripts/enchantments/enchantment_library.gd" id="1_fbo2m"]
+[ext_resource type="Script" uid="uid://058f6io41g7f" path="res://scripts/enchantment_library/enchantment_library.gd" id="1_fbo2m"]
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="2_ckear"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/air.tres" id="3_6wbtt"]
 [ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/cat.tres" id="4_7yl44"]
@@ -19,7 +19,8 @@
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/water.tres" id="18_arr88"]
 [ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/void.tres" id="18_yt2wc"]
 [ext_resource type="Resource" uid="uid://dtpywd7n86tr4" path="res://resources/enchantments/corrupted.tres" id="19_6wbtt"]
-[ext_resource type="Script" uid="uid://cnqj0bmoiwn2o" path="res://scripts/enchantments/enchantment_recipe.gd" id="20_7yl44"]
+[ext_resource type="Script" uid="uid://cnqj0bmoiwn2o" path="res://scripts/enchantment_library/enchantment_recipe.gd" id="20_7yl44"]
+[ext_resource type="Script" uid="uid://25opk3lnrogl" path="res://scripts/enchantment_library/enchantment_recipe_weighted_result.gd" id="21_yt2wc"]
 
 [sub_resource type="Resource" id="Resource_yt2wc"]
 script = ExtResource("20_7yl44")
@@ -49,8 +50,45 @@ component2 = ExtResource("5_yt2wc")
 result = ExtResource("4_7yl44")
 metadata/_custom_type_script = "uid://cnqj0bmoiwn2o"
 
+[sub_resource type="Resource" id="Resource_csggy"]
+script = ExtResource("21_yt2wc")
+result = ExtResource("3_6wbtt")
+weight = 24.0
+metadata/_custom_type_script = "uid://25opk3lnrogl"
+
+[sub_resource type="Resource" id="Resource_k830q"]
+script = ExtResource("21_yt2wc")
+result = ExtResource("6_iif6e")
+weight = 24.0
+metadata/_custom_type_script = "uid://25opk3lnrogl"
+
+[sub_resource type="Resource" id="Resource_pdtei"]
+script = ExtResource("21_yt2wc")
+result = ExtResource("5_yt2wc")
+weight = 24.0
+metadata/_custom_type_script = "uid://25opk3lnrogl"
+
+[sub_resource type="Resource" id="Resource_yhanv"]
+script = ExtResource("21_yt2wc")
+result = ExtResource("18_arr88")
+weight = 24.0
+metadata/_custom_type_script = "uid://25opk3lnrogl"
+
+[sub_resource type="Resource" id="Resource_447nw"]
+script = ExtResource("21_yt2wc")
+result = ExtResource("16_i7ys2")
+weight = 4.0
+metadata/_custom_type_script = "uid://25opk3lnrogl"
+
+[sub_resource type="Resource" id="Resource_7tflo"]
+script = ExtResource("20_7yl44")
+component1 = ExtResource("4_7yl44")
+component2 = ExtResource("4_7yl44")
+random_results = Array[ExtResource("21_yt2wc")]([SubResource("Resource_csggy"), SubResource("Resource_k830q"), SubResource("Resource_pdtei"), SubResource("Resource_yhanv"), SubResource("Resource_447nw")])
+metadata/_custom_type_script = "uid://cnqj0bmoiwn2o"
+
 [node name="EnchantmentLibrary" type="Node" unique_id=740810901]
 script = ExtResource("1_fbo2m")
 all_enchantments = Array[ExtResource("2_ckear")]([ExtResource("3_6wbtt"), ExtResource("4_7yl44"), ExtResource("19_6wbtt"), ExtResource("5_yt2wc"), ExtResource("10_k830q"), ExtResource("6_iif6e"), ExtResource("7_kdk4s"), ExtResource("11_pdtei"), ExtResource("12_yhanv"), ExtResource("12_7yl44"), ExtResource("8_7tflo"), ExtResource("14_3kvpc"), ExtResource("15_e4prk"), ExtResource("9_csggy"), ExtResource("16_i7ys2"), ExtResource("18_yt2wc"), ExtResource("18_arr88")])
-additional_recipes = Array[ExtResource("20_7yl44")]([SubResource("Resource_yt2wc"), SubResource("Resource_7yl44"), SubResource("Resource_iif6e"), SubResource("Resource_kdk4s")])
+additional_recipes = Array[ExtResource("20_7yl44")]([SubResource("Resource_yt2wc"), SubResource("Resource_7yl44"), SubResource("Resource_iif6e"), SubResource("Resource_kdk4s"), SubResource("Resource_7tflo")])
 corrupted_enchantment = ExtResource("19_6wbtt")
