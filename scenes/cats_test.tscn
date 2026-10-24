@@ -3,10 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://1vmgykdcxwl3" path="res://assets/floor/ss1-4.png" id="1_w3u4m"]
 [ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="1_y6135"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="2_0ahxg"]
-[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/air.tres" id="2_w3u4m"]
-[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/earth.tres" id="3_0ek6n"]
-[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/fire.tres" id="4_ljddl"]
-[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/water.tres" id="5_diwea"]
+[ext_resource type="PackedScene" uid="uid://6y6jonitqoq8" path="res://scenes/cat_spawner/cat_spawner.tscn" id="7_diwea"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_eu1mp"]
 vertices = PackedVector3Array(-9.5, 0.5, -9.5, -9.5, 0.5, 9.5, 9.5, 0.5, 9.5, 9.5, 0.5, -9.5)
@@ -28,43 +25,30 @@ size = Vector2(20, 20)
 [node name="Level" type="Node3D" parent="." unique_id=152649248]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Level" unique_id=56752517]
+visible = false
 navigation_mesh = SubResource("NavigationMesh_eu1mp")
-
-[node name="Floor" type="Node3D" parent="Level/NavigationRegion3D" unique_id=332453525]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Level/NavigationRegion3D/Floor" unique_id=1248992919]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/NavigationRegion3D/Floor/StaticBody3D" unique_id=1453034164]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.019577026, -0.24993896, 0.00982666)
-shape = SubResource("WorldBoundaryShape3D_j2t3p")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/NavigationRegion3D/Floor" unique_id=536101122]
-material_override = SubResource("StandardMaterial3D_xxpcf")
-mesh = SubResource("PlaneMesh_eu1mp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=880522691]
 transform = Transform3D(1, 0, 0, 0, 0.40216753, 0.9155661, 0, -0.9155661, 0.40216753, 0, 0, 0)
 
-[node name="Cats" type="Node3D" parent="." unique_id=1049633039]
+[node name="Floor" type="Node3D" parent="Level" unique_id=332453525]
 
-[node name="Cat" parent="Cats" unique_id=879888050 instance=ExtResource("1_y6135")]
-cat_name = "qwill"
-enchantment = ExtResource("2_w3u4m")
+[node name="StaticBody3D" type="StaticBody3D" parent="Level/Floor" unique_id=1248992919]
 
-[node name="Cat2" parent="Cats" unique_id=181071333 instance=ExtResource("1_y6135")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4824328, 0, 1.9213696)
-cat_name = "spot"
-enchantment = ExtResource("3_0ek6n")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Floor/StaticBody3D" unique_id=1453034164]
+shape = SubResource("WorldBoundaryShape3D_j2t3p")
 
-[node name="Cat3" parent="Cats" unique_id=980553939 instance=ExtResource("1_y6135")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1576273, 0, -2.782158)
-cat_name = "fish"
-enchantment = ExtResource("4_ljddl")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Floor" unique_id=536101122]
+material_override = SubResource("StandardMaterial3D_xxpcf")
+mesh = SubResource("PlaneMesh_eu1mp")
 
-[node name="Cat4" parent="Cats" unique_id=2108138856 instance=ExtResource("1_y6135")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.813074, 0, -2.4997506)
-cat_name = "dog"
-enchantment = ExtResource("5_diwea")
+[node name="Props" type="Node3D" parent="." unique_id=1536109577]
+
+[node name="Cats" type="Node3D" parent="Props" unique_id=1049633039]
+
+[node name="CatSpawner" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_container_node") instance=ExtResource("7_diwea")]
+cat_packed_scene = ExtResource("1_y6135")
+cat_container_node = NodePath("../Cats")
 
 [node name="Player" type="Node3D" parent="." unique_id=720284898]
 transform = Transform3D(1, 0, 0, 0, 0.80195254, 0.59738773, 0, -0.59738773, 0.80195254, 0, 0, 0)
@@ -73,3 +57,35 @@ script = ExtResource("2_0ahxg")
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1347866223]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.8490884, 0.5282508, 0, -0.5282508, 0.8490884, 0, 3.7534294, 10.271063)
+
+[node name="UI" type="Control" parent="Player" unique_id=65904008]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Player/UI" unique_id=1111633982]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="SpawnCatButton" type="Button" parent="Player/UI/MarginContainer" unique_id=359575971]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "spawn cat"
+
+[connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Props/CatSpawner" method="_on_spawn_cat_button_pressed"]
