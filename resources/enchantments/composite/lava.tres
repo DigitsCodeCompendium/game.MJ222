@@ -8,6 +8,7 @@
 script = ExtResource("1_l4fru")
 display_name = "Lava"
 primary_color = Color(0.5294118, 0.29803923, 0.18039216, 1)
+description = "After attacking, push the first two opposing squeebs backwards. If they collide with another squeeb, they take 1 damage."
 component1 = ExtResource("1_m1ygy")
 component2 = ExtResource("2_6o5yv")
 metadata/_custom_type_script = "uid://bdkq658iqrova"

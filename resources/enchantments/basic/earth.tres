@@ -6,5 +6,5 @@
 script = ExtResource("1_ib04u")
 display_name = "Earth"
 primary_color = Color(0.40784314, 0.3882353, 0.28627452, 1)
-description = "+1 attack for each Earth or Earth-derived cat on the team at beginning of combat"
+description = "+1 attack for each Earth or Earth-derived cat on the team at start of combat"
 metadata/_custom_type_script = "uid://bf18rkhp4kt6h"

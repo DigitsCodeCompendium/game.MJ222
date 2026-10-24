@@ -46,12 +46,12 @@ func _process(delta):
 		do_turn()
 
 func do_turn():
-	cats_left[0].enchantment.before_battle_attack(self, cats_left[0])
-	cats_right[0].enchantment.before_battle_attack(self, cats_right[0])
+	cats_left[0].enchantment.before_attack(self, cats_left[0])
+	cats_right[0].enchantment.before_attack(self, cats_right[0])
 	sync_ui()
 	
-	cats_right[0].health -= cats_left[0].attack
-	cats_left[0].health -= cats_right[0].attack
+	cats_right[0].enchantment.handle_attack_damage(self, cats_right[0], cats_left[0].attack)
+	cats_left[0].enchantment.handle_attack_damage(self, cats_left[0], cats_right[0].attack)
 	sync_ui()
 	
 	check_for_deaths_and_move_all_cats()
@@ -74,11 +74,14 @@ func sync_ui():
 	for cat in cats_right:
 		cat.attached_ui.update_cat()
 
-func add_cat(team: Array[BattleCat], enchantment: Enchantment, health: int, attack: int):
+func add_cat(team: Array[BattleCat], enchantment: Enchantment, health: int, attack: int, index: int = -1):
 	var cat = battle_cat_scene.instantiate() as BattleCat
 	cat.load_cat(enchantment, health, attack)
 	
-	team.append(cat)
+	if index >= 0:
+		team.insert(index, cat)
+	else:
+		team.append(cat)
 	add_child(cat)
 	
 	var cat_ui = battle_cat_ui_scene.instantiate()
@@ -88,6 +91,8 @@ func add_cat(team: Array[BattleCat], enchantment: Enchantment, health: int, atta
 	cat_ui.update_cat()
 	
 	$"../CanvasLayer".add_child(cat_ui)
+	
+	return cat
 
 func move_all_cats(instant: bool = false):
 	var tweens: Array[Tween] = []
@@ -127,6 +132,7 @@ func check_for_deaths_and_move_all_cats():
 	var i = 0
 	while i < cats_left.size():
 		if cats_left[i].health <= 0:
+			cats_left[i].enchantment.before_death(self, cats_left[i])
 			dead_cats.append(cats_left[i])
 			cats_left.remove_at(i)
 		else:
@@ -134,6 +140,7 @@ func check_for_deaths_and_move_all_cats():
 	i = 0
 	while i < cats_right.size():
 		if cats_right[i].health <= 0:
+			cats_right[i].enchantment.before_death(self, cats_right[i])
 			dead_cats.append(cats_right[i])
 			cats_right.remove_at(i)
 		else:
@@ -141,8 +148,8 @@ func check_for_deaths_and_move_all_cats():
 	
 	if dead_cats.size() > 0:
 		for cat in dead_cats:
-			cat.enchantment.before_battle_death(self, cat)
 			cat.animate_death()
+			cat.enchantment.after_death(self, cat)
 			cat.attached_ui.queue_free()
 			cat.queue_free()
 		move_all_cats()
@@ -156,12 +163,22 @@ func get_cat_team(cat: BattleCat) -> Array[BattleCat]:
 		return cats_right
 	else:
 		return []
+
+func get_opposing_team(team: Array[BattleCat]) -> Array[BattleCat]:
+	if team == cats_left:
+		return cats_right
+	elif team == cats_right:
+		return cats_left
+	else:
+		return []
 	
-func get_left_adjacent_cat(cat: BattleCat) -> BattleCat:
+func get_front_adjacent_cat(cat: BattleCat) -> BattleCat:
 	var i = cats_left.find(cat)
 	if i >= 0:
-		if i + 1 < cats_left.size():
-			return cats_left[i+1]
+		if i > 0:
+			return cats_left[i-1]
+		elif cats_right.size() > 0:
+			return cats_right[0]
 		else:
 			return null
 	
@@ -176,13 +193,11 @@ func get_left_adjacent_cat(cat: BattleCat) -> BattleCat:
 	
 	return null
 
-func get_right_adjacent_cat(cat: BattleCat) -> BattleCat:
+func get_back_adjacent_cat(cat: BattleCat) -> BattleCat:
 	var i = cats_left.find(cat)
 	if i >= 0:
-		if i > 0:
-			return cats_left[i-1]
-		elif cats_right.size() > 0:
-			return cats_right[0]
+		if i + 1 < cats_left.size():
+			return cats_left[i+1]
 		else:
 			return null
 	

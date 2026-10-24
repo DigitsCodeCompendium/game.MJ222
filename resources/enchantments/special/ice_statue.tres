@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnchantmentIceStatue" format=3 uid="uid://bbbwvxwqx0s2h"]
+
+[ext_resource type="Script" uid="uid://3dpqmm4v5mws" path="res://scripts/enchantments/special/enchantment_ice_statue.gd" id="1_kj2w3"]
+
+[resource]
+script = ExtResource("1_kj2w3")
+display_name = "Ice Statue"
+primary_color = Color(0.19744459, 0.6052678, 0.70362556, 1)
+metadata/_custom_type_script = "uid://bi1rol8rd0tfn"
