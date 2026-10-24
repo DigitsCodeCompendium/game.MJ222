@@ -28,10 +28,10 @@ func load_cats():
 	# TODO Placeholder cats for testing
 	add_cat(cats_left, load("res://resources/enchantments/composite/steam.tres"), 100, 10)
 	add_cat(cats_left, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_left, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 100, 10)
-	add_cat(cats_right, load("res://resources/enchantments/composite/plasma.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/composite/storm.tres"), 10, 10)
+	add_cat(cats_left, load("res://resources/enchantments/composite/sand.tres"), 10, 10)
+	add_cat(cats_right, load("res://resources/enchantments/composite/void.tres"), 100, 10)
+	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
 	
 	move_all_cats(true)
 	
@@ -54,9 +54,22 @@ func do_turn():
 	cats_left[0].enchantment.handle_attack_damage(self, cats_left[0], cats_right[0].attack)
 	sync_ui()
 	
+	# Save a snapshot of which cats should get the "ally attacked" event, because the cats order may change
+	var ally_cats_left = cats_left.slice(1)
+	var ally_cats_right = cats_right.slice(1)
+	
 	cats_left[0].enchantment.after_attack(self, cats_left[0])
 	cats_right[0].enchantment.after_attack(self, cats_right[0])
 	sync_ui()
+	
+	check_for_deaths_and_move_all_cats()
+	if is_battle_over():
+		return
+	
+	for cat in ally_cats_left:
+		cat.enchantment.after_ally_attack(self, cat)
+	for cat in ally_cats_right:
+		cat.enchantment.after_ally_attack(self, cat)
 	
 	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
@@ -145,6 +158,9 @@ func check_for_deaths_and_move_all_cats():
 	while i < cats_left.size():
 		if cats_left[i].health <= 0:
 			cats_left[i].enchantment.before_death(self, cats_left[i])
+			for ally_cat in cats_left:
+				if ally_cat != cats_left[i]:
+					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_left[i])
 			dead_cats.append(cats_left[i])
 			cats_left.remove_at(i)
 		else:
@@ -153,6 +169,9 @@ func check_for_deaths_and_move_all_cats():
 	while i < cats_right.size():
 		if cats_right[i].health <= 0:
 			cats_right[i].enchantment.before_death(self, cats_right[i])
+			for ally_cat in cats_right:
+				if ally_cat != cats_right[i]:
+					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_right[i])
 			dead_cats.append(cats_right[i])
 			cats_right.remove_at(i)
 		else:
@@ -167,6 +186,16 @@ func check_for_deaths_and_move_all_cats():
 		move_all_cats()
 		# Death effects may have killed more cats, check again
 		check_for_deaths_and_move_all_cats()
+
+func preprocess_dead_cats(team: Array[BattleCat]):
+	var dead_cats: Array[BattleCat] = []
+	for cat in team:
+		if cat.health <= 0:
+			cat.enchantment.before_death(self, cat)
+			dead_cats.append(cat)
+	return dead_cats
+
+
 
 func get_cat_team(cat: BattleCat) -> Array[BattleCat]:
 	if cat in cats_left:

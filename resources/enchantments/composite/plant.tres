@@ -3,11 +3,16 @@
 [ext_resource type="Script" uid="uid://byipkniu07x1c" path="res://scripts/enchantments/composite/enchantment_plant.gd" id="1_4ab1k"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="1_axuep"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="2_p807g"]
+[ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="3_rfyp0"]
 
 [resource]
 script = ExtResource("1_4ab1k")
+enchantment_cat = ExtResource("3_rfyp0")
 display_name = "Plant"
 primary_color = Color(0.2509804, 0.56078434, 0.3372549, 1)
+description = "Before attacking, absorb up to 1 Water from each adjacent squeeb. Gain 1/1 for each Water absorbed.
+Absorbing water from a composite element converts it to the remaining component. Absorbing water from a water element converts it to the cat element.
+Effect does not persist after the end of combat."
 component1 = ExtResource("1_axuep")
 component2 = ExtResource("2_p807g")
 metadata/_custom_type_script = "uid://byipkniu07x1c"

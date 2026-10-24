@@ -15,3 +15,4 @@ func update_cat():
 	$EnchantmentLabel.modulate = attached_cat.enchantment.primary_color
 	$HealthLabel.text = "Health: %s" % attached_cat.health
 	$AttackLabel.text = "Attack: %s" % attached_cat.attack
+	$StatusLabel.text = "Shrouded" if attached_cat.is_shrouded else ""

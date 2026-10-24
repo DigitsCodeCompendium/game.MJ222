@@ -8,6 +8,8 @@
 script = ExtResource("1_de0tr")
 display_name = "Sand"
 primary_color = Color(0.6901961, 0.6627451, 0.5254902, 1)
+description = "Once per combat, when an ally squeeb faints, give the squeeb behind it shrouded.
+Shrouded negates damage from the next incoming attack."
 component1 = ExtResource("1_h0de8")
 component2 = ExtResource("2_6hr2d")
 metadata/_custom_type_script = "uid://c6cldhqhycnv0"

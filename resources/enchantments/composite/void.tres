@@ -7,6 +7,7 @@
 script = ExtResource("1_5q1tr")
 display_name = "Void"
 primary_color = Color(0.18039216, 0.13725491, 0.24705882, 1)
+description = "After this squeeb faints, deal 2 damage to ALL squeebs."
 component1 = ExtResource("1_w7ywk")
 component2 = ExtResource("1_w7ywk")
 metadata/_custom_type_script = "uid://othn8g1rmp5e"

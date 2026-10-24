@@ -19,12 +19,21 @@ func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
 func handle_attack_damage(cats: BattleCatsManager, self_cat: BattleCat, amount: int):
-	self_cat.health -= amount
+	if self_cat.is_shrouded:
+		self_cat.is_shrounded = false
+	else:
+		self_cat.health -= amount
 
 func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
+func after_ally_attack(cats: BattleCatsManager, self_cat: BattleCat):
+	pass
+
 func before_death(cats: BattleCatsManager, self_cat: BattleCat):
+	pass
+
+func before_ally_death(cats: BattleCatsManager, self_cat: BattleCat, ally_cat: BattleCat):
 	pass
 
 func after_death(cats: BattleCatsManager, self_cat: BattleCat):

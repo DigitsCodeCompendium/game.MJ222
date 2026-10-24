@@ -30,3 +30,9 @@ offset_top = 48.0
 offset_right = 55.0
 offset_bottom = 71.0
 text = "Attack:"
+
+[node name="StatusLabel" type="Label" parent="." unique_id=2139380095]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 55.0
+offset_bottom = 95.0
