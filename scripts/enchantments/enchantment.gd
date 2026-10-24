@@ -1,3 +1,4 @@
+@abstract
 class_name Enchantment
 extends Resource
 
@@ -9,3 +10,5 @@ extends Resource
 
 func has_components() -> bool:
 	return component1 != null and component2 != null
+	
+@abstract func on_battle_turn(cats: BattleCatsManager, cat: BattleCat)

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Enchantment" format=3 uid="uid://dtpywd7n86tr4"]
+[gd_resource type="Resource" script_class="EnchantmentCorrupted" format=3 uid="uid://dtpywd7n86tr4"]
 
-[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="1_36v70"]
+[ext_resource type="Script" uid="uid://br5uktgkxfwa5" path="res://scripts/enchantments/enchantment_corrupted.gd" id="1_36v70"]
 
 [resource]
 script = ExtResource("1_36v70")
 display_name = "Corrupted"
 primary_color = Color(0.5019608, 0, 0.7058824, 1)
-metadata/_custom_type_script = "uid://ye2d8uylmwoh"
+metadata/_custom_type_script = "uid://br5uktgkxfwa5"

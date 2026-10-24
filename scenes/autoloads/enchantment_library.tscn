@@ -7,17 +7,17 @@
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/earth.tres" id="5_yt2wc"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/fire.tres" id="6_iif6e"]
 [ext_resource type="Resource" uid="uid://ikw6m5nlys72" path="res://resources/enchantments/ice.tres" id="7_kdk4s"]
-[ext_resource type="Resource" uid="uid://buv0pfxe5j41k" path="res://resources/enchantments/plasma.tres" id="8_7tflo"]
+[ext_resource type="Resource" uid="uid://c7rrcvdyyoqwr" path="res://resources/enchantments/plasma.tres" id="8_7tflo"]
 [ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/storm.tres" id="9_csggy"]
-[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/light.tres" id="10_k830q"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/electric.tres" id="10_k830q"]
 [ext_resource type="Resource" uid="uid://c3lym23b4q8y5" path="res://resources/enchantments/lava.tres" id="11_pdtei"]
+[ext_resource type="Resource" uid="uid://ek7ia0t8v8f1" path="res://resources/enchantments/plant.tres" id="12_7yl44"]
 [ext_resource type="Resource" uid="uid://bvt4851shyjg5" path="res://resources/enchantments/mountain.tres" id="12_yhanv"]
-[ext_resource type="Resource" uid="uid://bmr04qvybwnds" path="res://resources/enchantments/mud.tres" id="13_447nw"]
 [ext_resource type="Resource" uid="uid://iinnsq87jlk6" path="res://resources/enchantments/sand.tres" id="14_3kvpc"]
 [ext_resource type="Resource" uid="uid://cm7s3dgfu7w4h" path="res://resources/enchantments/steam.tres" id="15_e4prk"]
 [ext_resource type="Resource" uid="uid://cl11h4rqamlk8" path="res://resources/enchantments/super_cat.tres" id="16_i7ys2"]
-[ext_resource type="Resource" uid="uid://c2hgjq4b62ke3" path="res://resources/enchantments/tornado.tres" id="17_mr1f3"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/water.tres" id="18_arr88"]
+[ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/void.tres" id="18_yt2wc"]
 [ext_resource type="Resource" uid="uid://dtpywd7n86tr4" path="res://resources/enchantments/corrupted.tres" id="19_6wbtt"]
 [ext_resource type="Script" uid="uid://cnqj0bmoiwn2o" path="res://scripts/enchantments/enchantment_recipe.gd" id="20_7yl44"]
 
@@ -51,6 +51,6 @@ metadata/_custom_type_script = "uid://cnqj0bmoiwn2o"
 
 [node name="EnchantmentLibrary" type="Node" unique_id=740810901]
 script = ExtResource("1_fbo2m")
-all_enchantments = Array[ExtResource("2_ckear")]([ExtResource("3_6wbtt"), ExtResource("4_7yl44"), ExtResource("5_yt2wc"), ExtResource("6_iif6e"), ExtResource("7_kdk4s"), ExtResource("8_7tflo"), ExtResource("9_csggy"), ExtResource("10_k830q"), ExtResource("11_pdtei"), ExtResource("12_yhanv"), ExtResource("13_447nw"), ExtResource("14_3kvpc"), ExtResource("15_e4prk"), ExtResource("16_i7ys2"), ExtResource("17_mr1f3"), ExtResource("18_arr88"), ExtResource("19_6wbtt")])
+all_enchantments = Array[ExtResource("2_ckear")]([ExtResource("3_6wbtt"), ExtResource("4_7yl44"), ExtResource("19_6wbtt"), ExtResource("5_yt2wc"), ExtResource("10_k830q"), ExtResource("6_iif6e"), ExtResource("7_kdk4s"), ExtResource("11_pdtei"), ExtResource("12_yhanv"), ExtResource("12_7yl44"), ExtResource("8_7tflo"), ExtResource("14_3kvpc"), ExtResource("15_e4prk"), ExtResource("9_csggy"), ExtResource("16_i7ys2"), ExtResource("18_yt2wc"), ExtResource("18_arr88")])
 additional_recipes = Array[ExtResource("20_7yl44")]([SubResource("Resource_yt2wc"), SubResource("Resource_7yl44"), SubResource("Resource_iif6e"), SubResource("Resource_kdk4s")])
 corrupted_enchantment = ExtResource("19_6wbtt")

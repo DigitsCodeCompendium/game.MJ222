@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="Enchantment" format=3 uid="uid://cl11h4rqamlk8"]
+[gd_resource type="Resource" script_class="EnchantmentSuperCat" format=3 uid="uid://cl11h4rqamlk8"]
 
 [ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/cat.tres" id="1_hnfng"]
-[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="1_ny5yy"]
+[ext_resource type="Script" uid="uid://xniwbm3tafim" path="res://scripts/enchantments/enchantment_super_cat.gd" id="1_ny5yy"]
 
 [resource]
 script = ExtResource("1_ny5yy")
 display_name = "Super Cat"
 component1 = ExtResource("1_hnfng")
 component2 = ExtResource("1_hnfng")
-metadata/_custom_type_script = "uid://ye2d8uylmwoh"
+metadata/_custom_type_script = "uid://xniwbm3tafim"

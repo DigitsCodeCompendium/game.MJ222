@@ -4,7 +4,9 @@ extends Node
 @export var additional_recipes: Array[EnchantmentRecipe]
 @export var corrupted_enchantment: Enchantment
 
-func _ready():
+var all_recipes: Array[EnchantmentRecipe]
+
+func _ready():	
 	# Warn if a combination has more than one resulting element to safeguard against mistakes
 	for i in range(all_enchantments.size()):
 		if not all_enchantments[i].has_components():
