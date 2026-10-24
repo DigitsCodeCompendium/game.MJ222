@@ -26,12 +26,12 @@ func load_cats():
 	pass # TODO spawn in cats based on some kind of data being passed in somehow
 	
 	# TODO Placeholder cats for testing
+	add_cat(cats_left, load("res://resources/enchantments/composite/steam.tres"), 100, 10)
 	add_cat(cats_left, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_left, load("res://resources/enchantments/basic/air.tres"), 10, 10)
-	add_cat(cats_left, load("res://resources/enchantments/basic/water.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/basic/earth.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/basic/fire.tres"), 10, 10)
+	add_cat(cats_left, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 100, 10)
+	add_cat(cats_right, load("res://resources/enchantments/composite/plasma.tres"), 10, 10)
+	add_cat(cats_right, load("res://resources/enchantments/composite/storm.tres"), 10, 10)
 	
 	move_all_cats(true)
 	
@@ -52,6 +52,10 @@ func do_turn():
 	
 	cats_right[0].enchantment.handle_attack_damage(self, cats_right[0], cats_left[0].attack)
 	cats_left[0].enchantment.handle_attack_damage(self, cats_left[0], cats_right[0].attack)
+	sync_ui()
+	
+	cats_left[0].enchantment.after_attack(self, cats_left[0])
+	cats_right[0].enchantment.after_attack(self, cats_right[0])
 	sync_ui()
 	
 	check_for_deaths_and_move_all_cats()
@@ -114,12 +118,20 @@ func move_cat(cat: BattleCat, to: Node3D, instant: bool) -> Tween:
 		return null
 	else:
 		var tween = create_tween()
-		var move_dir = cat.position.direction_to(to.position)
-		var move_rot = Basis.looking_at(-move_dir).get_euler() # Forward is -z so we need to flip look direction
-		tween.tween_property(cat, "rotation", move_rot, rotate_duration)
-		tween.tween_callback(cat.animate_move)
-		tween.tween_property(cat, "position", to.position, move_duration)
-		tween.tween_callback(cat.animate_idle)
+		
+		var move_dist = cat.position.distance_squared_to(to.position)
+		if not is_zero_approx(move_dist):
+			var move_look_dir = cat.position.direction_to(to.position)
+			
+			move_look_dir.y = 0
+			if not is_zero_approx(move_look_dir.length_squared()):
+				var move_rot = Basis.looking_at(-move_look_dir).get_euler() # Forward is -z so we need to flip look direction
+				tween.tween_property(cat, "rotation", move_rot, rotate_duration)
+			
+			tween.tween_callback(cat.animate_move)
+			tween.tween_property(cat, "position", to.position, move_duration)
+			tween.tween_callback(cat.animate_idle)
+		
 		tween.tween_property(cat, "rotation", to.rotation, rotate_duration)
 		return tween
 	
