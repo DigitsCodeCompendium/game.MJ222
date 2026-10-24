@@ -13,10 +13,46 @@ size = Vector3(20, 1, 10)
 [node name="Floor" type="MeshInstance3D" parent="Level" unique_id=1100610001]
 mesh = SubResource("BoxMesh_r1e00")
 
-[node name="Cats" type="Node3D" parent="." unique_id=1907730968]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=399649155]
+transform = Transform3D(1, 0, 0, 0, 0.7618815, 0.64771646, 0, -0.64771646, 0.7618815, 0, 0, 0)
+
+[node name="Cats" type="Node3D" parent="." unique_id=1907730968 node_paths=PackedStringArray("left_cat_anchors", "right_cat_anchors")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_7gynk")
 battle_cat_scene = ExtResource("2_ffvsa")
+left_cat_anchors = [NodePath("CatAnchorL1"), NodePath("CatAnchorL2"), NodePath("CatAnchorL3"), NodePath("CatAnchorL4"), NodePath("CatAnchorL5")]
+right_cat_anchors = [NodePath("CatAnchorR1"), NodePath("CatAnchorR2"), NodePath("CatAnchorR3"), NodePath("CatAnchorR4"), NodePath("CatAnchorR5")]
+
+[node name="CatAnchorL1" type="Node3D" parent="Cats" unique_id=1164778937]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 0)
+
+[node name="CatAnchorL2" type="Node3D" parent="Cats" unique_id=1386933158]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4, 0, 0)
+
+[node name="CatAnchorL3" type="Node3D" parent="Cats" unique_id=1304127102]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, 0)
+
+[node name="CatAnchorL4" type="Node3D" parent="Cats" unique_id=1450303546]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
+
+[node name="CatAnchorL5" type="Node3D" parent="Cats" unique_id=1379520319]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10, 0, 0)
+
+[node name="CatAnchorR1" type="Node3D" parent="Cats" unique_id=976023162]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0, 0)
+
+[node name="CatAnchorR2" type="Node3D" parent="Cats" unique_id=1406198870]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 0, 0)
+
+[node name="CatAnchorR3" type="Node3D" parent="Cats" unique_id=2113805260]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 0, 0)
+
+[node name="CatAnchorR4" type="Node3D" parent="Cats" unique_id=37550338]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8, 0, 0)
+
+[node name="CatAnchorR5" type="Node3D" parent="Cats" unique_id=659143367]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=235324837]
-transform = Transform3D(1, 0, 0, 0, 0.8671596, 0.4980304, 0, -0.4980304, 0.8671596, 0, 2.7611682, 6.5424714)
+transform = Transform3D(1, 0, 0, 0, 0.9189352, 0.3944088, 0, -0.39440876, 0.9189351, 0, 7.699321, 14.553275)
+fov = 45.0
