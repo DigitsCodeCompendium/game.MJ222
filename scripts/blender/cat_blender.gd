@@ -1,7 +1,8 @@
 extends Area3D
 
-@export var cats_parent: Node3D
+@export var cat_manager: CatManager
 @export var cat_scene: PackedScene
+@export var cat_spawn_pos: Node3D
 
 var cat_enchantment1: Enchantment
 var cat_enchantment2: Enchantment
@@ -21,10 +22,9 @@ func _on_body_entered(body: Node3D):
 			body.queue_free()
 		
 		if cat_enchantment1 != null and cat_enchantment2 != null:
-			var new_cat = cat_scene.instantiate()
-			new_cat.enchantment = EnchantmentLibrary.combine_enchantments(cat_enchantment1, cat_enchantment2)
-			cats_parent.add_child(new_cat)
-			print("Created a " + new_cat.enchantment.display_name + " cat")
+			var enchantment = EnchantmentLibrary.combine_enchantments(cat_enchantment1, cat_enchantment2)
+			cat_manager.spawn_cat(cat_spawn_pos.global_position, enchantment)
+			print("Created a " + enchantment.display_name + " cat")
 			
 			cat_enchantment1 = null
 			cat_enchantment2 = null

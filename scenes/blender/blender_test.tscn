@@ -21,3 +21,6 @@ mesh = SubResource("BoxMesh_cvtqb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1217881468]
 shape = SubResource("BoxShape3D_gpf5u")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=544511883]
+radius = 2.0
