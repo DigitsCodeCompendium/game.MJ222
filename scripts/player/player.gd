@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("rotate") or Input.is_action_just_released("rotate"):
 		# For the rotation vector, x is pitch, y is yaw
-		rotation.x = clamp(rotation.x - _rotation_input.y * rotate_speed, -PI/2, PI/2)
+		rotation.x = clamp(rotation.x - _rotation_input.y * rotate_speed, -PI*1/3, -PI*1/6)
 		rotation.y -= _rotation_input.x * rotate_speed
 		_rotation_input = Vector2.ZERO
 
