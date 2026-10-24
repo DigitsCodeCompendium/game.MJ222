@@ -12,7 +12,7 @@ const team_size = 5
 @export var move_duration = 0.5
 @export var rotate_duration = 0.2
 
-# Both arrays are the order of cats from front to back
+# Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
 
@@ -46,18 +46,12 @@ func _process(delta):
 		do_turn()
 
 func do_turn():
-	for cat in cats_left:
-		cat.enchantment.before_battle_turn(self, cat)
-	for cat in cats_right:
-		cat.enchantment.before_battle_turn(self, cat)
+	cats_left[0].enchantment.before_battle_attack(self, cats_left[0])
+	cats_right[0].enchantment.before_battle_attack(self, cats_right[0])
 	sync_ui()
 	
-	check_for_deaths_and_move_all_cats()
-	if is_battle_over():
-		return
-	
-	deal_damage_to_cat(cats_left[0], cats_right[0], cats_left[0].attack)
-	deal_damage_to_cat(cats_right[0], cats_left[0], cats_right[0].attack)
+	cats_right[0].health -= cats_left[0].attack
+	cats_left[0].health -= cats_right[0].attack
 	sync_ui()
 	
 	check_for_deaths_and_move_all_cats()
@@ -155,13 +149,48 @@ func check_for_deaths_and_move_all_cats():
 		# Death effects may have killed more cats, check again
 		check_for_deaths_and_move_all_cats()
 
-func deal_damage_to_cat(source_cat: BattleCat, target_cat: BattleCat, amount: int, skip_hooks: bool = false):
-	target_cat.health -= amount
+func get_cat_team(cat: BattleCat) -> Array[BattleCat]:
+	if cat in cats_left:
+		return cats_left
+	elif cat in cats_right:
+		return cats_right
+	else:
+		return []
 	
-	if skip_hooks:
-		return
+func get_left_adjacent_cat(cat: BattleCat) -> BattleCat:
+	var i = cats_left.find(cat)
+	if i >= 0:
+		if i + 1 < cats_left.size():
+			return cats_left[i+1]
+		else:
+			return null
 	
-	for cat in cats_left:
-		cat.enchantment.after_battle_damage(self, cat, source_cat, target_cat, amount)
-	for cat in cats_right:
-		cat.enchantment.after_battle_damage(self, cat, source_cat, target_cat, amount)
+	i = cats_right.find(cat)
+	if i >= 0:
+		if i > 0:
+			return cats_right[i-1]
+		elif cats_left.size() > 0:
+			return cats_left[0]
+		else:
+			return null
+	
+	return null
+
+func get_right_adjacent_cat(cat: BattleCat) -> BattleCat:
+	var i = cats_left.find(cat)
+	if i >= 0:
+		if i > 0:
+			return cats_left[i-1]
+		elif cats_right.size() > 0:
+			return cats_right[0]
+		else:
+			return null
+	
+	i = cats_right.find(cat)
+	if i >= 0:
+		if i + 1 < cats_right.size():
+			return cats_right[i+1]
+		else:
+			return null
+	
+	return null

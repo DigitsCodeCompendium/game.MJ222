@@ -15,10 +15,7 @@ func has_components() -> bool:
 func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
-func before_battle_turn(cats: BattleCatsManager, self_cat: BattleCat):
-	pass
-
-func after_battle_damage(cats: BattleCatsManager, self_cat: BattleCat, source_cat: BattleCat, target_cat: BattleCat, amount: int):
+func before_battle_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
 func before_battle_death(cats: BattleCatsManager, self_cat: BattleCat):
@@ -26,3 +23,6 @@ func before_battle_death(cats: BattleCatsManager, self_cat: BattleCat):
 
 func after_battle_turn(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
+
+func can_be_moved_in_battle() -> bool:
+	return true
