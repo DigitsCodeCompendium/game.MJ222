@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://omnx7rux4hfl" path="res://scripts/cat/cat.gd" id="1_2td3s"]
 [ext_resource type="PackedScene" uid="uid://bx4h1vdiwf4n7" path="res://assets/cat/DangoCatSKMesh.fbx" id="1_sa38v"]
 [ext_resource type="Script" uid="uid://5ujy7bucvhco" path="res://scripts/cat/cat_animate.gd" id="2_glebu"]
+[ext_resource type="PackedScene" path="res://scenes/cat/drop_indicator.tscn" id="4_indicator"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_eu1mp"]
 radius = 1.1
@@ -19,5 +20,7 @@ script = ExtResource("2_glebu")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1476894318]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_eu1mp")
+
+[node name="DropIndicator" parent="." instance=ExtResource("4_indicator")]
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

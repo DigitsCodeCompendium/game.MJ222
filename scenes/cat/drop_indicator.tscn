@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/drop_paw.svg" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="PawMaterial"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.65)
+albedo_texture = ExtResource("1")
+cull_mode = 2
+no_depth_test = false
+
+[sub_resource type="PlaneMesh" id="PawPlane"]
+size = Vector2(1.5, 1.5)
+material = SubResource("PawMaterial")
+
+[node name="DropIndicator" type="MeshInstance3D"]
+top_level = true
+visible = false
+cast_shadow = 0
+mesh = SubResource("PawPlane")

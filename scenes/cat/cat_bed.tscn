@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://ctjyjinqfs1b2"]
+
+[ext_resource type="Script" uid="uid://bkoykyfci5uv5" path="res://scripts/cat/cat_bed.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Wood"]
+albedo_color = Color(0.62, 0.486, 0.384, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Base"]
+material = SubResource("Wood")
+size = Vector3(3.3, 0.3, 2.6)
+
+[sub_resource type="BoxMesh" id="Cushion"]
+size = Vector3(2.95, 0.25, 2.25)
+
+[sub_resource type="BoxShape3D" id="Detection"]
+size = Vector3(3.3, 3, 2.6)
+
+[node name="CatBed" type="Area3D" unique_id=2027097759]
+collision_layer = 0
+script = ExtResource("1")
+
+[node name="Base" type="MeshInstance3D" parent="." unique_id=1552118263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("Base")
+
+[node name="Cushion" type="MeshInstance3D" parent="." unique_id=288924102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("Cushion")
+
+[node name="Detection" type="CollisionShape3D" parent="." unique_id=546556842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("Detection")
+
+[node name="PlacementPoint" type="Marker3D" parent="." unique_id=1798296464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Label" type="Label3D" parent="." unique_id=424404622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, -0.9)
+pixel_size = 0.008
+billboard = 1
+modulate = Color(0.286, 0.239, 0.212, 1)
+text = "Cat bed"
+font_size = 48
+outline_size = 0

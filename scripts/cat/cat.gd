@@ -9,13 +9,17 @@ extends CharacterBody3D
 @export var wander_duration: Vector2 = Vector2(6.0, 14.0)
 @export var watch_duration: Vector2 = Vector2(15.0, 45.0)
 @export var turn_speed: float = 5.0
+@export var constrain_drag_to_room: bool = false
+@export var drag_bounds: Rect2 = Rect2(-6.7, -4.1, 13.4, 8.2)
 
 @export var enchantment: Enchantment
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var drop_indicator: MeshInstance3D = $DropIndicator
 
 enum State { IDLE, PICKED, WANDERING, WATCHING }
 var ai_state = State.WANDERING
+var lock_ai_state = false
 
 var is_picked = false
 var _position_before_pickup: Vector3
@@ -56,10 +60,11 @@ func _physics_process(delta: float) -> void:
 		if global_position.is_equal_approx(_drop_position):
 			global_rotation = _rotation_before_pickup
 			_is_dropping = false
-			_choose_next_behavior()
+			if not lock_ai_state:
+				_choose_next_behavior()
 		return
 
-	if ai_state != State.PICKED:
+	if ai_state != State.PICKED and not lock_ai_state:
 		_behavior_time_left -= delta
 		if _behavior_time_left <= 0.0:
 			_choose_next_behavior()
@@ -169,13 +174,36 @@ func _process_picked(delta: float) -> void:
 			camera.project_ray_normal(mouse_position)
 		)
 		if cursor_position != null:
-			global_position.x = cursor_position.x
-			global_position.z = cursor_position.z
+			var drag_position = _constrain_drag_position(cursor_position)
+			global_position.x = drag_position.x
+			global_position.z = drag_position.z
 		# Look toward the lens while keeping the cat upright relative to the screen.
 		var camera_direction = global_position.direction_to(camera.global_position)
 		var screen_up = camera.global_basis.y.normalized()
 		if not camera_direction.is_zero_approx() and absf(camera_direction.dot(screen_up)) < 0.999:
 			look_at(camera.global_position, screen_up)
+	drop_indicator.global_position = _get_drop_position() + Vector3.UP * 0.06
+
+func _constrain_drag_position(at: Vector3) -> Vector3:
+	if constrain_drag_to_room:
+		at.x = clampf(at.x, drag_bounds.position.x, drag_bounds.end.x)
+		at.z = clampf(at.z, drag_bounds.position.y, drag_bounds.end.y)
+	return at
+
+func _get_drop_position() -> Vector3:
+	var target = _constrain_drag_position(global_position)
+	# Beds are trigger areas rather than solid colliders, so use their placement surface.
+	for bed in get_tree().get_nodes_in_group("cat_beds"):
+		if bed.contains_point(target):
+			target.y = bed.get_placement_position().y
+			return target
+	var query = PhysicsRayQueryParameters3D.create(
+		Vector3(target.x, target.y + 10.0, target.z),
+		Vector3(target.x, target.y - 100.0, target.z))
+	query.exclude = [get_rid()]
+	var hit = get_world_3d().direct_space_state.intersect_ray(query)
+	target.y = hit.position.y if not hit.is_empty() else _position_before_pickup.y
+	return target
 
 func _begin_pickup() -> void:
 	if is_picked or _is_dropping:
@@ -185,10 +213,13 @@ func _begin_pickup() -> void:
 	velocity = Vector3.ZERO
 	navigation_agent.set_velocity(Vector3.ZERO)
 	is_picked = true
+	drop_indicator.global_position = _get_drop_position() + Vector3.UP * 0.06
+	drop_indicator.visible = true
 	ai_state = State.PICKED
 
 func _release_pickup() -> void:
-	_drop_position = Vector3(global_position.x, _position_before_pickup.y, global_position.z)
+	drop_indicator.hide()
+	_drop_position = _get_drop_position()
 	is_picked = false
 	_is_dropping = true
 
