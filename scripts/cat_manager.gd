@@ -23,9 +23,9 @@ func spawn_cat(pos: Vector3, enchantment = null, name: String = ""):
 	cat_instance.global_position = pos
 	
 	if enchantment == null:
-		cat_instance.enchantment = possible_enchantments.pick_random()
+		cat_instance.set_enchantment(possible_enchantments.pick_random())
 	else:
-		cat_instance.enchantment = enchantment
+		cat_instance.set_enchantment(enchantment)
 	
 	if name == "":
 		cat_instance.name = possible_names.pick_random()

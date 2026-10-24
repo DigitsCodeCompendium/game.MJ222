@@ -23,14 +23,18 @@ var _is_dropping = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if enchantment != null:
-		# Ok this is probably an awful way to do this, just using it as a hack to test things out for now
-		var mesh = $DangoCatSKMesh/Armature/Skeleton3D/Cube_004.mesh as ArrayMesh
-		var material = mesh.surface_get_material(0) as StandardMaterial3D
-		material = material.duplicate()
-		material.albedo_color = enchantment.primary_color
-		$DangoCatSKMesh/Armature/Skeleton3D/Cube_004.set_surface_override_material(0, material)
+		set_enchantment(enchantment)
 		
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
+
+func set_enchantment(e: Enchantment):
+	enchantment = e
+	# Ok this is probably an awful way to do this, just using it as a hack to test things out for now
+	var mesh = $DangoCatSKMesh/Armature/Skeleton3D/Cube_004.mesh as ArrayMesh
+	var material = mesh.surface_get_material(0) as StandardMaterial3D
+	material = material.duplicate()
+	material.albedo_color = enchantment.primary_color
+	$DangoCatSKMesh/Armature/Skeleton3D/Cube_004.set_surface_override_material(0, material)
 
 func _physics_process(delta: float) -> void:
 	if is_picked and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
