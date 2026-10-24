@@ -2,6 +2,7 @@ class_name BattleCatsManager
 extends Node3D
 
 @export var battle_cat_scene: PackedScene
+@export var battle_cat_ui_scene: PackedScene
 
 const team_size = 5
 
@@ -24,7 +25,7 @@ func _ready():
 func load_cats():
 	pass # TODO spawn in cats based on some kind of data being passed in somehow
 	
-	# Placeholder cats for testing
+	# TODO Placeholder cats for testing
 	add_cat(cats_left, load("res://resources/enchantments/cat.tres"), 10, 10)
 	add_cat(cats_left, load("res://resources/enchantments/air.tres"), 10, 10)
 	add_cat(cats_left, load("res://resources/enchantments/water.tres"), 10, 10)
@@ -32,12 +33,16 @@ func load_cats():
 	add_cat(cats_right, load("res://resources/enchantments/earth.tres"), 10, 10)
 	add_cat(cats_right, load("res://resources/enchantments/fire.tres"), 10, 10)
 	
-	move_cats(true)
+	move_all_cats(true)
 	
 	for cat in cats_left:
 		cat.enchantment.after_battle_start(self, cat)
 	for cat in cats_right:
 		cat.enchantment.after_battle_start(self, cat)
+
+func _process(delta):
+	if Input.is_action_just_pressed("debug_click"):
+		do_turn()
 
 func do_turn():
 	for cat in cats_left:
@@ -45,14 +50,14 @@ func do_turn():
 	for cat in cats_right:
 		cat.enchantment.before_battle_turn(self, cat)
 	
-	check_for_deaths_and_move_cats()
+	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
 	
 	deal_damage_to_cat(cats_left[0], cats_right[0], cats_left[0].attack)
 	deal_damage_to_cat(cats_right[0], cats_left[0], cats_right[0].attack)
 	
-	check_for_deaths_and_move_cats()
+	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
 
@@ -61,19 +66,26 @@ func do_turn():
 	for cat in cats_right:
 		cat.enchantment.after_battle_turn(self, cat)
 	
-	check_for_deaths_and_move_cats()
+	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
 
 func add_cat(team: Array[BattleCat], enchantment: Enchantment, health: int, attack: int):
 	var cat = battle_cat_scene.instantiate() as BattleCat
-	
 	cat.load_cat(enchantment, health, attack)
 	
 	team.append(cat)
 	add_child(cat)
+	
+	var cat_ui = battle_cat_ui_scene.instantiate()
+	cat_ui.camera = $"../Camera3D"
+	cat_ui.attached_cat = cat
+	cat.attached_ui = cat_ui
+	cat_ui.update_cat()
+	
+	$"../CanvasLayer".add_child(cat_ui)
 
-func move_cats(instant: bool = false):
+func move_all_cats(instant: bool = false):
 	var tweens: Array[Tween] = []
 	
 	for i in range(cats_left.size()):
@@ -103,9 +115,9 @@ func move_cat(cat: BattleCat, to: Node3D, instant: bool) -> Tween:
 		return tween
 	
 func is_battle_over():
-	return cats_left.size() > 0 and cats_right.size() > 0
+	return cats_left.size() <= 0 or cats_right.size() <= 0
 	
-func check_for_deaths_and_move_cats():
+func check_for_deaths_and_move_all_cats():
 	var dead_cats: Array[BattleCat] = []
 	
 	var i = 0
@@ -124,8 +136,14 @@ func check_for_deaths_and_move_cats():
 			i += 1
 	
 	if dead_cats.size() > 0:
-		pass # TODO fire death hooks
-		move_cats()
+		for cat in dead_cats:
+			cat.enchantment.before_battle_death(self, cat)
+			cat.animate_death()
+			cat.attached_ui.queue_free()
+			cat.queue_free()
+		move_all_cats()
+		# Death effects may have killed more cats, check again
+		check_for_deaths_and_move_all_cats()
 
 func deal_damage_to_cat(source_cat: BattleCat, target_cat: BattleCat, amount: int, skip_hooks: bool = false):
 	target_cat.health -= amount

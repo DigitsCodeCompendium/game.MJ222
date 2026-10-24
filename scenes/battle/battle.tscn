@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d088ofhpi6nlt" path="res://scripts/battle/battle_cats_manager.gd" id="1_7gynk"]
 [ext_resource type="PackedScene" uid="uid://den4o5q0vyw3x" path="res://scenes/battle/battle_cat.tscn" id="2_ffvsa"]
+[ext_resource type="PackedScene" uid="uid://bo5ljrf3icgfb" path="res://scenes/battle/battle_cat_ui.tscn" id="3_xd4uy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r1e00"]
 size = Vector3(20, 1, 10)
@@ -20,6 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 0.7618815, 0.64771646, 0, -0.64771646, 0.761
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_7gynk")
 battle_cat_scene = ExtResource("2_ffvsa")
+battle_cat_ui_scene = ExtResource("3_xd4uy")
 left_cat_anchors = [NodePath("CatAnchorL1"), NodePath("CatAnchorL2"), NodePath("CatAnchorL3"), NodePath("CatAnchorL4"), NodePath("CatAnchorL5")]
 right_cat_anchors = [NodePath("CatAnchorR1"), NodePath("CatAnchorR2"), NodePath("CatAnchorR3"), NodePath("CatAnchorR4"), NodePath("CatAnchorR5")]
 
@@ -56,3 +58,5 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=235324837]
 transform = Transform3D(1, 0, 0, 0, 0.9189352, 0.3944088, 0, -0.39440876, 0.9189351, 0, 7.699321, 14.553275)
 fov = 45.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=665126758]
