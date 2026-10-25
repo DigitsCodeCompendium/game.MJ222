@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2mdjua3bcn4f"]
 
-[ext_resource type="Script" uid="uid://cqk56ro0y6clf" path="res://scripts/cat/cat_test_test.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/prep_cat.tscn" id="2"]
+[ext_resource type="Script" uid="uid://cqk56ro0y6clf" path="res://scripts/cat/cat_test_test.gd" id="1_qxn16"]
+[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/prep_cat.tscn" id="2_ra4k3"]
 
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1
@@ -19,7 +19,7 @@ bottom_radius = 2.0
 height = 0.15
 
 [node name="CatTestTest" type="Node3D" unique_id=1557989467]
-script = ExtResource("1")
+script = ExtResource("1_qxn16")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2083234781]
 environment = SubResource("Environment")
@@ -28,7 +28,7 @@ environment = SubResource("Environment")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.075, 0)
 mesh = SubResource("Platform")
 
-[node name="Cat" parent="." unique_id=2020803670 instance=ExtResource("2")]
+[node name="Cat" parent="." unique_id=2020803670 instance=ExtResource("2_ra4k3")]
 
 [node name="OrbitPivot" type="Node3D" parent="." unique_id=1875511771]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 0.9, 0)

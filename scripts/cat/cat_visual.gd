@@ -197,4 +197,3 @@ func set_body_material(mat: Material):
 	var mesh = _surface_mesh("body")
 	if mesh != null:
 		mesh.set_surface_override_material(_surface_index("body"), mat)
-
