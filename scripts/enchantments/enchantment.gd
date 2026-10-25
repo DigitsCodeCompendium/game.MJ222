@@ -52,3 +52,6 @@ func after_battle_turn(cats: BattleCatsManager, self_cat: BattleCat):
 
 func can_be_moved_in_battle() -> bool:
 	return true
+
+func after_prep_start():
+	pass

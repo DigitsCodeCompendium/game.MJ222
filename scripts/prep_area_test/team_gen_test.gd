@@ -26,6 +26,7 @@ func _on_seed_submitted(value: String):
 	_refresh_team()
 
 func _refresh_team():
-	TeamGenerator.rng.seed = seed
-	var team = TeamGenerator.generate_random_team(5, target_cost, 0.2, 0)
+	var rng = RandomNumberGenerator.new()
+	rng.seed = seed
+	var team = TeamGenerator.generate_random_team(rng, 5, target_cost, 0.2, 0)
 	$ExpectedTeamLabel.text = TeamGenerator.describe_team(team)
