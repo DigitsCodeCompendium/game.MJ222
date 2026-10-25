@@ -12,8 +12,8 @@ extends CharacterBody3D
 @export var constrain_drag_to_room: bool = false
 @export var drag_bounds: Rect2 = Rect2(-6.7, -4.1, 13.4, 8.2)
 
-@export var base_attack: int = 1
-@export var base_health: int = 1
+@export var attack_offset: int = 0
+@export var health_offset: int = 0
 @export var enchantment: Enchantment
 @export var default_face_set: CatFaceSet = preload("res://resources/cat_faces/default.tres")
 
@@ -131,8 +131,8 @@ func set_body_material(mat: StandardMaterial3D):
 func get_cat_data() -> CatData:
 	var cat_data = CatData.new()
 	cat_data.cat_name = cat_name
-	cat_data.base_attack = base_attack
-	cat_data.base_health = base_health
+	cat_data.attack_offset = attack_offset
+	cat_data.health_offset = health_offset
 	cat_data.enchantment = enchantment
 	return cat_data
 

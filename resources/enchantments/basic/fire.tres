@@ -7,6 +7,4 @@ script = ExtResource("1_fnq6a")
 display_name = "Fire"
 primary_color = Color(0.6, 0.2, 0.15686275, 1)
 description = "At the start of combat, gain 1/0 for each fire or fire-derived cat on the team."
-attack_modifier = 2
-health_modifier = 1
 metadata/_custom_type_script = "uid://0m4e2f534iq6"

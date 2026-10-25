@@ -18,17 +18,17 @@ func add_cat(cat: Node):
 	add_child(cat)
 
 func spawn_cat(pos: Vector3, cat_data: CatData = null):
-	var cat_instance = CAT_SCENE.instantiate()
+	var cat_instance = CAT_SCENE.instantiate() as Cat
 	add_cat(cat_instance)
 	cat_instance.global_position = pos
 	
 	if cat_data == null:
 		cat_instance.cat_name = possible_names.pick_random()
-		cat_instance.base_attack = 1
-		cat_instance.base_health = 1
+		cat_instance.attack_offset = 0
+		cat_instance.health_offset = 0
 		cat_instance.set_enchantment(possible_enchantments.pick_random())
 	else:
 		cat_instance.cat_name = cat_data.cat_name
-		cat_instance.base_attack = cat_data.base_attack
-		cat_instance.base_health = cat_data.base_health
+		cat_instance.attack_offset = cat_data.attack_offset
+		cat_instance.health_offset = cat_data.health_offset
 		cat_instance.set_enchantment(cat_data.enchantment)

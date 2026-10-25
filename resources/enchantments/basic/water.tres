@@ -8,5 +8,6 @@
 script = ExtResource("1_8fewc")
 display_name = "Water"
 primary_color = Color(0.26666668, 0.6039216, 0.6784314, 1)
+description = "At the start of combat, gain 1/0 for each Water or Water-derived cat on the team."
 cat_material = ExtResource("1_ju1k2")
 metadata/_custom_type_script = "uid://b0fu3tdrrgk2j"

@@ -58,8 +58,8 @@ func generate_random_team(max_size: int, total_cost: int, weight_progress: float
 	for team_member_cost in valid_teams[team_index]:
 		var cat_data = CatData.new()
 		var bracket = find_cost_bracket(team_member_cost)
-		cat_data.base_attack = bracket.base_attack
-		cat_data.base_health = bracket.base_health
+		cat_data.attack_offset = 0
+		cat_data.health_offset = 0
 		cat_data.enchantment = bracket.enchantments[rng.randi_range(0, bracket.enchantments.size() - 1)]
 		team.append(cat_data)
 	
