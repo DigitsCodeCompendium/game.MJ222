@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://yx2lccpao6rr"]
+
+[ext_resource type="Texture2D" uid="uid://ba2k2ld2kt8vq" path="res://assets/cat/elements/Water_Cat.png" id="1_bo3sh"]
+
+[resource]
+albedo_texture = ExtResource("1_bo3sh")

@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentWater" format=3 uid="uid://o4pwc6nev4eu"]
 
 [ext_resource type="Script" uid="uid://b0fu3tdrrgk2j" path="res://scripts/enchantments/basic/enchantment_water.gd" id="1_8fewc"]
+[ext_resource type="Material" uid="uid://yx2lccpao6rr" path="res://assets/cat/elements/water_cat.tres" id="1_ju1k2"]
 
 [resource]
 script = ExtResource("1_8fewc")
@@ -9,4 +10,5 @@ primary_color = Color(0.26666668, 0.6039216, 0.6784314, 1)
 description = "At the start of combat, gain 1/0 for each Water or Water-derived cat on the team."
 attack_modifier = 1
 health_modifier = 2
+cat_material = ExtResource("1_ju1k2")
 metadata/_custom_type_script = "uid://b0fu3tdrrgk2j"
