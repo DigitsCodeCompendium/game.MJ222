@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cbd2syjtrp2q4"
-path="res://.godot/imported/Cat.fbx-b141f2c52f1d477450c1aa8415514954.scn"
+uid="uid://dd7qs8svafses"
+path="res://.godot/imported/MountainCat.fbx-522cd41d4b59b65367d02bc739f18c1d.scn"
 
 [deps]
 
-source_file="res://assets/cat/Cat.fbx"
-dest_files=["res://.godot/imported/Cat.fbx-b141f2c52f1d477450c1aa8415514954.scn"]
+source_file="res://assets/cat/models/mountain_cat/MountainCat.fbx"
+dest_files=["res://.godot/imported/MountainCat.fbx-522cd41d4b59b65367d02bc739f18c1d.scn"]
 
 [params]
 

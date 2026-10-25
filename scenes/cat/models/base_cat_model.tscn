@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://assets/cat/Cat.fbx" id="1"]
-[ext_resource type="Script" path="res://scripts/cat/cat_model.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://cbd2syjtrp2q4" path="res://assets/cat/models/cat/Cat.fbx" id="1"]
+[ext_resource type="Script" uid="uid://xmeyis6nvq0b" path="res://scripts/cat/cat_model.gd" id="2"]
 
 [node name="CatModel" instance=ExtResource("1")]
 rotation_degrees = Vector3(0, 180, 0)

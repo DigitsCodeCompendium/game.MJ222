@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k7fi0gk86jj2"
-path.s3tc="res://.godot/imported/MountainCat_0.png-990bb27ae53c620d0d13d7a2e2863029.s3tc.ctex"
+uid="uid://dvedeqfuj7wgw"
+path.s3tc="res://.godot/imported/MountainCat_2.png-e90ababd7299bcb3d14f8dfda3b377ff.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "9057330920cdcdef4cefa8cd8132a172"
+"md5": "9b761320fd4f0fe40b303927a56765bd"
 }
 
 [deps]
 
-source_file="res://assets/cat/MountainCat_0.png"
-dest_files=["res://.godot/imported/MountainCat_0.png-990bb27ae53c620d0d13d7a2e2863029.s3tc.ctex"]
+source_file="res://assets/cat/models/mountain_cat/MountainCat_2.png"
+dest_files=["res://.godot/imported/MountainCat_2.png-e90ababd7299bcb3d14f8dfda3b377ff.s3tc.ctex"]
 
 [params]
 
