@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_ny5yy")
 display_name = "Super Cat"
+description = "At start of battle, gain 5/5 base."
+attack_modifier = 5
+health_modifier = 5
 metadata/_custom_type_script = "uid://xniwbm3tafim"
