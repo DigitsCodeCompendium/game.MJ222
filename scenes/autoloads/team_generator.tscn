@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://ildux1uovlum"]
+
+[ext_resource type="Script" uid="uid://r0d00xmr3xtf" path="res://scripts/team_gen/team_generator.gd" id="1_8rtnf"]
+[ext_resource type="Script" uid="uid://crtnix4jdgra8" path="res://scripts/team_gen/enchantment_cost_bracket.gd" id="2_5mcuc"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="3_klsnn"]
+[ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="4_1ippc"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="4_42vx2"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="4_wc3wp"]
+[ext_resource type="Resource" uid="uid://ikw6m5nlys72" path="res://resources/enchantments/composite/ice.tres" id="5_lu30a"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_oo13t"]
+[ext_resource type="Resource" uid="uid://c3lym23b4q8y5" path="res://resources/enchantments/composite/lava.tres" id="6_gwvmu"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="6_m2ou5"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_xh4vu"]
+[ext_resource type="Resource" uid="uid://bvt4851shyjg5" path="res://resources/enchantments/composite/mountain.tres" id="7_yb3xs"]
+[ext_resource type="Resource" uid="uid://ek7ia0t8v8f1" path="res://resources/enchantments/composite/plant.tres" id="8_r1x1h"]
+[ext_resource type="Resource" uid="uid://c7rrcvdyyoqwr" path="res://resources/enchantments/composite/plasma.tres" id="9_qaejx"]
+[ext_resource type="Resource" uid="uid://iinnsq87jlk6" path="res://resources/enchantments/composite/sand.tres" id="10_0dsee"]
+[ext_resource type="Resource" uid="uid://cm7s3dgfu7w4h" path="res://resources/enchantments/composite/steam.tres" id="11_g2gvh"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="12_vh6k7"]
+[ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/composite/void.tres" id="13_e3o71"]
+[ext_resource type="Resource" uid="uid://cl11h4rqamlk8" path="res://resources/enchantments/special/super_cat.tres" id="14_lu30a"]
+
+[sub_resource type="Resource" id="Resource_5uqd6"]
+script = ExtResource("2_5mcuc")
+cost = 3
+weight = 2.0
+enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_42vx2"), ExtResource("5_lu30a"), ExtResource("6_gwvmu"), ExtResource("7_yb3xs"), ExtResource("8_r1x1h"), ExtResource("9_qaejx"), ExtResource("10_0dsee"), ExtResource("11_g2gvh"), ExtResource("12_vh6k7"), ExtResource("13_e3o71"), ExtResource("14_lu30a")])
+metadata/_custom_type_script = "uid://crtnix4jdgra8"
+
+[sub_resource type="Resource" id="Resource_42vx2"]
+script = ExtResource("2_5mcuc")
+cost = 2
+enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_wc3wp"), ExtResource("5_oo13t"), ExtResource("6_m2ou5"), ExtResource("7_xh4vu")])
+metadata/_custom_type_script = "uid://crtnix4jdgra8"
+
+[sub_resource type="Resource" id="Resource_klsnn"]
+script = ExtResource("2_5mcuc")
+cost = 1
+weight = 0.5
+enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_1ippc")])
+metadata/_custom_type_script = "uid://crtnix4jdgra8"
+
+[node name="TeamGenerator" type="Node" unique_id=2104276785]
+script = ExtResource("1_8rtnf")
+cost_brackets = Array[ExtResource("2_5mcuc")]([SubResource("Resource_5uqd6"), SubResource("Resource_42vx2"), SubResource("Resource_klsnn")])
