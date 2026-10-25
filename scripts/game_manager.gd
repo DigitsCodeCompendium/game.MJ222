@@ -8,8 +8,10 @@ const CAT_PRICE = 1
 const MERGE_PRICE = 2
 
 @export var enemy_cost_base: float = 1.45
-@export var total_rounds: int = 10
 @export var player_initial_life: int = 3
+@export var player_life_stakes: Array[int] = [1, 1, 1, 1, 1, 1, 1, 2, 2, 3]
+var total_rounds: int:
+	get: return player_life_stakes.size()
 
 const TEAM_SIZE = 5
 
@@ -95,9 +97,10 @@ func try_spend_coins(cost: int) -> bool:
 	return true
 
 func do_end_of_battle_calcs():
-	stage_index += 1
 	if not is_battle_won:
-		player_life -= 1
+		player_life -= player_life_stakes[stage_index]
+		
+	stage_index += 1
 
 func exit_battle():
 	if is_test_env:

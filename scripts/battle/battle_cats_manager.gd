@@ -10,6 +10,8 @@ extends Node3D
 @export var move_duration = 0.5
 @export var rotate_duration = 0.2
 
+@export var battle_end_countdown = 3
+
 var turn_index: int
 # Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
@@ -21,26 +23,16 @@ func _ready():
 	
 	load_cats()
 	
+	await get_tree().create_timer(1).timeout
+	
 	turn_index = 0
 	while not is_battle_over():
 		await do_turn()
 		turn_index += 1
 	
-	if cats_left.size() <= 0:
-		if cats_right.size() <= 0:
-			%ResultLabel.text = "Tie"
-		else:
-			%ResultLabel.text = "Defeat"
-		GameManager.is_battle_won = false
-	elif cats_right.size() <= 0:
-		%ResultLabel.text = "Victory"
-		GameManager.is_battle_won = true
-	%ResultContainer.visible = true
-	
+	GameManager.is_battle_won = cats_left.size() > 0
 	GameManager.do_end_of_battle_calcs()
-	
-	await get_tree().create_timer(5).timeout
-	
+	await animate_end_of_round_screen()
 	GameManager.exit_battle()
 
 func load_cats():
@@ -243,6 +235,54 @@ func animate_death_and_despawn(cat: BattleCat):
 	await cat.animate_death()
 	cat.attached_ui.queue_free()
 	cat.queue_free()
+
+func animate_end_of_round_screen():
+	%PlayerLifeLabel.text = "Life Remaining: %s" % GameManager.player_life
+		
+	if GameManager.is_run_lost:
+		%ResultLabel.text = "Run Lost"
+		%ResultContainer.visible = true
+		await wait_for_player_continue()
+	elif GameManager.is_run_won:
+		%ResultLabel.text = "Run Won"
+		%ResultContainer.visible = true
+		await wait_for_player_continue()
+	else:
+		if cats_left.size() <= 0:
+			if cats_right.size() <= 0:
+				%ResultLabel.text = "Round %s Tied" % GameManager.stage_index # GameManager should've already incremented the stage index by now
+			else:
+				%ResultLabel.text = "Round %s Lost" % GameManager.stage_index
+		elif cats_right.size() <= 0:
+			%ResultLabel.text = "Round %s Won" % GameManager.stage_index
+		%ResultContainer.visible = true
+		await do_continue_countdown()
+
+func wait_for_player_continue():
+	%ReturnTimerLabel.visible = false
+	%SkipLabel.visible = false
+	%ContinueButton.visible = true
+	await %ContinueButton.pressed
+
+func do_continue_countdown():
+	var tween = create_tween()
+	var set_timer_text = func(t): %ReturnTimerLabel.text = "Continuing in %s" % t
+	set_timer_text.call(battle_end_countdown)
+	for i in range(battle_end_countdown, 0, -1):
+		tween.tween_callback(set_timer_text.bind(i))
+		tween.tween_interval(1)
+	
+	%ReturnTimerLabel.visible = true
+	%SkipLabel.visible = true
+	%ContinueButton.visible = false
+	
+	var handle_gui_input = func(event: InputEvent):
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			tween.pause()
+			tween.custom_step(battle_end_countdown)
+	%ResultContainer.gui_input.connect(handle_gui_input)
+	
+	await tween.finished
 
 func get_cat_team(cat: BattleCat) -> Array[BattleCat]:
 	if cat in cats_left:
