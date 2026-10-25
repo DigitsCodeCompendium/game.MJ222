@@ -3,6 +3,9 @@ class_name CatManager
 
 const CAT_SCENE = preload("res://scenes/cat/cat_test.tscn")
 
+@export var start_battle_button: Button
+@export var nav_region: NavigationRegion3D
+
 @export var possible_enchantments: Array[Enchantment]
 @export var possible_names: Array[String] = ["Qwill", "Max", "Fish", "Spot"]
 ## Maximum number of active prep cats. Cats queued for deletion free their slot immediately.
@@ -17,6 +20,10 @@ var used_names: Array[String]:
 		for cat in get_cats():
 			names.append(cat.cat_name)
 		return names
+
+func _ready() -> void:
+	load_cats_from_game_state()
+	update_start_game_button()
 
 func get_cats() -> Array[Cat]:
 	var cats: Array[Cat] = []
@@ -102,3 +109,23 @@ func spawn_cat(pos: Vector3, cat_data: CatData = null) -> Cat:
 		cat_instance.free()
 		return null
 	return cat_instance
+
+func load_cats_from_game_state():
+	for i in range(GameManager.player_cats_team.size()):
+		var cat = spawn_cat(cat_beds[i].global_position, GameManager.player_cats_team[i])
+		cat_beds[i].try_place_cat(cat)
+	
+	for cat in GameManager.player_cats_reserve:
+		var pos = NavigationServer3D.region_get_random_point(nav_region.get_rid(), 1, false)
+		spawn_cat(pos, cat)
+
+func _on_cat_placed(cat: Node3D):
+	update_start_game_button()
+
+func update_start_game_button():
+	for bed in cat_beds:
+		if is_instance_valid(bed.placed_cat):
+			start_battle_button.disabled = false
+			return
+	start_battle_button.disabled = true
+	

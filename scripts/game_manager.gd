@@ -15,7 +15,7 @@ var player_money: int
 var enemy_seed: int
 var enemy_team_cost: int
 var enemy_extra_cost: int
-# These two fields also serve as ways to preserve data for the prep area, when the player goes to battle scene and back.
+# These two fields serve as a way to send cat team data to battle arena. They also preserve data for the prep area, for respawning cats when the player returns from battle.
 var player_cats_team: Array[CatData]
 var player_cats_reserve: Array[CatData]
 
@@ -33,6 +33,8 @@ func reset_game():
 	enemy_seed = rng.randi()
 	enemy_team_cost = 1
 	enemy_extra_cost = 0
+	player_cats_team = []
+	player_cats_reserve = []
 
 func start_battle():
 	get_tree().change_scene_to_packed(BATTLE_ARENA_SCENE)

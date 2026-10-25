@@ -7,8 +7,6 @@
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_os6ue"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="6_qtuiy"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_0x5mc"]
-[ext_resource type="PackedScene" uid="uid://6y6jonitqoq8" path="res://scenes/cat_spawner/cat_spawner.tscn" id="8_6bgnk"]
-[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="9_jmhco"]
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
@@ -543,20 +541,17 @@ mesh = SubResource("DoorHandleMesh")
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
-[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("cat_beds")]
+[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_button", "nav_region", "cat_beds")]
 script = ExtResource("2_sux85")
+start_battle_button = NodePath("../../Player/UI/MarginContainer/StartBattleButton")
+nav_region = NodePath("../../Level/NavigationRegion3D")
 possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), ExtResource("5_os6ue"), ExtResource("6_qtuiy"), ExtResource("7_0x5mc")])
 cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
 constrain_cat_drag = true
 
-[node name="CatSpawner" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager") instance=ExtResource("8_6bgnk")]
-cat_packed_scene = ExtResource("9_jmhco")
-cat_manager = NodePath("../CatManager")
-
-[node name="Blender" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager", "cat_spawn_pos") instance=ExtResource("10_l6pdx")]
+[node name="Blender" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager") instance=ExtResource("10_l6pdx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45637035, 6.9592724)
 cat_manager = NodePath("../CatManager")
-cat_spawn_pos = NodePath("../CatSpawner")
 
 [node name="CatBeds" type="Node3D" parent="Props" unique_id=552533873]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.5)
@@ -608,7 +603,7 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="SpawnCatButton" type="Button" parent="Player/UI/MarginContainer" unique_id=359575971]
+[node name="StartBattleButton" type="Button" parent="Player/UI/MarginContainer" unique_id=359575971]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -621,7 +616,11 @@ size_flags_vertical = 0
 text = "Opponent team:"
 script = ExtResource("13_edtl5")
 
-[node name="CatPickupInfo" parent="." unique_id=1321245040 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
+[node name="CatPickupInfo" parent="." unique_id=2114418831 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
 cat_manager = NodePath("../Props/CatManager")
 
-[connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Props/CatSpawner" method="_on_spawn_cat_button_pressed"]
+[connection signal="cat_placed" from="Props/CatBeds/CatBed1" to="Props/CatManager" method="_on_cat_placed"]
+[connection signal="cat_placed" from="Props/CatBeds/CatBed2" to="Props/CatManager" method="_on_cat_placed"]
+[connection signal="cat_placed" from="Props/CatBeds/CatBed3" to="Props/CatManager" method="_on_cat_placed"]
+[connection signal="cat_placed" from="Props/CatBeds/CatBed4" to="Props/CatManager" method="_on_cat_placed"]
+[connection signal="cat_placed" from="Props/CatBeds/CatBed5" to="Props/CatManager" method="_on_cat_placed"]
