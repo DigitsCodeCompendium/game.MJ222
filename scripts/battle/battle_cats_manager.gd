@@ -93,9 +93,15 @@ func sync_ui():
 	for cat in cats_right:
 		cat.attached_ui.update_cat()
 
-func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment, health: int, attack: int, index: int = -1):
+func load_cats_from_data(team: Array[BattleCat], cats_data: Array[CatData]):
+	for cat_data in cats_data:
+		var base_attack = cat_data.enchantment.base_attack + cat_data.attack_offset
+		var base_health = cat_data.enchantment.base_health + cat_data.health_offset
+		add_cat(team, cat_data.cat_name, cat_data.enchantment, base_attack, base_health)
+
+func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment, attack: int, health: int, index: int = -1):
 	var cat = battle_cat_scene.instantiate() as BattleCat
-	cat.load_cat(cat_name, enchantment, health, attack)
+	cat.load_cat(cat_name, enchantment, attack, health)
 	
 	if index >= 0:
 		team.insert(index, cat)
