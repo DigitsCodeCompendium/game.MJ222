@@ -4,6 +4,10 @@ class_name CatManager
 const CAT_SCENE = preload("res://scenes/cat/cat_test.tscn")
 
 @export var start_battle_door: PrepAreaDoor
+@export var battle_transition: CanvasLayer
+@export var departure_speed: float = 6.0
+@export_range(1.0, 5.0, 0.1) var departure_catchup_multiplier: float = 2.5
+@export_range(1.0, 5.0, 0.1) var departure_final_boost: float = 2.0
 @export var nav_region: NavigationRegion3D
 
 @export var possible_enchantments: Array[Enchantment]
@@ -13,6 +17,10 @@ const CAT_SCENE = preload("res://scenes/cat/cat_test.tscn")
 @export var cat_beds: Array[CatBed]
 @export var constrain_cat_drag: bool = false
 @export var cat_drag_bounds: Rect2 = Rect2(-14.7, -14.7, 29.4, 29.4)
+
+var _starting_battle = false
+var _departing_cats: Array[Cat] = []
+var _remaining_departures = 0
 
 var used_names: Array[String]:
 	get:
@@ -38,7 +46,7 @@ func get_cat_count() -> int:
 	return get_cats().size()
 
 func can_spawn_cat(amount: int = 1) -> bool:
-	return get_cat_count() + amount <= cat_limit
+	return not _starting_battle and get_cat_count() + amount <= cat_limit
 
 func get_unique_name(preferred: String = "") -> String:
 	var taken: Array[String] = []
@@ -143,6 +151,8 @@ func _on_cat_placed(cat: Node3D):
 	update_start_game_button()
 
 func update_start_game_button():
+	if _starting_battle:
+		return
 	for bed in cat_beds:
 		if is_instance_valid(bed.placed_cat):
 			start_battle_door.disabled = false
@@ -150,12 +160,22 @@ func update_start_game_button():
 	start_battle_door.disabled = true
 
 func _on_door_clicked():
+	if _starting_battle:
+		return
 	var team_cats: Array[Node3D] = [] # Used later for checking which cats are in reserve
 	var team: Array[CatData] = [] # Data passed to game manager and battle arena
 	for bed in cat_beds:
 		if is_instance_valid(bed.placed_cat):
 			team_cats.append(bed.placed_cat)
 			team.append(bed.placed_cat.get_cat_data())
+	if team.is_empty():
+		for bed in cat_beds:
+			bed.flash_empty()
+		return
+	if get_held_cat() != null:
+		return
+	_starting_battle = true
+	start_battle_door.disabled = true
 	GameManager.player_cats_team = team
 	
 	var reserve: Array[CatData] = []
@@ -164,4 +184,70 @@ func _on_door_clicked():
 			reserve.append(cat.get_cat_data())
 	GameManager.player_cats_reserve = reserve
 	
-	GameManager.start_battle()
+	battle_transition.block_input()
+	# Stop bed locks and player interaction before moving the team.
+	for bed in get_tree().get_nodes_in_group("cat_beds"):
+		bed.set_physics_process(false)
+		bed._release_cat()
+	for cat in get_cats():
+		cat.set_physics_process(false)
+		cat.set_process_input(false)
+		cat.input_ray_pickable = false
+		cat.navigation_agent.avoidance_enabled = false
+		cat.velocity = Vector3.ZERO
+	await start_battle_door.open_door()
+	await _animate_team_departure(team_cats)
+	battle_transition.go_to_battle()
+
+func _process(_delta: float) -> void:
+	for cat in _departing_cats:
+		if is_instance_valid(cat):
+			cat._sync_state_animation()
+
+func _animate_team_departure(team_cats: Array[Node3D]) -> void:
+	var door_position = start_battle_door.global_position
+	# A shared aisle keeps the cats away from the other team beds.
+	var aisle_z = door_position.z + 7.5
+	team_cats.sort_custom(func(a, b): return a.global_position.distance_to(door_position) < b.global_position.distance_to(door_position))
+	_remaining_departures = team_cats.size()
+	var departure_tweens: Array[Tween] = []
+	for i in team_cats.size():
+		var cat = team_cats[i] as Cat
+		_departing_cats.append(cat)
+		cat._enter_behavior(Cat.State.IDLE)
+		var tween = create_tween()
+		departure_tweens.append(tween)
+		if i > 0:
+			tween.tween_interval(i * 0.55)
+		tween.tween_callback(cat._enter_behavior.bind(Cat.State.WANDERING))
+		var at = cat.global_position
+		var waypoints: Array[Vector3] = [
+			Vector3(at.x, 0.1, aisle_z),
+			Vector3(door_position.x, 0.1, aisle_z),
+			Vector3(door_position.x, 0.1, door_position.z - 2.5)]
+		for target in waypoints:
+			var direction = target - at
+			if Vector2(direction.x, direction.z).length() < 0.01:
+				continue
+			var yaw = atan2(-direction.x, -direction.z)
+			tween.tween_method(func(weight): cat.global_rotation.y = lerp_angle(cat.global_rotation.y, yaw, weight), 0.0, 1.0, 0.15)
+			tween.tween_property(cat, "global_position", target, at.distance_to(target) / maxf(departure_speed, 0.1))
+			at = target
+		tween.tween_callback(cat.hide)
+		tween.tween_callback(func():
+			var exited = team_cats.size() - _remaining_departures + 1
+			if exited == 1 or exited == 3:
+				var speed = departure_catchup_multiplier
+				if exited == 3:
+					speed *= departure_final_boost
+				# Boost once after the first exit, then again after the third.
+				for departure in departure_tweens:
+					if departure.is_valid():
+						departure.set_speed_scale(speed)
+				for remaining_cat in _departing_cats:
+					if remaining_cat.visible and remaining_cat._animation_player != null:
+						remaining_cat._animation_player.speed_scale = speed
+			_remaining_departures -= 1)
+	while _remaining_departures > 0:
+		await get_tree().process_frame
+	_departing_cats.clear()

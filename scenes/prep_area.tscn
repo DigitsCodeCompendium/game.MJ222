@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/enemy_team_preview.gd" id="13_edtl5"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 
+[ext_resource type="Script" path="res://scripts/prep_area/battle_transition.gd" id="battle_transition"]
+
 [sub_resource type="Environment" id="Environment_gpf5u"]
 background_mode = 1
 background_color = Color(0.9059, 0.8667, 0.8157, 1)
@@ -44,10 +46,10 @@ roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BackWallMesh"]
 material = SubResource("RoomCream")
-size = Vector3(32, 6, 0.3)
+size = Vector3(28.727633, 6, 0.3)
 
 [sub_resource type="BoxShape3D" id="BackWallShape"]
-size = Vector3(32, 6, 0.3)
+size = Vector3(28.727633, 6, 0.3)
 
 [sub_resource type="StandardMaterial3D" id="RoomSideCream"]
 albedo_color = Color(0.875, 0.796, 0.698, 1)
@@ -73,7 +75,7 @@ roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BackSkirtingMesh"]
 material = SubResource("RoomWood")
-size = Vector3(31.7, 0.25, 0.18)
+size = Vector3(28.577633, 0.25, 0.18)
 
 [sub_resource type="BoxMesh" id="LeftSkirtingMesh"]
 material = SubResource("RoomWood")
@@ -278,6 +280,20 @@ material = SubResource("DoorBrass")
 radius = 0.12
 height = 0.24
 
+[sub_resource type="BoxMesh" id="DoorwayRightMesh"]
+material = SubResource("RoomCream")
+size = Vector3(0.872367, 6, 0.3)
+
+[sub_resource type="BoxShape3D" id="DoorwayRightShape"]
+size = Vector3(0.872367, 6, 0.3)
+
+[sub_resource type="BoxMesh" id="DoorwayTopMesh"]
+material = SubResource("RoomCream")
+size = Vector3(2.4, 1.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="DoorwayTopShape"]
+size = Vector3(2.4, 1.2, 0.3)
+
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=371378319]
@@ -332,11 +348,11 @@ shadow_enabled = true
 [node name="Room" type="Node3D" parent="Level" unique_id=262220524]
 
 [node name="BackWall" type="MeshInstance3D" parent="Level/Room" unique_id=1169011466]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6361835, 3, -16)
 mesh = SubResource("BackWallMesh")
 
 [node name="BackWallBody" type="StaticBody3D" parent="Level/Room" unique_id=247085243]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6361835, 3, -16)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/BackWallBody" unique_id=1686104355]
 shape = SubResource("BackWallShape")
@@ -362,7 +378,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.6, 0)
 shape = SubResource("RightLowWallShape")
 
 [node name="BackSkirting" type="MeshInstance3D" parent="Level/Room" unique_id=1604451410]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, -15.78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7111835, 0.16, -15.78)
 mesh = SubResource("BackSkirtingMesh")
 
 [node name="LeftSkirting" type="MeshInstance3D" parent="Level/Room" unique_id=194274046]
@@ -505,6 +521,26 @@ mesh = SubResource("PlantLeaves1Mesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.97104406, 2.9, -1.3593318)
 mesh = SubResource("PlantLeaves2Mesh")
 
+[node name="DoorwayRight" type="MeshInstance3D" parent="Level/Room"]
+position = Vector3(15.5638165, 3, -16)
+mesh = SubResource("DoorwayRightMesh")
+
+[node name="DoorwayRightBody" type="StaticBody3D" parent="Level/Room"]
+position = Vector3(15.5638165, 3, -16)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/DoorwayRightBody"]
+shape = SubResource("DoorwayRightShape")
+
+[node name="DoorwayTop" type="MeshInstance3D" parent="Level/Room"]
+position = Vector3(13.927633, 5.4, -16)
+mesh = SubResource("DoorwayTopMesh")
+
+[node name="DoorwayTopBody" type="StaticBody3D" parent="Level/Room"]
+position = Vector3(13.927633, 5.4, -16)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/DoorwayTopBody"]
+shape = SubResource("DoorwayTopShape")
+
 [node name="Door" type="AnimatableBody3D" parent="Level/Room" unique_id=2085887816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.927633, 0, -15.65)
 script = ExtResource("2_ianlh")
@@ -514,8 +550,11 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000831604, 2.3305511, 0.017547607)
 shape = SubResource("BoxShape3D_gpf5u")
 
-[node name="Panel" type="MeshInstance3D" parent="Level/Room/Door" unique_id=115779247]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+[node name="Hinge" type="Node3D" parent="Level/Room/Door"]
+position = Vector3(-1.2, 0, 0)
+
+[node name="Panel" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=115779247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 2.3, 0)
 mesh = SubResource("DoorPanelMesh")
 
 [node name="LeftFrame" type="MeshInstance3D" parent="Level/Room/Door" unique_id=2020602346]
@@ -530,31 +569,32 @@ mesh = SubResource("DoorRightFrameMesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0.02)
 mesh = SubResource("DoorTopFrameMesh")
 
-[node name="UpperInset" type="MeshInstance3D" parent="Level/Room/Door" unique_id=75235576]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25, 0.12)
+[node name="UpperInset" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=75235576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 3.25, 0.12)
 mesh = SubResource("DoorUpperInsetMesh")
 
-[node name="LowerInset" type="MeshInstance3D" parent="Level/Room/Door" unique_id=1173055167]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0.12)
+[node name="LowerInset" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=1173055167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.15, 0.12)
 mesh = SubResource("DoorLowerInsetMesh")
 
 [node name="Threshold" type="MeshInstance3D" parent="Level/Room/Door" unique_id=487195626]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.05)
 mesh = SubResource("DoorThresholdMesh")
 
-[node name="HandlePlate" type="MeshInstance3D" parent="Level/Room/Door" unique_id=1621646901]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88, 2.22, 0.15)
+[node name="HandlePlate" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=1621646901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08, 2.22, 0.15)
 mesh = SubResource("DoorHandlePlateMesh")
 
-[node name="Handle" type="MeshInstance3D" parent="Level/Room/Door" unique_id=660286239]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88, 2.22, 0.27)
+[node name="Handle" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=660286239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08, 2.22, 0.27)
 mesh = SubResource("DoorHandleMesh")
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
-[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_door", "nav_region", "cat_beds")]
+[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_door", "nav_region", "cat_beds", "battle_transition")]
 script = ExtResource("2_sux85")
 start_battle_door = NodePath("../../Level/Room/Door")
+battle_transition = NodePath("../../BattleTransition")
 nav_region = NodePath("../../Level/NavigationRegion3D")
 possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), ExtResource("5_os6ue"), ExtResource("6_qtuiy"), ExtResource("7_0x5mc")])
 cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
@@ -637,7 +677,21 @@ script = ExtResource("13_edtl5")
 [node name="CatPickupInfo" parent="." unique_id=2114418831 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
 cat_manager = NodePath("../Props/CatManager")
 
+[node name="BattleTransition" type="CanvasLayer" parent="."]
+layer = 100
+script = ExtResource("battle_transition")
+
+[node name="Fade" type="ColorRect" parent="BattleTransition"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
 [connection signal="on_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
+[connection signal="disabled_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed1" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed2" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed3" to="Props/CatManager" method="_on_cat_placed"]

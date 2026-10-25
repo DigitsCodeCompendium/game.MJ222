@@ -10,6 +10,8 @@ signal cat_placed(cat: Node3D)
 var placed_cat: Node3D
 var _owns_ai_lock = false
 var _previous_ai_lock = false
+var _highlighted = false
+var _flash_tween: Tween
 @onready var cushion: MeshInstance3D = $Cushion
 
 func _ready() -> void:
@@ -69,7 +71,22 @@ func get_placement_position() -> Vector3:
 	return $PlacementPoint.global_position
 
 func set_highlighted(highlighted: bool) -> void:
+	_highlighted = highlighted
+	if _flash_tween != null and _flash_tween.is_running():
+		return
 	cushion.material_override.albedo_color = cushion_color.lightened(0.25) if highlighted else cushion_color
+
+func flash_empty() -> void:
+	if _flash_tween != null and _flash_tween.is_running():
+		return
+	_flash_tween = create_tween()
+	for i in range(2):
+		_flash_tween.tween_property(cushion.material_override, "albedo_color", Color("ff4545"), 0.12)
+		_flash_tween.tween_interval(0.12)
+		_flash_tween.tween_property(cushion.material_override, "albedo_color", cushion_color, 0.18)
+		_flash_tween.tween_interval(0.12)
+	_flash_tween.tween_callback(func():
+		cushion.material_override.albedo_color = cushion_color.lightened(0.25) if _highlighted else cushion_color)
 
 func _physics_process(_delta: float) -> void:
 	_update_occupant()
