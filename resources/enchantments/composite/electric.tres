@@ -8,8 +8,7 @@
 script = ExtResource("1_gv125")
 display_name = "Electric"
 primary_color = Color(1, 1, 0.627451, 1)
-description = "At the start of combat, gain 4/2 base.
-After an ally attacks, deal 1 damage to a random opposing squeeb."
+description = "After an ally attacks, deal 1 damage to a random opposing squeeb."
 attack_modifier = 4
 health_modifier = 2
 component1 = ExtResource("1_0qr81")

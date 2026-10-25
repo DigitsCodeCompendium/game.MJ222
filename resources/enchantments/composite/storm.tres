@@ -9,8 +9,7 @@
 script = ExtResource("3_rdnqw")
 display_name = "Storm"
 primary_color = Color(0.38039216, 0.5294118, 0.5058824, 1)
-description = "At start of combat, gain 4/4 base.
-After attacking, move the rearmost opposing squeeb to the front."
+description = "After attacking, move the rearmost opposing squeeb to the front."
 attack_modifier = 4
 health_modifier = 4
 cat_material = ExtResource("1_4qvid")

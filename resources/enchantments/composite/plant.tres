@@ -10,8 +10,7 @@ script = ExtResource("1_4ab1k")
 enchantment_cat = ExtResource("3_rfyp0")
 display_name = "Plant"
 primary_color = Color(0.2509804, 0.56078434, 0.3372549, 1)
-description = "At start of combat, gain 2/4 base.
-Before attacking, absorb up to 1 Water from each adjacent squeeb. Gain 1/1 for each Water absorbed.
+description = "Before attacking, absorb up to 1 Water from each adjacent squeeb. Gain 1/1 for each Water absorbed.
 Absorbing water from a composite element converts it to the remaining component. Absorbing water from a water element converts it to the cat element.
 Effect does not persist after the end of combat."
 attack_modifier = 2

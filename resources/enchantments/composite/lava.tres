@@ -8,8 +8,7 @@
 script = ExtResource("1_l4fru")
 display_name = "Lava"
 primary_color = Color(0.5294118, 0.29803923, 0.18039216, 1)
-description = "At start of combat, gain 2/5 base.
-After attacking, push the first two opposing squeebs backwards. If they collide with another squeeb, they take 1 damage."
+description = "After attacking, push the first two opposing squeebs backwards. If they collide with another squeeb, they take 1 damage."
 attack_modifier = 2
 health_modifier = 5
 component1 = ExtResource("1_m1ygy")
