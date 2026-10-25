@@ -4,6 +4,11 @@
 [ext_resource type="Script" uid="uid://c3f4haqr266eo" path="res://scripts/blender/cat_blender.gd" id="1_iayqv"]
 [ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="2_hg322"]
 [ext_resource type="Resource" uid="uid://dtpywd7n86tr4" path="res://resources/enchantments/special/corrupted.tres" id="3_5p4ga"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="4_2j7x4"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="5_g30hg"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="6_f5wym"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="7_sbr3d"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="8_xddps"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fad8g"]
 albedo_texture = ExtResource("1_c88f8")
@@ -17,6 +22,7 @@ material = SubResource("StandardMaterial3D_fad8g")
 script = ExtResource("1_iayqv")
 cat_scene = ExtResource("2_hg322")
 corrupted_enchantment = ExtResource("3_5p4ga")
+reroll_enchantments = Array[ExtResource("4_2j7x4")]([ExtResource("5_g30hg"), ExtResource("6_f5wym"), ExtResource("7_sbr3d"), ExtResource("8_xddps")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=876914362]
 mesh = SubResource("BoxMesh_cvtqb")
