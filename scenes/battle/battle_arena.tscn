@@ -4,24 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://den4o5q0vyw3x" path="res://scenes/battle/battle_cat.tscn" id="2_i8s75"]
 [ext_resource type="PackedScene" uid="uid://bo5ljrf3icgfb" path="res://scenes/battle/battle_cat_ui.tscn" id="3_onjye"]
 
-[sub_resource type="Environment" id="Environment_xd4uy"]
-ambient_light_color = Color(0.31431597, 0.31431618, 0.31431603, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_r1e00"]
-size = Vector3(40, 1, 10)
+[ext_resource type="PackedScene" path="res://scenes/battle/environments/forest_environment.tscn" id="forest_environment"]
 
 [node name="BattleArena" type="Node3D" unique_id=1369554804]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=808274074]
-environment = SubResource("Environment_xd4uy")
-
-[node name="Level" type="Node3D" parent="." unique_id=1175366046]
-
-[node name="Floor" type="MeshInstance3D" parent="Level" unique_id=1100610001]
-mesh = SubResource("BoxMesh_r1e00")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=399649155]
-transform = Transform3D(1, 0, 0, 0, 0.7618815, 0.64771646, 0, -0.64771646, 0.7618815, 0, 0, 0)
+[node name="Environment" parent="." instance=ExtResource("forest_environment")]
 
 [node name="Cats" type="Node3D" parent="." unique_id=1907730968 node_paths=PackedStringArray("left_cat_anchors", "right_cat_anchors")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
