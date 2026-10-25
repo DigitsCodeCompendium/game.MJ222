@@ -17,6 +17,7 @@ var attached_ui: Node
 
 const DEFAULT_CAT_MAT = preload("res://assets/cat/elements/default_cat.tres")
 
+@warning_ignore("shadowed_variable")
 func load_cat(e: Enchantment, base_health: int, base_attack: int):
 	_enchantment = e
 	self.base_health = base_health

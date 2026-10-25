@@ -185,19 +185,9 @@ func check_for_deaths_and_move_all_cats():
 			cat.enchantment.after_death(self, cat)
 			cat.attached_ui.queue_free()
 			cat.queue_free()
-		move_all_cats()
+		await move_all_cats()
 		# Death effects may have killed more cats, check again
-		check_for_deaths_and_move_all_cats()
-
-func preprocess_dead_cats(team: Array[BattleCat]):
-	var dead_cats: Array[BattleCat] = []
-	for cat in team:
-		if cat.health <= 0:
-			cat.enchantment.before_death(self, cat)
-			dead_cats.append(cat)
-	return dead_cats
-
-
+		await check_for_deaths_and_move_all_cats()
 
 func get_cat_team(cat: BattleCat) -> Array[BattleCat]:
 	if cat in cats_left:
