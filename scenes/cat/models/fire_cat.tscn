@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://dboiasiatkqjc"]
+
+[ext_resource type="PackedScene" path="res://scenes/cat/models/base_cat_model.tscn" id="1"]
+
+[sub_resource type="Gradient" id="FlameShape"]
+offsets = PackedFloat32Array(0, 0.35, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.65, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="FlameTexture"]
+gradient = SubResource("FlameShape")
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="FlameMaterial"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("FlameTexture")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="FlameQuad"]
+material = SubResource("FlameMaterial")
+size = Vector2(0.38, 0.8)
+
+[sub_resource type="Gradient" id="Fade"]
+offsets = PackedFloat32Array(0, 0.15, 0.65, 1)
+colors = PackedColorArray(1, 0.8, 0.15, 0, 1, 0.7, 0.08, 0.85, 1, 0.2, 0.015, 0.6, 0.6, 0.04, 0.005, 0)
+
+[sub_resource type="QuadMesh" id="EmberQuad"]
+material = SubResource("FlameMaterial")
+size = Vector2(0.07, 0.12)
+
+[node name="FireCat" unique_id=976028926 instance=ExtResource("1")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Flames" type="CPUParticles3D" parent="Effects" index="0" unique_id=7477179]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.15)
+material_override = SubResource("FlameMaterial")
+cast_shadow = 0
+amount = 80
+lifetime = 0.75
+preprocess = 0.75
+speed_scale = 0.63
+mesh = SubResource("FlameQuad")
+emission_shape = 1
+emission_sphere_radius = 0.65
+direction = Vector3(0, 1, 0)
+spread = 15.0
+gravity = Vector3(0, 0.6, 0)
+initial_velocity_min = 0.7
+initial_velocity_max = 1.4
+scale_amount_min = 0.5
+scale_amount_max = 1.1
+color_ramp = SubResource("Fade")
+
+[node name="Embers" type="CPUParticles3D" parent="Effects" index="1" unique_id=794232898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+material_override = SubResource("FlameMaterial")
+cast_shadow = 0
+amount = 28
+lifetime = 1.6
+preprocess = 1.6
+mesh = SubResource("EmberQuad")
+emission_shape = 1
+emission_sphere_radius = 0.75
+direction = Vector3(0, 1, 0)
+spread = 35.0
+gravity = Vector3(0, 0.2, 0)
+initial_velocity_min = 0.6
+initial_velocity_max = 1.2
+color_ramp = SubResource("Fade")
+
+[node name="Firelight" type="OmniLight3D" parent="Effects" index="2" unique_id=1697129007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+light_color = Color(1, 0.36, 0.08, 1)
+light_energy = 0.8
+omni_range = 4.0

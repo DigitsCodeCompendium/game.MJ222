@@ -10,6 +10,7 @@ extends Resource
 @export var base_health: int
 
 @export var cat_material: StandardMaterial3D
+@export var cat_scene: PackedScene
 ## Optional expressions for this enchantment; null uses the cat's default set.
 @export var face_set: CatFaceSet
 

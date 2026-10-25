@@ -21,7 +21,10 @@ var active_face_set: CatFaceSet
 var current_face: String = "neutral"
 var _face_material: StandardMaterial3D
 var _animation_player: AnimationPlayer
-const FACE_SURFACE = 2
+var _model: Node3D
+var _model_scene: PackedScene
+const DEFAULT_MODEL = preload("res://scenes/cat/models/base_cat_model.tscn")
+signal model_changed
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var drop_indicator: MeshInstance3D = $DropIndicator
@@ -41,11 +44,6 @@ var _behavior_time_left: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var players = $Cat.find_children("*", "AnimationPlayer", true, false)
-	if not players.is_empty():
-		_animation_player = players[0]
-		_animation_player.animation_started.connect(_on_face_animation_started)
-		_animation_player.animation_finished.connect(_on_face_animation_finished)
 	set_enchantment(enchantment)
 		
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
@@ -62,6 +60,7 @@ func set_enchantment(e: Enchantment):
 	enchantment = e
 	if not is_node_ready():
 		return
+	var changed_model = _set_model_scene(enchantment.cat_scene if enchantment != null and enchantment.cat_scene != null else DEFAULT_MODEL)
 	if enchantment != null and enchantment.cat_material != null:
 		set_body_material(enchantment.cat_material)
 	else:
@@ -70,12 +69,63 @@ func set_enchantment(e: Enchantment):
 		if enchantment != null:
 			material.albedo_color = enchantment.primary_color
 		set_body_material(material)
-	var mesh: MeshInstance3D = $Cat/Armature/Skeleton3D/Cat
-	var paw_material = mesh.mesh.surface_get_material(1).duplicate() as StandardMaterial3D
-	if enchantment != null:
-		paw_material.albedo_color = enchantment.primary_color
-	mesh.set_surface_override_material(1, paw_material)
+	var mesh = _surface_mesh("paw")
+	if mesh != null:
+		var original = mesh.mesh.surface_get_material(_surface_index("paw"))
+		var paw_material = original.duplicate() as StandardMaterial3D if original is StandardMaterial3D else StandardMaterial3D.new()
+		if enchantment != null:
+			paw_material.albedo_color = enchantment.primary_color
+		mesh.set_surface_override_material(_surface_index("paw"), paw_material)
 	set_face_set(enchantment.face_set if enchantment != null else null)
+
+	if changed_model:
+		model_changed.emit()
+
+func _set_model_scene(scene: PackedScene) -> bool:
+	var existing = get_node_or_null("Cat") as Node3D
+	if _model == existing and _model != null and _model_scene == scene:
+		return false
+	if existing == null or existing.scene_file_path != scene.resource_path or (_model_scene != null and _model_scene != scene):
+		var instance = scene.instantiate()
+		if not instance is Node3D or instance is Cat:
+			push_error("Enchantment cat_scene must be a visual Node3D scene, not a gameplay Cat scene.")
+			instance.free()
+			return false
+		if existing != null:
+			remove_child(existing)
+			existing.queue_free()
+		instance.name = "Cat"
+		add_child(instance)
+		_model = instance
+	else:
+		_model = existing
+	_model_scene = scene
+	_face_material = null
+	_animation_player = null
+	var players = _model.find_children("*", "AnimationPlayer", true, false)
+	if not players.is_empty():
+		_animation_player = players[0]
+		_animation_player.animation_started.connect(_on_face_animation_started)
+		_animation_player.animation_finished.connect(_on_face_animation_finished)
+	return true
+
+func _surface_index(part: String) -> int:
+	if _model is CatModel:
+		return _model.get(part + "_surface")
+	return {"body": 0, "paw": 1, "face": 2}[part]
+
+func _surface_mesh(part: String) -> MeshInstance3D:
+	if _model is CatModel:
+		return _model.get_surface_mesh(part)
+	if _model == null:
+		return null
+	var meshes = _model.find_children("*", "MeshInstance3D", true, false)
+	if _model is MeshInstance3D:
+		meshes.push_front(_model)
+	for mesh in meshes:
+		if mesh.mesh != null and mesh.mesh.get_surface_count() > _surface_index(part):
+			return mesh
+	return null
 
 ## Switch sets while preserving the expression when the new set contains it.
 ## Passing null restores this cat's default face set.
@@ -83,7 +133,9 @@ func set_face_set(faces: CatFaceSet) -> void:
 	active_face_set = faces if faces != null else default_face_set
 	if active_face_set == null:
 		if is_node_ready():
-			$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(FACE_SURFACE, null)
+			var mesh = _surface_mesh("face")
+			if mesh != null:
+				mesh.set_surface_override_material(_surface_index("face"), null)
 		return
 	if not active_face_set.has_face(current_face):
 		current_face = active_face_set.default_face
@@ -112,21 +164,25 @@ func set_face(face: String) -> bool:
 func _apply_face() -> void:
 	if not is_node_ready() or active_face_set == null:
 		return
-	var mesh: MeshInstance3D = $Cat/Armature/Skeleton3D/Cat
+	var mesh = _surface_mesh("face")
+	if mesh == null:
+		return
 	var texture = active_face_set.get_texture(current_face)
 	if texture == null:
-		mesh.set_surface_override_material(FACE_SURFACE, null)
+		mesh.set_surface_override_material(_surface_index("face"), null)
 		return
 	if _face_material == null:
 		# Preserve filtering, but enable alpha for the separate expression textures.
-		var original = mesh.mesh.surface_get_material(FACE_SURFACE) as StandardMaterial3D
-		_face_material = original.duplicate() as StandardMaterial3D
+		var original = mesh.mesh.surface_get_material(_surface_index("face")) as StandardMaterial3D
+		_face_material = original.duplicate() as StandardMaterial3D if original != null else StandardMaterial3D.new()
 		_face_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_face_material.albedo_texture = texture
-	mesh.set_surface_override_material(FACE_SURFACE, _face_material)
+	mesh.set_surface_override_material(_surface_index("face"), _face_material)
 
-func set_body_material(mat: StandardMaterial3D):
-	$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(0, mat)
+func set_body_material(mat: Material):
+	var mesh = _surface_mesh("body")
+	if mesh != null:
+		mesh.set_surface_override_material(_surface_index("body"), mat)
 
 func get_cat_data() -> CatData:
 	var cat_data = CatData.new()

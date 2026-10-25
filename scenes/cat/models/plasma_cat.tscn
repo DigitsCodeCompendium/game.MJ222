@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b7ulhcad1ybtm"]
+
+[ext_resource type="PackedScene" path="res://scenes/cat/models/base_cat_model.tscn" id="1"]
+
+[node name="PlasmaCat" unique_id=1384645116 instance=ExtResource("1")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://dv0bksd40gv7w"]
 
 [ext_resource type="Script" uid="uid://omnx7rux4hfl" path="res://scripts/cat/cat.gd" id="1_2td3s"]
-[ext_resource type="Script" uid="uid://5ujy7bucvhco" path="res://scripts/cat/cat_animate.gd" id="2_glebu"]
-[ext_resource type="PackedScene" uid="uid://cbd2syjtrp2q4" path="res://assets/cat/Cat.fbx" id="3_2td3s"]
+[ext_resource type="PackedScene" path="res://scenes/cat/models/base_cat_model.tscn" id="3_2td3s"]
 [ext_resource type="PackedScene" path="res://scenes/cat/drop_indicator.tscn" id="4_indicator"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_eu1mp"]
@@ -20,7 +19,5 @@ shape = SubResource("SphereShape3D_eu1mp")
 [node name="DropIndicator" parent="." unique_id=425344512 instance=ExtResource("4_indicator")]
 
 [node name="Cat" parent="." unique_id=2018246566 instance=ExtResource("3_2td3s")]
-transform = Transform3D(-0.9999795, 0, 0.0064030765, 0, 1, 0, -0.0064030765, 0, -0.9999795, 0, 0, 0)
-script = ExtResource("2_glebu")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -17,10 +17,6 @@ func _ready() -> void:
 	cat.set_physics_process(false)
 	cat.set_process_input(false)
 	cat.input_ray_pickable = false
-	var players = cat.find_children("*", "AnimationPlayer", true, false)
-	if not players.is_empty():
-		_player = players[0]
-		_player.animation_finished.connect(_on_animation_finished)
 	enchantments.add_item("None / default")
 	for enchantment in EnchantmentLibrary.all_enchantments:
 		if enchantment != null:
@@ -32,14 +28,31 @@ func _ready() -> void:
 	animations.item_selected.connect(_select_animation)
 	repeat.toggled.connect(_on_loop_toggled)
 	$UI/Panel/Controls/ResetCamera.pressed.connect(_reset_camera)
+	cat.model_changed.connect(_refresh_animations)
+	_refresh_animations()
+	_reset_camera()
+
+func _refresh_animations() -> void:
+	var previous_animation = ""
+	if animations.selected > 0 and animations.selected <= _animations.size():
+		previous_animation = _animations[animations.selected - 1]
+	if is_instance_valid(_player) and _player.animation_finished.is_connected(_on_animation_finished):
+		_player.animation_finished.disconnect(_on_animation_finished)
+	_player = cat._animation_player
+	_animations.clear()
+	animations.clear()
 	animations.add_item("None / rest pose")
 	if _player != null:
+		_player.animation_finished.connect(_on_animation_finished)
 		for animation in _player.get_animation_list():
 			if animation != "RESET":
 				_animations.append(animation)
 				animations.add_item(animation)
 	animations.disabled = _animations.is_empty()
-	_reset_camera()
+	var previous_index = _animations.find(previous_animation)
+	if previous_index >= 0:
+		animations.select(previous_index + 1)
+		_select_animation(previous_index + 1)
 
 func _select_enchantment(index: int) -> void:
 	cat.set_enchantment(null if index == 0 else _enchantments[index - 1])
