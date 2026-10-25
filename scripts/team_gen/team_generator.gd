@@ -28,25 +28,28 @@ func find_cost_bracket(cost: int) -> EnchantmentCostBracket:
 	return null
 
 # Can't have typed array here in the parameter, because the list of team has to be Array[Array] and not Array[Array[int]] because godot doesn't support nested generic typing like that
-func calculate_team_weight(team_costs: Array, weight_progress: float) -> float:
+func calculate_team_weight(team_costs: Array, weight_t: float) -> float:
 	var weight = 1.0
 	for cost in team_costs:
 		var bracket = find_cost_bracket(cost)
-		weight *= lerpf(bracket.weight_early, bracket.weight_late, weight_progress)
+		weight *= lerpf(bracket.weight_early, bracket.weight_late, weight_t)
 	return weight
 
-func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost: int, weight_progress: float, extra_points: int = 0) -> Array[CatData]:
+func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost: int, weight_t: float, extra_points: int = 0) -> Array[CatData]:
+	print("Generating team: max_size %s, total_cost %s, weight_t %1.3f, extra_cost %s" % [max_size, total_cost, weight_t, extra_points])
+	print("RNG seed %x, state %x" % [rng.seed, rng.state])
+	
 	var valid_costs: Array[int] = []
 	valid_costs.assign(cost_brackets.map(func(bracket): return bracket.cost))
 	var valid_teams = enumerate_unordered_teams(max_size, valid_costs, total_cost)	
-	var team_weights = valid_teams.map(func(team): return calculate_team_weight(team, weight_progress))
+	var team_weights = valid_teams.map(func(t): return calculate_team_weight(t, weight_t))
 	
-	print("Possible team plans:")
-	for i in range(valid_teams.size()):
-		print("%s | weight %s" % [valid_teams[i], team_weights[i]])
+	#print("Possible team plans:")
+	#for i in range(valid_teams.size()):
+		#print("%s; weight %1.3f" % [valid_teams[i], team_weights[i]])
 		
 	var team_index = rng.rand_weighted(team_weights)
-	print("Chosen team %s" % [valid_teams[team_index]])
+	#print("Chosen team %s" % [valid_teams[team_index]])
 	
 	var team: Array[CatData] = []
 	for team_member_cost in valid_teams[team_index]:
