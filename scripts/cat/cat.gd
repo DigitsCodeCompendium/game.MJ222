@@ -70,6 +70,11 @@ func set_enchantment(e: Enchantment):
 		if enchantment != null:
 			material.albedo_color = enchantment.primary_color
 		set_body_material(material)
+	var mesh: MeshInstance3D = $Cat/Armature/Skeleton3D/Cat
+	var paw_material = mesh.mesh.surface_get_material(1).duplicate() as StandardMaterial3D
+	if enchantment != null:
+		paw_material.albedo_color = enchantment.primary_color
+	mesh.set_surface_override_material(1, paw_material)
 	set_face_set(enchantment.face_set if enchantment != null else null)
 
 ## Switch sets while preserving the expression when the new set contains it.
