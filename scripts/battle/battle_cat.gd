@@ -48,6 +48,13 @@ func set_enchantment(e: Enchantment):
 func set_body_material(mat: StandardMaterial3D):
 	$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(0, mat)
 
+func take_damage(amount: int):
+	if is_shrouded:
+		is_shrouded = false
+	else:
+		health -= amount
+		was_damaged = true
+
 func animate_idle():
 	pass # TODO
 

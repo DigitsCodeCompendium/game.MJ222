@@ -27,10 +27,7 @@ func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
 func handle_attack_damage(cats: BattleCatsManager, self_cat: BattleCat, amount: int):
-	if self_cat.is_shrouded:
-		self_cat.is_shrouded = false
-	else:
-		self_cat.health -= amount
+	self_cat.take_damage(amount)
 
 func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
