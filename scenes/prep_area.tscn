@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/prep_area/enemy_team_preview.gd" id="13_edtl5"]
 [ext_resource type="Script" uid="uid://jmc1ahkygkdl" path="res://scripts/prep_area/battle_transition.gd" id="battle_transition"]
 [ext_resource type="PackedScene" uid="uid://bdexqndp3ng0p" path="res://scenes/prep_area/cat_house.tscn" id="cat_house"]
-[ext_resource type="Script" uid="uid://cumqd1uercvke" path="res://scripts/prep_area/coin_balance.gd" id="coin_balance"]
 [ext_resource type="PackedScene" uid="uid://bifa8bgtfyvhm" path="res://scenes/prep_area/cookie_jar.tscn" id="cookie_jar"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 [ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
@@ -656,14 +655,6 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
-
-[node name="CoinBalance" type="Label" parent="Player/UI/MarginContainer" unique_id=224420856]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "Coins: 0"
-script = ExtResource("coin_balance")
 
 [node name="EnemyTeamPreview" type="Label" parent="Player/UI/MarginContainer" unique_id=927568673]
 layout_mode = 2

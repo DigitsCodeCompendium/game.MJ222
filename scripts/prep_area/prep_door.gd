@@ -12,9 +12,11 @@ var _hover_materials: Array[StandardMaterial3D] = []
 var _original_colors: Array[Color] = []
 var _opening = false
 var _hovered = false
+var _warned_balance: int = -1
 @onready var tooltip: PanelContainer = $UI/Tooltip
 
 func _ready() -> void:
+	GameManager.money_changed.connect(reset_coin_warning)
 	input_event.connect(_on_input_event)
 	mouse_entered.connect(_set_hovered.bind(true))
 	mouse_exited.connect(_set_hovered.bind(false))
@@ -27,9 +29,28 @@ func _ready() -> void:
 
 func _set_hovered(hovered: bool) -> void:
 	_hovered = hovered
+	if not hovered:
+		reset_coin_warning()
 	for i in _hover_materials.size():
 		_hover_materials[i].albedo_color = hover_color if hovered and not _opening else _original_colors[i]
 	tooltip.visible = hovered and not _opening
+
+func reset_coin_warning(_balance: int = 0) -> void:
+	_warned_balance = -1
+	$UI/Tooltip/Text.text = "To battle!"
+
+func show_missing_team() -> void:
+	_warned_balance = -1
+	$UI/Tooltip/Text.text = "You can't go to battle without a team!\nPlace a Squeeb on a team bed."
+	_process(0.0)
+
+func confirm_remaining_coins(balance: int) -> bool:
+	if balance <= 0 or _warned_balance == balance:
+		return true
+	_warned_balance = balance
+	$UI/Tooltip/Text.text = "%d coin%s remaining!\nClick again to go to battle." % [balance, "" if balance == 1 else "s"]
+	_process(0.0)
+	return false
 
 func _process(_delta: float) -> void:
 	tooltip.visible = _hovered and not _opening

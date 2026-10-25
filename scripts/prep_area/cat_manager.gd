@@ -165,6 +165,8 @@ func update_start_game_button():
 		return
 	for bed in cat_beds:
 		if is_instance_valid(bed.placed_cat):
+			if start_battle_door.disabled:
+				start_battle_door.reset_coin_warning()
 			start_battle_door.disabled = false
 			return
 	start_battle_door.disabled = true
@@ -179,10 +181,13 @@ func _on_door_clicked():
 			team_cats.append(bed.placed_cat)
 			team.append(bed.placed_cat.get_cat_data())
 	if team.is_empty():
+		start_battle_door.show_missing_team()
 		for bed in cat_beds:
 			bed.flash_empty()
 		return
 	if get_held_cat() != null:
+		return
+	if not start_battle_door.confirm_remaining_coins(GameManager.player_money):
 		return
 	_starting_battle = true
 	start_battle_door.disabled = true
