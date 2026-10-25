@@ -578,6 +578,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13.
 cat_manager = NodePath("../CatManager")
 
 [node name="MergeStation" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager") instance=ExtResource("10_l6pdx")]
+show_bed_labels = false
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.813288, 0, 8.158764)
 cat_manager = NodePath("../CatManager")
 
@@ -586,27 +587,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.183372)
 
 [node name="CatBed1" parent="Props/CatBeds" unique_id=2027097759 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 1.4105797)
-bed_label = "Position 1"
+bed_label = ""
 lock_cat_to_bed = true
 
 [node name="CatBed2" parent="Props/CatBeds" unique_id=1632623709 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1.4105797)
-bed_label = "Position 2"
+bed_label = ""
 lock_cat_to_bed = true
 
 [node name="CatBed3" parent="Props/CatBeds" unique_id=1497647420 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4105797)
-bed_label = "Position 3"
+bed_label = ""
 lock_cat_to_bed = true
 
 [node name="CatBed4" parent="Props/CatBeds" unique_id=967364978 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1.4105797)
-bed_label = "Position 4"
+bed_label = ""
 lock_cat_to_bed = true
 
 [node name="CatBed5" parent="Props/CatBeds" unique_id=1814772166 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 1.4105797)
-bed_label = "Position 5"
+bed_label = ""
 lock_cat_to_bed = true
 
 [node name="Player" type="Node3D" parent="." unique_id=720284898]

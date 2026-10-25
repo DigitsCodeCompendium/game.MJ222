@@ -4,6 +4,7 @@ extends Area3D
 @export var cat_spawn_pos: Node3D
 @export var corrupted_enchantment: Enchantment
 @export var reroll_enchantments: Array[Enchantment]
+@export var show_bed_labels: bool = true
 
 @onready var input_a: CatBed = $InputA
 @onready var input_b: CatBed = $InputB
@@ -24,6 +25,9 @@ var _core_material: StandardMaterial3D
 var _orb_hovered = false
 
 func _ready() -> void:
+	if not show_bed_labels:
+		for bed in [input_a, input_b, output_bed]:
+			bed.get_node("Label").hide()
 	input_event.connect(_on_device_input)
 	mouse_entered.connect(_set_orb_hovered.bind(true))
 	mouse_exited.connect(_set_orb_hovered.bind(false))
@@ -182,7 +186,7 @@ func merge_cats() -> void:
 		var cat = cat_manager.spawn_cat(bed.get_placement_position(), results[index])
 		if cat != null:
 			cat.global_rotation.y = bed.global_rotation.y
-			bed.try_place_cat(cat)
+			bed.try_place_cat(cat, bed == output_bed)
 	_preview_key = ""
 	_preview_results.clear()
 	_preview_cache.clear()

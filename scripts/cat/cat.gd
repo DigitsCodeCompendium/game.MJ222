@@ -411,7 +411,7 @@ func _get_drop_position() -> Vector3:
 	var target = _constrain_drag_position(global_position)
 	# Beds are trigger areas rather than solid colliders, so use their placement surface.
 	for bed in get_tree().get_nodes_in_group("cat_beds"):
-		if bed.contains_point(target):
+		if not bed.prevent_insertion and bed.contains_point(target):
 			target.y = bed.get_placement_position().y
 			return target
 	var query = PhysicsRayQueryParameters3D.create(

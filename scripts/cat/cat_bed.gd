@@ -6,6 +6,8 @@ signal cat_placed(cat: Node3D)
 @export var bed_label: String = "Cat bed"
 @export var cushion_color: Color = Color("b7ca97")
 @export var lock_cat_to_bed: bool = false
+## Blocks player drops and automatic insertion; devices may explicitly bypass it.
+@export var prevent_insertion: bool = false
 
 var placed_cat: Node3D
 var _owns_ai_lock = false
@@ -17,6 +19,7 @@ var _flash_tween: Tween
 func _ready() -> void:
 	add_to_group("cat_beds")
 	$Label.text = bed_label
+	$Label.visible = not bed_label.is_empty()
 	var material = StandardMaterial3D.new()
 	material.albedo_color = cushion_color
 	material.roughness = 0.9
@@ -97,7 +100,9 @@ func _physics_process(_delta: float) -> void:
 		if is_instance_valid(placed_cat):
 			break
 
-func try_place_cat(body: Node3D) -> void:
+func try_place_cat(body: Node3D, bypass_insertion_lock: bool = false) -> void:
+	if prevent_insertion and not bypass_insertion_lock:
+		return
 	_update_occupant()
 	if is_instance_valid(placed_cat):
 		return

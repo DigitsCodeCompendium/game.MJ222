@@ -98,6 +98,7 @@ lock_cat_to_bed = true
 [node name="Output" parent="." unique_id=2027097759 instance=ExtResource("bed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0078089237, 0, 3.4385147)
 bed_label = "Output"
+prevent_insertion = true
 cushion_color = Color(0.6268186, 0.82907254, 0.46897507, 1)
 lock_cat_to_bed = true
 
