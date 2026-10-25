@@ -9,6 +9,14 @@ extends Node3D
 @export var body_surface: int = 0
 @export var paw_surface: int = 1
 @export var face_surface: int = 2
+## Names may be short (Walk) or fully qualified (Armature|Walk).
+@export var ai_animations: Dictionary[String, String] = {
+	"idle": "Idle",
+	"wandering": "Walk",
+	"watching": "Idle",
+	"picked": "Idle",
+	"sleeping": "Sleep",
+}
 
 func get_surface_mesh(part: String) -> MeshInstance3D:
 	var path: NodePath = get(part + "_mesh_path")

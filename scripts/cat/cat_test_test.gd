@@ -15,6 +15,7 @@ var _orbiting = false
 func _ready() -> void:
 	# Keep the normal cat's appearance API, but disable wandering and picking up.
 	cat.set_physics_process(false)
+	cat.animate_ai = false
 	cat.set_process_input(false)
 	cat.input_ray_pickable = false
 	enchantments.add_item("None / default")
@@ -30,6 +31,7 @@ func _ready() -> void:
 	$UI/Panel/Controls/ResetCamera.pressed.connect(_reset_camera)
 	cat.model_changed.connect(_refresh_animations)
 	_refresh_animations()
+	_select_animation(0)
 	_reset_camera()
 
 func _refresh_animations() -> void:

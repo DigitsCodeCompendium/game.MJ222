@@ -13,8 +13,7 @@
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
 [ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/enemy_team_preview.gd" id="13_edtl5"]
-
-[ext_resource type="PackedScene" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
+[ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 
 [sub_resource type="Environment" id="Environment_gpf5u"]
 ambient_light_color = Color(0.31431597, 0.31431618, 0.31431603, 1)
@@ -142,7 +141,7 @@ size_flags_vertical = 0
 text = "Opponent team:"
 script = ExtResource("13_edtl5")
 
-[connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Props/CatSpawner" method="_on_spawn_cat_button_pressed"]
-
-[node name="CatPickupInfo" parent="." node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
+[node name="CatPickupInfo" parent="." unique_id=1321245040 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
 cat_manager = NodePath("../Props/CatManager")
+
+[connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Props/CatSpawner" method="_on_spawn_cat_button_pressed"]

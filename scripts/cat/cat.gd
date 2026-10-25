@@ -5,7 +5,10 @@ extends CharacterBody3D
 @export var movement_speed: float = 4.0
 @export var pickup_height: float = 2.0
 @export var pickup_speed: float = 6.0
+@export var idle_duration: Vector2 = Vector2(3.0, 8.0)
 @export var sleep_duration: Vector2 = Vector2(30.0, 60.0)
+@export var animate_ai: bool = true
+@export var animation_blend_time: float = 0.15
 @export var wander_duration: Vector2 = Vector2(6.0, 14.0)
 @export var watch_duration: Vector2 = Vector2(15.0, 45.0)
 @export var turn_speed: float = 5.0
@@ -31,7 +34,7 @@ signal model_changed
 
 const DEFAULT_CAT_MAT = preload("res://assets/cat/elements/default_cat.tres")
 
-enum State { IDLE, PICKED, WANDERING, WATCHING }
+enum State { IDLE, PICKED, WANDERING, WATCHING, SLEEPING }
 var ai_state = State.WANDERING
 var lock_ai_state = false
 
@@ -41,6 +44,10 @@ var _rotation_before_pickup: Vector3
 var _drop_position: Vector3
 var _is_dropping = false
 var _behavior_time_left: float = 0.0
+var _wander_has_target = false
+var _resume_wander_after_idle = false
+var _lookaround_time_left = 0.0
+var _lookaround_yaw = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -49,9 +56,11 @@ func _ready() -> void:
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
 	# Different starting activities and durations keep the cats out of sync.
 	var starting_roll = randf()
-	if starting_roll < 0.3:
+	if starting_roll < 0.2:
+		_enter_behavior(State.SLEEPING)
+	elif starting_roll < 0.35:
 		_enter_behavior(State.IDLE)
-	elif starting_roll < 0.55:
+	elif starting_roll < 0.6:
 		_enter_behavior(State.WATCHING)
 	else:
 		_enter_behavior(State.WANDERING)
@@ -79,7 +88,34 @@ func set_enchantment(e: Enchantment):
 	set_face_set(enchantment.face_set if enchantment != null else null)
 
 	if changed_model:
+		_sync_state_animation()
 		model_changed.emit()
+
+func _find_animation(requested: String) -> StringName:
+	if _animation_player == null:
+		return &""
+	if _animation_player.has_animation(requested):
+		return StringName(requested)
+	for animation in _animation_player.get_animation_list():
+		if animation.get_slice("|", animation.get_slice_count("|") - 1).to_lower() == requested.to_lower():
+			return animation
+	return &""
+
+func _sync_state_animation() -> void:
+	if not animate_ai or _animation_player == null:
+		return
+	var state_name = State.keys()[ai_state].to_lower()
+	var defaults = {"idle": "Idle", "wandering": "Walk", "watching": "Idle", "picked": "Idle", "sleeping": "Sleep"}
+	var requested: String = defaults[state_name]
+	if _model is CatModel:
+		requested = _model.ai_animations.get(state_name, requested)
+	var animation = _find_animation(requested)
+	if animation.is_empty():
+		animation = _find_animation("Idle")
+	if animation.is_empty():
+		return
+	if _animation_player.current_animation != animation or not _animation_player.is_playing():
+		_animation_player.play(animation, animation_blend_time)
 
 func _set_model_scene(scene: PackedScene) -> bool:
 	var existing = get_node_or_null("Cat") as Node3D
@@ -193,6 +229,7 @@ func get_cat_data() -> CatData:
 	return cat_data
 
 func _physics_process(delta: float) -> void:
+	_sync_state_animation()
 	if is_picked and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_release_pickup()
 	if _is_dropping:
@@ -212,6 +249,8 @@ func _physics_process(delta: float) -> void:
 	match ai_state:
 		State.IDLE:
 			_process_idle(delta)
+		State.SLEEPING:
+			velocity = Vector3.ZERO
 		State.WANDERING:
 			_process_wander(delta)
 		State.WATCHING:
@@ -221,11 +260,20 @@ func _physics_process(delta: float) -> void:
 
 func _enter_behavior(next_state: State) -> void:
 	ai_state = next_state
+	_resume_wander_after_idle = false
+	if next_state == State.WANDERING:
+		_wander_has_target = false
+	elif next_state == State.IDLE:
+		_lookaround_time_left = randf_range(0.6, 1.2)
+		_lookaround_yaw = global_rotation.y
+	_sync_state_animation()
 	velocity = Vector3.ZERO
 	navigation_agent.set_velocity(Vector3.ZERO)
 	var duration: Vector2
 	match ai_state:
 		State.IDLE:
+			duration = idle_duration
+		State.SLEEPING:
 			duration = sleep_duration
 		State.WANDERING:
 			duration = wander_duration
@@ -237,6 +285,9 @@ func _enter_behavior(next_state: State) -> void:
 	_behavior_time_left = randf_range(minimum, maxf(minimum, maxf(duration.x, duration.y)))
 
 func _choose_next_behavior() -> void:
+	if ai_state == State.IDLE and _resume_wander_after_idle:
+		_enter_behavior(State.WANDERING)
+		return
 	var roll = randf()
 	match ai_state:
 		State.PICKED:
@@ -248,16 +299,32 @@ func _choose_next_behavior() -> void:
 			else:
 				_enter_behavior(State.WANDERING)
 		State.IDLE:
+			if roll < 0.25:
+				_enter_behavior(State.SLEEPING)
+			else:
+				_enter_behavior(State.WATCHING if roll < 0.65 else State.WANDERING)
+		State.SLEEPING:
 			# Waking cats usually observe their surroundings before exploring.
-			_enter_behavior(State.WATCHING if roll < 0.75 else State.WANDERING)
+			_enter_behavior(State.WATCHING if roll < 0.8 else State.WANDERING)
 		State.WANDERING:
-			_enter_behavior(State.WATCHING if roll < 0.65 else State.IDLE)
+			_pause_after_wander()
 		State.WATCHING:
-			_enter_behavior(State.WANDERING if roll < 0.7 else State.IDLE)
+			if roll < 0.2:
+				_enter_behavior(State.SLEEPING)
+			else:
+				_enter_behavior(State.WANDERING if roll < 0.75 else State.IDLE)
 
-func _process_idle(_delta: float) -> void:
-	# Sleeping: stay still until the behavior timer wakes the cat.
+func _pause_after_wander() -> void:
+	_enter_behavior(State.IDLE)
+	_resume_wander_after_idle = true
+
+func _process_idle(delta: float) -> void:
 	velocity = Vector3.ZERO
+	_lookaround_time_left -= delta
+	if _lookaround_time_left <= 0.0:
+		_lookaround_yaw = global_rotation.y + randf_range(-1.2, 1.2)
+		_lookaround_time_left = randf_range(0.8, 1.8)
+	global_rotation.y = lerp_angle(global_rotation.y, _lookaround_yaw, 1.0 - exp(-turn_speed * 0.6 * delta))
 
 func _turn_toward(target: Vector3, delta: float) -> void:
 	var direction = target - global_position
@@ -268,11 +335,21 @@ func _turn_toward(target: Vector3, delta: float) -> void:
 	global_rotation.y = lerp_angle(global_rotation.y, target_yaw, 1.0 - exp(-turn_speed * delta))
 
 func _process_wander(delta: float) -> void:
-	if navigation_agent.is_navigation_finished():
-		find_new_wander_target()
+	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
+		return
+	if not _wander_has_target:
+		if not find_new_wander_target():
+			_pause_after_wander()
+			return
 	
 	var current_agent_position: Vector3 = global_position
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
+	if navigation_agent.is_navigation_finished():
+		velocity = Vector3.ZERO
+		navigation_agent.set_velocity(Vector3.ZERO)
+		if not lock_ai_state:
+			_pause_after_wander()
+		return
 	
 	var new_velocity: Vector3 = current_agent_position.direction_to(next_path_position) * movement_speed
 	
@@ -356,6 +433,7 @@ func _begin_pickup() -> void:
 	drop_indicator.global_position = _get_drop_position() + Vector3.UP * 0.06
 	drop_indicator.visible = true
 	ai_state = State.PICKED
+	_sync_state_animation()
 
 func _release_pickup() -> void:
 	drop_indicator.hide()
@@ -367,20 +445,23 @@ func _input(event: InputEvent) -> void:
 	if is_picked and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		_release_pickup()
 
-func find_new_wander_target():
-	var finding_move_target = true
-	var tries = 0
-	const MAX_TRIES = 5
-	while finding_move_target:
-		var random_offset = Vector3(randf_range(-10, 10), 0, randf_range(-10, 10))
-		set_movement_target(global_position + random_offset)
-		if navigation_agent.is_target_reachable():
-			finding_move_target = false
-			return
-		
-		tries+= 1
-		if tries > MAX_TRIES:
-			return;
+func find_new_wander_target() -> bool:
+	var map = navigation_agent.get_navigation_map()
+	if NavigationServer3D.map_get_iteration_id(map) == 0:
+		return false
+	for attempt in range(6):
+		var target = NavigationServer3D.map_get_random_point(map, navigation_agent.navigation_layers, true)
+		var horizontal_offset = target - global_position
+		horizontal_offset.y = 0.0
+		if horizontal_offset.length_squared() < 2.25:
+			continue
+		var path = NavigationServer3D.map_get_path(map, global_position, target, true, navigation_agent.navigation_layers)
+		if path.is_empty() or path[path.size() - 1].distance_to(target) > navigation_agent.target_desired_distance:
+			continue
+		set_movement_target(target)
+		_wander_has_target = true
+		return true
+	return false
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	if ai_state != State.WANDERING or is_picked or _is_dropping:

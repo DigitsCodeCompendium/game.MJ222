@@ -19,6 +19,8 @@ func _on_body_entered(body: Node3D):
 		
 		# Putting in a corrupted cat will give back a base cat
 		if body.enchantment == corrupted_enchantment:
+			# Free the consumed cat's slot before creating its replacements.
+			body.queue_free()
 			# If the blender already consumed a cat, spit it back out
 			if cat1_data != null:
 				cat_manager.spawn_cat(cat_spawn_pos.global_position, cat1_data)
@@ -32,7 +34,6 @@ func _on_body_entered(body: Node3D):
 			
 			cat1_data = null
 			cat2_data = null
-			body.queue_free()
 			return
 		
 		if cat1_data == null:
