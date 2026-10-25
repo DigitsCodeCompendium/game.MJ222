@@ -8,7 +8,7 @@
 ambient_light_color = Color(0.31431597, 0.31431618, 0.31431603, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_r1e00"]
-size = Vector3(20, 1, 10)
+size = Vector3(40, 1, 10)
 
 [node name="BattleArena" type="Node3D" unique_id=1369554804]
 
@@ -63,6 +63,6 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14, 
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=235324837]
 transform = Transform3D(1, 0, 0, 0, 0.9189352, 0.3944088, 0, -0.39440876, 0.9189351, 0, 7.699321, 14.553275)
-fov = 45.0
+fov = 60.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=665126758]
