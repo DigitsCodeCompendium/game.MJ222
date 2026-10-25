@@ -6,12 +6,11 @@
 [ext_resource type="Script" uid="uid://kqwg4eg0m4rv" path="res://scripts/cat_manager.gd" id="2_g543r"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="2_w3u4m"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="3_0ek6n"]
-[ext_resource type="Resource" path="res://resources/enchantments/basic/fire.tres" id="10_fire"]
-[ext_resource type="Resource" path="res://resources/enchantments/basic/water.tres" id="11_water"]
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="4_555d0"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="4_ljddl"]
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="4_oee0m"]
 [ext_resource type="PackedScene" uid="uid://6y6jonitqoq8" path="res://scenes/cat_spawner/cat_spawner.tscn" id="7_diwea"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="11_water"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g543r"]
 vertices = PackedVector3Array(-2.5, 0.5, 7.25, -2.5, 0.5, 6.5, -9.5, 0.5, 9.5, -1.25, 0.5, 9, -1.5, 0.5, 5, -9.5, 0.5, -9.5, 1.25, 0.5, 9, 9.5, 0.5, 9.5, 1.25, 0.5, 5, 9.5, 0.5, -9.5, 2.5, 0.5, 7.25, 2.5, 0.5, 6.5)
@@ -58,7 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 0.40216753, 0.9155661, 0, -0.9155661, 0.4021
 
 [node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039]
 script = ExtResource("2_g543r")
-possible_enchantments = Array[ExtResource("4_555d0")]([ExtResource("2_w3u4m"), ExtResource("3_0ek6n"), ExtResource("10_fire"), ExtResource("11_water")])
+possible_enchantments = Array[ExtResource("4_555d0")]([ExtResource("2_w3u4m"), ExtResource("3_0ek6n"), ExtResource("4_ljddl"), ExtResource("11_water")])
 
 [node name="CatSpawner" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager") instance=ExtResource("7_diwea")]
 cat_packed_scene = ExtResource("1_y6135")

@@ -12,6 +12,8 @@ extends CharacterBody3D
 @export var constrain_drag_to_room: bool = false
 @export var drag_bounds: Rect2 = Rect2(-6.7, -4.1, 13.4, 8.2)
 
+@export var base_attack: int = 1
+@export var base_health: int = 1
 @export var enchantment: Enchantment
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
@@ -59,6 +61,14 @@ func set_enchantment(e: Enchantment):
 
 func set_body_material(mat: StandardMaterial3D):
 	$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(0, mat)
+
+func get_cat_data() -> CatData:
+	var cat_data = CatData.new()
+	cat_data.cat_name = cat_name
+	cat_data.base_attack = base_attack
+	cat_data.base_health = base_health
+	cat_data.enchantment = enchantment
+	return cat_data
 
 func _physics_process(delta: float) -> void:
 	if is_picked and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

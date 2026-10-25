@@ -6,8 +6,8 @@ extends Area3D
 
 @export var corrupted_enchantment: Enchantment
 
-var cat_enchantment1: Enchantment
-var cat_enchantment2: Enchantment
+var cat1_data: CatData
+var cat2_data: CatData
 
 func _ready():
 	body_entered.connect(_on_body_entered)
@@ -19,26 +19,30 @@ func _on_body_entered(body: Node3D):
 		# Putting in a corrupted cat will give back a base cat
 		if body.enchantment == corrupted_enchantment:
 			# If the blender already consumed a cat, spit it back out
-			if cat_enchantment1 != null:
-				cat_manager.spawn_cat(cat_spawn_pos.global_position, cat_enchantment1)
+			if cat1_data != null:
+				cat_manager.spawn_cat(cat_spawn_pos.global_position, cat1_data)
 			cat_manager.spawn_cat(cat_spawn_pos.global_position)
 			
-			cat_enchantment1 = null
-			cat_enchantment2 = null
+			cat1_data = null
+			cat2_data = null
 			body.queue_free()
 			return
 		
-		if cat_enchantment1 == null:
-			cat_enchantment1 = body.enchantment
+		if cat1_data == null:
+			cat1_data = body.get_cat_data()
 			body.queue_free()
-		elif cat_enchantment2 == null:
-			cat_enchantment2 = body.enchantment
+		elif cat2_data == null:
+			cat2_data = body.get_cat_data()
 			body.queue_free()
 		
-		if cat_enchantment1 != null and cat_enchantment2 != null:
-			var enchantment = EnchantmentLibrary.combine_enchantments(cat_enchantment1, cat_enchantment2)
-			cat_manager.spawn_cat(cat_spawn_pos.global_position, enchantment)
-			print("Created a " + enchantment.display_name + " cat")
+		if cat1_data != null and cat2_data != null:
+			var result = CatData.new()
+			result.cat_name = cat_manager.possible_names.pick_random()
+			result.base_attack = cat1_data.base_attack + cat2_data.base_attack
+			result.base_health = cat1_data.base_health + cat2_data.base_health
+			result.enchantment = EnchantmentLibrary.combine_enchantments(cat1_data.enchantment, cat2_data.enchantment)
+			cat_manager.spawn_cat(cat_spawn_pos.global_position, result)
+			print("Created a " + result.enchantment.display_name + " cat")
 			
-			cat_enchantment1 = null
-			cat_enchantment2 = null
+			cat1_data = null
+			cat2_data = null
