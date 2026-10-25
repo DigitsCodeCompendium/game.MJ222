@@ -18,7 +18,7 @@ const TEAM_SIZE = 5
 const MAIN_MENU_SCENE = preload("res://scenes/title/title_screen.tscn")
 const PREP_AREA_SCENE = preload("res://scenes/prep_area.tscn")
 const BATTLE_ARENA_SCENE = preload("res://scenes/battle/battle_arena.tscn")
-const TEST_BATTLE_SCENE = preload("res://scenes/battle_test.tscn")
+const TEST_BATTLE_SCENE = preload("res://scenes/debug/battle_debug_launcher.tscn")
 
 # Current game state
 var rng: RandomNumberGenerator

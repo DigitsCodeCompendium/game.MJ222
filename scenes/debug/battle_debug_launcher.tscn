@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://byjds8ta36ynk"]
+
+[ext_resource type="Script" uid="uid://cghpbwoqekjm4" path="res://scripts/battle_debug_launcher.gd" id="1_0dvih"]
+[ext_resource type="Script" uid="uid://co8rveipkqimf" path="res://scripts/cat/cat_data.gd" id="2_esejm"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="3_hwi6o"]
+[ext_resource type="Resource" uid="uid://cm7s3dgfu7w4h" path="res://resources/enchantments/composite/steam.tres" id="4_b3td0"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="5_71tbm"]
+
+[sub_resource type="Resource" id="Resource_onvjh"]
+script = ExtResource("2_esejm")
+enchantment = ExtResource("3_hwi6o")
+metadata/_custom_type_script = "uid://co8rveipkqimf"
+
+[sub_resource type="Resource" id="Resource_8ajim"]
+script = ExtResource("2_esejm")
+enchantment = ExtResource("3_hwi6o")
+metadata/_custom_type_script = "uid://co8rveipkqimf"
+
+[sub_resource type="Resource" id="Resource_0deji"]
+script = ExtResource("2_esejm")
+enchantment = ExtResource("4_b3td0")
+metadata/_custom_type_script = "uid://co8rveipkqimf"
+
+[sub_resource type="Resource" id="Resource_7bjbe"]
+script = ExtResource("2_esejm")
+enchantment = ExtResource("5_71tbm")
+metadata/_custom_type_script = "uid://co8rveipkqimf"
+
+[node name="BattleTest" type="Node" unique_id=1657690964]
+script = ExtResource("1_0dvih")
+test_team_left = Array[ExtResource("2_esejm")]([SubResource("Resource_onvjh"), SubResource("Resource_8ajim")])
+test_team_right = Array[ExtResource("2_esejm")]([SubResource("Resource_0deji"), SubResource("Resource_7bjbe")])

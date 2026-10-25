@@ -113,7 +113,7 @@ text = "Continuing in "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "(click anywhere to skip)"
+text = "(click here to skip)"
 label_settings = SubResource("LabelSettings_i8s75")
 
 [node name="ContinueButton" type="Button" parent="UI/ResultContainer/CenterContainer/VBoxContainer" unique_id=726754677]

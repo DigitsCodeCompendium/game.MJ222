@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentFire" format=3 uid="uid://d20wlj6j525hw"]
 
 [ext_resource type="Script" uid="uid://0m4e2f534iq6" path="res://scripts/enchantments/basic/enchantment_fire.gd" id="1_fnq6a"]
-[ext_resource type="PackedScene" path="res://scenes/cat/models/fire_cat.tscn" id="2_model"]
+[ext_resource type="PackedScene" uid="uid://dboiasiatkqjc" path="res://scenes/cat/models/fire_cat.tscn" id="2_model"]
 
 [resource]
 script = ExtResource("1_fnq6a")
