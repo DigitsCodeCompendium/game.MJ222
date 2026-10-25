@@ -21,19 +21,21 @@ func _ready() -> void:
 		control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _process(_delta: float) -> void:
-	var held_cat: Cat
-	if is_instance_valid(cat_manager):
-		held_cat = cat_manager.get_held_cat()
+	var shown_cat: Cat
 	var camera = get_viewport().get_camera_3d()
-	if held_cat == null or camera == null or camera.is_position_behind(held_cat.global_position):
+	if is_instance_valid(cat_manager):
+		shown_cat = cat_manager.get_held_cat()
+		if shown_cat == null and get_viewport().gui_get_hovered_control() == null:
+			shown_cat = cat_manager.get_hovered_bed_cat(camera, get_viewport().get_mouse_position())
+	if shown_cat == null or camera == null or camera.is_position_behind(shown_cat.global_position):
 		panel.hide()
 		return
-	_update_content(held_cat)
+	_update_content(shown_cat)
 	panel.show()
 	var viewport_size = get_viewport().get_visible_rect().size
 	panel.custom_minimum_size.x = minf(300.0, maxf(150.0, viewport_size.x - 24.0))
 	panel.reset_size()
-	var anchor = camera.unproject_position(held_cat.global_position + Vector3.UP * 0.8)
+	var anchor = camera.unproject_position(shown_cat.global_position + Vector3.UP * 0.8)
 	var at = anchor + screen_offset
 	# Flip to the left when there isn't enough space beside the cat on the right.
 	if at.x + panel.size.x > viewport_size.x - 12:

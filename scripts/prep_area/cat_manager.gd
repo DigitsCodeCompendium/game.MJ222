@@ -88,6 +88,21 @@ func get_held_cat() -> Cat:
 			return child
 	return null
 
+func get_hovered_bed_cat(camera: Camera3D, mouse_position: Vector2) -> Cat:
+	if camera == null:
+		return null
+	var origin = camera.project_ray_origin(mouse_position)
+	var end = origin + camera.project_ray_normal(mouse_position) * camera.far
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	var hit = get_world_3d().direct_space_state.intersect_ray(query)
+	var cat = hit.get("collider") as Cat
+	if cat == null or cat.get_parent() != self or cat.is_queued_for_deletion() or cat._is_dropping:
+		return null
+	for bed in cat_beds:
+		if is_instance_valid(bed) and bed.placed_cat == cat:
+			return cat
+	return null
+
 ## Returns null without creating a cat when the limit is reached.
 func spawn_cat(pos: Vector3, cat_data: CatData = null) -> Cat:
 	if not can_spawn_cat():

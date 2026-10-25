@@ -370,7 +370,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.78, 0.16, 0.071642876)
 mesh = SubResource("LeftSkirtingMesh")
 
 [node name="BedRug" type="MeshInstance3D" parent="Level/Room" unique_id=849451548]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -12.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -11.120199)
 mesh = SubResource("BedRugMesh")
 
 [node name="Window1" type="Node3D" parent="Level/Room" unique_id=35554364]
@@ -565,7 +565,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45637035, 6.9592724)
 cat_manager = NodePath("../CatManager")
 
 [node name="CatBeds" type="Node3D" parent="Props" unique_id=552533873]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.183372)
 
 [node name="CatBed1" parent="Props/CatBeds" unique_id=2027097759 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
