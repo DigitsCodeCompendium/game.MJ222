@@ -16,11 +16,16 @@
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 
 [sub_resource type="Environment" id="Environment_gpf5u"]
-ambient_light_color = Color(0.31431597, 0.31431618, 0.31431603, 1)
+background_mode = 1
+background_color = Color(0.9059, 0.8667, 0.8157, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 0.945, 0.863, 1)
+ambient_light_energy = 0.45
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g543r"]
-vertices = PackedVector3Array(-2.5, 0.5, 7.25, -2.5, 0.5, 6.5, -9.5, 0.5, 9.5, -1.25, 0.5, 9, -1.5, 0.5, 5, -9.5, 0.5, -9.5, 1.25, 0.5, 9, 9.5, 0.5, 9.5, 1.25, 0.5, 5, 9.5, 0.5, -9.5, 2.5, 0.5, 7.25, 2.5, 0.5, 6.5)
-polygons = [PackedInt32Array(0, 2, 1), PackedInt32Array(2, 0, 3), PackedInt32Array(1, 2, 4), PackedInt32Array(4, 2, 5), PackedInt32Array(6, 7, 3), PackedInt32Array(3, 7, 2), PackedInt32Array(4, 5, 8), PackedInt32Array(8, 5, 9), PackedInt32Array(7, 6, 10), PackedInt32Array(10, 11, 7), PackedInt32Array(11, 8, 7), PackedInt32Array(7, 8, 9)]
+vertices = PackedVector3Array(-14.75, 0.5, -7.75, -14.75, 0.5, -6.5, -12.25, 0.5, -6.5, 0, 0.5, -7.75, -11.5, 0.5, -0.25, -1.75, 0.5, 4.5, 0, 0.5, 4.25, -11.25, 0.5, -5.5, 12, 0.5, -0.5, 14.75, 0.5, -0.5, 14.75, 0.5, -7.75, 11.25, 0.5, 0, 1.75, 0.5, 4.5, 2.75, 0.5, 5.75, 11.25, 0.5, 4.75, -12.25, 0.5, 0.5, -14.75, 0.5, 0.5, -14.75, 0.5, 6.75, -3.25, 0.5, 6.75, 1.25, 0.5, 9.75, 0, 0.5, 9.75, 0, 0.5, 14.75, 2.25, 0.5, 9, 3.25, 0.5, 7.25, 14.75, 0.5, 14.75, 14.75, 0.5, 5.5, 12, 0.5, 5.5, -1.75, 0.5, 9.5, -14.75, 0.5, 14.75)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(6, 7, 3), PackedInt32Array(7, 2, 3), PackedInt32Array(10, 9, 8), PackedInt32Array(8, 11, 10), PackedInt32Array(10, 11, 12), PackedInt32Array(10, 12, 6), PackedInt32Array(10, 6, 3), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 11), PackedInt32Array(17, 16, 15), PackedInt32Array(15, 4, 17), PackedInt32Array(17, 4, 18), PackedInt32Array(18, 4, 5), PackedInt32Array(21, 20, 19), PackedInt32Array(21, 19, 22), PackedInt32Array(22, 23, 21), PackedInt32Array(21, 23, 26), PackedInt32Array(21, 26, 25), PackedInt32Array(21, 25, 24), PackedInt32Array(26, 23, 14), PackedInt32Array(14, 23, 13), PackedInt32Array(27, 20, 21), PackedInt32Array(27, 21, 18), PackedInt32Array(18, 21, 17), PackedInt32Array(17, 21, 28)]
+agent_radius = 1.25
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2t3p"]
 
@@ -31,7 +36,244 @@ uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_eu1mp"]
 lightmap_size_hint = Vector2i(62, 62)
-size = Vector2(20, 20)
+size = Vector2(32, 32)
+
+[sub_resource type="StandardMaterial3D" id="RoomCream"]
+albedo_color = Color(0.914, 0.851, 0.769, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BackWallMesh"]
+material = SubResource("RoomCream")
+size = Vector3(32, 6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BackWallShape"]
+size = Vector3(32, 6, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="RoomSideCream"]
+albedo_color = Color(0.875, 0.796, 0.698, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="LeftWallMesh"]
+material = SubResource("RoomSideCream")
+size = Vector3(0.3, 6, 32)
+
+[sub_resource type="BoxShape3D" id="LeftWallShape"]
+size = Vector3(0.3, 6, 32)
+
+[sub_resource type="BoxMesh" id="RightLowWallMesh"]
+material = SubResource("RoomCream")
+size = Vector3(0.3, 1.2, 32)
+
+[sub_resource type="BoxShape3D" id="RightLowWallShape"]
+size = Vector3(0.3, 1.2, 32)
+
+[sub_resource type="StandardMaterial3D" id="RoomWood"]
+albedo_color = Color(0.659, 0.525, 0.396, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BackSkirtingMesh"]
+material = SubResource("RoomWood")
+size = Vector3(31.7, 0.25, 0.18)
+
+[sub_resource type="BoxMesh" id="LeftSkirtingMesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.18, 0.25, 31.843287)
+
+[sub_resource type="StandardMaterial3D" id="RoomRug"]
+albedo_color = Color(0.72, 0.77, 0.61, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BedRugMesh"]
+material = SubResource("RoomRug")
+size = Vector3(25, 0.035, 4.2)
+
+[sub_resource type="BoxMesh" id="Window1FrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(5, 3, 0.18)
+
+[sub_resource type="StandardMaterial3D" id="RoomGlass"]
+albedo_color = Color(0.64, 0.81, 0.85, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Window1GlassMesh"]
+material = SubResource("RoomGlass")
+size = Vector3(4.6, 2.6, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="RoomTrim"]
+albedo_color = Color(0.98, 0.92, 0.81, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Window1VerticalMesh"]
+material = SubResource("RoomTrim")
+size = Vector3(0.12, 2.6, 0.22)
+
+[sub_resource type="BoxMesh" id="Window1HorizontalMesh"]
+material = SubResource("RoomTrim")
+size = Vector3(4.6, 0.12, 0.22)
+
+[sub_resource type="BoxMesh" id="Window1SillMesh"]
+material = SubResource("RoomWood")
+size = Vector3(5.4, 0.18, 0.7)
+
+[sub_resource type="BoxMesh" id="Window2FrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(5, 3, 0.18)
+
+[sub_resource type="BoxMesh" id="Window2GlassMesh"]
+material = SubResource("RoomGlass")
+size = Vector3(4.6, 2.6, 0.2)
+
+[sub_resource type="BoxMesh" id="Window2VerticalMesh"]
+material = SubResource("RoomTrim")
+size = Vector3(0.12, 2.6, 0.22)
+
+[sub_resource type="BoxMesh" id="Window2HorizontalMesh"]
+material = SubResource("RoomTrim")
+size = Vector3(4.6, 0.12, 0.22)
+
+[sub_resource type="BoxMesh" id="Window2SillMesh"]
+material = SubResource("RoomWood")
+size = Vector3(5.4, 0.18, 0.7)
+
+[sub_resource type="BoxMesh" id="CabinetShelf0Mesh"]
+material = SubResource("RoomTrim")
+size = Vector3(2.6, 0.12, 4.1)
+
+[sub_resource type="BoxMesh" id="CabinetShelf1Mesh"]
+material = SubResource("RoomTrim")
+size = Vector3(2.6, 0.12, 4.1)
+
+[sub_resource type="BoxMesh" id="CabinetShelf2Mesh"]
+material = SubResource("RoomTrim")
+size = Vector3(2.6, 0.12, 4.1)
+
+[sub_resource type="StandardMaterial3D" id="RoomBlue"]
+albedo_color = Color(0.663, 0.78, 0.831, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Book0Mesh"]
+material = SubResource("RoomBlue")
+size = Vector3(0.55, 0.8, 0.38)
+
+[sub_resource type="StandardMaterial3D" id="RoomPeach"]
+albedo_color = Color(0.898, 0.706, 0.612, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Book1Mesh"]
+material = SubResource("RoomPeach")
+size = Vector3(0.55, 1, 0.38)
+
+[sub_resource type="BoxMesh" id="Book2Mesh"]
+material = SubResource("RoomRug")
+size = Vector3(0.55, 1.2, 0.38)
+
+[sub_resource type="BoxMesh" id="Book3Mesh"]
+material = SubResource("RoomBlue")
+size = Vector3(0.55, 0.8, 0.38)
+
+[sub_resource type="BoxMesh" id="Book4Mesh"]
+material = SubResource("RoomPeach")
+size = Vector3(0.55, 1, 0.38)
+
+[sub_resource type="BoxMesh" id="Book5Mesh"]
+material = SubResource("RoomRug")
+size = Vector3(0.55, 1.2, 0.38)
+
+[sub_resource type="BoxShape3D" id="CabinetShape"]
+size = Vector3(2.5, 2.4, 4)
+
+[sub_resource type="BoxMesh" id="CabinetMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.5, 2.4, 4)
+
+[sub_resource type="BoxMesh" id="SideTableMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.6, 0.25, 3)
+
+[sub_resource type="BoxShape3D" id="SideTableShape"]
+size = Vector3(2.6, 0.25, 3)
+
+[sub_resource type="BoxMesh" id="TableLeg0Mesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.25, 1.5, 0.25)
+
+[sub_resource type="BoxMesh" id="TableLeg1Mesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.25, 1.5, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="RoomPot"]
+albedo_color = Color(0.67, 0.4, 0.29, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="PlantPotMesh"]
+material = SubResource("RoomPot")
+size = Vector3(1, 0.8, 1)
+
+[sub_resource type="StandardMaterial3D" id="RoomLeaf"]
+albedo_color = Color(0.35, 0.51, 0.3, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="PlantLeaves0Mesh"]
+material = SubResource("RoomLeaf")
+size = Vector3(0.8, 0.9, 0.8)
+
+[sub_resource type="BoxMesh" id="PlantLeaves1Mesh"]
+material = SubResource("RoomLeaf")
+size = Vector3(0.8, 0.9, 0.8)
+
+[sub_resource type="BoxMesh" id="PlantLeaves2Mesh"]
+material = SubResource("RoomLeaf")
+size = Vector3(0.8, 0.9, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="DoorWood"]
+albedo_color = Color(0.45, 0.31, 0.21, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="DoorPanelMesh"]
+material = SubResource("DoorWood")
+size = Vector3(2.4, 4.6, 0.18)
+
+[sub_resource type="BoxMesh" id="DoorLeftFrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.2, 4.8, 0.3)
+
+[sub_resource type="BoxMesh" id="DoorRightFrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.2, 4.8, 0.3)
+
+[sub_resource type="BoxMesh" id="DoorTopFrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.8, 0.2, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="DoorInset"]
+albedo_color = Color(0.56, 0.41, 0.28, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="DoorUpperInsetMesh"]
+material = SubResource("DoorInset")
+size = Vector3(1.8, 1.8, 0.05)
+
+[sub_resource type="BoxMesh" id="DoorLowerInsetMesh"]
+material = SubResource("DoorInset")
+size = Vector3(1.8, 1.55, 0.05)
+
+[sub_resource type="BoxMesh" id="DoorThresholdMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.8, 0.1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="DoorBrass"]
+albedo_color = Color(0.82, 0.62, 0.24, 1)
+metallic = 0.7
+roughness = 0.3
+
+[sub_resource type="BoxMesh" id="DoorHandlePlateMesh"]
+material = SubResource("DoorBrass")
+size = Vector3(0.2, 0.42, 0.05)
+
+[sub_resource type="SphereMesh" id="DoorHandleMesh"]
+material = SubResource("DoorBrass")
+radius = 0.12
+height = 0.24
 
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
@@ -53,14 +295,251 @@ affect_navigation_mesh = true
 [node name="StaticBody3D" type="StaticBody3D" parent="Level/NavigationRegion3D/Floor" unique_id=1248992919]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/NavigationRegion3D/Floor/StaticBody3D" unique_id=1453034164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 shape = SubResource("WorldBoundaryShape3D_j2t3p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Level/NavigationRegion3D/Floor" unique_id=536101122]
 material_override = SubResource("StandardMaterial3D_xxpcf")
 mesh = SubResource("PlaneMesh_eu1mp")
 
+[node name="BedObstacle" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=873904273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -12.5)
+height = 6.0
+vertices = PackedVector3Array(-25.281307, 0, -2.7374, 5.1203947, 0, -2.4526253, 5.2011166, 0, 3.481906, -25.031715, 0, 3.5178251)
+affect_navigation_mesh = true
+
+[node name="CabinetObstacle" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=1165634359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -3)
+height = 6.0
+vertices = PackedVector3Array(-1.4, 0, -2.2, 1.4, 0, -2.2, 1.4, 0, 2.2, -1.4, 0, 2.2)
+affect_navigation_mesh = true
+
+[node name="TableObstacle" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=1458991995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7, 0, 2.5)
+height = 6.0
+vertices = PackedVector3Array(-1.5, 0, -1.7, 1.5, 0, -1.7, 1.5, 0, 1.7, -1.5, 0, 1.7)
+affect_navigation_mesh = true
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=880522691]
-transform = Transform3D(1, 0, 0, 0, 0.40216753, 0.9155661, 0, -0.9155661, 0.40216753, 0, 0, 0)
+transform = Transform3D(0.90630776, 0.34618863, -0.24240388, 0, 0.57357645, 0.81915206, 0.42261827, -0.74240386, 0.5198368, 0, 0, 0)
+light_color = Color(1, 0.94, 0.85, 1)
+light_energy = 0.2
+shadow_enabled = true
+
+[node name="Room" type="Node3D" parent="Level" unique_id=262220524]
+
+[node name="BackWall" type="MeshInstance3D" parent="Level/Room" unique_id=1169011466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
+mesh = SubResource("BackWallMesh")
+
+[node name="BackWallBody" type="StaticBody3D" parent="Level/Room" unique_id=247085243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/BackWallBody" unique_id=1686104355]
+shape = SubResource("BackWallShape")
+
+[node name="LeftWall" type="MeshInstance3D" parent="Level/Room" unique_id=2077602899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3, 0)
+mesh = SubResource("LeftWallMesh")
+
+[node name="LeftWallBody" type="StaticBody3D" parent="Level/Room" unique_id=466057840]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/LeftWallBody" unique_id=2049820588]
+shape = SubResource("LeftWallShape")
+
+[node name="RightLowWall" type="MeshInstance3D" parent="Level/Room" unique_id=794919553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.6, 0)
+mesh = SubResource("RightLowWallMesh")
+
+[node name="RightLowWallBody" type="StaticBody3D" parent="Level/Room" unique_id=1244219713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.6, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/RightLowWallBody" unique_id=1870480789]
+shape = SubResource("RightLowWallShape")
+
+[node name="BackSkirting" type="MeshInstance3D" parent="Level/Room" unique_id=1604451410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, -15.78)
+mesh = SubResource("BackSkirtingMesh")
+
+[node name="LeftSkirting" type="MeshInstance3D" parent="Level/Room" unique_id=194274046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.78, 0.16, 0.071642876)
+mesh = SubResource("LeftSkirtingMesh")
+
+[node name="BedRug" type="MeshInstance3D" parent="Level/Room" unique_id=849451548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -12.4)
+mesh = SubResource("BedRugMesh")
+
+[node name="Window1" type="Node3D" parent="Level/Room" unique_id=35554364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9435735, 0, -15.209819)
+
+[node name="Window1Frame" type="MeshInstance3D" parent="Level/Room/Window1" unique_id=633043146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6469011, 3.6, -0.5860672)
+mesh = SubResource("Window1FrameMesh")
+
+[node name="Window1Glass" type="MeshInstance3D" parent="Level/Room/Window1" unique_id=1801789500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6469011, 3.6, -0.43606758)
+mesh = SubResource("Window1GlassMesh")
+
+[node name="Window1Vertical" type="MeshInstance3D" parent="Level/Room/Window1" unique_id=1825086105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6469011, 3.6, -0.286067)
+mesh = SubResource("Window1VerticalMesh")
+
+[node name="Window1Horizontal" type="MeshInstance3D" parent="Level/Room/Window1" unique_id=1354783877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6469011, 3.6, -0.286067)
+mesh = SubResource("Window1HorizontalMesh")
+
+[node name="Window1Sill" type="MeshInstance3D" parent="Level/Room/Window1" unique_id=1889398074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6469011, 2.15, -0.286067)
+mesh = SubResource("Window1SillMesh")
+
+[node name="Window2" type="Node3D" parent="Level/Room" unique_id=1304543296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.625629, 0, -15.171612)
+
+[node name="Window2Frame" type="MeshInstance3D" parent="Level/Room/Window2" unique_id=1377274850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.641665, 3.6, -0.6315174)
+mesh = SubResource("Window2FrameMesh")
+
+[node name="Window2Glass" type="MeshInstance3D" parent="Level/Room/Window2" unique_id=1578660955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.641665, 3.6, -0.4815178)
+mesh = SubResource("Window2GlassMesh")
+
+[node name="Window2Vertical" type="MeshInstance3D" parent="Level/Room/Window2" unique_id=1484885133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.641665, 3.6, -0.33151722)
+mesh = SubResource("Window2VerticalMesh")
+
+[node name="Window2Horizontal" type="MeshInstance3D" parent="Level/Room/Window2" unique_id=605524715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.641665, 3.6, -0.33151722)
+mesh = SubResource("Window2HorizontalMesh")
+
+[node name="Window2Sill" type="MeshInstance3D" parent="Level/Room/Window2" unique_id=1303556142]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.641665, 2.15, -0.33151722)
+mesh = SubResource("Window2SillMesh")
+
+[node name="Cabinet" type="Node3D" parent="Level/Room" unique_id=1406715618]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.004226, 0, -0.974195)
+
+[node name="CabinetShelf0" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=957881549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 0.3, -2.0303473)
+mesh = SubResource("CabinetShelf0Mesh")
+
+[node name="CabinetShelf1" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=317546206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.1, -2.0303473)
+mesh = SubResource("CabinetShelf1Mesh")
+
+[node name="CabinetShelf2" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=960677475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.9, -2.0303473)
+mesh = SubResource("CabinetShelf2Mesh")
+
+[node name="Book0" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=870419988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2342358, 2.85, -3.5303473)
+mesh = SubResource("Book0Mesh")
+
+[node name="Book1" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=1560817763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2342358, 2.85, -2.9803474)
+mesh = SubResource("Book1Mesh")
+
+[node name="Book2" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=243213338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2342358, 2.85, -2.4303474)
+mesh = SubResource("Book2Mesh")
+
+[node name="Book3" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=571910843]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2342358, 2.85, -1.8803473)
+mesh = SubResource("Book3Mesh")
+
+[node name="Book4" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=245184288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2342358, 2.85, -1.3303473)
+mesh = SubResource("Book4Mesh")
+
+[node name="Book5" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=481007574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2342358, 2.85, -0.78034735)
+mesh = SubResource("Book5Mesh")
+
+[node name="CabinetBody" type="StaticBody3D" parent="Level/Room/Cabinet" unique_id=1003546462]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.2, -2.0303473)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/Cabinet/CabinetBody" unique_id=1619286889]
+shape = SubResource("CabinetShape")
+
+[node name="Cabinet" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=1188012517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.2, -2.0303473)
+mesh = SubResource("CabinetMesh")
+
+[node name="SideTable" type="Node3D" parent="Level/Room" unique_id=1923663893]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.954582, 0, 3.926002)
+
+[node name="SideTable" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=918114056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 1.6, -1.3593318)
+mesh = SubResource("SideTableMesh")
+
+[node name="SideTableBody" type="StaticBody3D" parent="Level/Room/SideTable" unique_id=1642160715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 1.6, -1.3593318)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/SideTable/SideTableBody" unique_id=333065105]
+shape = SubResource("SideTableShape")
+
+[node name="TableLeg0" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=74339601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 0.75, -2.459332)
+mesh = SubResource("TableLeg0Mesh")
+
+[node name="TableLeg1" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=770741775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 0.75, -0.25933194)
+mesh = SubResource("TableLeg1Mesh")
+
+[node name="PlantPot" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=1789925797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 2.12, -1.3593318)
+mesh = SubResource("PlantPotMesh")
+
+[node name="PlantLeaves0" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=355377866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6710439, 2.9, -1.3593318)
+mesh = SubResource("PlantLeaves0Mesh")
+
+[node name="PlantLeaves1" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=618018752]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 3.25, -1.3593318)
+mesh = SubResource("PlantLeaves1Mesh")
+
+[node name="PlantLeaves2" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=1914814542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.97104406, 2.9, -1.3593318)
+mesh = SubResource("PlantLeaves2Mesh")
+
+[node name="Door" type="Node3D" parent="Level/Room" unique_id=138432951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.927633, 0, -15.65)
+
+[node name="Panel" type="MeshInstance3D" parent="Level/Room/Door" unique_id=115779247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+mesh = SubResource("DoorPanelMesh")
+
+[node name="LeftFrame" type="MeshInstance3D" parent="Level/Room/Door" unique_id=2020602346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 2.4, 0.02)
+mesh = SubResource("DoorLeftFrameMesh")
+
+[node name="RightFrame" type="MeshInstance3D" parent="Level/Room/Door" unique_id=703662534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 2.4, 0.02)
+mesh = SubResource("DoorRightFrameMesh")
+
+[node name="TopFrame" type="MeshInstance3D" parent="Level/Room/Door" unique_id=291014905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0.02)
+mesh = SubResource("DoorTopFrameMesh")
+
+[node name="UpperInset" type="MeshInstance3D" parent="Level/Room/Door" unique_id=75235576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25, 0.12)
+mesh = SubResource("DoorUpperInsetMesh")
+
+[node name="LowerInset" type="MeshInstance3D" parent="Level/Room/Door" unique_id=1173055167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0.12)
+mesh = SubResource("DoorLowerInsetMesh")
+
+[node name="Threshold" type="MeshInstance3D" parent="Level/Room/Door" unique_id=487195626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.05)
+mesh = SubResource("DoorThresholdMesh")
+
+[node name="HandlePlate" type="MeshInstance3D" parent="Level/Room/Door" unique_id=1621646901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88, 2.22, 0.15)
+mesh = SubResource("DoorHandlePlateMesh")
+
+[node name="Handle" type="MeshInstance3D" parent="Level/Room/Door" unique_id=660286239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.88, 2.22, 0.27)
+mesh = SubResource("DoorHandleMesh")
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
@@ -68,6 +547,7 @@ transform = Transform3D(1, 0, 0, 0, 0.40216753, 0.9155661, 0, -0.9155661, 0.4021
 script = ExtResource("2_sux85")
 possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), ExtResource("5_os6ue"), ExtResource("6_qtuiy"), ExtResource("7_0x5mc")])
 cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
+constrain_cat_drag = true
 
 [node name="CatSpawner" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager") instance=ExtResource("8_6bgnk")]
 cat_packed_scene = ExtResource("9_jmhco")
@@ -112,7 +592,7 @@ rotate_speed = 0.005
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1347866223]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.9176483, 22.336761)
 
 [node name="UI" type="CanvasLayer" parent="Player" unique_id=2106633419]
 

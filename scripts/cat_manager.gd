@@ -8,6 +8,8 @@ const CAT_SCENE = preload("res://scenes/cat/cat_test.tscn")
 ## Maximum number of active prep cats. Cats queued for deletion free their slot immediately.
 @export_range(0, 100, 1) var cat_limit: int = 10
 @export var cat_beds: Array[CatBed]
+@export var constrain_cat_drag: bool = false
+@export var cat_drag_bounds: Rect2 = Rect2(-14.7, -14.7, 29.4, 29.4)
 
 var used_names: Array[String]:
 	get:
@@ -61,6 +63,9 @@ func add_cat(cat: Cat) -> bool:
 	if not can_spawn_cat() or cat.get_parent() != null:
 		return false
 	cat.cat_name = get_unique_name(cat.cat_name)
+	if constrain_cat_drag:
+		cat.constrain_drag_to_room = true
+		cat.drag_bounds = cat_drag_bounds
 	add_child(cat)
 	return true
 
