@@ -4,10 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://den4o5q0vyw3x" path="res://scenes/battle/battle_cat.tscn" id="2_ffvsa"]
 [ext_resource type="PackedScene" uid="uid://bo5ljrf3icgfb" path="res://scenes/battle/battle_cat_ui.tscn" id="3_xd4uy"]
 
+[sub_resource type="Environment" id="Environment_xd4uy"]
+ambient_light_color = Color(0.31431597, 0.31431618, 0.31431603, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_r1e00"]
 size = Vector3(20, 1, 10)
 
 [node name="Battle" type="Node3D" unique_id=1369554804]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=808274074]
+environment = SubResource("Environment_xd4uy")
 
 [node name="Level" type="Node3D" parent="." unique_id=1175366046]
 
