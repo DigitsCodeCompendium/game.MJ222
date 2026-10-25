@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cgs2r48yo1e72"]
+
+[sub_resource type="GDScript" id="GDScript_28vjx"]
+resource_name = "MiscTest"
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	print(\"start\")
+	var c1 = Promise.new(coro1)
+	var c2 = Promise.new(coro2)
+	print('coro')
+	await Promise.all([c1, c2])
+	print('done')
+	
+func coro1():
+	await get_tree().create_timer(1).timeout
+	print('coro1 done')
+	
+func coro2():
+	await get_tree().create_timer(2).timeout
+	print('coro2 done')
+"
+
+[node name="PromiseTest" type="Node3D" unique_id=891771010]
+script = SubResource("GDScript_28vjx")
