@@ -76,14 +76,17 @@ func _set_hover(index: int) -> void:
 		beds[bed_index].set_highlighted(bed_index == index)
 
 func _select_bed(index: int) -> void:
-	if index <= 0:
-		return # Start Game deliberately has no action yet.
 	cat.set_process_input(false)
 	cat.input_ray_pickable = false
-	overlay.hide()
-	overlay = credits_panel if index == 1 else settings_panel
-	overlay.show()
-	overlay.get_node("Content/Back").grab_focus()
+	
+	match index:
+		0:
+			GameManager.start_new_game()
+		1, 2:
+			overlay.hide()
+			overlay = credits_panel if index == 1 else settings_panel
+			overlay.show()
+			overlay.get_node("Content/Back").grab_focus()
 
 func _close_panel() -> void:
 	overlay.hide()

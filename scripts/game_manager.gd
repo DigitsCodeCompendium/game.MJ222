@@ -13,6 +13,7 @@ const MERGE_PRICE = 2
 
 const TEAM_SIZE = 5
 
+const MAIN_MENU_SCENE = preload("res://scenes/title/title_screen.tscn")
 const PREP_AREA_SCENE = preload("res://scenes/prep_area.tscn")
 const BATTLE_ARENA_SCENE = preload("res://scenes/battle/battle_arena.tscn")
 const TEST_BATTLE_SCENE = preload("res://scenes/battle_test.tscn")
@@ -36,12 +37,16 @@ var player_cats_reserve: Array[CatData]
 # Temporary fields for transmitting information
 var is_battle_won: bool
 
-var is_test_env: bool
+var is_test_env: bool = false
 var test_team_left: Array[CatData]
 var test_team_right: Array[CatData]
 
 func _ready():
 	reset_game()
+	
+func start_new_game():
+	reset_game()
+	get_tree().change_scene_to_packed(PREP_AREA_SCENE)
 
 func reset_game():
 	rng = RandomNumberGenerator.new()
@@ -64,6 +69,15 @@ func enter_prep() -> void:
 		return
 	_last_paid_prep_stage = stage_index
 	player_money += prep_income
+	
+	enemy_seed = rng.randi()
+	enemy_team_cost = roundi(pow(enemy_cost_base, stage_index))
+	var max_team_cost = TeamGenerator.get_max_possible_team_cost(5)
+	if enemy_team_cost >= max_team_cost:
+		enemy_extra_cost = enemy_team_cost - max_team_cost
+		enemy_team_cost = max_team_cost
+	else:
+		enemy_extra_cost = 0
 
 func can_afford(cost: int) -> bool:
 	return cost >= 0 and player_money >= cost
@@ -75,19 +89,15 @@ func try_spend_coins(cost: int) -> bool:
 	return true
 
 func finish_battle():
+	if is_test_env:
+		get_tree().change_scene_to_packed(TEST_BATTLE_SCENE)
+		return
+	
 	stage_index += 1
 	if not is_battle_won:
 		player_life -= 1
-	enemy_seed = rng.randi()
-	enemy_team_cost = roundi(pow(enemy_cost_base, stage_index))
-	var max_team_cost = TeamGenerator.get_max_possible_team_cost(5)
-	if enemy_team_cost >= max_team_cost:
-		enemy_extra_cost = enemy_team_cost - max_team_cost
-		enemy_team_cost = max_team_cost
-	else:
-		enemy_extra_cost = 0
 	
-	if is_test_env:
-		get_tree().change_scene_to_packed(TEST_BATTLE_SCENE)
+	if player_life <= 0:
+		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
 	else:
 		get_tree().change_scene_to_packed(PREP_AREA_SCENE)
