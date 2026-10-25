@@ -15,6 +15,8 @@ var is_shrouded: bool
 
 var attached_ui: Node
 
+const DEFAULT_CAT_MAT = preload("res://assets/cat/elements/default_cat.tres")
+
 func load_cat(e: Enchantment, base_health: int, base_attack: int):
 	_enchantment = e
 	self.base_health = base_health
@@ -27,6 +29,21 @@ func load_cat(e: Enchantment, base_health: int, base_attack: int):
 
 func set_enchantment(e: Enchantment):
 	_enchantment = e
+	
+	if not is_node_ready():
+		return
+	
+	if enchantment != null and enchantment.cat_material != null:
+		set_body_material(enchantment.cat_material)
+	else:
+		# Duplicate so tinting one cat never changes another cat's material.
+		var material = DEFAULT_CAT_MAT.duplicate() as StandardMaterial3D
+		if enchantment != null:
+			material.albedo_color = enchantment.primary_color
+		set_body_material(material)
+
+func set_body_material(mat: StandardMaterial3D):
+	$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(0, mat)
 
 func animate_idle():
 	pass # TODO
