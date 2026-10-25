@@ -3,6 +3,7 @@
 [ext_resource type="Material" uid="uid://dycw1jil1m3ah" path="res://assets/cat/elements/plasma_cat.tres" id="1_7vf7x"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="1_yrp2p"]
 [ext_resource type="Script" uid="uid://b11bt44n1g236" path="res://scripts/enchantments/composite/enchantment_plasma.gd" id="2_ddk5y"]
+[ext_resource type="Resource" uid="uid://buvuskbh3u86h" path="res://resources/cat_faces/plasma.tres" id="3_xha21"]
 
 [resource]
 script = ExtResource("2_ddk5y")
@@ -12,6 +13,7 @@ description = "Lose 1/1 at the end of each turn unless adjacent to at least one 
 attack_modifier = 6
 health_modifier = 6
 cat_material = ExtResource("1_7vf7x")
+face_set = ExtResource("3_xha21")
 component1 = ExtResource("1_yrp2p")
 component2 = ExtResource("1_yrp2p")
 metadata/_custom_type_script = "uid://b11bt44n1g236"

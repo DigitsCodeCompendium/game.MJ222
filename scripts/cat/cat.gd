@@ -15,6 +15,13 @@ extends CharacterBody3D
 @export var base_attack: int = 1
 @export var base_health: int = 1
 @export var enchantment: Enchantment
+@export var default_face_set: CatFaceSet = preload("res://resources/cat_faces/default.tres")
+
+var active_face_set: CatFaceSet
+var current_face: String = "neutral"
+var _face_material: StandardMaterial3D
+var _animation_player: AnimationPlayer
+const FACE_SURFACE = 2
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var drop_indicator: MeshInstance3D = $DropIndicator
@@ -34,6 +41,11 @@ var _behavior_time_left: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var players = $Cat.find_children("*", "AnimationPlayer", true, false)
+	if not players.is_empty():
+		_animation_player = players[0]
+		_animation_player.animation_started.connect(_on_face_animation_started)
+		_animation_player.animation_finished.connect(_on_face_animation_finished)
 	set_enchantment(enchantment)
 		
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
@@ -58,6 +70,55 @@ func set_enchantment(e: Enchantment):
 		if enchantment != null:
 			material.albedo_color = enchantment.primary_color
 		set_body_material(material)
+	set_face_set(enchantment.face_set if enchantment != null else null)
+
+## Switch sets while preserving the expression when the new set contains it.
+## Passing null restores this cat's default face set.
+func set_face_set(faces: CatFaceSet) -> void:
+	active_face_set = faces if faces != null else default_face_set
+	if active_face_set == null:
+		if is_node_ready():
+			$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(FACE_SURFACE, null)
+		return
+	if not active_face_set.has_face(current_face):
+		current_face = active_face_set.default_face
+	if _animation_player != null and _animation_player.is_playing():
+		current_face = active_face_set.get_animation_face(_animation_player.current_animation)
+	_apply_face()
+
+func _on_face_animation_started(animation: StringName) -> void:
+	if active_face_set != null:
+		set_face(active_face_set.get_animation_face(String(animation)))
+
+func _on_face_animation_finished(_animation: StringName) -> void:
+	if active_face_set != null:
+		set_face(active_face_set.default_face)
+
+## Returns false for a missing texture, leaving the current expression unchanged.
+func set_face(face: String) -> bool:
+	if active_face_set == null:
+		set_face_set(enchantment.face_set if enchantment != null else null)
+	if active_face_set == null or not active_face_set.has_face(face):
+		return false
+	current_face = face
+	_apply_face()
+	return true
+
+func _apply_face() -> void:
+	if not is_node_ready() or active_face_set == null:
+		return
+	var mesh: MeshInstance3D = $Cat/Armature/Skeleton3D/Cat
+	var texture = active_face_set.get_texture(current_face)
+	if texture == null:
+		mesh.set_surface_override_material(FACE_SURFACE, null)
+		return
+	if _face_material == null:
+		# Preserve filtering, but enable alpha for the separate expression textures.
+		var original = mesh.mesh.surface_get_material(FACE_SURFACE) as StandardMaterial3D
+		_face_material = original.duplicate() as StandardMaterial3D
+		_face_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_face_material.albedo_texture = texture
+	mesh.set_surface_override_material(FACE_SURFACE, _face_material)
 
 func set_body_material(mat: StandardMaterial3D):
 	$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(0, mat)

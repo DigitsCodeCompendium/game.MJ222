@@ -10,6 +10,8 @@ extends Resource
 @export var health_modifier: int
 
 @export var cat_material: StandardMaterial3D
+## Optional expressions for this enchantment; null uses the cat's default set.
+@export var face_set: CatFaceSet
 
 @export var component1: Enchantment
 @export var component2: Enchantment
