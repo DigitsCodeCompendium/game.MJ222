@@ -120,4 +120,4 @@ label_settings = SubResource("LabelSettings_i8s75")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Continue"
+text = "Main Menu"
