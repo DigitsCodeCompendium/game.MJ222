@@ -3,9 +3,12 @@
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="1_cpecp"]
 [ext_resource type="Script" uid="uid://c6d6wuaa3pnaj" path="res://scripts/enchantments/composite/enchantment_mountain.gd" id="1_d8np6"]
 
+[ext_resource type="Material" path="res://assets/cat/elements/mountian_cat.tres" id="3_material"]
+
 [resource]
 script = ExtResource("1_d8np6")
 display_name = "Mountain"
+cat_material = ExtResource("3_material")
 primary_color = Color(0.23921569, 0.22745098, 0.16862746, 1)
 description = "At start of combat, gain 2/7 base.
 Immune to being pushed or moved."

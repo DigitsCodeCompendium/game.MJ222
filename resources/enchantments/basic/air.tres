@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="EnchantmentAir" format=3 uid="uid://bvm82266xpvqn"]
 
+[ext_resource type="Material" uid="uid://cohxv7old7k17" path="res://assets/cat/elements/air_cat.tres" id="1_5h8hg"]
 [ext_resource type="Script" uid="uid://bhoi860tg2cpb" path="res://scripts/enchantments/basic/enchantment_air.gd" id="1_l2qjv"]
 
 [resource]
@@ -9,4 +10,5 @@ primary_color = Color(0.7372549, 0.83137256, 0.7921569, 1)
 description = "At the start of combat, gain 2/1 base, then gain 0/1 for each Air or Air-derived cat on the team."
 attack_modifier = 2
 health_modifier = 1
+cat_material = ExtResource("1_5h8hg")
 metadata/_custom_type_script = "uid://bhoi860tg2cpb"

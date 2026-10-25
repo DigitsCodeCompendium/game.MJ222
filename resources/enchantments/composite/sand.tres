@@ -4,9 +4,12 @@
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="1_h0de8"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="2_6hr2d"]
 
+[ext_resource type="Material" path="res://assets/cat/elements/sand_cat.tres" id="4_material"]
+
 [resource]
 script = ExtResource("1_de0tr")
 display_name = "Sand"
+cat_material = ExtResource("4_material")
 primary_color = Color(0.6901961, 0.6627451, 0.5254902, 1)
 description = "At start of combat, gain 3/3 base.
 Once per combat, when an ally squeeb faints, give the squeeb behind it shrouded.

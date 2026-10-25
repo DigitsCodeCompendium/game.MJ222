@@ -17,6 +17,8 @@ extends CharacterBody3D
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var drop_indicator: MeshInstance3D = $DropIndicator
 
+const DEFAULT_CAT_MAT = preload("res://assets/cat/elements/default_cat.tres")
+
 enum State { IDLE, PICKED, WANDERING, WATCHING }
 var ai_state = State.WANDERING
 var lock_ai_state = false
@@ -30,8 +32,7 @@ var _behavior_time_left: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if enchantment != null:
-		set_enchantment(enchantment)
+	set_enchantment(enchantment)
 		
 	navigation_agent.velocity_computed.connect(_on_velocity_computed)
 	# Different starting activities and durations keep the cats out of sync.
@@ -45,12 +46,19 @@ func _ready() -> void:
 
 func set_enchantment(e: Enchantment):
 	enchantment = e
-	# Ok this is probably an awful way to do this, just using it as a hack to test things out for now
-	var mesh = $DangoCatSKMesh/Armature/Skeleton3D/Cube_004.mesh as ArrayMesh
-	var material = mesh.surface_get_material(0) as StandardMaterial3D
-	material = material.duplicate()
-	material.albedo_color = enchantment.primary_color
-	$DangoCatSKMesh/Armature/Skeleton3D/Cube_004.set_surface_override_material(0, material)
+	if not is_node_ready():
+		return
+	if enchantment != null and enchantment.cat_material != null:
+		set_body_material(enchantment.cat_material)
+	else:
+		# Duplicate so tinting one cat never changes another cat's material.
+		var material = DEFAULT_CAT_MAT.duplicate() as StandardMaterial3D
+		if enchantment != null:
+			material.albedo_color = enchantment.primary_color
+		set_body_material(material)
+
+func set_body_material(mat: StandardMaterial3D):
+	$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(0, mat)
 
 func _physics_process(delta: float) -> void:
 	if is_picked and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -254,5 +262,5 @@ func set_movement_target(target_position: Vector3) -> void:
 func _on_input_event(camera: Node, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		_begin_pickup()
-		$DangoCatSKMesh.squish()
+		#$DangoCatSKMesh.squish()
 		print(cat_name + " was clicked")

@@ -9,6 +9,8 @@ extends Resource
 @export var attack_modifier: int
 @export var health_modifier: int
 
+@export var cat_material: StandardMaterial3D
+
 @export var component1: Enchantment
 @export var component2: Enchantment
 
@@ -26,7 +28,7 @@ func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 
 func handle_attack_damage(cats: BattleCatsManager, self_cat: BattleCat, amount: int):
 	if self_cat.is_shrouded:
-		self_cat.is_shrounded = false
+		self_cat.is_shrouded = false
 	else:
 		self_cat.health -= amount
 
