@@ -14,6 +14,9 @@ var health: int
 var shroud_ability_used: bool
 var is_shrouded: bool
 
+var did_attack: bool
+var was_damaged: bool
+
 var attached_ui: Node
 
 const DEFAULT_CAT_MAT = preload("res://assets/cat/elements/default_cat.tres")
@@ -29,6 +32,8 @@ func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	
 	shroud_ability_used = false
 	is_shrouded = false
+	did_attack = false
+	was_damaged = false
 
 func set_enchantment(e: Enchantment):
 	_enchantment = e
@@ -62,10 +67,13 @@ func animate_move():
 	pass # TODO
 
 func animate_attack():
-	pass # TODO
+	$Cat/AnimationPlayer.play("Armature|Attack")
+	await $Cat/AnimationPlayer.animation_finished
 
 func animate_hurt():
-	pass # TODO
+	$Cat/AnimationPlayer.play("Armature|Pancake")
+	await $Cat/AnimationPlayer.animation_finished
 
 func animate_death():
-	pass # TODO
+	$Cat/AnimationPlayer.play("Armature|Death")
+	await $Cat/AnimationPlayer.animation_finished

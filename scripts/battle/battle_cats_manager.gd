@@ -10,6 +10,7 @@ extends Node3D
 @export var move_duration = 0.5
 @export var rotate_duration = 0.2
 
+var turn_index: int
 # Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
@@ -19,6 +20,25 @@ func _ready():
 	cats_right = []
 	
 	load_cats()
+	
+	turn_index = 0
+	while not is_battle_over():
+		await do_turn()
+		turn_index += 1
+	
+	if cats_left.size() <= 0:
+		if cats_right.size() <= 0:
+			%ResultLabel.text = "Tie"
+		else:
+			%ResultLabel.text = "Defeat"
+		GameManager.is_battle_won = false
+	elif cats_right.size() <= 0:
+		%ResultLabel.text = "Victory"
+		GameManager.is_battle_won = true
+	%ResultContainer.visible = true
+	
+	await get_tree().create_timer(5).timeout
+	GameManager.finish_battle()
 
 func load_cats():
 	load_cats_from_data(cats_left, GameManager.player_cats_team)
@@ -31,67 +51,74 @@ func load_cats():
 	
 	move_all_cats(true)
 	
-	for cat in cats_left:
-		cat.enchantment.after_battle_start(self, cat)
-	for cat in cats_right:
+	for cat in get_all_cats():
 		cat.enchantment.after_battle_start(self, cat)
 	sync_ui()
 
-func _process(delta):
-	if Input.is_action_just_pressed("debug_click"):
-		do_turn()
-	
-	if Input.is_action_just_pressed("debug_win_battle"):
-		GameManager.is_battle_won = true
-		GameManager.finish_battle()
+func get_all_cats() -> Array[BattleCat]:
+	return cats_left + cats_right
 
 func do_turn():
-	cats_left[0].enchantment.before_attack(self, cats_left[0])
-	cats_right[0].enchantment.before_attack(self, cats_right[0])
+	print("Start turn %s: player team size %s, enemy team size %s" % [turn_index + 1, cats_left.size(), cats_right.size()])
+	await Promise.all([
+		Promise.new(cats_left[0].enchantment.before_attack.bind(self, cats_left[0])),
+		Promise.new(cats_right[0].enchantment.before_attack.bind(self, cats_right[0]))
+	])
 	sync_ui()
 	
 	cats_right[0].enchantment.handle_attack_damage(self, cats_right[0], cats_left[0].attack)
 	cats_left[0].enchantment.handle_attack_damage(self, cats_left[0], cats_right[0].attack)
+	cats_left[0].did_attack = true
+	cats_right[0].did_attack = true
 	sync_ui()
+	
+	await play_attack_and_hurt_animations()
 	
 	# Save a snapshot of which cats should get the "ally attacked" event, because the cats order may change
 	var ally_cats_left = cats_left.slice(1)
 	var ally_cats_right = cats_right.slice(1)
 	
-	cats_left[0].enchantment.after_attack(self, cats_left[0])
-	cats_right[0].enchantment.after_attack(self, cats_right[0])
+	await Promise.all([
+		Promise.new(cats_left[0].enchantment.after_attack.bind(self, cats_left[0])),
+		Promise.new(cats_right[0].enchantment.after_attack.bind(self, cats_right[0]))
+	])
 	sync_ui()
 	
-	check_for_deaths_and_move_all_cats()
+	await play_attack_and_hurt_animations()
+	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
 	
+	var animations: Array[Promise] = []
 	for cat in ally_cats_left:
 		if cat in cats_left:
-			cat.enchantment.after_ally_attack(self, cat)
+			animations.append(Promise.new(cat.enchantment.after_ally_attack.bind(self, cat)))
 	for cat in ally_cats_right:
 		if cat in cats_right:
-			cat.enchantment.after_ally_attack(self, cat)
+			animations.append(Promise.new(cat.enchantment.after_ally_attack.bind(self, cat)))
+	await Promise.all(animations)
+	sync_ui()
 	
-	check_for_deaths_and_move_all_cats()
+	await play_attack_and_hurt_animations()
+	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
 
-	for cat in cats_left:
-		cat.enchantment.after_battle_turn(self, cat)
-	for cat in cats_right:
-		cat.enchantment.after_battle_turn(self, cat)
+	animations = []
+	for cat in get_all_cats():
+		animations.append(Promise.new(cat.enchantment.after_battle_turn.bind(self, cat)))
+	await Promise.all(animations)
 	sync_ui()
 	
-	check_for_deaths_and_move_all_cats()
+	await play_attack_and_hurt_animations()
+	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
 
 func sync_ui():
-	for cat in cats_left:
-		cat.attached_ui.update_cat()
-	for cat in cats_right:
-		cat.attached_ui.update_cat()
+	for cat in get_all_cats():
+		if cat.attached_ui != null:
+			cat.attached_ui.update_cat()
 
 func load_cats_from_data(team: Array[BattleCat], cats_data: Array[CatData]):
 	for cat_data in cats_data:
@@ -115,9 +142,23 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	cat.attached_ui = cat_ui
 	cat_ui.update_cat()
 	
-	$"../CanvasLayer".add_child(cat_ui)
+	%UI.add_child(cat_ui)
 	
 	return cat
+
+func play_attack_and_hurt_animations():	
+	var animations: Array[Promise] = []
+	
+	for cat in get_all_cats():
+		if cat.did_attack:
+			cat.did_attack = false
+			cat.was_damaged = false
+			animations.append(Promise.new(cat.animate_attack))
+		elif cat.was_damaged:
+			cat.was_damaged = false
+			animations.append(Promise.new(cat.animate_hurt))
+	
+	await Promise.all(animations)
 
 func move_all_cats(instant: bool = false):
 	var tweens: Array[Tween] = []
@@ -186,14 +227,19 @@ func check_for_deaths_and_move_all_cats():
 			i += 1
 	
 	if dead_cats.size() > 0:
+		var death_animations: Array[Promise] = []
 		for cat in dead_cats:
-			cat.animate_death()
 			cat.enchantment.after_death(self, cat)
-			cat.attached_ui.queue_free()
-			cat.queue_free()
+			death_animations.append(Promise.new(animate_death_and_despawn.bind(cat)))
+		await Promise.all(death_animations)
 		await move_all_cats()
 		# Death effects may have killed more cats, check again
 		await check_for_deaths_and_move_all_cats()
+
+func animate_death_and_despawn(cat: BattleCat):
+	await cat.animate_death()
+	cat.attached_ui.queue_free()
+	cat.queue_free()
 
 func get_cat_team(cat: BattleCat) -> Array[BattleCat]:
 	if cat in cats_left:
