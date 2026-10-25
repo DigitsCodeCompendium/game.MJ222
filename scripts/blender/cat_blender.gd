@@ -92,7 +92,7 @@ func _refresh_preview() -> void:
 		result_label.text = "Place cats on the input beds"
 		stats_label.text = ""
 		description_label.text = "Place two cats on the beds to preview their merge."
-		hint_label.text = "Then click this orb to merge."
+		hint_label.text = "Merging costs %d coins." % GameManager.MERGE_PRICE
 		_panel_style.border_color = Color("a9c7d4")
 		return
 	if _preview_results.is_empty():
@@ -112,7 +112,12 @@ func _refresh_preview() -> void:
 	result_label.text = " + ".join(names)
 	stats_label.text = "\n".join(stats)
 	description_label.text = "\n\n".join(descriptions)
-	hint_label.text = "Pick up the output cat before merging again" if _output_is_occupied() else "Click the glowing core to merge"
+	if _output_is_occupied():
+		hint_label.text = "Pick up the output cat before merging again"
+	elif not GameManager.can_afford(GameManager.MERGE_PRICE):
+		hint_label.text = "Not enough coins — merging costs %d coins" % GameManager.MERGE_PRICE
+	else:
+		hint_label.text = "Click the glowing core to merge — %d coins" % GameManager.MERGE_PRICE
 	var color = _preview_results[0].enchantment.primary_color
 	_panel_style.border_color = color
 
@@ -160,6 +165,9 @@ func merge_cats() -> void:
 	_refresh_preview()
 	var cats = _input_cats()
 	if not is_instance_valid(cat_manager) or _preview_results.is_empty() or cats.is_empty() or _output_is_occupied():
+		_merging = false
+		return
+	if cat_manager._starting_battle or not GameManager.try_spend_coins(GameManager.MERGE_PRICE):
 		_merging = false
 		return
 	var results: Array[CatData] = _preview_results.duplicate()

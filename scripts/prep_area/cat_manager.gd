@@ -30,6 +30,7 @@ var used_names: Array[String]:
 		return names
 
 func _ready() -> void:
+	GameManager.enter_prep()
 	# Need to give nav server a frame to load, otherwise can't find random position in a nav mesh for spawning cats distributedly
 	await NavigationServer3D.map_changed
 	load_cats_from_game_state()
@@ -111,7 +112,16 @@ func get_hovered_bed_cat(camera: Camera3D, mouse_position: Vector2) -> Cat:
 			return cat
 	return null
 
-## Returns null without creating a cat when the limit is reached.
+## Charges only for a successfully purchased cat.
+func buy_cat(at: Variant = null) -> Cat:
+	if not can_spawn_cat() or not GameManager.can_afford(GameManager.CAT_PRICE):
+		return null
+	var cat = spawn_cat(find_random_cat_spawn_pos() if at == null else at)
+	if cat != null:
+		GameManager.try_spend_coins(GameManager.CAT_PRICE)
+	return cat
+
+## Free spawning is used when restoring saved cats and producing merge results.
 func spawn_cat(pos: Vector3, cat_data: CatData = null) -> Cat:
 	if not can_spawn_cat():
 		return null

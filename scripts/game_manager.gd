@@ -1,5 +1,12 @@
 extends Node
 
+signal money_changed(balance: int)
+
+@export_range(0, 100, 1) var prep_income: int = 5
+
+const CAT_PRICE = 1
+const MERGE_PRICE = 2
+
 @export var enemy_cost_base: float = 1.45
 @export var total_rounds: int = 10
 @export var player_initial_life: int = 3
@@ -13,7 +20,11 @@ const BATTLE_ARENA_SCENE = preload("res://scenes/battle/battle_arena.tscn")
 var rng: RandomNumberGenerator
 var stage_index: int
 var player_life: int
-var player_money: int
+var player_money: int:
+	set(value):
+		player_money = maxi(0, value)
+		money_changed.emit(player_money)
+var _last_paid_prep_stage: int = -1
 var enemy_seed: int
 var enemy_team_cost: int
 var enemy_extra_cost: int
@@ -31,7 +42,8 @@ func reset_game():
 	rng = RandomNumberGenerator.new()
 	stage_index = 0
 	player_life = player_initial_life
-	player_money = 1
+	player_money = 0
+	_last_paid_prep_stage = -1
 	enemy_seed = rng.randi()
 	enemy_team_cost = 1
 	enemy_extra_cost = 0
@@ -41,11 +53,26 @@ func reset_game():
 func start_battle():
 	get_tree().change_scene_to_packed(BATTLE_ARENA_SCENE)
 
+func enter_prep() -> void:
+	# Reloading the same prep round must not grant another payment.
+	if _last_paid_prep_stage == stage_index:
+		return
+	_last_paid_prep_stage = stage_index
+	player_money += prep_income
+
+func can_afford(cost: int) -> bool:
+	return cost >= 0 and player_money >= cost
+
+func try_spend_coins(cost: int) -> bool:
+	if not can_afford(cost):
+		return false
+	player_money -= cost
+	return true
+
 func finish_battle():
 	stage_index += 1
 	if not is_battle_won:
 		player_life -= 1
-	player_money += stage_index
 	enemy_seed = rng.randi()
 	enemy_team_cost = roundi(pow(enemy_cost_base, stage_index))
 	var max_team_cost = TeamGenerator.get_max_possible_team_cost(5)

@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://bgscln160hmhq"]
+
+[ext_resource type="Script" uid="uid://b3yiuqctsxavi" path="res://scripts/prep_area/piggy_bank.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Pink"]
+albedo_color = Color(0.96, 0.52, 0.62, 1)
+roughness = 0.3
+
+[sub_resource type="SphereMesh" id="Body"]
+material = SubResource("Pink")
+radius = 0.65
+height = 1.1
+
+[sub_resource type="StandardMaterial3D" id="SnoutPink"]
+albedo_color = Color(0.85, 0.32, 0.46, 1)
+roughness = 0.4
+
+[sub_resource type="SphereMesh" id="Snout"]
+material = SubResource("SnoutPink")
+radius = 0.2
+height = 0.42
+
+[sub_resource type="StandardMaterial3D" id="Dark"]
+albedo_color = Color(0.12, 0.07, 0.09, 1)
+
+[sub_resource type="SphereMesh" id="Eye"]
+material = SubResource("Dark")
+radius = 0.065
+height = 0.13
+
+[sub_resource type="SphereMesh" id="Nostril"]
+material = SubResource("Dark")
+radius = 0.045
+height = 0.09
+
+[sub_resource type="CylinderMesh" id="Ear"]
+material = SubResource("Pink")
+top_radius = 0.025
+bottom_radius = 0.19
+height = 0.37
+radial_segments = 4
+
+[sub_resource type="BoxMesh" id="Foot"]
+material = SubResource("SnoutPink")
+size = Vector3(0.23, 0.81652343, 0.25)
+
+[sub_resource type="BoxMesh" id="Slot"]
+material = SubResource("Dark")
+size = Vector3(0.42, 0.058398437, 0.075)
+
+[node name="PiggyBank" type="Node3D" unique_id=930116859]
+script = ExtResource("1")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=348489017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.2, 0, 0.69, 0)
+mesh = SubResource("Body")
+
+[node name="Snout" type="MeshInstance3D" parent="." unique_id=206853970]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.6, 0, 0.64, 0.75036496)
+mesh = SubResource("Snout")
+
+[node name="LeftEye" type="MeshInstance3D" parent="." unique_id=1325030221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0.94, 0.5862953)
+mesh = SubResource("Eye")
+
+[node name="LeftNostril" type="MeshInstance3D" parent="." unique_id=623696688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -0.068136096, 0.65, 0.862863)
+mesh = SubResource("Nostril")
+
+[node name="LeftEar" type="MeshInstance3D" parent="." unique_id=377482057]
+transform = Transform3D(1, 0, 0, 0, 0.8998824, -0.4361327, 0, 0.4361327, 0.8998824, -0.2191496, 1.1777872, 0.39088887)
+mesh = SubResource("Ear")
+
+[node name="LeftBackFoot" type="MeshInstance3D" parent="." unique_id=1002575909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28819525, 0.3977267, -0.39090946)
+mesh = SubResource("Foot")
+
+[node name="LeftFrontFoot" type="MeshInstance3D" parent="." unique_id=2026366297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2960584, 0.3977267, 0.32914534)
+mesh = SubResource("Foot")
+
+[node name="RightEye" type="MeshInstance3D" parent="." unique_id=1713364562]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0.94, 0.5862953)
+mesh = SubResource("Eye")
+
+[node name="RightNostril" type="MeshInstance3D" parent="." unique_id=1982763135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 0.0643322, 0.65, 0.862863)
+mesh = SubResource("Nostril")
+
+[node name="RightEar" type="MeshInstance3D" parent="." unique_id=1814640416]
+transform = Transform3D(1, 0, 0, 0, 0.8998824, -0.4361327, 0, 0.4361327, 0.8998824, 0.22731851, 1.1777872, 0.38342977)
+mesh = SubResource("Ear")
+
+[node name="RightBackFoot" type="MeshInstance3D" parent="." unique_id=1288597474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33427042, 0.3977267, -0.3633039)
+mesh = SubResource("Foot")
+
+[node name="RightFrontFoot" type="MeshInstance3D" parent="." unique_id=1332141587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31699, 0.40793058, 0.31535354)
+mesh = SubResource("Foot")
+
+[node name="CoinSlot" type="MeshInstance3D" parent="." unique_id=1990234269]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.292575e-09, 1.2178024, -0.05042933)
+mesh = SubResource("Slot")
+
+[node name="CoinCount" type="Label3D" parent="." unique_id=1709604718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, 0)
+pixel_size = 0.014
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0.89, 0.4, 1)
+outline_modulate = Color(0.2, 0.12, 0.05, 1)
+text = "0 coins"
+font_size = 64

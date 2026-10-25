@@ -4,18 +4,16 @@
 [ext_resource type="Script" uid="uid://7d48c6pomplm" path="res://scripts/prep_area/prep_door.gd" id="2_ianlh"]
 [ext_resource type="Script" uid="uid://kqwg4eg0m4rv" path="res://scripts/prep_area/cat_manager.gd" id="2_sux85"]
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="3_edtl5"]
-[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="4_ianlh"]
-[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_os6ue"]
-[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="6_qtuiy"]
-[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_0x5mc"]
+[ext_resource type="Script" uid="uid://ce45xqpfeewag" path="res://scripts/enchantments/basic/enchantment_cat.gd" id="6_ianlh"]
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
-[ext_resource type="Script" uid="uid://dtqdranje4oks" path="res://scripts/prep_area/prep_area_test/cat_spawner.gd" id="11_edtl5"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
 [ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/enemy_team_preview.gd" id="13_edtl5"]
+[ext_resource type="Script" uid="uid://jmc1ahkygkdl" path="res://scripts/prep_area/battle_transition.gd" id="battle_transition"]
+[ext_resource type="PackedScene" uid="uid://bdexqndp3ng0p" path="res://scenes/prep_area/cat_house.tscn" id="cat_house"]
+[ext_resource type="Script" uid="uid://cumqd1uercvke" path="res://scripts/prep_area/coin_balance.gd" id="coin_balance"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
-
-[ext_resource type="Script" path="res://scripts/prep_area/battle_transition.gd" id="battle_transition"]
+[ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
 
 [sub_resource type="Environment" id="Environment_gpf5u"]
 background_mode = 1
@@ -25,8 +23,8 @@ ambient_light_color = Color(1, 0.945, 0.863, 1)
 ambient_light_energy = 0.45
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g543r"]
-vertices = PackedVector3Array(-6.25, 0.5, 11.5, -10.25, 0.5, 14.75, -8.75, 0.5, 14.75, 14.75, 0.5, 1, -10.75, 0.5, -6.25, -10.75, 0.5, 1.25, -9.5, 0.5, 1.75, -5.5, 0.5, 5.5, -11.25, 0.5, -7.75, 14.75, 0.5, -7.75)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(6, 4, 7), PackedInt32Array(4, 8, 7), PackedInt32Array(7, 8, 3), PackedInt32Array(3, 8, 9), PackedInt32Array(3, 0, 7)]
+vertices = PackedVector3Array(-6.25, 0.5, 11.5, -10.25, 0.5, 14.5, -8.75, 0.5, 14.75, 14.75, 0.5, 1, -9.5, 0.5, 0, -10, 0.5, 1.75, -5.75, 0.5, 5, -9.5, 0.5, -5.75, 14.75, 0.5, -6, -5.5, 0.5, 7.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(4, 7, 6), PackedInt32Array(6, 7, 3), PackedInt32Array(3, 7, 8), PackedInt32Array(0, 9, 3), PackedInt32Array(9, 6, 3)]
 agent_radius = 1.25
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2t3p"]
@@ -203,29 +201,19 @@ size = Vector3(0.25, 1.5, 0.25)
 material = SubResource("RoomWood")
 size = Vector3(0.25, 1.5, 0.25)
 
-[sub_resource type="StandardMaterial3D" id="RoomPot"]
-albedo_color = Color(0.67, 0.4, 0.29, 1)
-roughness = 0.9
+[sub_resource type="BoxMesh" id="DoorwayRightMesh"]
+material = SubResource("RoomCream")
+size = Vector3(0.872367, 6, 0.3)
 
-[sub_resource type="BoxMesh" id="PlantPotMesh"]
-material = SubResource("RoomPot")
-size = Vector3(1, 0.8, 1)
+[sub_resource type="BoxShape3D" id="DoorwayRightShape"]
+size = Vector3(0.872367, 6, 0.3)
 
-[sub_resource type="StandardMaterial3D" id="RoomLeaf"]
-albedo_color = Color(0.35, 0.51, 0.3, 1)
-roughness = 0.9
+[sub_resource type="BoxMesh" id="DoorwayTopMesh"]
+material = SubResource("RoomCream")
+size = Vector3(2.4, 1.2, 0.3)
 
-[sub_resource type="BoxMesh" id="PlantLeaves0Mesh"]
-material = SubResource("RoomLeaf")
-size = Vector3(0.8, 0.9, 0.8)
-
-[sub_resource type="BoxMesh" id="PlantLeaves1Mesh"]
-material = SubResource("RoomLeaf")
-size = Vector3(0.8, 0.9, 0.8)
-
-[sub_resource type="BoxMesh" id="PlantLeaves2Mesh"]
-material = SubResource("RoomLeaf")
-size = Vector3(0.8, 0.9, 0.8)
+[sub_resource type="BoxShape3D" id="DoorwayTopShape"]
+size = Vector3(2.4, 1.2, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gpf5u"]
 size = Vector3(2.3974762, 4.5016174, 0.44854736)
@@ -238,18 +226,6 @@ roughness = 0.85
 material = SubResource("DoorWood")
 size = Vector3(2.4, 4.6, 0.18)
 
-[sub_resource type="BoxMesh" id="DoorLeftFrameMesh"]
-material = SubResource("RoomWood")
-size = Vector3(0.2, 4.8, 0.3)
-
-[sub_resource type="BoxMesh" id="DoorRightFrameMesh"]
-material = SubResource("RoomWood")
-size = Vector3(0.2, 4.8, 0.3)
-
-[sub_resource type="BoxMesh" id="DoorTopFrameMesh"]
-material = SubResource("RoomWood")
-size = Vector3(2.8, 0.2, 0.3)
-
 [sub_resource type="StandardMaterial3D" id="DoorInset"]
 albedo_color = Color(0.56, 0.41, 0.28, 1)
 roughness = 0.85
@@ -261,10 +237,6 @@ size = Vector3(1.8, 1.8, 0.05)
 [sub_resource type="BoxMesh" id="DoorLowerInsetMesh"]
 material = SubResource("DoorInset")
 size = Vector3(1.8, 1.55, 0.05)
-
-[sub_resource type="BoxMesh" id="DoorThresholdMesh"]
-material = SubResource("RoomWood")
-size = Vector3(2.8, 0.1, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="DoorBrass"]
 albedo_color = Color(0.82, 0.62, 0.24, 1)
@@ -280,19 +252,25 @@ material = SubResource("DoorBrass")
 radius = 0.12
 height = 0.24
 
-[sub_resource type="BoxMesh" id="DoorwayRightMesh"]
-material = SubResource("RoomCream")
-size = Vector3(0.872367, 6, 0.3)
+[sub_resource type="BoxMesh" id="DoorLeftFrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.2, 4.8, 0.3)
 
-[sub_resource type="BoxShape3D" id="DoorwayRightShape"]
-size = Vector3(0.872367, 6, 0.3)
+[sub_resource type="BoxMesh" id="DoorRightFrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.2, 4.8, 0.3)
 
-[sub_resource type="BoxMesh" id="DoorwayTopMesh"]
-material = SubResource("RoomCream")
-size = Vector3(2.4, 1.2, 0.3)
+[sub_resource type="BoxMesh" id="DoorTopFrameMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.8, 0.2, 0.3)
 
-[sub_resource type="BoxShape3D" id="DoorwayTopShape"]
-size = Vector3(2.4, 1.2, 0.3)
+[sub_resource type="BoxMesh" id="DoorThresholdMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.8, 0.1, 0.5)
+
+[sub_resource type="Resource" id="Resource_sux85"]
+script = ExtResource("6_ianlh")
+metadata/_custom_type_script = "uid://ce45xqpfeewag"
 
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
@@ -325,13 +303,13 @@ mesh = SubResource("PlaneMesh_eu1mp")
 [node name="BedObstacle" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=873904273]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -12.5)
 height = 6.0
-vertices = PackedVector3Array(-25.281307, 0, -2.7374, 5.1203947, 0, -2.4526253, 5.2011166, 0, 3.481906, -25.031715, 0, 3.5178251)
+vertices = PackedVector3Array(-25.281307, 0, -2.7374, 5.1203947, 0, -2.4526253, 5.2559757, 0, 5.3182545, -24.925861, 0, 5.6299124)
 affect_navigation_mesh = true
 
 [node name="CabinetObstacle" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=1165634359]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -3)
 height = 6.0
-vertices = PackedVector3Array(-1.6728678, 0, -4.149723, 1.8062124, 0, -4.2610874, 2.2079363, 0, 3.4960523, -1.6564989, 0, 3.7292876)
+vertices = PackedVector3Array(-1.6728678, 0, -4.149723, 3.3352747, 0, -3.81356, 3.091936, 0, 3.724409, -1.6564989, 0, 3.7292876)
 affect_navigation_mesh = true
 
 [node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=838575396]
@@ -386,7 +364,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.78, 0.16, 0.071642876)
 mesh = SubResource("LeftSkirtingMesh")
 
 [node name="BedRug" type="MeshInstance3D" parent="Level/Room" unique_id=849451548]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -11.120199)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -9.758462)
 mesh = SubResource("BedRugMesh")
 
 [node name="Window1" type="Node3D" parent="Level/Room" unique_id=35554364]
@@ -436,7 +414,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.641665, 2.15, -0.33151722)
 mesh = SubResource("Window2SillMesh")
 
 [node name="Cabinet" type="Node3D" parent="Level/Room" unique_id=1406715618]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.004226, 0, -0.974195)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.4767752, 0, -13.320087)
 
 [node name="CabinetShelf0" type="MeshInstance3D" parent="Level/Room/Cabinet" unique_id=957881549]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 0.3, -2.0303473)
@@ -505,40 +483,27 @@ mesh = SubResource("TableLeg0Mesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 0.75, -0.25933194)
 mesh = SubResource("TableLeg1Mesh")
 
-[node name="PlantPot" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=1789925797]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 2.12, -1.3593318)
-mesh = SubResource("PlantPotMesh")
+[node name="PiggyBank" parent="Level/Room/SideTable" unique_id=891542531 instance=ExtResource("piggy_bank")]
+transform = Transform3D(1.3506707, 0, 0.6524483, 0, 1.5, 0, -0.6524483, 0, 1.3506707, -1.3210444, 1.725, -1.3593318)
 
-[node name="PlantLeaves0" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=355377866]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6710439, 2.9, -1.3593318)
-mesh = SubResource("PlantLeaves0Mesh")
-
-[node name="PlantLeaves1" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=618018752]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 3.25, -1.3593318)
-mesh = SubResource("PlantLeaves1Mesh")
-
-[node name="PlantLeaves2" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=1914814542]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.97104406, 2.9, -1.3593318)
-mesh = SubResource("PlantLeaves2Mesh")
-
-[node name="DoorwayRight" type="MeshInstance3D" parent="Level/Room"]
-position = Vector3(15.5638165, 3, -16)
+[node name="DoorwayRight" type="MeshInstance3D" parent="Level/Room" unique_id=168297371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.563816, 3, -16)
 mesh = SubResource("DoorwayRightMesh")
 
-[node name="DoorwayRightBody" type="StaticBody3D" parent="Level/Room"]
-position = Vector3(15.5638165, 3, -16)
+[node name="DoorwayRightBody" type="StaticBody3D" parent="Level/Room" unique_id=50049673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.563816, 3, -16)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/DoorwayRightBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/DoorwayRightBody" unique_id=252272275]
 shape = SubResource("DoorwayRightShape")
 
-[node name="DoorwayTop" type="MeshInstance3D" parent="Level/Room"]
-position = Vector3(13.927633, 5.4, -16)
+[node name="DoorwayTop" type="MeshInstance3D" parent="Level/Room" unique_id=1860483056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.927633, 5.4, -16)
 mesh = SubResource("DoorwayTopMesh")
 
-[node name="DoorwayTopBody" type="StaticBody3D" parent="Level/Room"]
-position = Vector3(13.927633, 5.4, -16)
+[node name="DoorwayTopBody" type="StaticBody3D" parent="Level/Room" unique_id=354915825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.927633, 5.4, -16)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/DoorwayTopBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/DoorwayTopBody" unique_id=1038488974]
 shape = SubResource("DoorwayTopShape")
 
 [node name="Door" type="AnimatableBody3D" parent="Level/Room" unique_id=2085887816]
@@ -550,12 +515,28 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000831604, 2.3305511, 0.017547607)
 shape = SubResource("BoxShape3D_gpf5u")
 
-[node name="Hinge" type="Node3D" parent="Level/Room/Door"]
-position = Vector3(-1.2, 0, 0)
+[node name="Hinge" type="Node3D" parent="Level/Room/Door" unique_id=1749242189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0)
 
 [node name="Panel" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=115779247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 2.3, 0)
 mesh = SubResource("DoorPanelMesh")
+
+[node name="UpperInset" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=75235576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 3.25, 0.12)
+mesh = SubResource("DoorUpperInsetMesh")
+
+[node name="LowerInset" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=1173055167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.15, 0.12)
+mesh = SubResource("DoorLowerInsetMesh")
+
+[node name="HandlePlate" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=1621646901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08, 2.22, 0.15)
+mesh = SubResource("DoorHandlePlateMesh")
+
+[node name="Handle" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=660286239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08, 2.22, 0.27)
+mesh = SubResource("DoorHandleMesh")
 
 [node name="LeftFrame" type="MeshInstance3D" parent="Level/Room/Door" unique_id=2020602346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 2.4, 0.02)
@@ -569,39 +550,24 @@ mesh = SubResource("DoorRightFrameMesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0.02)
 mesh = SubResource("DoorTopFrameMesh")
 
-[node name="UpperInset" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=75235576]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 3.25, 0.12)
-mesh = SubResource("DoorUpperInsetMesh")
-
-[node name="LowerInset" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=1173055167]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.15, 0.12)
-mesh = SubResource("DoorLowerInsetMesh")
-
 [node name="Threshold" type="MeshInstance3D" parent="Level/Room/Door" unique_id=487195626]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.05)
 mesh = SubResource("DoorThresholdMesh")
 
-[node name="HandlePlate" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=1621646901]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08, 2.22, 0.15)
-mesh = SubResource("DoorHandlePlateMesh")
-
-[node name="Handle" type="MeshInstance3D" parent="Level/Room/Door/Hinge" unique_id=660286239]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08, 2.22, 0.27)
-mesh = SubResource("DoorHandleMesh")
-
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
-[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_door", "nav_region", "cat_beds", "battle_transition")]
+[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_door", "battle_transition", "nav_region", "cat_beds")]
 script = ExtResource("2_sux85")
 start_battle_door = NodePath("../../Level/Room/Door")
 battle_transition = NodePath("../../BattleTransition")
 nav_region = NodePath("../../Level/NavigationRegion3D")
-possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), ExtResource("5_os6ue"), ExtResource("6_qtuiy"), ExtResource("7_0x5mc")])
+possible_enchantments = Array[ExtResource("3_edtl5")]([SubResource("Resource_sux85")])
+possible_names = Array[String](["Qwill", "Max", "Fish", "Spot", "Milo", "Bella", "Lucy", "Mochi", "Pepper", "Otis", "Felix", "Jasper", "Ash", "Luna", "Kitty", "Leo", "Simba"])
 cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
 constrain_cat_drag = true
 
-[node name="CatSpawner" type="Node" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager")]
-script = ExtResource("11_edtl5")
+[node name="CatSpawner" parent="Props" unique_id=1836526553 node_paths=PackedStringArray("cat_manager") instance=ExtResource("cat_house")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13.76659, 0, -3.0656066)
 cat_manager = NodePath("../CatManager")
 
 [node name="MergeStation" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager") instance=ExtResource("10_l6pdx")]
@@ -612,26 +578,27 @@ cat_manager = NodePath("../CatManager")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.183372)
 
 [node name="CatBed1" parent="Props/CatBeds" unique_id=2027097759 instance=ExtResource("11_sux85")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 1.4105797)
 bed_label = "Position 1"
 lock_cat_to_bed = true
 
 [node name="CatBed2" parent="Props/CatBeds" unique_id=1632623709 instance=ExtResource("11_sux85")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1.4105797)
 bed_label = "Position 2"
 lock_cat_to_bed = true
 
 [node name="CatBed3" parent="Props/CatBeds" unique_id=1497647420 instance=ExtResource("11_sux85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4105797)
 bed_label = "Position 3"
 lock_cat_to_bed = true
 
 [node name="CatBed4" parent="Props/CatBeds" unique_id=967364978 instance=ExtResource("11_sux85")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1.4105797)
 bed_label = "Position 4"
 lock_cat_to_bed = true
 
 [node name="CatBed5" parent="Props/CatBeds" unique_id=1814772166 instance=ExtResource("11_sux85")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 1.4105797)
 bed_label = "Position 5"
 lock_cat_to_bed = true
 
@@ -659,13 +626,13 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="SpawnCatButton" type="Button" parent="Player/UI/MarginContainer" unique_id=342116415 node_paths=PackedStringArray("cat_manager")]
+[node name="CoinBalance" type="Label" parent="Player/UI/MarginContainer" unique_id=224420856]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-text = "TEST_SPAWN_CAT"
-script = ExtResource("11_edtl5")
-cat_manager = NodePath("../../../../Props/CatManager")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Coins: 0"
+script = ExtResource("coin_balance")
 
 [node name="EnemyTeamPreview" type="Label" parent="Player/UI/MarginContainer" unique_id=927568673]
 layout_mode = 2
@@ -677,11 +644,11 @@ script = ExtResource("13_edtl5")
 [node name="CatPickupInfo" parent="." unique_id=2114418831 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
 cat_manager = NodePath("../Props/CatManager")
 
-[node name="BattleTransition" type="CanvasLayer" parent="."]
+[node name="BattleTransition" type="CanvasLayer" parent="." unique_id=456968697]
 layer = 100
 script = ExtResource("battle_transition")
 
-[node name="Fade" type="ColorRect" parent="BattleTransition"]
+[node name="Fade" type="ColorRect" parent="BattleTransition" unique_id=338095930]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -690,11 +657,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
-[connection signal="on_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
 [connection signal="disabled_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
+[connection signal="on_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed1" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed2" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed3" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed4" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed5" to="Props/CatManager" method="_on_cat_placed"]
-[connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Player/UI/MarginContainer/SpawnCatButton" method="_on_spawn_cat_button_pressed"]

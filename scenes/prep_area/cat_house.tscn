@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://bdexqndp3ng0p"]
+
+[ext_resource type="Script" uid="uid://dtqdranje4oks" path="res://scripts/prep_area/prep_area_test/cat_spawner.gd" id="script"]
+
+[sub_resource type="BoxShape3D" id="ClickShape"]
+size = Vector3(4.2, 3.4, 3.4)
+
+[sub_resource type="StandardMaterial3D" id="Wood"]
+albedo_color = Color(0.77, 0.49279997, 0.30799997, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="LeftWallMesh"]
+material = SubResource("Wood")
+size = Vector3(0.32, 2.5, 3.2)
+
+[sub_resource type="BoxMesh" id="RightWallMesh"]
+material = SubResource("Wood")
+size = Vector3(0.32, 2.5, 3.2)
+
+[sub_resource type="BoxMesh" id="BackMesh"]
+material = SubResource("Wood")
+size = Vector3(3.7, 2.5, 0.25)
+
+[sub_resource type="BoxMesh" id="FrontLeftMesh"]
+material = SubResource("Wood")
+size = Vector3(0.65, 2.5, 0.25)
+
+[sub_resource type="BoxMesh" id="FrontRightMesh"]
+material = SubResource("Wood")
+size = Vector3(0.65, 2.5, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htbpx"]
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.85
+
+[sub_resource type="BoxMesh" id="BoxMesh_iu328"]
+material = SubResource("StandardMaterial3D_htbpx")
+size = Vector3(2.9128907, 2.4780273, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="Trim"]
+albedo_color = Color(0.94, 0.83, 0.64, 1)
+
+[sub_resource type="BoxMesh" id="DoorLintelMesh"]
+material = SubResource("Trim")
+size = Vector3(2.7, 0.35, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="Roof"]
+albedo_color = Color(0.45, 0.24, 0.18, 1)
+roughness = 0.8
+
+[sub_resource type="BoxMesh" id="RoofLeftMesh"]
+material = SubResource("Roof")
+size = Vector3(4.3301086, 0.22, 3.7)
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.12, 0.1, 0.08, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.85, 0.48, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CatHouse" type="Area3D" unique_id=1003458966]
+collision_mask = 0
+script = ExtResource("script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1370729176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+shape = SubResource("ClickShape")
+
+[node name="Model" type="Node3D" parent="." unique_id=1511901870]
+
+[node name="LeftWall" type="MeshInstance3D" parent="Model" unique_id=1344856668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85, 1.25, 0)
+mesh = SubResource("LeftWallMesh")
+
+[node name="RightWall" type="MeshInstance3D" parent="Model" unique_id=1826865284]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 1.25, 0)
+mesh = SubResource("RightWallMesh")
+
+[node name="Back" type="MeshInstance3D" parent="Model" unique_id=1975611252]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -1.5)
+mesh = SubResource("BackMesh")
+
+[node name="FrontLeft" type="MeshInstance3D" parent="Model" unique_id=573207489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.65, 1.25, 1.4708815)
+mesh = SubResource("FrontLeftMesh")
+
+[node name="FrontRight" type="MeshInstance3D" parent="Model" unique_id=2074239875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65, 1.25, 1.472547)
+mesh = SubResource("FrontRightMesh")
+
+[node name="FrontRight" type="MeshInstance3D" parent="Model/FrontRight" unique_id=622799451]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6180592, -0.019611478, -0.2957672)
+mesh = SubResource("BoxMesh_iu328")
+
+[node name="DoorLintel" type="MeshInstance3D" parent="Model" unique_id=85194291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 1.4577904)
+mesh = SubResource("DoorLintelMesh")
+
+[node name="RoofLeft" type="MeshInstance3D" parent="Model" unique_id=1313703571]
+transform = Transform3D(0.9999719, -0.0074958503, 0, 0.0074958503, 0.9999719, 0, 0, 0, 1, -0.017265033, 2.563786, 0)
+mesh = SubResource("RoofLeftMesh")
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=440097112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="ExitPoint" type="Marker3D" parent="." unique_id=299885964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 5)
+
+[node name="TooltipAnchor" type="Marker3D" parent="." unique_id=1759449256]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8, 0)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1687770623]
+layer = 2
+
+[node name="Panel" type="PanelContainer" parent="UI" unique_id=1156138000]
+visible = false
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelStyle")
+
+[node name="Hint" type="Label" parent="UI/Panel" unique_id=924587461]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Buy a cat: 1 coin"
+horizontal_alignment = 1
