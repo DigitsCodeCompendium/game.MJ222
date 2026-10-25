@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
-[ext_resource type="Script" uid="uid://cxrl5pybrxo1d" path="res://scripts/prep_area_test/team_gen_test.gd" id="13_edtl5"]
+[ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/enemy_team_preview.gd" id="13_edtl5"]
 
 [sub_resource type="Environment" id="Environment_gpf5u"]
 ambient_light_color = Color(0.31431597, 0.31431618, 0.31431603, 1)
@@ -63,9 +63,10 @@ transform = Transform3D(1, 0, 0, 0, 0.40216753, 0.9155661, 0, -0.9155661, 0.4021
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
-[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039]
+[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("cat_beds")]
 script = ExtResource("2_sux85")
 possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), ExtResource("5_os6ue"), ExtResource("6_qtuiy"), ExtResource("7_0x5mc")])
+cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
 
 [node name="CatSpawner" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager") instance=ExtResource("8_6bgnk")]
 cat_packed_scene = ExtResource("9_jmhco")
@@ -82,25 +83,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.5)
 [node name="CatBed1" parent="Props/CatBeds" unique_id=2027097759 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 bed_label = "Position 1"
+lock_cat_to_bed = true
 
 [node name="CatBed2" parent="Props/CatBeds" unique_id=1632623709 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 bed_label = "Position 2"
+lock_cat_to_bed = true
 
 [node name="CatBed3" parent="Props/CatBeds" unique_id=1497647420 instance=ExtResource("11_sux85")]
 bed_label = "Position 3"
+lock_cat_to_bed = true
 
 [node name="CatBed4" parent="Props/CatBeds" unique_id=967364978 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 bed_label = "Position 4"
+lock_cat_to_bed = true
 
 [node name="CatBed5" parent="Props/CatBeds" unique_id=1814772166 instance=ExtResource("11_sux85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 bed_label = "Position 5"
+lock_cat_to_bed = true
 
 [node name="Player" type="Node3D" parent="." unique_id=720284898]
 transform = Transform3D(1, 0, 0, 0, 0.80195254, 0.59738773, 0, -0.59738773, 0.80195254, 0, 0, 0)
 script = ExtResource("11_8y3rt")
+rotate_speed = 0.005
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1347866223]
 unique_name_in_owner = true
@@ -126,31 +133,11 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "spawn cat"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player/UI/MarginContainer" unique_id=1380942524]
+[node name="EnemyTeamPreview" type="Label" parent="Player/UI/MarginContainer" unique_id=927568673]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Opponent team:"
 script = ExtResource("13_edtl5")
-
-[node name="GridContainer" type="GridContainer" parent="Player/UI/MarginContainer/VBoxContainer" unique_id=1237674778]
-layout_mode = 2
-columns = 2
-
-[node name="TargetCostLabel" type="Label" parent="Player/UI/MarginContainer/VBoxContainer/GridContainer" unique_id=1428676424]
-layout_mode = 2
-text = "Target Cost"
-
-[node name="TargetCostEdit" type="LineEdit" parent="Player/UI/MarginContainer/VBoxContainer/GridContainer" unique_id=886780482]
-layout_mode = 2
-text = "8"
-
-[node name="SeedLabel" type="Label" parent="Player/UI/MarginContainer/VBoxContainer/GridContainer" unique_id=1306012147]
-layout_mode = 2
-text = "Seed"
-
-[node name="SeedEdit" type="LineEdit" parent="Player/UI/MarginContainer/VBoxContainer/GridContainer" unique_id=1294424155]
-layout_mode = 2
-
-[node name="ExpectedTeamLabel" type="Label" parent="Player/UI/MarginContainer/VBoxContainer" unique_id=557485928]
-layout_mode = 2
-text = "Expected team:"
 
 [connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Props/CatSpawner" method="_on_spawn_cat_button_pressed"]

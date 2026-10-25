@@ -2,8 +2,11 @@ extends Node3D
 class_name CatManager
 
 const CAT_SCENE = preload("res://scenes/cat/cat_test.tscn")
+
 @export var possible_enchantments: Array[Enchantment]
 @export var possible_names: Array[String] = ["Qwill", "Max", "Fish", "Spot"]
+
+@export var cat_beds: Array[CatBed]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

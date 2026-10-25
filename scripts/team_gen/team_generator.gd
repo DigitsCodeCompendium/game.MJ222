@@ -64,6 +64,13 @@ func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost:
 	
 	return team
 
+func get_max_possible_team_cost(team_size: int):
+	var max_cost = 0
+	for bracket in cost_brackets:
+		if bracket.cost > max_cost:
+			max_cost = bracket.cost
+	return max_cost * team_size
+
 # Note: Only works well for teams generated here!
 func describe_team(team: Array[CatData]) -> String:
 	return ", ".join(team.map(describe_team_member))
