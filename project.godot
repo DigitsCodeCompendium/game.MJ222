@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 EnchantmentLibrary="*uid://bd0mkyrxkarc3"
+TeamGenerator="*uid://ildux1uovlum"
 
 [display]
 

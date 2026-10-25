@@ -1,4 +1,3 @@
-class_name TeamGenerator
 extends Node
 
 @export var cost_brackets: Array[EnchantmentCostBracket]
