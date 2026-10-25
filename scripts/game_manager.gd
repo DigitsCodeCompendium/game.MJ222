@@ -2,7 +2,7 @@ extends Node
 
 @export var enemy_cost_base: float = 1.45
 @export var total_rounds: int = 10
-@export var min_wins_required: int = 7
+@export var player_initial_life: int = 3
 
 const TEAM_SIZE = 5
 
@@ -12,7 +12,7 @@ const BATTLE_ARENA_SCENE = preload("res://scenes/battle/battle_arena.tscn")
 # Current game state
 var rng: RandomNumberGenerator
 var stage_index: int
-var current_wins: int
+var player_life: int
 var player_money: int
 var enemy_seed: int
 var enemy_team_cost: int
@@ -30,7 +30,7 @@ func _ready():
 func reset_game():
 	rng = RandomNumberGenerator.new()
 	stage_index = 0
-	current_wins = 0
+	player_life = player_initial_life
 	player_money = 1
 	enemy_seed = rng.randi()
 	enemy_team_cost = 1
@@ -43,8 +43,8 @@ func start_battle():
 
 func finish_battle():
 	stage_index += 1
-	if is_battle_won:
-		current_wins += 1
+	if not is_battle_won:
+		player_life -= 1
 	player_money += stage_index
 	enemy_seed = rng.randi()
 	enemy_team_cost = roundi(pow(enemy_cost_base, stage_index))
