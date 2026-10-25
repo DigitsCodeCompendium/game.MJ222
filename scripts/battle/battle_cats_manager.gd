@@ -67,9 +67,11 @@ func do_turn():
 		return
 	
 	for cat in ally_cats_left:
-		cat.enchantment.after_ally_attack(self, cat)
+		if cat in cats_left:
+			cat.enchantment.after_ally_attack(self, cat)
 	for cat in ally_cats_right:
-		cat.enchantment.after_ally_attack(self, cat)
+		if cat in cats_right:
+			cat.enchantment.after_ally_attack(self, cat)
 	
 	check_for_deaths_and_move_all_cats()
 	if is_battle_over():
