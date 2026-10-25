@@ -41,13 +41,17 @@ func _ready():
 	GameManager.finish_battle()
 
 func load_cats():
-	load_cats_from_data(cats_left, GameManager.player_cats_team)
-	
-	var rng = RandomNumberGenerator.new()
-	rng.seed = GameManager.enemy_seed
-	var game_progress = float(GameManager.stage_index) / (GameManager.total_rounds - 1)
-	var opponent_team = TeamGenerator.generate_random_team(rng, GameManager.TEAM_SIZE, GameManager.enemy_team_cost, game_progress, GameManager.enemy_extra_cost)
-	load_cats_from_data(cats_right, opponent_team)
+	if GameManager.is_test_env:
+		load_cats_from_data(cats_left, GameManager.test_team_left)
+		load_cats_from_data(cats_right, GameManager.test_team_right)
+	else:
+		load_cats_from_data(cats_left, GameManager.player_cats_team)
+		
+		var rng = RandomNumberGenerator.new()
+		rng.seed = GameManager.enemy_seed
+		var game_progress = float(GameManager.stage_index) / (GameManager.total_rounds - 1)
+		var opponent_team = TeamGenerator.generate_random_team(rng, GameManager.TEAM_SIZE, GameManager.enemy_team_cost, game_progress, GameManager.enemy_extra_cost)
+		load_cats_from_data(cats_right, opponent_team)
 	
 	move_all_cats(true)
 	
@@ -161,19 +165,14 @@ func play_attack_and_hurt_animations():
 	await Promise.all(animations)
 
 func move_all_cats(instant: bool = false):
-	var tweens: Array[Tween] = []
-	
+	var animations: Array[Promise] = []
 	for i in range(cats_left.size()):
-		tweens.append(move_cat(cats_left[i], left_cat_anchors[i], instant))
-	
+		animations.append(Promise.new(move_cat.bind(cats_left[i], left_cat_anchors[i], instant)))
 	for i in range(cats_right.size()):
-		tweens.append(move_cat(cats_right[i], right_cat_anchors[i], instant))
-	
-	for tween in tweens:
-		if tween != null:
-			await tween.finished
+		animations.append(Promise.new(move_cat.bind(cats_right[i], right_cat_anchors[i], instant)))
+	await Promise.all(animations)
 
-func move_cat(cat: BattleCat, to: Node3D, instant: bool) -> Tween:
+func move_cat(cat: BattleCat, to: Node3D, instant: bool):
 	if instant:
 		cat.position = to.position
 		cat.rotation = to.rotation
@@ -195,7 +194,8 @@ func move_cat(cat: BattleCat, to: Node3D, instant: bool) -> Tween:
 			tween.tween_callback(cat.animate_idle)
 		
 		tween.tween_property(cat, "rotation", to.rotation, rotate_duration)
-		return tween
+		if tween.is_running():
+			await tween.finished
 	
 func is_battle_over():
 	return cats_left.size() <= 0 or cats_right.size() <= 0

@@ -15,6 +15,7 @@ const TEAM_SIZE = 5
 
 const PREP_AREA_SCENE = preload("res://scenes/prep_area.tscn")
 const BATTLE_ARENA_SCENE = preload("res://scenes/battle/battle_arena.tscn")
+const TEST_BATTLE_SCENE = preload("res://scenes/battle_test.tscn")
 
 # Current game state
 var rng: RandomNumberGenerator
@@ -34,6 +35,10 @@ var player_cats_reserve: Array[CatData]
 
 # Temporary fields for transmitting information
 var is_battle_won: bool
+
+var is_test_env: bool
+var test_team_left: Array[CatData]
+var test_team_right: Array[CatData]
 
 func _ready():
 	reset_game()
@@ -82,4 +87,7 @@ func finish_battle():
 	else:
 		enemy_extra_cost = 0
 	
-	get_tree().change_scene_to_packed(PREP_AREA_SCENE)
+	if is_test_env:
+		get_tree().change_scene_to_packed(TEST_BATTLE_SCENE)
+	else:
+		get_tree().change_scene_to_packed(PREP_AREA_SCENE)
