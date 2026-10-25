@@ -11,8 +11,9 @@ func _process(delta):
 	position = screen_pos
 
 func update_cat():
-	$EnchantmentLabel.text = "Enchantment: %s" % attached_cat.enchantment.display_name
-	$EnchantmentLabel.modulate = attached_cat.enchantment.primary_color
-	$HealthLabel.text = "Health: %s" % attached_cat.health
-	$AttackLabel.text = "Attack: %s" % attached_cat.attack
-	$StatusLabel.text = "Shrouded" if attached_cat.is_shrouded else ""
+	$PanelTop/NameLabel.text = attached_cat.cat_name
+	$PanelTop/EnchantmentLabel.text = attached_cat.enchantment.display_name
+	$PanelTop/EnchantmentLabel.modulate = attached_cat.enchantment.primary_color
+	$PanelTop/StatusLabel.text = "Shrouded" if attached_cat.is_shrouded else ""
+	$AttackLabel.text = "A: %s" % attached_cat.attack
+	$HealthLabel.text = "H: %s" % attached_cat.health

@@ -26,12 +26,12 @@ func load_cats():
 	pass # TODO spawn in cats based on some kind of data being passed in somehow
 	
 	# TODO Placeholder cats for testing
-	add_cat(cats_left, load("res://resources/enchantments/composite/steam.tres"), 100, 10)
-	add_cat(cats_left, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_left, load("res://resources/enchantments/composite/sand.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/composite/void.tres"), 100, 10)
-	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_right, load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	add_cat(cats_left, "placeholder", load("res://resources/enchantments/composite/steam.tres"), 100, 10)
+	add_cat(cats_left, "placeholder", load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	add_cat(cats_left, "placeholder", load("res://resources/enchantments/composite/sand.tres"), 10, 10)
+	add_cat(cats_right, "placeholder", load("res://resources/enchantments/composite/void.tres"), 100, 10)
+	add_cat(cats_right, "placeholder", load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	add_cat(cats_right, "placeholder", load("res://resources/enchantments/basic/cat.tres"), 10, 10)
 	
 	move_all_cats(true)
 	
@@ -93,9 +93,9 @@ func sync_ui():
 	for cat in cats_right:
 		cat.attached_ui.update_cat()
 
-func add_cat(team: Array[BattleCat], enchantment: Enchantment, health: int, attack: int, index: int = -1):
+func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment, health: int, attack: int, index: int = -1):
 	var cat = battle_cat_scene.instantiate() as BattleCat
-	cat.load_cat(enchantment, health, attack)
+	cat.load_cat(cat_name, enchantment, health, attack)
 	
 	if index >= 0:
 		team.insert(index, cat)

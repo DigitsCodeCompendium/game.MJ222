@@ -5,6 +5,7 @@ var _enchantment: Enchantment
 var enchantment: Enchantment:
 	get: return _enchantment
 
+var cat_name: String
 var base_health: int
 var base_attack: int
 var health: int
@@ -18,7 +19,8 @@ var attached_ui: Node
 const DEFAULT_CAT_MAT = preload("res://assets/cat/elements/default_cat.tres")
 
 @warning_ignore("shadowed_variable")
-func load_cat(e: Enchantment, base_health: int, base_attack: int):
+func load_cat(n: String, e: Enchantment, base_health: int, base_attack: int):
+	cat_name = n
 	_enchantment = e
 	self.base_health = base_health
 	self.base_attack = base_attack
