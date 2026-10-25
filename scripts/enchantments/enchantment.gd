@@ -6,6 +6,9 @@ extends Resource
 @export var primary_color: Color
 @export_multiline var description: String
 
+@export var attack_modifier: int
+@export var health_modifier: int
+
 @export var component1: Enchantment
 @export var component2: Enchantment
 
@@ -13,7 +16,10 @@ func has_components() -> bool:
 	return component1 != null and component2 != null
 
 func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
-	pass
+	self_cat.base_attack += attack_modifier
+	self_cat.attack += attack_modifier
+	self_cat.base_health += health_modifier
+	self_cat.health += health_modifier
 
 func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass

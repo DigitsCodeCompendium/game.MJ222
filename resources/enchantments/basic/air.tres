@@ -6,5 +6,7 @@
 script = ExtResource("1_l2qjv")
 display_name = "Air"
 primary_color = Color(0.7372549, 0.83137256, 0.7921569, 1)
-description = "+1 attack for each Air or Air-derived cat on the team at start of combat"
+description = "At the start of combat, gain 2/1 base, then gain 0/1 for each Air or Air-derived cat on the team."
+attack_modifier = 2
+health_modifier = 1
 metadata/_custom_type_script = "uid://bhoi860tg2cpb"

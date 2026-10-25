@@ -7,7 +7,10 @@
 script = ExtResource("1_d8np6")
 display_name = "Mountain"
 primary_color = Color(0.23921569, 0.22745098, 0.16862746, 1)
-description = "Immune to being pushed or moved."
+description = "At start of combat, gain 2/7 base.
+Immune to being pushed or moved."
+attack_modifier = 2
+health_modifier = 7
 component1 = ExtResource("1_cpecp")
 component2 = ExtResource("1_cpecp")
 metadata/_custom_type_script = "uid://c6d6wuaa3pnaj"

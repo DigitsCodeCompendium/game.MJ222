@@ -9,7 +9,10 @@ script = ExtResource("1_y8mkm")
 enchantment_ice_statue = ExtResource("3_gk7ps")
 display_name = "Ice"
 primary_color = Color(0.09803922, 0.36078432, 0.42352942, 1)
-description = "On death, summon an ice statue with half of the base health and base attack of this squeeb."
+description = "At start of battle, gain 3/5 base.
+On death, summon an ice statue with half of the stats of this squeeb."
+attack_modifier = 3
+health_modifier = 5
 component1 = ExtResource("1_fx4ty")
 component2 = ExtResource("1_fx4ty")
 metadata/_custom_type_script = "uid://bi1rol8rd0tfn"

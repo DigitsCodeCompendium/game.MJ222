@@ -7,7 +7,10 @@
 script = ExtResource("2_ddk5y")
 display_name = "Plasma"
 primary_color = Color(0.1882353, 0.18039216, 0.28235295, 1)
-description = "Gain 5/5 at the start of combat. Lose 1/1 at the end of each turn unless adjacent to at least one Electric, Storm, or Sand squeeb."
+description = "At start of combat, gain 6/6 base.
+Lose 1/1 at the end of each turn unless adjacent to at least one Electric, Storm, or Sand squeeb."
+attack_modifier = 6
+health_modifier = 6
 component1 = ExtResource("1_yrp2p")
 component2 = ExtResource("1_yrp2p")
 metadata/_custom_type_script = "uid://b11bt44n1g236"

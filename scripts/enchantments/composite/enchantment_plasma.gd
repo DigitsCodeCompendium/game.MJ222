@@ -1,10 +1,6 @@
 class_name EnchantmentPlasma
 extends Enchantment
 
-func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
-	self_cat.health += 5
-	self_cat.attack += 5
-
 func after_battle_turn(cats: BattleCatsManager, self_cat: BattleCat):
 	var front_cat = cats.get_front_adjacent_cat(self_cat)
 	if front_cat != null:

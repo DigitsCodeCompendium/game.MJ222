@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bd0mkyrxkarc3"]
 
 [ext_resource type="Script" uid="uid://058f6io41g7f" path="res://scripts/enchantment_library/enchantment_library.gd" id="1_fbo2m"]
-[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/basic/enchantment.gd" id="2_ckear"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="2_ckear"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="3_6wbtt"]
 [ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="4_7yl44"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_yt2wc"]
