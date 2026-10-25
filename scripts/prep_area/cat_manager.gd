@@ -30,6 +30,7 @@ var used_names: Array[String]:
 		return names
 
 func _ready() -> void:
+	AudioManager.play_menu_music()
 	GameManager.enter_prep()
 	# Need to give nav server a frame to load, otherwise can't find random position in a nav mesh for spawning cats distributedly
 	await NavigationServer3D.map_changed
@@ -119,6 +120,7 @@ func buy_cat(at: Variant = null) -> Cat:
 	var cat = spawn_cat(find_random_cat_spawn_pos() if at == null else at)
 	if cat != null:
 		GameManager.try_spend_coins(GameManager.CAT_PRICE)
+		AudioManager.play_effect("meow")
 	return cat
 
 ## Free spawning is used when restoring saved cats and producing merge results.
@@ -181,6 +183,7 @@ func _on_door_clicked():
 			team_cats.append(bed.placed_cat)
 			team.append(bed.placed_cat.get_cat_data())
 	if team.is_empty():
+		AudioManager.play_effect("huff")
 		start_battle_door.show_missing_team()
 		for bed in cat_beds:
 			bed.flash_empty()

@@ -53,9 +53,11 @@ func _on_input_event(_camera: Node, event: InputEvent, _position: Vector3, _norm
 
 func spawn_cat() -> Cat:
 	if _emerging:
+		AudioManager.play_effect("huff")
 		return null
 	var cat = cat_manager.buy_cat($SpawnPoint.global_position)
 	if cat == null:
+		AudioManager.play_effect("huff")
 		return null
 	_emerging = true
 	cat.set_physics_process(false)

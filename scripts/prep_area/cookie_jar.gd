@@ -85,7 +85,8 @@ func _physics_process(_delta: float) -> void:
 		query.collide_with_areas = false
 		var hit = get_world_3d().direct_space_state.intersect_ray(query)
 		target = hit.get("collider") as Cat
-	feed_cat(target)
+	if not feed_cat(target):
+		AudioManager.play_effect("huff")
 	_cancel_cookie()
 
 func feed_cat(cat: Cat) -> bool:
@@ -96,6 +97,7 @@ func feed_cat(cat: Cat) -> bool:
 	if not GameManager.try_spend_coins(cookie_price):
 		return false
 	cat.attack_offset += 1
+	AudioManager.play_effect("purr")
 	cat.health_offset += 1
 	_cancel_cookie()
 	return true

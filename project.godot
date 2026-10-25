@@ -17,6 +17,7 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
+AudioManager="*res://scenes/autoloads/audio_manager.tscn"
 GameManager="*uid://bdj8l5ia0ckhl"
 EnchantmentLibrary="*uid://bd0mkyrxkarc3"
 TeamGenerator="*uid://ildux1uovlum"

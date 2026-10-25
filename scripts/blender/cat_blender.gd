@@ -169,9 +169,11 @@ func merge_cats() -> void:
 	_refresh_preview()
 	var cats = _input_cats()
 	if not is_instance_valid(cat_manager) or _preview_results.is_empty() or cats.is_empty() or _output_is_occupied():
+		AudioManager.play_effect("huff")
 		_merging = false
 		return
 	if cat_manager._starting_battle or not GameManager.try_spend_coins(GameManager.MERGE_PRICE):
+		AudioManager.play_effect("huff")
 		_merging = false
 		return
 	var results: Array[CatData] = _preview_results.duplicate()
@@ -185,6 +187,7 @@ func merge_cats() -> void:
 		var bed = output_bed if index == 0 else input_a
 		var cat = cat_manager.spawn_cat(bed.get_placement_position(), results[index])
 		if cat != null:
+			AudioManager.play_effect("purr")
 			cat.global_rotation.y = bed.global_rotation.y
 			bed.try_place_cat(cat, bed == output_bed)
 	_preview_key = ""

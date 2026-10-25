@@ -58,12 +58,15 @@ func animate_move() -> void:
 	visual.play_loop("Walk")
 
 func animate_attack() -> void:
+	AudioManager.play_effect("attack")
 	await visual.play_once("Attack")
 	animate_idle()
 
 func animate_hurt() -> void:
+	AudioManager.play_effect("hurt")
 	await visual.play_once("Pancake")
 	animate_idle()
 
 func animate_death() -> void:
+	AudioManager.play_effect("death")
 	await visual.play_once("Death")

@@ -280,6 +280,7 @@ func _begin_pickup() -> void:
 	velocity = Vector3.ZERO
 	navigation_agent.set_velocity(Vector3.ZERO)
 	is_picked = true
+	AudioManager.play_effect("meow")
 	drop_indicator.global_position = _get_drop_position() + Vector3.UP * 0.06
 	drop_indicator.visible = true
 	ai_state = State.PICKED

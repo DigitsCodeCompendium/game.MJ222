@@ -1,0 +1,7 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/audio/audio_manager.gd" id="script"]
+[node name="AudioManager" type="Node"]
+process_mode = 3
+script = ExtResource("script")
+[node name="Music" type="AudioStreamPlayer" parent="."]
+bus = &"Music"

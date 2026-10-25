@@ -18,6 +18,7 @@ var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
 
 func _ready():
+	AudioManager.play_battle_music()
 	cats_left = []
 	cats_right = []
 	
@@ -31,6 +32,7 @@ func _ready():
 		turn_index += 1
 	
 	GameManager.is_battle_won = cats_left.size() > 0
+	AudioManager.play_battle_result(GameManager.is_battle_won)
 	GameManager.do_end_of_battle_calcs()
 	await animate_end_of_round_screen()
 	GameManager.exit_battle()
