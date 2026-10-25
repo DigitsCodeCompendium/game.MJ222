@@ -98,6 +98,10 @@ func finish_battle():
 		player_life -= 1
 	
 	if player_life <= 0:
+		# TODO separate "you lose the run" screen
+		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
+	elif stage_index >= total_rounds:
+		# TODO separate "you win the run" screen
 		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
 	else:
 		get_tree().change_scene_to_packed(PREP_AREA_SCENE)
