@@ -23,20 +23,28 @@
 [sub_resource type="Resource" id="Resource_5uqd6"]
 script = ExtResource("2_5mcuc")
 cost = 3
-weight = 2.0
+weight_early = 0.0
+weight_late = 2.0
+base_attack = 4
+base_health = 4
 enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_42vx2"), ExtResource("5_lu30a"), ExtResource("6_gwvmu"), ExtResource("7_yb3xs"), ExtResource("8_r1x1h"), ExtResource("9_qaejx"), ExtResource("10_0dsee"), ExtResource("11_g2gvh"), ExtResource("12_vh6k7"), ExtResource("13_e3o71"), ExtResource("14_lu30a")])
 metadata/_custom_type_script = "uid://crtnix4jdgra8"
 
 [sub_resource type="Resource" id="Resource_42vx2"]
 script = ExtResource("2_5mcuc")
 cost = 2
+base_attack = 2
+base_health = 2
 enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_wc3wp"), ExtResource("5_oo13t"), ExtResource("6_m2ou5"), ExtResource("7_xh4vu")])
 metadata/_custom_type_script = "uid://crtnix4jdgra8"
 
 [sub_resource type="Resource" id="Resource_klsnn"]
 script = ExtResource("2_5mcuc")
 cost = 1
-weight = 0.5
+weight_early = 2.0
+weight_late = 0.1
+base_attack = 1
+base_health = 1
 enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_1ippc")])
 metadata/_custom_type_script = "uid://crtnix4jdgra8"
 

@@ -8,8 +8,8 @@ var rng: RandomNumberGenerator
 func _ready():
 	rng = RandomNumberGenerator.new()
 
-	var team = generate_random_team(5, 8)
-	print(team.map(func(e): return e.display_name))
+	var team = generate_random_team(5, 3, 8, 1)
+	print(team.map(func(cd): return "Attack %s Health %s Enchantment %s" % [cd.base_attack, cd.base_health, cd.enchantment.display_name]))
 
 # it's best to arrange valid_costs in decreasing order, though it should still produce the same results regardless
 func enumerate_unordered_teams(max_size: int, valid_costs: Array[int], total_cost: int) -> Array[Array]:
@@ -30,24 +30,25 @@ func enumerate_unordered_teams(max_size: int, valid_costs: Array[int], total_cos
 			teams.append([cost] + sub_team)
 	return teams
 
+func find_cost_bracket(cost: int) -> EnchantmentCostBracket:
+	for bracket in cost_brackets:
+		if bracket.cost == cost:
+			return bracket
+	return null
+
 # Can't have typed array here in the parameter, because the list of team has to be Array[Array] and not Array[Array[int]] because godot doesn't support nested generic typing like that
-func calculate_team_weight(team_costs: Array) -> float:
+func calculate_team_weight(team_costs: Array, weight_progress: float) -> float:
 	var weight = 1.0
 	for cost in team_costs:
-		var bracket_index = cost_brackets.find_custom(func(b): return b.cost == cost)
-		weight *= cost_brackets[bracket_index].weight
+		var bracket = find_cost_bracket(cost)
+		weight *= lerpf(bracket.weight_early, bracket.weight_late, weight_progress)
 	return weight
 
-func choose_enchantment_in_bracket(bracket_cost: int) -> Enchantment:
-	var bracket_index = cost_brackets.find_custom(func(b): return b.cost == bracket_cost)
-	var enchantments = cost_brackets[bracket_index].enchantments
-	return enchantments[rng.randi_range(0, enchantments.size() - 1)]
-
-func generate_random_team(max_size: int, total_cost: int) -> Array[Enchantment]:
+func generate_random_team(max_size: int, max_cost: int, total_cost: int, weight_progress: float) -> Array[CatData]:
 	var valid_costs: Array[int] = []
-	valid_costs.assign(cost_brackets.map(func(bracket): return bracket.cost))
+	valid_costs.assign(cost_brackets.map(func(bracket): return bracket.cost).filter(func(cost): return cost <= max_cost))
 	var valid_teams = enumerate_unordered_teams(max_size, valid_costs, total_cost)	
-	var team_weights = valid_teams.map(calculate_team_weight)
+	var team_weights = valid_teams.map(func(team): return calculate_team_weight(team, weight_progress))
 	
 	print("Possible team plans:")
 	for i in range(valid_teams.size()):
@@ -56,8 +57,13 @@ func generate_random_team(max_size: int, total_cost: int) -> Array[Enchantment]:
 	var team_index = rng.rand_weighted(team_weights)
 	print("Chosen team %s" % [valid_teams[team_index]])
 	
-	var team: Array[Enchantment] = []
-	team.assign(valid_teams[team_index].map(choose_enchantment_in_bracket))
-	team.shuffle()
+	var team: Array[CatData] = []
+	for team_member_cost in valid_teams[team_index]:
+		var cat_data = CatData.new()
+		var bracket = find_cost_bracket(team_member_cost)
+		cat_data.base_attack = bracket.base_attack
+		cat_data.base_health = bracket.base_health
+		cat_data.enchantment = bracket.enchantments[rng.randi_range(0, bracket.enchantments.size() - 1)]
+		team.append(cat_data)
 	
 	return team
