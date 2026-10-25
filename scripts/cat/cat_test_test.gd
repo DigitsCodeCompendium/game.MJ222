@@ -16,6 +16,7 @@ func _ready() -> void:
 	# Keep the normal cat's appearance API, but disable wandering and picking up.
 	cat.set_physics_process(false)
 	cat.animate_ai = false
+	cat.visual.stop_animation()
 	cat.set_process_input(false)
 	cat.input_ray_pickable = false
 	enchantments.add_item("None / default")
@@ -29,7 +30,7 @@ func _ready() -> void:
 	animations.item_selected.connect(_select_animation)
 	repeat.toggled.connect(_on_loop_toggled)
 	$UI/Panel/Controls/ResetCamera.pressed.connect(_reset_camera)
-	cat.model_changed.connect(_refresh_animations)
+	cat.visual.model_changed.connect(_refresh_animations)
 	_refresh_animations()
 	_select_animation(0)
 	_reset_camera()
@@ -40,7 +41,7 @@ func _refresh_animations() -> void:
 		previous_animation = _animations[animations.selected - 1]
 	if is_instance_valid(_player) and _player.animation_finished.is_connected(_on_animation_finished):
 		_player.animation_finished.disconnect(_on_animation_finished)
-	_player = cat._animation_player
+	_player = cat.visual.animation_player
 	_animations.clear()
 	animations.clear()
 	animations.add_item("None / rest pose")
@@ -68,8 +69,8 @@ func _select_animation(index: int) -> void:
 			_player.play("RESET")
 			_player.advance(0)
 			_player.stop()
-		if cat.active_face_set != null:
-			cat.set_face(cat.active_face_set.default_face)
+		if cat.visual.active_face_set != null:
+			cat.visual.set_face(cat.visual.active_face_set.default_face)
 	else:
 		_player.play(_animations[index - 1])
 

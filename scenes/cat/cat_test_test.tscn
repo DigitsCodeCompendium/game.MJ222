@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2mdjua3bcn4f"]
 
 [ext_resource type="Script" uid="uid://cqk56ro0y6clf" path="res://scripts/cat/cat_test_test.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/prep_cat.tscn" id="2"]
 
 [sub_resource type="Environment" id="Environment"]
 background_mode = 1

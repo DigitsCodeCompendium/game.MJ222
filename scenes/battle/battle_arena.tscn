@@ -31,35 +31,45 @@ battle_cat_ui_scene = ExtResource("3_onjye")
 left_cat_anchors = [NodePath("CatAnchorL1"), NodePath("CatAnchorL2"), NodePath("CatAnchorL3"), NodePath("CatAnchorL4"), NodePath("CatAnchorL5")]
 right_cat_anchors = [NodePath("CatAnchorR1"), NodePath("CatAnchorR2"), NodePath("CatAnchorR3"), NodePath("CatAnchorR4"), NodePath("CatAnchorR5")]
 
-[node name="CatAnchorL1" type="Node3D" parent="Cats" unique_id=1164778937]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 0)
+[node name="CatAnchorL1" type="Marker3D" parent="Cats" unique_id=1272921849]
+transform = Transform3D(-0.49999997, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.49999997, -2, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorL2" type="Node3D" parent="Cats" unique_id=1386933158]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 0, 0)
+[node name="CatAnchorL2" type="Marker3D" parent="Cats" unique_id=698940626]
+transform = Transform3D(-0.49999997, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.49999997, -6, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorL3" type="Node3D" parent="Cats" unique_id=1304127102]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
+[node name="CatAnchorL3" type="Marker3D" parent="Cats" unique_id=1006771043]
+transform = Transform3D(-0.49999997, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.49999997, -10, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorL4" type="Node3D" parent="Cats" unique_id=1450303546]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -11, 0, 0)
+[node name="CatAnchorL4" type="Marker3D" parent="Cats" unique_id=1445103173]
+transform = Transform3D(-0.49999997, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.49999997, -14, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorL5" type="Node3D" parent="Cats" unique_id=1379520319]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -14, 0, 0)
+[node name="CatAnchorL5" type="Marker3D" parent="Cats" unique_id=379411727]
+transform = Transform3D(-0.49999997, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.49999997, -18, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorR1" type="Node3D" parent="Cats" unique_id=976023162]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2, 0, 0)
+[node name="CatAnchorR1" type="Marker3D" parent="Cats" unique_id=968740644]
+transform = Transform3D(-0.49999997, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.49999997, 2, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorR2" type="Node3D" parent="Cats" unique_id=1406198870]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5, 0, 0)
+[node name="CatAnchorR2" type="Marker3D" parent="Cats" unique_id=1859913672]
+transform = Transform3D(-0.49999997, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.49999997, 6, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorR3" type="Node3D" parent="Cats" unique_id=2113805260]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8, 0, 0)
+[node name="CatAnchorR3" type="Marker3D" parent="Cats" unique_id=958032932]
+transform = Transform3D(-0.49999997, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.49999997, 10, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorR4" type="Node3D" parent="Cats" unique_id=37550338]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 11, 0, 0)
+[node name="CatAnchorR4" type="Marker3D" parent="Cats" unique_id=1059260414]
+transform = Transform3D(-0.49999997, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.49999997, 14, 0, 0)
+gizmo_extents = 0.9
 
-[node name="CatAnchorR5" type="Node3D" parent="Cats" unique_id=659143367]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14, 0, 0)
+[node name="CatAnchorR5" type="Marker3D" parent="Cats" unique_id=1734279100]
+transform = Transform3D(-0.49999997, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.49999997, 18, 0, 0)
+gizmo_extents = 0.9
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=235324837]
 transform = Transform3D(1, 0, 0, 0, 0.9189352, 0.3944088, 0, -0.39440876, 0.9189351, 0, 7.699321, 14.553275)

@@ -1,7 +1,7 @@
 extends Node3D
 class_name CatManager
 
-const CAT_SCENE = preload("res://scenes/cat/cat_test.tscn")
+const CAT_SCENE = preload("res://scenes/cat/prep_cat.tscn")
 
 @export var start_battle_door: PrepAreaDoor
 @export var battle_transition: CanvasLayer
@@ -255,8 +255,8 @@ func _animate_team_departure(team_cats: Array[Node3D]) -> void:
 					if departure.is_valid():
 						departure.set_speed_scale(speed)
 				for remaining_cat in _departing_cats:
-					if remaining_cat.visible and remaining_cat._animation_player != null:
-						remaining_cat._animation_player.speed_scale = speed
+					if remaining_cat.visible and remaining_cat.visual.animation_player != null:
+						remaining_cat.visual.animation_player.speed_scale = speed
 			_remaining_departures -= 1)
 	while _remaining_departures > 0:
 		await get_tree().process_frame

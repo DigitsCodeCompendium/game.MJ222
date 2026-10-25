@@ -19,12 +19,16 @@ var was_damaged: bool
 
 var attached_ui: Node
 
-const DEFAULT_CAT_MAT = preload("res://assets/cat/elements/default_cat.tres")
+@onready var visual: CatVisual = $CatVisual
+
+func _ready() -> void:
+	visual.set_enchantment(enchantment)
+	animate_idle()
 
 @warning_ignore("shadowed_variable")
 func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	cat_name = n
-	_enchantment = e
+	set_enchantment(e)
 	self.base_attack = base_attack
 	self.base_health = base_health
 	attack = base_attack
@@ -35,23 +39,10 @@ func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	did_attack = false
 	was_damaged = false
 
-func set_enchantment(e: Enchantment):
+func set_enchantment(e: Enchantment) -> void:
 	_enchantment = e
-	
-	if not is_node_ready():
-		return
-	
-	if enchantment != null and enchantment.cat_material != null:
-		set_body_material(enchantment.cat_material)
-	else:
-		# Duplicate so tinting one cat never changes another cat's material.
-		var material = DEFAULT_CAT_MAT.duplicate() as StandardMaterial3D
-		if enchantment != null:
-			material.albedo_color = enchantment.primary_color
-		set_body_material(material)
-
-func set_body_material(mat: StandardMaterial3D):
-	$Cat/Armature/Skeleton3D/Cat.set_surface_override_material(0, mat)
+	if is_node_ready():
+		visual.set_enchantment(e)
 
 func take_damage(amount: int):
 	if is_shrouded:
@@ -60,20 +51,19 @@ func take_damage(amount: int):
 		health -= amount
 		was_damaged = true
 
-func animate_idle():
-	pass # TODO
+func animate_idle() -> void:
+	visual.play_loop("Idle")
 
-func animate_move():
-	pass # TODO
+func animate_move() -> void:
+	visual.play_loop("Walk")
 
-func animate_attack():
-	$Cat/AnimationPlayer.play("Armature|Attack")
-	await $Cat/AnimationPlayer.animation_finished
+func animate_attack() -> void:
+	await visual.play_once("Attack")
+	animate_idle()
 
-func animate_hurt():
-	$Cat/AnimationPlayer.play("Armature|Pancake")
-	await $Cat/AnimationPlayer.animation_finished
+func animate_hurt() -> void:
+	await visual.play_once("Pancake")
+	animate_idle()
 
-func animate_death():
-	$Cat/AnimationPlayer.play("Armature|Death")
-	await $Cat/AnimationPlayer.animation_finished
+func animate_death() -> void:
+	await visual.play_once("Death")

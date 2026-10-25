@@ -186,7 +186,7 @@ func move_cat(cat: BattleCat, to: Node3D, instant: bool):
 			
 			move_look_dir.y = 0
 			if not is_zero_approx(move_look_dir.length_squared()):
-				var move_rot = Basis.looking_at(-move_look_dir).get_euler() # Forward is -z so we need to flip look direction
+				var move_rot = Basis.looking_at(move_look_dir).get_euler()
 				tween.tween_property(cat, "rotation", move_rot, rotate_duration)
 			
 			tween.tween_callback(cat.animate_move)

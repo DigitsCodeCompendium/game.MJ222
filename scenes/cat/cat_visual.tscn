@@ -1,0 +1,6 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/cat/cat_visual.gd" id="script"]
+[ext_resource type="PackedScene" path="res://scenes/cat/models/base_cat_model.tscn" id="model"]
+[node name="CatVisual" type="Node3D"]
+script = ExtResource("script")
+[node name="Cat" parent="." instance=ExtResource("model")]
