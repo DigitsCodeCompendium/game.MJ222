@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="EnchantmentFire" format=3 uid="uid://d20wlj6j525hw"]
 
+[ext_resource type="Material" uid="uid://ca1fum7bcrk3h" path="res://assets/cat/elements/fire_cat.tres" id="1_2s12f"]
 [ext_resource type="Script" uid="uid://0m4e2f534iq6" path="res://scripts/enchantments/basic/enchantment_fire.gd" id="1_fnq6a"]
 [ext_resource type="PackedScene" uid="uid://dboiasiatkqjc" path="res://scenes/cat/models/fire_cat.tscn" id="2_model"]
 
@@ -10,5 +11,6 @@ primary_color = Color(0.6, 0.2, 0.15686275, 1)
 description = "At the start of combat, gain 1/0 for each fire or fire-derived Squeeb on the team."
 base_attack = 2
 base_health = 1
+cat_material = ExtResource("1_2s12f")
 cat_scene = ExtResource("2_model")
 metadata/_custom_type_script = "uid://0m4e2f534iq6"
