@@ -2,11 +2,10 @@ extends Node
 
 @export var cost_brackets: Array[EnchantmentCostBracket]
 
-func _ready():
-	var rng = RandomNumberGenerator.new()
+var rng: RandomNumberGenerator
 
-	var team = generate_random_team(5, 3, 0.2, rng)
-	print(team.map(func(cd): return "Attack %s Health %s Enchantment %s" % [cd.base_attack, cd.base_health, cd.enchantment.display_name]))
+func _ready():
+	rng = RandomNumberGenerator.new()
 
 # it's best to arrange valid_costs in decreasing order, though it should still produce the same results regardless
 func enumerate_unordered_teams(max_size: int, valid_costs: Array[int], total_cost: int) -> Array[Array]:
@@ -41,7 +40,7 @@ func calculate_team_weight(team_costs: Array, weight_progress: float) -> float:
 		weight *= lerpf(bracket.weight_early, bracket.weight_late, weight_progress)
 	return weight
 
-func generate_random_team(max_size: int, total_cost: int, weight_progress: float, rng: RandomNumberGenerator) -> Array[CatData]:
+func generate_random_team(max_size: int, total_cost: int, weight_progress: float, extra_points: int = 0) -> Array[CatData]:
 	var valid_costs: Array[int] = []
 	valid_costs.assign(cost_brackets.map(func(bracket): return bracket.cost))
 	var valid_teams = enumerate_unordered_teams(max_size, valid_costs, total_cost)	
@@ -63,4 +62,20 @@ func generate_random_team(max_size: int, total_cost: int, weight_progress: float
 		cat_data.enchantment = bracket.enchantments[rng.randi_range(0, bracket.enchantments.size() - 1)]
 		team.append(cat_data)
 	
+	for _i in range(extra_points):
+		var target_index = rng.randi_range(0, team.size() - 1)
+		team[target_index].attack_offset += 1
+		team[target_index].health_offset += 1
+	
 	return team
+
+# Note: Only works well for teams generated here!
+func describe_team(team: Array[CatData]) -> String:
+	return ", ".join(team.map(describe_team_member))
+
+func describe_team_member(cat: CatData) -> String:
+	var result = cat.enchantment.display_name
+	# Teams generated here always have the same attack and health offset
+	if cat.attack_offset > 0:
+		result += "+%s" % cat.attack_offset
+	return result
