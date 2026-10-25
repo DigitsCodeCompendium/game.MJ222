@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://7d48c6pomplm" path="res://scripts/prep_area/prep_door.gd" id="2_ianlh"]
 [ext_resource type="Script" uid="uid://kqwg4eg0m4rv" path="res://scripts/prep_area/cat_manager.gd" id="2_sux85"]
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="3_edtl5"]
-[ext_resource type="Script" uid="uid://ce45xqpfeewag" path="res://scripts/enchantments/basic/enchantment_cat.gd" id="6_ianlh"]
+[ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="7_os6ue"]
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
@@ -12,10 +12,9 @@
 [ext_resource type="Script" uid="uid://jmc1ahkygkdl" path="res://scripts/prep_area/battle_transition.gd" id="battle_transition"]
 [ext_resource type="PackedScene" uid="uid://bdexqndp3ng0p" path="res://scenes/prep_area/cat_house.tscn" id="cat_house"]
 [ext_resource type="Script" uid="uid://cumqd1uercvke" path="res://scripts/prep_area/coin_balance.gd" id="coin_balance"]
+[ext_resource type="PackedScene" uid="uid://bifa8bgtfyvhm" path="res://scenes/prep_area/cookie_jar.tscn" id="cookie_jar"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 [ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
-
-[ext_resource type="PackedScene" path="res://scenes/prep_area/cookie_jar.tscn" id="cookie_jar"]
 
 [sub_resource type="Environment" id="Environment_gpf5u"]
 background_mode = 1
@@ -270,14 +269,10 @@ size = Vector3(2.8, 0.2, 0.3)
 material = SubResource("RoomWood")
 size = Vector3(2.8, 0.1, 0.5)
 
-[sub_resource type="Resource" id="Resource_sux85"]
-script = ExtResource("6_ianlh")
-metadata/_custom_type_script = "uid://ce45xqpfeewag"
-
 [sub_resource type="StyleBoxFlat" id="DoorTooltipStyle"]
 content_margin_left = 16.0
-content_margin_right = 16.0
 content_margin_top = 12.0
+content_margin_right = 16.0
 content_margin_bottom = 12.0
 bg_color = Color(0.12, 0.1, 0.08, 0.96)
 border_width_left = 2
@@ -287,8 +282,8 @@ border_width_bottom = 2
 border_color = Color(0.33, 0.87, 0.47, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
-corner_radius_bottom_left = 8
 corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
@@ -480,9 +475,8 @@ shape = SubResource("CabinetShape")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.2, -2.0303473)
 mesh = SubResource("CabinetMesh")
 
-[node name="CookieJar" parent="Level/Room/Cabinet" node_paths=PackedStringArray("cat_manager") instance=ExtResource("cookie_jar")]
-position = Vector3(-0.9, 2.4, -1.25)
-rotation = Vector3(0, 0.4, 0)
+[node name="CookieJar" parent="Level/Room/Cabinet" unique_id=42085144 node_paths=PackedStringArray("cat_manager") instance=ExtResource("cookie_jar")]
+transform = Transform3D(0.921061, 0, 0.38941833, 0, 1, 0, -0.38941833, 0, 0.921061, -0.9, 2.4, -1.25)
 cat_manager = NodePath("../../../../Props/CatManager")
 
 [node name="SideTable" type="Node3D" parent="Level/Room" unique_id=1923663893]
@@ -577,17 +571,16 @@ mesh = SubResource("DoorTopFrameMesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.05)
 mesh = SubResource("DoorThresholdMesh")
 
-[node name="UI" type="CanvasLayer" parent="Level/Room/Door"]
+[node name="UI" type="CanvasLayer" parent="Level/Room/Door" unique_id=1945343465]
 layer = 2
 
-[node name="Tooltip" type="PanelContainer" parent="Level/Room/Door/UI"]
+[node name="Tooltip" type="PanelContainer" parent="Level/Room/Door/UI" unique_id=1824640149]
 visible = false
 mouse_filter = 2
 theme_override_styles/panel = SubResource("DoorTooltipStyle")
 
-[node name="Text" type="Label" parent="Level/Room/Door/UI/Tooltip"]
+[node name="Text" type="Label" parent="Level/Room/Door/UI/Tooltip" unique_id=924096286]
 layout_mode = 2
-mouse_filter = 2
 theme_override_font_sizes/font_size = 20
 text = "To battle!"
 
@@ -598,7 +591,7 @@ script = ExtResource("2_sux85")
 start_battle_door = NodePath("../../Level/Room/Door")
 battle_transition = NodePath("../../BattleTransition")
 nav_region = NodePath("../../Level/NavigationRegion3D")
-possible_enchantments = Array[ExtResource("3_edtl5")]([SubResource("Resource_sux85")])
+possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("7_os6ue")])
 possible_names = Array[String](["Qwill", "Max", "Fish", "Spot", "Milo", "Bella", "Lucy", "Mochi", "Pepper", "Otis", "Felix", "Jasper", "Ash", "Luna", "Kitty", "Leo", "Simba"])
 cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
 constrain_cat_drag = true
@@ -608,9 +601,9 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13.
 cat_manager = NodePath("../CatManager")
 
 [node name="MergeStation" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager") instance=ExtResource("10_l6pdx")]
-show_bed_labels = false
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.813288, 0, 8.158764)
 cat_manager = NodePath("../CatManager")
+show_bed_labels = false
 
 [node name="CatBeds" type="Node3D" parent="Props" unique_id=552533873]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.183372)
