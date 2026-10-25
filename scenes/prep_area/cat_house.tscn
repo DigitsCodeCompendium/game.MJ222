@@ -130,5 +130,5 @@ theme_override_styles/panel = SubResource("PanelStyle")
 [node name="Hint" type="Label" parent="UI/Panel" unique_id=924587461]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Buy a cat: 1 coin"
+text = "Adopt a Squeeb: 1 coin"
 horizontal_alignment = 1
