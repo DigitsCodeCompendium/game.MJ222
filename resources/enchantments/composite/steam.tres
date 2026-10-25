@@ -2,6 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="1_aedg7"]
 [ext_resource type="Script" uid="uid://b86h0iadu34ke" path="res://scripts/enchantments/composite/enchantment_steam.gd" id="1_c06rq"]
+[ext_resource type="Material" uid="uid://dqgnw5w3x3w67" path="res://assets/cat/elements/steam_cat.tres" id="1_yhm5r"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="2_8wyqi"]
 
 [resource]
@@ -11,6 +12,7 @@ primary_color = Color(1, 1, 1, 1)
 description = "When attacked, half of the damage (rounded down) will be transferred to the squeeb behind. If there are no squeebs behind, the transferred damage is completely ignored."
 base_attack = 3
 base_health = 4
+cat_material = ExtResource("1_yhm5r")
 component1 = ExtResource("1_aedg7")
 component2 = ExtResource("2_8wyqi")
 metadata/_custom_type_script = "uid://b86h0iadu34ke"

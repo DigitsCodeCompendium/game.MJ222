@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="EnchantmentVoid" format=3 uid="uid://n7e2cfwac1q5"]
 
 [ext_resource type="Script" uid="uid://othn8g1rmp5e" path="res://scripts/enchantments/composite/enchantment_void.gd" id="1_5q1tr"]
+[ext_resource type="Material" uid="uid://bn35cc70o5luj" path="res://assets/cat/elements/void_cat.tres" id="1_oqdgo"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="1_w7ywk"]
+[ext_resource type="Resource" uid="uid://dlrbiv0tr6g04" path="res://resources/cat_faces/void.tres" id="3_p3tgr"]
 
 [resource]
 script = ExtResource("1_5q1tr")
@@ -10,6 +12,8 @@ primary_color = Color(0.18039216, 0.13725491, 0.24705882, 1)
 description = "Upon fainting, deal 2 damage to ALL squeebs."
 base_attack = 2
 base_health = 4
+cat_material = ExtResource("1_oqdgo")
+face_set = ExtResource("3_p3tgr")
 component1 = ExtResource("1_w7ywk")
 component2 = ExtResource("1_w7ywk")
 metadata/_custom_type_script = "uid://othn8g1rmp5e"

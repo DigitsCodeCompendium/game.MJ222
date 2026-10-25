@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://p3ohst0t200x"]
+
+[ext_resource type="Texture2D" uid="uid://kxhvegyeyrnq" path="res://assets/cat/elements/Electric_Cat.png" id="1_lwrib"]
+
+[resource]
+albedo_texture = ExtResource("1_lwrib")

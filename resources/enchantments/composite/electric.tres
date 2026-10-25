@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentElectric" format=3 uid="uid://bf4rgm2l0mwdv"]
 
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="1_0qr81"]
+[ext_resource type="Material" uid="uid://p3ohst0t200x" path="res://assets/cat/elements/electric_cat.tres" id="1_8attb"]
 [ext_resource type="Script" uid="uid://bsja6rxfqlbx7" path="res://scripts/enchantments/composite/enchantment_electric.gd" id="1_gv125"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="2_ajdcb"]
 
@@ -11,6 +12,7 @@ primary_color = Color(1, 1, 0.627451, 1)
 description = "After an ally attacks, deal 1 damage to a random opposing squeeb."
 base_attack = 4
 base_health = 2
+cat_material = ExtResource("1_8attb")
 component1 = ExtResource("1_0qr81")
 component2 = ExtResource("2_ajdcb")
 metadata/_custom_type_script = "uid://bsja6rxfqlbx7"

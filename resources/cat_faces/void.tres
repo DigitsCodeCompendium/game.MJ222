@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CatFaceSet" format=3 uid="uid://dlrbiv0tr6g04"]
+
+[ext_resource type="Script" uid="uid://cvvb51m58g04y" path="res://scripts/cat/cat_face_set.gd" id="1_jslew"]
+[ext_resource type="Texture2D" uid="uid://dtpu8h67a7jtr" path="res://assets/cat/faces/Void_Attack.png" id="2_jslew"]
+[ext_resource type="Texture2D" uid="uid://c46homveceqt0" path="res://assets/cat/faces/Void_Hurt1.png" id="3_jjda5"]
+[ext_resource type="Texture2D" uid="uid://bn0wl08wtievu" path="res://assets/cat/faces/Void_Neutral.png" id="4_6xp3r"]
+[ext_resource type="Texture2D" uid="uid://dxvr6vnj7agn" path="res://assets/cat/faces/Void_Scared.png" id="5_g1r42"]
+[ext_resource type="Texture2D" uid="uid://chhmd8qc22e1j" path="res://assets/cat/faces/Void_Sleep.png" id="6_jyute"]
+
+[resource]
+script = ExtResource("1_jslew")
+textures = Dictionary[String, Texture2D]({
+"attack": ExtResource("2_jslew"),
+"hurt": ExtResource("3_jjda5"),
+"neutral": ExtResource("4_6xp3r"),
+"scared": ExtResource("5_g1r42"),
+"sleep": ExtResource("6_jyute")
+})
