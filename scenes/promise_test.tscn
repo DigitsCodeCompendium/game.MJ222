@@ -10,8 +10,9 @@ func _ready():
 	print(\"start\")
 	var c1 = Promise.new(coro1)
 	var c2 = Promise.new(coro2)
+	var c3 = Promise.new(non_coro)
 	print('coro')
-	await Promise.all([c1, c2])
+	await Promise.all([c1, c2, c3])
 	print('done')
 	
 func coro1():
@@ -21,6 +22,9 @@ func coro1():
 func coro2():
 	await get_tree().create_timer(2).timeout
 	print('coro2 done')
+
+func non_coro():
+	print('non coro')
 "
 
 [node name="PromiseTest" type="Node3D" unique_id=891771010]
