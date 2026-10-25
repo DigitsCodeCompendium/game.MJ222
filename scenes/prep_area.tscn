@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://buo8lt1arwccv"]
 
 [ext_resource type="Texture2D" uid="uid://1vmgykdcxwl3" path="res://assets/floor/ss1-4.png" id="1_1pia5"]
-[ext_resource type="Script" uid="uid://kqwg4eg0m4rv" path="res://scripts/cat_manager.gd" id="2_sux85"]
+[ext_resource type="Script" uid="uid://7d48c6pomplm" path="res://scripts/prep_area/prep_door.gd" id="2_ianlh"]
+[ext_resource type="Script" uid="uid://kqwg4eg0m4rv" path="res://scripts/prep_area/cat_manager.gd" id="2_sux85"]
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="3_edtl5"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="4_ianlh"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_os6ue"]
@@ -9,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_0x5mc"]
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
+[ext_resource type="Script" uid="uid://dtqdranje4oks" path="res://scripts/prep_area/prep_area_test/cat_spawner.gd" id="11_edtl5"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
 [ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/enemy_team_preview.gd" id="13_edtl5"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
@@ -222,6 +224,9 @@ size = Vector3(0.8, 0.9, 0.8)
 [sub_resource type="BoxMesh" id="PlantLeaves2Mesh"]
 material = SubResource("RoomLeaf")
 size = Vector3(0.8, 0.9, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gpf5u"]
+size = Vector3(2.3974762, 4.5016174, 0.44854736)
 
 [sub_resource type="StandardMaterial3D" id="DoorWood"]
 albedo_color = Color(0.45, 0.31, 0.21, 1)
@@ -500,8 +505,14 @@ mesh = SubResource("PlantLeaves1Mesh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.97104406, 2.9, -1.3593318)
 mesh = SubResource("PlantLeaves2Mesh")
 
-[node name="Door" type="Node3D" parent="Level/Room" unique_id=138432951]
+[node name="Door" type="AnimatableBody3D" parent="Level/Room" unique_id=2085887816]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.927633, 0, -15.65)
+script = ExtResource("2_ianlh")
+disabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Room/Door" unique_id=260409551]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000831604, 2.3305511, 0.017547607)
+shape = SubResource("BoxShape3D_gpf5u")
 
 [node name="Panel" type="MeshInstance3D" parent="Level/Room/Door" unique_id=115779247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
@@ -541,9 +552,9 @@ mesh = SubResource("DoorHandleMesh")
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
-[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_button", "nav_region", "cat_beds")]
+[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_door", "nav_region", "cat_beds")]
 script = ExtResource("2_sux85")
-start_battle_button = NodePath("../../Player/UI/MarginContainer/StartBattleButton")
+start_battle_door = NodePath("../../Level/Room/Door")
 nav_region = NodePath("../../Level/NavigationRegion3D")
 possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), ExtResource("5_os6ue"), ExtResource("6_qtuiy"), ExtResource("7_0x5mc")])
 cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
@@ -603,11 +614,13 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="StartBattleButton" type="Button" parent="Player/UI/MarginContainer" unique_id=359575971]
+[node name="SpawnCatButton" type="Button" parent="Player/UI/MarginContainer" unique_id=342116415 node_paths=PackedStringArray("cat_manager")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-text = "spawn cat"
+text = "TEST_SPAWN_CAT"
+script = ExtResource("11_edtl5")
+cat_manager = NodePath("../../../../Props/CatManager")
 
 [node name="EnemyTeamPreview" type="Label" parent="Player/UI/MarginContainer" unique_id=927568673]
 layout_mode = 2
@@ -619,8 +632,10 @@ script = ExtResource("13_edtl5")
 [node name="CatPickupInfo" parent="." unique_id=2114418831 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
 cat_manager = NodePath("../Props/CatManager")
 
+[connection signal="on_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed1" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed2" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed3" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed4" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed5" to="Props/CatManager" method="_on_cat_placed"]
+[connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Player/UI/MarginContainer/SpawnCatButton" method="_on_spawn_cat_button_pressed"]

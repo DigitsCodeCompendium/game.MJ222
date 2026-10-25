@@ -3,7 +3,7 @@ class_name CatManager
 
 const CAT_SCENE = preload("res://scenes/cat/cat_test.tscn")
 
-@export var start_battle_button: Button
+@export var start_battle_door: PrepAreaDoor
 @export var nav_region: NavigationRegion3D
 
 @export var possible_enchantments: Array[Enchantment]
@@ -22,6 +22,8 @@ var used_names: Array[String]:
 		return names
 
 func _ready() -> void:
+	# Need to give nav server a frame to load, otherwise can't find random position in a nav mesh for spawning cats distributedly
+	await NavigationServer3D.map_changed
 	load_cats_from_game_state()
 	update_start_game_button()
 
@@ -110,13 +112,16 @@ func spawn_cat(pos: Vector3, cat_data: CatData = null) -> Cat:
 		return null
 	return cat_instance
 
+func find_random_cat_spawn_pos() -> Vector3:
+	return NavigationServer3D.region_get_random_point(nav_region.get_rid(), 1, false)
+
 func load_cats_from_game_state():
 	for i in range(GameManager.player_cats_team.size()):
 		var cat = spawn_cat(cat_beds[i].global_position, GameManager.player_cats_team[i])
 		cat_beds[i].try_place_cat(cat)
 	
 	for cat in GameManager.player_cats_reserve:
-		var pos = NavigationServer3D.region_get_random_point(nav_region.get_rid(), 1, false)
+		var pos = find_random_cat_spawn_pos()
 		spawn_cat(pos, cat)
 
 func _on_cat_placed(cat: Node3D):
@@ -125,7 +130,23 @@ func _on_cat_placed(cat: Node3D):
 func update_start_game_button():
 	for bed in cat_beds:
 		if is_instance_valid(bed.placed_cat):
-			start_battle_button.disabled = false
+			start_battle_door.disabled = false
 			return
-	start_battle_button.disabled = true
+	start_battle_door.disabled = true
+
+func _on_door_clicked():
+	var team_cats: Array[Node3D] = [] # Used later for checking which cats are in reserve
+	var team: Array[CatData] = [] # Data passed to game manager and battle arena
+	for bed in cat_beds:
+		if is_instance_valid(bed.placed_cat):
+			team_cats.append(bed.placed_cat)
+			team.append(bed.placed_cat.get_cat_data())
+	GameManager.player_cats_team = team
 	
+	var reserve: Array[CatData] = []
+	for cat in get_cats():
+		if not cat in team_cats:
+			reserve.append(cat.get_cat_data())
+	GameManager.player_cats_reserve = reserve
+	
+	GameManager.start_battle()

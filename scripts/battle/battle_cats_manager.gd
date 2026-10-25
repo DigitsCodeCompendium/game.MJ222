@@ -4,8 +4,6 @@ extends Node3D
 @export var battle_cat_scene: PackedScene
 @export var battle_cat_ui_scene: PackedScene
 
-const team_size = 5
-
 @export var left_cat_anchors: Array[Node3D]
 @export var right_cat_anchors: Array[Node3D]
 
@@ -23,15 +21,13 @@ func _ready():
 	load_cats()
 
 func load_cats():
-	pass # TODO spawn in cats based on some kind of data being passed in somehow
+	load_cats_from_data(cats_left, GameManager.player_cats_team)
 	
-	# TODO Placeholder cats for testing
-	add_cat(cats_left, "placeholder", load("res://resources/enchantments/composite/steam.tres"), 100, 10)
-	add_cat(cats_left, "placeholder", load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_left, "placeholder", load("res://resources/enchantments/composite/sand.tres"), 10, 10)
-	add_cat(cats_right, "placeholder", load("res://resources/enchantments/composite/void.tres"), 100, 10)
-	add_cat(cats_right, "placeholder", load("res://resources/enchantments/basic/cat.tres"), 10, 10)
-	add_cat(cats_right, "placeholder", load("res://resources/enchantments/basic/cat.tres"), 10, 10)
+	var rng = RandomNumberGenerator.new()
+	rng.seed = GameManager.enemy_seed
+	var game_progress = float(GameManager.stage_index) / (GameManager.total_rounds - 1)
+	var opponent_team = TeamGenerator.generate_random_team(rng, GameManager.TEAM_SIZE, GameManager.enemy_team_cost, game_progress, GameManager.enemy_extra_cost)
+	load_cats_from_data(cats_right, opponent_team)
 	
 	move_all_cats(true)
 	
@@ -44,6 +40,10 @@ func load_cats():
 func _process(delta):
 	if Input.is_action_just_pressed("debug_click"):
 		do_turn()
+	
+	if Input.is_action_just_pressed("debug_win_battle"):
+		GameManager.is_battle_won = true
+		GameManager.finish_battle()
 
 func do_turn():
 	cats_left[0].enchantment.before_attack(self, cats_left[0])

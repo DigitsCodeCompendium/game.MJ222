@@ -4,6 +4,8 @@ extends Node
 @export var total_rounds: int = 10
 @export var min_wins_required: int = 7
 
+const TEAM_SIZE = 5
+
 const PREP_AREA_SCENE = preload("res://scenes/prep_area.tscn")
 const BATTLE_ARENA_SCENE = preload("res://scenes/battle/battle_arena.tscn")
 
