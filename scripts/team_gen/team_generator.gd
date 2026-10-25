@@ -3,12 +3,10 @@ extends Node
 
 @export var cost_brackets: Array[EnchantmentCostBracket]
 
-var rng: RandomNumberGenerator
-
 func _ready():
-	rng = RandomNumberGenerator.new()
+	var rng = RandomNumberGenerator.new()
 
-	var team = generate_random_team(5, 3, 8, 1)
+	var team = generate_random_team(5, 3, 0.2, rng)
 	print(team.map(func(cd): return "Attack %s Health %s Enchantment %s" % [cd.base_attack, cd.base_health, cd.enchantment.display_name]))
 
 # it's best to arrange valid_costs in decreasing order, though it should still produce the same results regardless
@@ -44,9 +42,9 @@ func calculate_team_weight(team_costs: Array, weight_progress: float) -> float:
 		weight *= lerpf(bracket.weight_early, bracket.weight_late, weight_progress)
 	return weight
 
-func generate_random_team(max_size: int, max_cost: int, total_cost: int, weight_progress: float) -> Array[CatData]:
+func generate_random_team(max_size: int, total_cost: int, weight_progress: float, rng: RandomNumberGenerator) -> Array[CatData]:
 	var valid_costs: Array[int] = []
-	valid_costs.assign(cost_brackets.map(func(bracket): return bracket.cost).filter(func(cost): return cost <= max_cost))
+	valid_costs.assign(cost_brackets.map(func(bracket): return bracket.cost))
 	var valid_teams = enumerate_unordered_teams(max_size, valid_costs, total_cost)	
 	var team_weights = valid_teams.map(func(team): return calculate_team_weight(team, weight_progress))
 	
