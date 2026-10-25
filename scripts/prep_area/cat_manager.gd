@@ -98,7 +98,7 @@ func get_hovered_bed_cat(camera: Camera3D, mouse_position: Vector2) -> Cat:
 	var cat = hit.get("collider") as Cat
 	if cat == null or cat.get_parent() != self or cat.is_queued_for_deletion() or cat._is_dropping:
 		return null
-	for bed in cat_beds:
+	for bed in get_tree().get_nodes_in_group("cat_beds"):
 		if is_instance_valid(bed) and bed.placed_cat == cat:
 			return cat
 	return null

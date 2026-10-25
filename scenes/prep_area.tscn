@@ -23,8 +23,8 @@ ambient_light_color = Color(1, 0.945, 0.863, 1)
 ambient_light_energy = 0.45
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g543r"]
-vertices = PackedVector3Array(-14.75, 0.5, -7.75, -14.75, 0.5, -6.5, -12.25, 0.5, -6.5, 0, 0.5, -7.75, -11.5, 0.5, -0.25, -1.75, 0.5, 4.5, 0, 0.5, 4.25, -11.25, 0.5, -5.5, 12, 0.5, -0.5, 14.75, 0.5, -0.5, 14.75, 0.5, -7.75, 11.25, 0.5, 0, 1.75, 0.5, 4.5, 2.75, 0.5, 5.75, 11.25, 0.5, 4.75, -12.25, 0.5, 0.5, -14.75, 0.5, 0.5, -14.75, 0.5, 6.75, -3.25, 0.5, 6.75, 1.25, 0.5, 9.75, 0, 0.5, 9.75, 0, 0.5, 14.75, 2.25, 0.5, 9, 3.25, 0.5, 7.25, 14.75, 0.5, 14.75, 14.75, 0.5, 5.5, 12, 0.5, 5.5, -1.75, 0.5, 9.5, -14.75, 0.5, 14.75)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(6, 7, 3), PackedInt32Array(7, 2, 3), PackedInt32Array(10, 9, 8), PackedInt32Array(8, 11, 10), PackedInt32Array(10, 11, 12), PackedInt32Array(10, 12, 6), PackedInt32Array(10, 6, 3), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 11), PackedInt32Array(17, 16, 15), PackedInt32Array(15, 4, 17), PackedInt32Array(17, 4, 18), PackedInt32Array(18, 4, 5), PackedInt32Array(21, 20, 19), PackedInt32Array(21, 19, 22), PackedInt32Array(22, 23, 21), PackedInt32Array(21, 23, 26), PackedInt32Array(21, 26, 25), PackedInt32Array(21, 25, 24), PackedInt32Array(26, 23, 14), PackedInt32Array(14, 23, 13), PackedInt32Array(27, 20, 21), PackedInt32Array(27, 21, 18), PackedInt32Array(18, 21, 17), PackedInt32Array(17, 21, 28)]
+vertices = PackedVector3Array(-6.25, 0.5, 11.5, -10.25, 0.5, 14.75, -8.75, 0.5, 14.75, 14.75, 0.5, 1, -10.75, 0.5, -6.25, -10.75, 0.5, 1.25, -9.5, 0.5, 1.75, -5.5, 0.5, 5.5, -11.25, 0.5, -7.75, 14.75, 0.5, -7.75)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(6, 4, 7), PackedInt32Array(4, 8, 7), PackedInt32Array(7, 8, 3), PackedInt32Array(3, 8, 9), PackedInt32Array(3, 0, 7)]
 agent_radius = 1.25
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2t3p"]
@@ -289,8 +289,9 @@ environment = SubResource("Environment_gpf5u")
 navigation_mesh = SubResource("NavigationMesh_g543r")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=2052867074]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.9279437)
-vertices = PackedVector3Array(1.0372822, 0, -1.3943548, -1.1913946, 0, -1.3696022, -1.9330649, 0, 0.009942055, -0.98082757, 0, 1.513413, 1.0238612, 0, 1.457253, 1.9672275, 0, -0.0048766136)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.903, 0, 5.5469985)
+height = 6.0
+vertices = PackedVector3Array(-2.5851135, 0, -2.8823757, -2.5528097, 0, 8.219593, 1.571454, 0, 8.33482, 5.7116594, 0, 5.0248637, 6.1462827, 0, 0.33356524, 1.9586515, 0, -3.1889124)
 affect_navigation_mesh = true
 
 [node name="Floor" type="Node3D" parent="Level/NavigationRegion3D" unique_id=332453525]
@@ -314,13 +315,12 @@ affect_navigation_mesh = true
 [node name="CabinetObstacle" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=1165634359]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -3)
 height = 6.0
-vertices = PackedVector3Array(-1.4, 0, -2.2, 1.4, 0, -2.2, 1.4, 0, 2.2, -1.4, 0, 2.2)
+vertices = PackedVector3Array(-1.6728678, 0, -4.149723, 1.8062124, 0, -4.2610874, 2.2079363, 0, 3.4960523, -1.6564989, 0, 3.7292876)
 affect_navigation_mesh = true
 
-[node name="TableObstacle" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=1458991995]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7, 0, 2.5)
+[node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=838575396]
 height = 6.0
-vertices = PackedVector3Array(-1.5, 0, -1.7, 1.5, 0, -1.7, 1.5, 0, 1.7, -1.5, 0, 1.7)
+vertices = PackedVector3Array(15.442864, 0, 1.899723, -7.905996, 0, 15.512686, 6.0483937, 0, 15.700511, 15.338604, 0, 15.672065, 15.362537, 0, 10.316718)
 affect_navigation_mesh = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=880522691]
@@ -342,7 +342,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
 shape = SubResource("BackWallShape")
 
 [node name="LeftWall" type="MeshInstance3D" parent="Level/Room" unique_id=2077602899]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.988117, 2.9897566, 0.014860153)
 mesh = SubResource("LeftWallMesh")
 
 [node name="LeftWallBody" type="StaticBody3D" parent="Level/Room" unique_id=466057840]
@@ -469,7 +469,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.2, -2.0303473)
 mesh = SubResource("CabinetMesh")
 
 [node name="SideTable" type="Node3D" parent="Level/Room" unique_id=1923663893]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.954582, 0, 3.926002)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8460655, -9.536743e-07, -12.809021)
 
 [node name="SideTable" type="MeshInstance3D" parent="Level/Room/SideTable" unique_id=918114056]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 1.6, -1.3593318)
@@ -560,8 +560,12 @@ possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), E
 cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
 constrain_cat_drag = true
 
-[node name="Blender" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager") instance=ExtResource("10_l6pdx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45637035, 6.9592724)
+[node name="CatSpawner" type="Node" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager")]
+script = ExtResource("11_edtl5")
+cat_manager = NodePath("../CatManager")
+
+[node name="MergeStation" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager") instance=ExtResource("10_l6pdx")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.813288, 0, 8.158764)
 cat_manager = NodePath("../CatManager")
 
 [node name="CatBeds" type="Node3D" parent="Props" unique_id=552533873]
@@ -598,7 +602,8 @@ rotate_speed = 0.005
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1347866223]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.9176483, 22.336761)
+transform = Transform3D(0.84817994, -0.37509465, 0.37402517, 0.31644124, 0.92505264, 0.21010123, -0.42480078, -0.059846647, 0.9033065, 16.443878, 14.197662, 44.2112)
+fov = 27.5
 
 [node name="UI" type="CanvasLayer" parent="Player" unique_id=2106633419]
 
