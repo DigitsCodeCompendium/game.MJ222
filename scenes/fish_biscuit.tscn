@@ -1,17 +1,16 @@
 [gd_scene format=3 uid="uid://buyuyvd30xb2c"]
 
 [ext_resource type="PackedScene" uid="uid://du3vhts11ssy7" path="res://assets/FishBiscuit.glb" id="1_rmyte"]
-[ext_resource type="Shader" uid="uid://ci3e0perbq841" path="res://shaders/outline.tres" id="2_agt7s"]
 [ext_resource type="Texture2D" uid="uid://cju1whv3myj1y" path="res://assets/FishBiscuit_Fish_Biscuit.png" id="3_yqohh"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_agt7s"]
+albedo_texture = ExtResource("3_yqohh")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yqohh"]
-render_priority = 0
-shader = ExtResource("2_agt7s")
-shader_parameter/LineWidth = 0.0
-shader_parameter/Texture = ExtResource("3_yqohh")
-shader_parameter/Texture2 = ExtResource("3_yqohh")
 
 [node name="FishBiscuit" unique_id=1117741256 instance=ExtResource("1_rmyte")]
 
-[node name="Cube_003" parent="." index="0" unique_id=1269491586]
+[node name="Cube_003" parent="." index="0" unique_id=1315002121]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_agt7s")
 surface_material_override/0 = SubResource("ShaderMaterial_yqohh")

@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bifa8bgtfyvhm"]
+
+[ext_resource type="PackedScene" uid="uid://buyuyvd30xb2c" path="res://scenes/fish_biscuit.tscn" id="fish_cookie"]
+[ext_resource type="Script" uid="uid://chjjrhvg3qo5l" path="res://scripts/prep_area/cookie_jar.gd" id="script"]
+
+[sub_resource type="CylinderShape3D" id="Shape"]
+height = 1.7
+radius = 0.75
+
+[sub_resource type="StandardMaterial3D" id="JarMat"]
+albedo_color = Color(0.47, 0.74, 0.69, 1)
+roughness = 0.25
+
+[sub_resource type="CylinderMesh" id="Jar"]
+material = SubResource("JarMat")
+top_radius = 0.7
+bottom_radius = 0.6
+height = 1.25
+
+[sub_resource type="StandardMaterial3D" id="LidMat"]
+albedo_color = Color(0.96, 0.7, 0.55, 1)
+roughness = 0.35
+
+[sub_resource type="CylinderMesh" id="Lid"]
+material = SubResource("LidMat")
+top_radius = 0.75
+bottom_radius = 0.75
+height = 0.16
+
+[sub_resource type="SphereMesh" id="Ear"]
+material = SubResource("LidMat")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StyleBoxFlat" id="Style"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.12, 0.1, 0.08, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.7, 0.35, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CookieJar" type="Area3D" unique_id=904057679]
+collision_mask = 0
+script = ExtResource("script")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2061267691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+shape = SubResource("Shape")
+
+[node name="Jar" type="MeshInstance3D" parent="." unique_id=34512431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+mesh = SubResource("Jar")
+
+[node name="Lid" type="MeshInstance3D" parent="." unique_id=534731659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33, 0)
+mesh = SubResource("Lid")
+
+[node name="RightEar" type="MeshInstance3D" parent="." unique_id=1134232927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5898833, 0)
+mesh = SubResource("Ear")
+
+[node name="TooltipAnchor" type="Marker3D" parent="." unique_id=667982154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="HeldCookie" parent="." unique_id=1410995645 instance=ExtResource("fish_cookie")]
+visible = false
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1332164950]
+layer = 3
+
+[node name="Panel" type="PanelContainer" parent="UI" unique_id=1766884350]
+visible = false
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style")
+
+[node name="Hint" type="Label" parent="UI/Panel" unique_id=25210746]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Squeeb cookie"
+horizontal_alignment = 1
