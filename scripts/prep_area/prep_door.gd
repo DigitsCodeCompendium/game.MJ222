@@ -11,6 +11,8 @@ signal disabled_clicked
 var _hover_materials: Array[StandardMaterial3D] = []
 var _original_colors: Array[Color] = []
 var _opening = false
+var _hovered = false
+@onready var tooltip: PanelContainer = $UI/Tooltip
 
 func _ready() -> void:
 	input_event.connect(_on_input_event)
@@ -24,8 +26,24 @@ func _ready() -> void:
 		_original_colors.append(material.albedo_color)
 
 func _set_hovered(hovered: bool) -> void:
+	_hovered = hovered
 	for i in _hover_materials.size():
 		_hover_materials[i].albedo_color = hover_color if hovered and not _opening else _original_colors[i]
+	tooltip.visible = hovered and not _opening
+
+func _process(_delta: float) -> void:
+	tooltip.visible = _hovered and not _opening
+	if not tooltip.visible:
+		return
+	var camera = get_viewport().get_camera_3d()
+	var anchor = to_global(Vector3(0, 4.9, 0))
+	if camera == null or camera.is_position_behind(anchor):
+		tooltip.hide()
+		return
+	tooltip.reset_size()
+	var at = camera.unproject_position(anchor) - Vector2(tooltip.size.x / 2, tooltip.size.y + 12)
+	var size = get_viewport().get_visible_rect().size
+	tooltip.position = Vector2(clampf(at.x, 12, maxf(12, size.x - tooltip.size.x - 12)), clampf(at.y, 12, maxf(12, size.y - tooltip.size.y - 12)))
 
 func open_door() -> void:
 	_opening = true

@@ -274,6 +274,22 @@ size = Vector3(2.8, 0.1, 0.5)
 script = ExtResource("6_ianlh")
 metadata/_custom_type_script = "uid://ce45xqpfeewag"
 
+[sub_resource type="StyleBoxFlat" id="DoorTooltipStyle"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.12, 0.1, 0.08, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.33, 0.87, 0.47, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=371378319]
@@ -560,6 +576,20 @@ mesh = SubResource("DoorTopFrameMesh")
 [node name="Threshold" type="MeshInstance3D" parent="Level/Room/Door" unique_id=487195626]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0.05)
 mesh = SubResource("DoorThresholdMesh")
+
+[node name="UI" type="CanvasLayer" parent="Level/Room/Door"]
+layer = 2
+
+[node name="Tooltip" type="PanelContainer" parent="Level/Room/Door/UI"]
+visible = false
+mouse_filter = 2
+theme_override_styles/panel = SubResource("DoorTooltipStyle")
+
+[node name="Text" type="Label" parent="Level/Room/Door/UI/Tooltip"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+text = "To battle!"
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
