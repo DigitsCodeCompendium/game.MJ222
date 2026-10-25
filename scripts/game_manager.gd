@@ -76,7 +76,7 @@ func enter_prep() -> void:
 	if _last_paid_prep_stage == stage_index:
 		return
 	_last_paid_prep_stage = stage_index
-	player_money += prep_income
+	player_money = prep_income
 	
 	enemy_seed = rng.randi()
 	enemy_team_cost = roundi(pow(enemy_cost_base, stage_index))
