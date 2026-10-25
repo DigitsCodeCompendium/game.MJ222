@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_ny5yy")
 display_name = "Super Squeeb"
-base_attack = 5
-base_health = 5
+primary_color = Color(1, 0.80784315, 0, 1)
+base_attack = 3
+base_health = 3
 metadata/_custom_type_script = "uid://xniwbm3tafim"
