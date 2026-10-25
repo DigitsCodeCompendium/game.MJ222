@@ -1,9 +1,17 @@
 [gd_resource type="Resource" script_class="EnchantmentCorrupted" format=3 uid="uid://dtpywd7n86tr4"]
 
 [ext_resource type="Script" uid="uid://br5uktgkxfwa5" path="res://scripts/enchantments/special/enchantment_corrupted.gd" id="1_36v70"]
+[ext_resource type="Material" uid="uid://d14xuiu2krfpi" path="res://assets/cat/elements/corrupted_cat.tres" id="1_thod7"]
+[ext_resource type="PackedScene" path="res://scenes/cat/models/base_cat_model.tscn" id="2_ixtro"]
+[ext_resource type="Resource" uid="uid://dxa51lg37p58k" path="res://resources/cat_faces/corrupted.tres" id="3_ixtro"]
 
 [resource]
 script = ExtResource("1_36v70")
 display_name = "Corrupted"
 primary_color = Color(0.5019608, 0, 0.7058824, 1)
+base_attack = 1
+base_health = 1
+cat_material = ExtResource("1_thod7")
+cat_scene = ExtResource("2_ixtro")
+face_set = ExtResource("3_ixtro")
 metadata/_custom_type_script = "uid://br5uktgkxfwa5"

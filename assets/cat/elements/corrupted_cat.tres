@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d14xuiu2krfpi"]
+
+[ext_resource type="Texture2D" uid="uid://cvo8voxhkh46k" path="res://assets/cat/elements/Corrupted_Cat.png" id="1_1opf5"]
+
+[resource]
+albedo_texture = ExtResource("1_1opf5")

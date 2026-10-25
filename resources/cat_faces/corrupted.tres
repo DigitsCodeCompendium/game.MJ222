@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CatFaceSet" format=3 uid="uid://dxa51lg37p58k"]
+
+[ext_resource type="Script" uid="uid://cvvb51m58g04y" path="res://scripts/cat/cat_face_set.gd" id="1_kxhcr"]
+[ext_resource type="Texture2D" uid="uid://qbm7liriycgl" path="res://assets/cat/faces/Corrupted_Attack.png" id="2_0uj0h"]
+[ext_resource type="Texture2D" uid="uid://4mqntrqgdg6b" path="res://assets/cat/faces/Corrupted_Hurt1.png" id="3_4hgai"]
+[ext_resource type="Texture2D" uid="uid://crsrf27gn0mo2" path="res://assets/cat/faces/Corrupted_Neutral.png" id="4_wqng5"]
+[ext_resource type="Texture2D" uid="uid://cpmfgq73u47fe" path="res://assets/cat/faces/Corrupted_Scared.png" id="5_u1p5w"]
+[ext_resource type="Texture2D" uid="uid://n8je6j7rfq1n" path="res://assets/cat/faces/Corrupted_Sleeping.png" id="6_7uv1l"]
+
+[resource]
+script = ExtResource("1_kxhcr")
+textures = Dictionary[String, Texture2D]({
+"attack": ExtResource("2_0uj0h"),
+"hurt": ExtResource("3_4hgai"),
+"neutral": ExtResource("4_wqng5"),
+"scared": ExtResource("5_u1p5w"),
+"sleep": ExtResource("6_7uv1l")
+})
