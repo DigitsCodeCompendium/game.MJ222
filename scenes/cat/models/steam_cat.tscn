@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dfimhiuoaltsd"]
+
+[ext_resource type="PackedScene" path="res://scenes/cat/models/base_cat_model.tscn" id="1"]
+[ext_resource type="Material" uid="uid://dqgnw5w3x3w67" path="res://assets/cat/elements/steam_cat.tres" id="2_furs8"]
+
+[sub_resource type="Gradient" id="PuffShape"]
+offsets = PackedFloat32Array(0, 0.25, 0.65, 1)
+colors = PackedColorArray(1, 1, 1, 0.8, 1, 1, 1, 0.6, 1, 1, 1, 0.15, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="PuffTexture"]
+gradient = SubResource("PuffShape")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="SteamMaterial"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.6440836, 1, 0.9969148, 1)
+albedo_texture = SubResource("PuffTexture")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="SteamQuad"]
+material = SubResource("SteamMaterial")
+size = Vector2(3, 3)
+
+[sub_resource type="Gradient" id="Fade"]
+offsets = PackedFloat32Array(0, 0.2, 0.55, 1)
+colors = PackedColorArray(0.85, 0.94, 1, 0, 0.9, 0.96, 1, 0.28, 0.96, 0.98, 1, 0.18, 1, 1, 1, 0)
+
+[sub_resource type="QuadMesh" id="WispQuad"]
+material = SubResource("SteamMaterial")
+size = Vector2(0.3, 0.9)
+
+[sub_resource type="Curve" id="Expansion"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 0.35), 0.0, 1.25, 0, 0, Vector2(1, 0), 1.25, 0.0, 0, 0]
+point_count = 2
+
+[node name="SteamCat" unique_id=1653476378 instance=ExtResource("1")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Cat" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1600571938) index="0" unique_id=1966635513]
+material_override = ExtResource("2_furs8")
+
+[node name="Steam" type="CPUParticles3D" parent="Effects" index="0" unique_id=1110019188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.614298e-09, 0.8085333, -0.012902595)
+material_override = SubResource("SteamMaterial")
+cast_shadow = 0
+amount = 50
+lifetime = 1.75
+preprocess = 2.4
+speed_scale = 0.5
+draw_order = 2
+mesh = SubResource("SteamQuad")
+emission_shape = 1
+emission_sphere_radius = 1.5
+direction = Vector3(0, 1, 0)
+spread = 22.0
+gravity = Vector3(1, 1, 0)
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+scale_amount_min = 10.6
+scale_amount_max = 70.01
+color_ramp = SubResource("Fade")
+
+[node name="Wisps" type="CPUParticles3D" parent="Effects" index="1" unique_id=1962923475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+material_override = SubResource("SteamMaterial")
+cast_shadow = 0
+amount = 18
+lifetime = 1.8
+preprocess = 1.8
+mesh = SubResource("WispQuad")
+emission_shape = 1
+emission_sphere_radius = 0.65
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(-0.06, 0.12, 0.04)
+initial_velocity_min = 0.45
+initial_velocity_max = 0.8
+scale_amount_min = 0.6
+scale_amount_curve = SubResource("Expansion")
+color_ramp = SubResource("Fade")
