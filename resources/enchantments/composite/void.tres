@@ -8,7 +8,7 @@ script = ExtResource("1_5q1tr")
 display_name = "Void"
 primary_color = Color(0.18039216, 0.13725491, 0.24705882, 1)
 description = "At start of combat, gain 2/4 base.
-After this squeeb faints, deal 2 damage to ALL squeebs."
+When this squeeb faints, deal 2 damage to ALL squeebs."
 attack_modifier = 2
 health_modifier = 4
 component1 = ExtResource("1_w7ywk")
