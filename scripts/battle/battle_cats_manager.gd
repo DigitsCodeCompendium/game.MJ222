@@ -37,8 +37,11 @@ func _ready():
 		GameManager.is_battle_won = true
 	%ResultContainer.visible = true
 	
+	GameManager.do_end_of_battle_calcs()
+	
 	await get_tree().create_timer(5).timeout
-	GameManager.finish_battle()
+	
+	GameManager.exit_battle()
 
 func load_cats():
 	if GameManager.is_test_env:

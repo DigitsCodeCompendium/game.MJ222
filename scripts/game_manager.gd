@@ -34,6 +34,12 @@ var enemy_extra_cost: int
 var player_cats_team: Array[CatData]
 var player_cats_reserve: Array[CatData]
 
+# Derived information
+var is_run_lost: bool:
+	get: return player_life <= 0
+var is_run_won: bool:
+	get: return not is_run_lost and stage_index >= total_rounds
+
 # Temporary fields for transmitting information
 var is_battle_won: bool
 
@@ -88,19 +94,20 @@ func try_spend_coins(cost: int) -> bool:
 	player_money -= cost
 	return true
 
-func finish_battle():
-	if is_test_env:
-		get_tree().change_scene_to_packed(TEST_BATTLE_SCENE)
-		return
-	
+func do_end_of_battle_calcs():
 	stage_index += 1
 	if not is_battle_won:
 		player_life -= 1
-	
-	if player_life <= 0:
+
+func exit_battle():
+	if is_test_env:
+		get_tree().change_scene_to_packed(TEST_BATTLE_SCENE)
+		return
+
+	if is_run_lost:
 		# TODO separate "you lose the run" screen
 		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
-	elif stage_index >= total_rounds:
+	elif is_run_won:
 		# TODO separate "you win the run" screen
 		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
 	else:
