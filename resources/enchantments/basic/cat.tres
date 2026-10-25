@@ -6,4 +6,6 @@
 script = ExtResource("1_jgee8")
 display_name = "Cat"
 primary_color = Color(1, 1, 1, 1)
+base_attack = 1
+base_health = 1
 metadata/_custom_type_script = "uid://ce45xqpfeewag"
