@@ -53,7 +53,7 @@ theme_override_constants/separation = 10
 [node name="Heading" type="Label" parent="UI/Panel/Controls" unique_id=737434769]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Cat preview"
+text = "Squeeb preview"
 
 [node name="EnchantmentLabel" type="Label" parent="UI/Panel/Controls" unique_id=1952232522]
 layout_mode = 2

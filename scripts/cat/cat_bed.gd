@@ -3,7 +3,7 @@ extends Area3D
 
 signal cat_placed(cat: Node3D)
 
-@export var bed_label: String = "Cat bed"
+@export var bed_label: String = "Squeeb bed"
 @export var cushion_color: Color = Color("b7ca97")
 @export var lock_cat_to_bed: bool = false
 ## Blocks player drops and automatic insertion; devices may explicitly bypass it.

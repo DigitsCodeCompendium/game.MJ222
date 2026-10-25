@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ny5yy")
-display_name = "Super Cat"
+display_name = "Super Squeeb"
 base_attack = 5
 base_health = 5
 metadata/_custom_type_script = "uid://xniwbm3tafim"

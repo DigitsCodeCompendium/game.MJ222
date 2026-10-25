@@ -1,7 +1,7 @@
 class_name Cat
 extends CharacterBody3D
 
-@export var cat_name = "default_cat"
+@export var cat_name = "Squeeb"
 @export var movement_speed: float = 4.0
 @export var pickup_height: float = 2.0
 @export var pickup_speed: float = 6.0

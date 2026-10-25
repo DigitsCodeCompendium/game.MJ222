@@ -93,17 +93,17 @@ func _refresh_preview() -> void:
 			_preview_results.assign(_preview_cache[key])
 	panel.visible = _orb_hovered
 	if cats.is_empty():
-		result_label.text = "Place cats on the input beds"
+		result_label.text = "Place Squeebs on the input beds"
 		stats_label.text = ""
-		description_label.text = "Place two cats on the beds to preview their merge."
+		description_label.text = "Place two Squeebs on the beds to preview their merge."
 		hint_label.text = "Merging costs %d coins." % GameManager.MERGE_PRICE
 		_panel_style.border_color = Color("a9c7d4")
 		return
 	if _preview_results.is_empty():
-		result_label.text = "Waiting for a second cat"
+		result_label.text = "Waiting for a second Squeeb"
 		stats_label.text = cats[0].cat_name + " is ready"
-		description_label.text = "Place another cat on the empty input bed to preview the merge."
-		hint_label.text = "Pick either cat up to cancel."
+		description_label.text = "Place another Squeeb on the empty input bed to preview the merge."
+		hint_label.text = "Pick either Squeeb up to cancel."
 		_panel_style.border_color = Color("a9c7d4")
 		return
 	var names: Array[String] = []
@@ -117,7 +117,7 @@ func _refresh_preview() -> void:
 	stats_label.text = "\n".join(stats)
 	description_label.text = "\n\n".join(descriptions)
 	if _output_is_occupied():
-		hint_label.text = "Pick up the output cat before merging again"
+		hint_label.text = "Pick up the output Squeeb before merging again"
 	elif not GameManager.can_afford(GameManager.MERGE_PRICE):
 		hint_label.text = "Not enough coins — merging costs %d coins" % GameManager.MERGE_PRICE
 	else:

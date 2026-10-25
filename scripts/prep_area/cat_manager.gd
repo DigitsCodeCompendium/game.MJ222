@@ -64,7 +64,7 @@ func get_unique_name(preferred: String = "") -> String:
 	if not available.is_empty():
 		return available.pick_random()
 	# A short name list should not prevent filling otherwise available cat slots.
-	var base = preferred if not preferred.is_empty() else "Cat"
+	var base = preferred if not preferred.is_empty() else "Squeeb"
 	if preferred.is_empty():
 		for candidate in possible_names:
 			if not candidate.strip_edges().is_empty():

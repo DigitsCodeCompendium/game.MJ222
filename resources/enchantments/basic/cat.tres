@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_jgee8")
-display_name = "Cat"
+display_name = "Squeeb"
 primary_color = Color(1, 1, 1, 1)
 base_attack = 1
 base_health = 1

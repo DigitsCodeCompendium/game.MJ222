@@ -7,7 +7,7 @@
 script = ExtResource("1_l2qjv")
 display_name = "Air"
 primary_color = Color(0.7372549, 0.83137256, 0.7921569, 1)
-description = "At the start of combat, gain 0/1 for each Air or Air-derived cat on the team."
+description = "At the start of combat, gain 0/1 for each Air or Air-derived Squeeb on the team."
 base_attack = 2
 base_health = 1
 cat_material = ExtResource("1_5h8hg")

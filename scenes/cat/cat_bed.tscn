@@ -40,6 +40,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, -0.9)
 pixel_size = 0.008
 billboard = 1
 modulate = Color(0.286, 0.239, 0.212, 1)
-text = "Cat bed"
+text = "Squeeb bed"
 font_size = 48
 outline_size = 0

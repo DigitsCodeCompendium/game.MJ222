@@ -130,7 +130,7 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.95, 0.84, 1)
 theme_override_font_sizes/font_size = 22
-text = "Place two cats on the beds"
+text = "Place two Squeebs on the beds"
 autowrap_mode = 3
 
 [node name="Stats" type="Label" parent="OutputUI/Panel/Content" unique_id=1452363097]

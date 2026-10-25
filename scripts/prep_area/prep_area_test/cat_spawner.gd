@@ -29,15 +29,15 @@ func _process(_delta: float) -> void:
 	panel.visible = _hovered and not cat_manager._starting_battle
 	if not panel.visible:
 		return
-	hint.text = "Buy a cat: %d coin%s" % [GameManager.CAT_PRICE, "" if GameManager.CAT_PRICE == 1 else "s"]
+	hint.text = "Adopt a Squeeb: %d coin%s" % [GameManager.CAT_PRICE, "" if GameManager.CAT_PRICE == 1 else "s"]
 	if _emerging:
-		hint.text += "\nA cat is coming out!"
+		hint.text += "\nA Squeeb is coming out!"
 	elif not cat_manager.can_spawn_cat():
-		hint.text += "\nCat limit reached"
+		hint.text += "\nSqueeb limit reached"
 	elif not GameManager.can_afford(GameManager.CAT_PRICE):
 		hint.text += "\nNot enough coins"
 	else:
-		hint.text += "\nClick to buy"
+		hint.text += "\nClick to adopt"
 	var camera = get_viewport().get_camera_3d()
 	if camera == null or camera.is_position_behind($TooltipAnchor.global_position):
 		panel.hide()
