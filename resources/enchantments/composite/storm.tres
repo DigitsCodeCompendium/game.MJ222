@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="1_lpcnh"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="2_fofva"]
 [ext_resource type="Script" uid="uid://dg3ob4b3ejokc" path="res://scripts/enchantments/composite/enchantment_storm.gd" id="3_rdnqw"]
+[ext_resource type="Resource" uid="uid://4sguovky7lcy" path="res://resources/cat_faces/default.tres" id="storm_faces"]
 
 [resource]
 script = ExtResource("3_rdnqw")
@@ -13,6 +14,7 @@ description = "After attacking, move the rearmost opposing squeeb to the front."
 base_attack = 4
 base_health = 4
 cat_material = ExtResource("1_4qvid")
+face_set = ExtResource("storm_faces")
 component1 = ExtResource("1_lpcnh")
 component2 = ExtResource("2_fofva")
 metadata/_custom_type_script = "uid://dg3ob4b3ejokc"

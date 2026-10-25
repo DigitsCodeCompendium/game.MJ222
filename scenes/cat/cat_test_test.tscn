@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://bwlpfdy2j4r3u"]
+
+[ext_resource type="Script" uid="uid://cqk56ro0y6clf" path="res://scripts/cat/cat_test_test.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/prep_cat.tscn" id="2"]
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.16, 0.18, 0.22, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="FloorMaterial"]
+albedo_color = Color(0.32, 0.35, 0.39, 1)
+
+[sub_resource type="CylinderMesh" id="Platform"]
+material = SubResource("FloorMaterial")
+top_radius = 2.0
+bottom_radius = 2.0
+height = 0.15
+
+[node name="CatTestTest" type="Node3D" unique_id=1557989467]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2083234781]
+environment = SubResource("Environment")
+
+[node name="Platform" type="MeshInstance3D" parent="." unique_id=1147920806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.075, 0)
+mesh = SubResource("Platform")
+
+[node name="Cat" parent="." unique_id=2020803670 instance=ExtResource("2")]
+
+[node name="OrbitPivot" type="Node3D" parent="." unique_id=1875511771]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 0.9, 0)
+
+[node name="Camera3D" type="Camera3D" parent="OrbitPivot" unique_id=217789314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.5)
+current = true
+fov = 40.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1907622209]
+
+[node name="Panel" type="PanelContainer" parent="UI" unique_id=536278935]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 296.0
+offset_bottom = 390.0
+
+[node name="Controls" type="VBoxContainer" parent="UI/Panel" unique_id=2065595408]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Heading" type="Label" parent="UI/Panel/Controls" unique_id=737434769]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Squeeb preview"
+
+[node name="EnchantmentLabel" type="Label" parent="UI/Panel/Controls" unique_id=1952232522]
+layout_mode = 2
+text = "Enchantment"
+
+[node name="Enchantment" type="OptionButton" parent="UI/Panel/Controls" unique_id=1019449252]
+custom_minimum_size = Vector2(280, 36)
+layout_mode = 2
+
+[node name="AnimationLabel" type="Label" parent="UI/Panel/Controls" unique_id=1139075292]
+layout_mode = 2
+text = "Animation"
+
+[node name="Animation" type="OptionButton" parent="UI/Panel/Controls" unique_id=785312393]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Loop" type="CheckButton" parent="UI/Panel/Controls" unique_id=1617326521]
+layout_mode = 2
+button_pressed = true
+text = "Repeat animation"
+
+[node name="ResetCamera" type="Button" parent="UI/Panel/Controls" unique_id=1513615440]
+layout_mode = 2
+text = "Reset camera"
+
+[node name="Help" type="Label" parent="UI/Panel/Controls" unique_id=2049469161]
+layout_mode = 2
+text = "Right-drag to orbit
+Scroll to zoom"
