@@ -11,7 +11,7 @@ enchantment_cat = ExtResource("3_rfyp0")
 display_name = "Plant"
 primary_color = Color(0.2509804, 0.56078434, 0.3372549, 1)
 description = "Before attacking, absorb up to 1 Water from each adjacent squeeb. Gain 1/1 for each Water absorbed.
-Absorbing water from a composite element converts it to the remaining component. Absorbing water from a water element converts it to the cat element.
+Absorbing water from a composite element converts it to the remaining component. Absorbing water from a water element converts it to the squeeb element.
 Effect does not persist after the end of combat."
 base_attack = 2
 base_health = 4
