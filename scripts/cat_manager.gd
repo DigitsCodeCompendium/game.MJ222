@@ -20,6 +20,12 @@ func _process(delta: float) -> void:
 func add_cat(cat: Node):
 	add_child(cat)
 
+func get_held_cat() -> Cat:
+	for child in get_children():
+		if child is Cat and child.is_picked and not child.is_queued_for_deletion():
+			return child
+	return null
+
 func spawn_cat(pos: Vector3, cat_data: CatData = null):
 	var cat_instance = CAT_SCENE.instantiate() as Cat
 	add_cat(cat_instance)

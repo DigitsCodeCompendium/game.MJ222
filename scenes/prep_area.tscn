@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
 [ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/enemy_team_preview.gd" id="13_edtl5"]
 
+[ext_resource type="PackedScene" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
+
 [sub_resource type="Environment" id="Environment_gpf5u"]
 ambient_light_color = Color(0.31431597, 0.31431618, 0.31431603, 1)
 
@@ -141,3 +143,6 @@ text = "Opponent team:"
 script = ExtResource("13_edtl5")
 
 [connection signal="pressed" from="Player/UI/MarginContainer/SpawnCatButton" to="Props/CatSpawner" method="_on_spawn_cat_button_pressed"]
+
+[node name="CatPickupInfo" parent="." node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
+cat_manager = NodePath("../Props/CatManager")
