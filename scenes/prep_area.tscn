@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
-[ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/enemy_team_preview.gd" id="13_edtl5"]
+[ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/prep_area/enemy_team_preview.gd" id="13_edtl5"]
 [ext_resource type="Script" uid="uid://jmc1ahkygkdl" path="res://scripts/prep_area/battle_transition.gd" id="battle_transition"]
 [ext_resource type="PackedScene" uid="uid://bdexqndp3ng0p" path="res://scenes/prep_area/cat_house.tscn" id="cat_house"]
 [ext_resource type="Script" uid="uid://cumqd1uercvke" path="res://scripts/prep_area/coin_balance.gd" id="coin_balance"]
