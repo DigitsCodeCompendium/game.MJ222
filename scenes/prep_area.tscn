@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://buo8lt1arwccv"]
 
-[ext_resource type="Texture2D" uid="uid://1vmgykdcxwl3" path="res://assets/floor/ss1-4.png" id="1_w3u4m"]
-[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="1_y6135"]
-[ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="2_0ahxg"]
-[ext_resource type="Script" uid="uid://kqwg4eg0m4rv" path="res://scripts/cat_manager.gd" id="2_g543r"]
-[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="2_w3u4m"]
-[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="3_0ek6n"]
-[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="4_555d0"]
-[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="4_ljddl"]
-[ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="4_oee0m"]
-[ext_resource type="PackedScene" uid="uid://6y6jonitqoq8" path="res://scenes/cat_spawner/cat_spawner.tscn" id="7_diwea"]
-[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="11_water"]
+[ext_resource type="Texture2D" uid="uid://1vmgykdcxwl3" path="res://assets/floor/ss1-4.png" id="1_1pia5"]
+[ext_resource type="Script" uid="uid://kqwg4eg0m4rv" path="res://scripts/cat_manager.gd" id="2_sux85"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="3_edtl5"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="4_ianlh"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_os6ue"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="6_qtuiy"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_0x5mc"]
+[ext_resource type="PackedScene" uid="uid://6y6jonitqoq8" path="res://scenes/cat_spawner/cat_spawner.tscn" id="8_6bgnk"]
+[ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/cat_test.tscn" id="9_jmhco"]
+[ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
+[ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g543r"]
 vertices = PackedVector3Array(-2.5, 0.5, 7.25, -2.5, 0.5, 6.5, -9.5, 0.5, 9.5, -1.25, 0.5, 9, -1.5, 0.5, 5, -9.5, 0.5, -9.5, 1.25, 0.5, 9, 9.5, 0.5, 9.5, 1.25, 0.5, 5, 9.5, 0.5, -9.5, 2.5, 0.5, 7.25, 2.5, 0.5, 6.5)
@@ -19,7 +19,7 @@ polygons = [PackedInt32Array(0, 2, 1), PackedInt32Array(2, 0, 3), PackedInt32Arr
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2t3p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxpcf"]
-albedo_texture = ExtResource("1_w3u4m")
+albedo_texture = ExtResource("1_1pia5")
 uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_triplanar = true
 
@@ -27,7 +27,7 @@ uv1_triplanar = true
 lightmap_size_hint = Vector2i(62, 62)
 size = Vector2(20, 20)
 
-[node name="CatsTest" type="Node3D" unique_id=27853933]
+[node name="PrepArea" type="Node3D" unique_id=27853933]
 
 [node name="Level" type="Node3D" parent="." unique_id=152649248]
 
@@ -56,21 +56,21 @@ transform = Transform3D(1, 0, 0, 0, 0.40216753, 0.9155661, 0, -0.9155661, 0.4021
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
 [node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039]
-script = ExtResource("2_g543r")
-possible_enchantments = Array[ExtResource("4_555d0")]([ExtResource("2_w3u4m"), ExtResource("3_0ek6n"), ExtResource("4_ljddl"), ExtResource("11_water")])
+script = ExtResource("2_sux85")
+possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("4_ianlh"), ExtResource("5_os6ue"), ExtResource("6_qtuiy"), ExtResource("7_0x5mc")])
 
-[node name="CatSpawner" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager") instance=ExtResource("7_diwea")]
-cat_packed_scene = ExtResource("1_y6135")
+[node name="CatSpawner" parent="Props" unique_id=1182880743 node_paths=PackedStringArray("cat_manager") instance=ExtResource("8_6bgnk")]
+cat_packed_scene = ExtResource("9_jmhco")
 cat_manager = NodePath("../CatManager")
 
-[node name="Blender" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager", "cat_spawn_pos") instance=ExtResource("4_oee0m")]
+[node name="Blender" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager", "cat_spawn_pos") instance=ExtResource("10_l6pdx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45637035, 6.9592724)
 cat_manager = NodePath("../CatManager")
 cat_spawn_pos = NodePath("../CatSpawner")
 
 [node name="Player" type="Node3D" parent="." unique_id=720284898]
 transform = Transform3D(1, 0, 0, 0, 0.80195254, 0.59738773, 0, -0.59738773, 0.80195254, 0, 0, 0)
-script = ExtResource("2_0ahxg")
+script = ExtResource("11_8y3rt")
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=1347866223]
 unique_name_in_owner = true
