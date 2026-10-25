@@ -5,7 +5,6 @@ extends Node
 @export var corrupted_enchantment: Enchantment
 
 var all_recipes: Array[EnchantmentRecipe]
-var rng: RandomNumberGenerator
 
 func _ready():
 	all_recipes = []
@@ -28,14 +27,12 @@ func _ready():
 				collision = true
 			if collision:
 				printerr("Recipes `%s` (index %s) and `%s` (index %s) have the same components" % [all_recipes[i], i, all_recipes[j], j])
-		
-	rng = RandomNumberGenerator.new()
 
 func combine_enchantments(e1: Enchantment, e2: Enchantment) -> Enchantment:
 	for r in all_recipes:
 		if r.component1 == e1 and r.component2 == e2:
-			return r.get_result(rng)
+			return r.get_result(GameManager.rng)
 		if r.component1 == e2 and r.component2 == e1:
-			return r.get_result(rng)
+			return r.get_result(GameManager.rng)
 	
 	return corrupted_enchantment
