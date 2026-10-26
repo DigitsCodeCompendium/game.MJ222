@@ -34,28 +34,31 @@ uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_7mtuq"]
-size = Vector3(16, 0.3, 11)
+size = Vector3(15.880859, 0.3, 10.875977)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbsym"]
 albedo_color = Color(0.9137255, 0.8509804, 0.76862746, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BoxMesh_noexq"]
-size = Vector3(16, 4.5, 0.25)
+size = Vector3(16.125977, 4.6435547, 0.25)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1m6id"]
 albedo_color = Color(0.8745098, 0.79607844, 0.69803923, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BoxMesh_73nhm"]
-size = Vector3(0.25, 4.5, 11)
+size = Vector3(0.25, 4.650879, 11)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8onup"]
 albedo_color = Color(0.65882355, 0.5254902, 0.39607844, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BoxMesh_e2nmu"]
-size = Vector3(15.8, 0.18, 0.15)
+size = Vector3(15.890722, 0.18, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_84bpe"]
+size = Vector3(10.790491, 0.18, 0.15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7y15r"]
 albedo_color = Color(0.93333334, 0.88235295, 0.7882353, 1)
@@ -199,7 +202,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 shape = SubResource("FloorCollision")
 
 [node name="Floor" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1099567752]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.059570313, -0.15, 0.06201172)
 material_override = SubResource("StandardMaterial3D_7lh0t")
 mesh = SubResource("BoxMesh_7mtuq")
 
@@ -224,19 +227,24 @@ affect_navigation_mesh = true
 [node name="Room" type="Node3D" parent="." unique_id=1833335902]
 
 [node name="BackWall" type="MeshInstance3D" parent="Room" unique_id=461481029]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, -5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06298828, 2.0282226, -5.5)
 material_override = SubResource("StandardMaterial3D_cbsym")
 mesh = SubResource("BoxMesh_noexq")
 
 [node name="SideWall" type="MeshInstance3D" parent="Room" unique_id=906514407]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.0245605, 0)
 material_override = SubResource("StandardMaterial3D_1m6id")
 mesh = SubResource("BoxMesh_73nhm")
 
 [node name="Skirting" type="MeshInstance3D" parent="Room" unique_id=519469681]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -5.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.045361042, 0.06804696, -5.3)
 material_override = SubResource("StandardMaterial3D_8onup")
 mesh = SubResource("BoxMesh_e2nmu")
+
+[node name="Skirting2" type="MeshInstance3D" parent="Room" unique_id=211928003]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7.7982683, 0.076466024, 0.10379839)
+material_override = SubResource("StandardMaterial3D_8onup")
+mesh = SubResource("BoxMesh_84bpe")
 
 [node name="Rug" type="MeshInstance3D" parent="Room" unique_id=381457555]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
