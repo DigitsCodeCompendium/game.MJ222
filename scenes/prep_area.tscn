@@ -272,6 +272,11 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="LabelSettings" id="LabelSettings_q226r"]
+font_size = 24
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=371378319]
@@ -637,6 +642,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "Opponent team:"
+label_settings = SubResource("LabelSettings_q226r")
 script = ExtResource("13_edtl5")
 
 [node name="CatPickupInfo" parent="." unique_id=2114418831 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
