@@ -83,7 +83,7 @@ func play_once(requested: String) -> void:
 	if animation.is_empty():
 		return
 	var duration = animation_player.get_animation(animation).length / maxf(absf(animation_player.speed_scale), 0.01)
-	await get_tree().create_timer(maxf(duration, 0.01)).timeout
+	await get_tree().create_timer(maxf(duration, 0.01), false).timeout
 	if animation_player != null:
 		animation_player.pause()
 

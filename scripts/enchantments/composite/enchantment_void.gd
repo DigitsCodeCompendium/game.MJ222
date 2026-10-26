@@ -17,5 +17,5 @@ func spawn_effect(parent: Node3D, pos: Vector3):
 	var effect = void_effect_scene.instantiate()
 	parent.add_child(effect)
 	effect.global_position = pos
-	await parent.get_tree().create_timer(void_effect_duration).timeout
+	await parent.get_tree().create_timer(void_effect_duration, false).timeout
 	effect.queue_free()

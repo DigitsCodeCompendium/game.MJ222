@@ -26,5 +26,5 @@ func _spawn_lightning(parent: Node3D, pos: Vector3, lifetime: float):
 	parent.add_child(lightning)
 	lightning.global_position = pos
 	lightning.scale = lightning_scale
-	await parent.get_tree().create_timer(lifetime).timeout
+	await parent.get_tree().create_timer(lifetime, false).timeout
 	lightning.queue_free()
