@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cghpbwoqekjm4" path="res://scripts/battle_debug_launcher.gd" id="1_0dvih"]
 [ext_resource type="Script" uid="uid://co8rveipkqimf" path="res://scripts/cat/cat_data.gd" id="2_esejm"]
-[ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/composite/void.tres" id="3_esejm"]
-[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="3_hwi6o"]
+[ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="3_esejm"]
+[ext_resource type="Resource" uid="uid://iinnsq87jlk6" path="res://resources/enchantments/composite/sand.tres" id="4_esejm"]
 [ext_resource type="Resource" uid="uid://ek7ia0t8v8f1" path="res://resources/enchantments/composite/plant.tres" id="5_0dvih"]
 [ext_resource type="Resource" uid="uid://ikw6m5nlys72" path="res://resources/enchantments/composite/ice.tres" id="6_esejm"]
 
@@ -12,10 +12,15 @@ script = ExtResource("2_esejm")
 enchantment = ExtResource("3_esejm")
 metadata/_custom_type_script = "uid://co8rveipkqimf"
 
+[sub_resource type="Resource" id="Resource_hwi6o"]
+script = ExtResource("2_esejm")
+enchantment = ExtResource("3_esejm")
+metadata/_custom_type_script = "uid://co8rveipkqimf"
+
 [sub_resource type="Resource" id="Resource_8ajim"]
 script = ExtResource("2_esejm")
 health_offset = 100
-enchantment = ExtResource("3_hwi6o")
+enchantment = ExtResource("4_esejm")
 metadata/_custom_type_script = "uid://co8rveipkqimf"
 
 [sub_resource type="Resource" id="Resource_0deji"]
@@ -32,5 +37,5 @@ metadata/_custom_type_script = "uid://co8rveipkqimf"
 
 [node name="BattleTest" type="Node" unique_id=1657690964]
 script = ExtResource("1_0dvih")
-test_team_left = Array[ExtResource("2_esejm")]([SubResource("Resource_onvjh"), SubResource("Resource_onvjh"), SubResource("Resource_onvjh"), SubResource("Resource_8ajim")])
+test_team_left = Array[ExtResource("2_esejm")]([SubResource("Resource_onvjh"), SubResource("Resource_hwi6o"), SubResource("Resource_8ajim")])
 test_team_right = Array[ExtResource("2_esejm")]([SubResource("Resource_0deji"), SubResource("Resource_7bjbe")])

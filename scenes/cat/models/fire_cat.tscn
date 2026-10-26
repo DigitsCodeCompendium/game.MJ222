@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://dboiasiatkqjc"]
 
-[ext_resource type="PackedScene" path="res://assets/cat/models/fire_cat/FireCat.fbx" id="1"]
-
-[ext_resource type="Script" path="res://scripts/cat/cat_model.gd" id="model_script"]
+[ext_resource type="PackedScene" uid="uid://b3mw2pt3u5r1d" path="res://assets/cat/models/fire_cat/FireCat.fbx" id="1"]
+[ext_resource type="Script" uid="uid://xmeyis6nvq0b" path="res://scripts/cat/cat_model.gd" id="model_script"]
 
 [sub_resource type="Gradient" id="FlameShape"]
 offsets = PackedFloat32Array(0, 0.35, 1)
@@ -40,7 +39,6 @@ size = Vector2(0.07, 0.12)
 
 [node name="FireCat" unique_id=976028926 instance=ExtResource("1")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-
 script = ExtResource("model_script")
 body_mesh_path = NodePath("Armature/Skeleton3D/Cube_011")
 paw_mesh_path = NodePath("Armature/Skeleton3D/Cube_011")
@@ -48,7 +46,7 @@ face_mesh_path = NodePath("Armature/Skeleton3D/Cube_011")
 paw_surface = 2
 face_surface = 1
 
-[node name="Effects" type="Node3D" parent="."]
+[node name="Effects" type="Node3D" parent="." index="2" unique_id=1541940218]
 
 [node name="Flames" type="CPUParticles3D" parent="Effects" index="0" unique_id=7477179]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.15)

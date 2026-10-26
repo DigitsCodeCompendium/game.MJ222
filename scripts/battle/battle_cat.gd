@@ -20,9 +20,11 @@ var was_damaged: bool
 var attached_ui: Node
 
 @onready var visual: CatVisual = $CatVisual
+@onready var sand_shroud = $SandShroud
 
 func _ready() -> void:
 	visual.set_enchantment(enchantment)
+	sand_shroud.visible = is_shrouded
 	animate_idle()
 
 @warning_ignore("shadowed_variable")
@@ -47,6 +49,7 @@ func set_enchantment(e: Enchantment) -> void:
 func take_damage(amount: int):
 	if is_shrouded:
 		is_shrouded = false
+		sand_shroud.visible = false
 	else:
 		health -= amount
 		was_damaged = true
