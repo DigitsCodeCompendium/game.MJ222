@@ -236,6 +236,7 @@ func check_for_deaths_and_move_all_cats():
 			cat.enchantment.after_death(self, cat)
 			death_animations.append(Promise.new(animate_death_and_despawn.bind(cat)))
 		await Promise.all(death_animations)
+		sync_ui()
 		
 		# Death effects may have killed more cats, check again
 		await animate_attack_and_hurt()
