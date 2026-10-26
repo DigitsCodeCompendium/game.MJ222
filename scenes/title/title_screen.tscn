@@ -185,7 +185,7 @@ cast_shadow = 0
 mesh = SubResource("BackgroundQuad")
 
 [node name="MenuCat" parent="." unique_id=1006261867 instance=ExtResource("2_qrms8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 2.3)
+transform = Transform3D(-0.8755324, 0, -0.48315945, 0, 1, 0, 0.48315945, 0, -0.8755324, 0, 0.12, 2.3)
 cat_name = "Menu Squeeb"
 constrain_drag_to_room = true
 
