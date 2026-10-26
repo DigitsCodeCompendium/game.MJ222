@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dbsn808l8d6e0"]
+
+[ext_resource type="Texture2D" uid="uid://b5l7pktdqmckc" path="res://assets/cat/elements/Rock_Cat_Texture_base.png" id="1_kvwxl"]
+[ext_resource type="Texture2D" uid="uid://dk8sga80qubpk" path="res://assets/cat/elements/Rock_Cat_Texture_metal.png" id="2_fo5bj"]
+[ext_resource type="Texture2D" uid="uid://be7au21r702b0" path="res://assets/cat/elements/Rock_Cat_Texture_nor.png" id="3_osqp8"]
+[ext_resource type="Texture2D" uid="uid://c8fbys5n6eut" path="res://assets/cat/elements/Rock_Cat_Texture_rough.png" id="4_7gr08"]
+
+[resource]
+albedo_color = Color(0.40784314, 0.3882353, 0.28627452, 1)
+albedo_texture = ExtResource("1_kvwxl")
+metallic = 1.0
+metallic_texture = ExtResource("2_fo5bj")
+roughness_texture = ExtResource("4_7gr08")
+normal_enabled = true
+normal_texture = ExtResource("3_osqp8")

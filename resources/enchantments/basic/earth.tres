@@ -1,12 +1,18 @@
 [gd_resource type="Resource" script_class="EnchantmentEarth" format=3 uid="uid://c2pwv42mxvpwn"]
 
 [ext_resource type="Script" uid="uid://bf18rkhp4kt6h" path="res://scripts/enchantments/basic/enchantment_earth.gd" id="1_ib04u"]
+[ext_resource type="Resource" uid="uid://cbv10fdcytros" path="res://resources/cat_faces/lava.tres" id="3_sieoq"]
+[ext_resource type="Material" uid="uid://dbsn808l8d6e0" path="res://assets/cat/elements/earth_cat.tres" id="material"]
+[ext_resource type="PackedScene" path="res://scenes/cat/models/earth_cat.tscn" id="model"]
 
 [resource]
 script = ExtResource("1_ib04u")
 display_name = "Earth"
-primary_color = Color(0.40784314, 0.3882353, 0.28627452, 1)
+primary_color = Color(0.27907088, 0.18945447, 0.046894714, 1)
 description = "At the start of combat, gain 0/1 for each Earth or Earth-derived Squeeb on the team."
 base_attack = 1
 base_health = 2
+cat_material = ExtResource("material")
+cat_scene = ExtResource("model")
+face_set = ExtResource("3_sieoq")
 metadata/_custom_type_script = "uid://bf18rkhp4kt6h"
