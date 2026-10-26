@@ -4,6 +4,7 @@ var camera: Camera3D
 var attached_cat: BattleCat
 var is_enemy: bool = false
 @export var screen_offset: Vector2 = Vector2(0, 16)
+@export_range(0.5, 1.0, 0.05) var panel_scale: float = 0.85
 @onready var panel: PanelContainer = $Panel
 var _style: StyleBoxFlat
 
@@ -30,8 +31,10 @@ func _process(_delta: float) -> void:
 	panel.custom_minimum_size.x = width
 	panel.size.x = width
 	panel.reset_size()
+	panel.scale = Vector2.ONE * panel_scale
+	var displayed_size = panel.size * panel_scale
 	var at = camera.unproject_position(attached_cat.global_position) + screen_offset
-	position = Vector2(at.x - panel.size.x / 2, minf(at.y, maxf(8, viewport_size.y - panel.size.y - 8)))
+	position = Vector2(at.x - displayed_size.x / 2, minf(at.y, maxf(8, viewport_size.y - displayed_size.y - 8)))
 
 func update_cat() -> void:
 	# The manager assigns data before adding this UI to the tree.
