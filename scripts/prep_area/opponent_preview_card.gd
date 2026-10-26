@@ -7,6 +7,6 @@ func _ready() -> void:
 	var style = get_theme_stylebox("panel").duplicate() as StyleBoxFlat
 	style.border_color = enchantment.primary_color
 	add_theme_stylebox_override("panel", style)
-	$Content/Type.text = enchantment.display_name
+	$Content/Type.text = enchantment.display_name if data.attack_offset <= 0 else ("%s+%s" % [enchantment.display_name, data.attack_offset])
 	$Content/Stats.text = "%d ATK  %d HP" % [enchantment.base_attack + data.attack_offset, enchantment.base_health + data.health_offset]
 	tooltip_text = "%s\n%s" % [enchantment.display_name, enchantment.description]
