@@ -44,7 +44,7 @@ point_count = 2
 [node name="SteamCat" unique_id=1653476378 instance=ExtResource("1")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Cat" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1600571938) index="0" unique_id=1966635513]
+[node name="Cat" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(115205953) index="0" unique_id=909556822]
 material_override = ExtResource("2_furs8")
 
 [node name="Steam" type="CPUParticles3D" parent="Effects" index="0" unique_id=1110019188]
@@ -86,4 +86,28 @@ initial_velocity_min = 0.45
 initial_velocity_max = 0.8
 scale_amount_min = 0.6
 scale_amount_curve = SubResource("Expansion")
+color_ramp = SubResource("Fade")
+
+[node name="SteamJet" type="CPUParticles3D" parent="Effects" index="2" unique_id=2114116285]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.614298e-09, 0.8085333, -0.012902595)
+material_override = SubResource("SteamMaterial")
+cast_shadow = 0
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+draw_order = 2
+mesh = SubResource("SteamQuad")
+emission_shape = 1
+emission_sphere_radius = 1.5
+direction = Vector3(0, 0, -1)
+spread = 11.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 25.0
+linear_accel_min = -30.0
+linear_accel_max = -25.0
+scale_amount_min = 10.6
+scale_amount_max = 70.01
 color_ramp = SubResource("Fade")
