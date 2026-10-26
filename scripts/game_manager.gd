@@ -77,7 +77,10 @@ func enter_prep() -> void:
 	if _last_paid_prep_stage == stage_index:
 		return
 	_last_paid_prep_stage = stage_index
+	
 	player_money = prep_income
+	for cat_data in player_cats_team:
+		player_money += cat_data.enchantment.income_offset
 	
 	enemy_seed = rng.randi()
 	enemy_team_cost = roundi(pow(enemy_cost_base, stage_index))

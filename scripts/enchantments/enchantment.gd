@@ -9,6 +9,8 @@ extends Resource
 @export var base_attack: int
 @export var base_health: int
 
+@export var income_offset: int
+
 @export var cat_material: StandardMaterial3D
 @export var cat_scene: PackedScene
 ## Optional expressions for this enchantment; null uses the cat's default set.

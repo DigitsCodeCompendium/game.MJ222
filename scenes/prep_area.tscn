@@ -561,15 +561,14 @@ text = "To battle!"
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 
-[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_door", "battle_transition", "nav_region", "cat_beds")]
+[node name="CatManager" type="Node3D" parent="Props" unique_id=1049633039 node_paths=PackedStringArray("start_battle_door", "battle_transition", "nav_region")]
 script = ExtResource("2_sux85")
+possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("7_os6ue")])
+possible_names = Array[String](["Qwill", "Max", "Fish", "Spot", "Milo", "Bella", "Lucy", "Mochi", "Pepper", "Otis", "Felix", "Jasper", "Ash", "Luna", "Kitty", "Leo", "Simba"])
+constrain_cat_drag = true
 start_battle_door = NodePath("../../Level/Room/Door")
 battle_transition = NodePath("../../BattleTransition")
 nav_region = NodePath("../../Level/NavigationRegion3D")
-possible_enchantments = Array[ExtResource("3_edtl5")]([ExtResource("7_os6ue")])
-possible_names = Array[String](["Qwill", "Max", "Fish", "Spot", "Milo", "Bella", "Lucy", "Mochi", "Pepper", "Otis", "Felix", "Jasper", "Ash", "Luna", "Kitty", "Leo", "Simba"])
-cat_beds = [NodePath("../CatBeds/CatBed1"), NodePath("../CatBeds/CatBed2"), NodePath("../CatBeds/CatBed3"), NodePath("../CatBeds/CatBed4"), NodePath("../CatBeds/CatBed5")]
-constrain_cat_drag = true
 
 [node name="CatSpawner" parent="Props" unique_id=1836526553 node_paths=PackedStringArray("cat_manager") instance=ExtResource("cat_house")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -13.76659, 0, -3.0656066)
@@ -577,8 +576,8 @@ cat_manager = NodePath("../CatManager")
 
 [node name="MergeStation" parent="Props" unique_id=561537591 node_paths=PackedStringArray("cat_manager") instance=ExtResource("10_l6pdx")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.813288, 0, 8.158764)
-cat_manager = NodePath("../CatManager")
 show_bed_labels = false
+cat_manager = NodePath("../CatManager")
 
 [node name="CatBeds" type="Node3D" parent="Props" unique_id=552533873]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11.183372)
