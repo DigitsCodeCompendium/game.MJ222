@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c6cldhqhycnv0" path="res://scripts/enchantments/composite/enchantment_sand.gd" id="1_de0tr"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="1_h0de8"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="2_6hr2d"]
+[ext_resource type="Resource" uid="uid://4sguovky7lcy" path="res://resources/cat_faces/default.tres" id="4_7yhp7"]
 [ext_resource type="Material" uid="uid://c5315tccsh3ny" path="res://assets/cat/elements/sand_cat.tres" id="4_material"]
 
 [resource]
@@ -14,7 +15,9 @@ Shrouded negates incoming damage once.
 When returning from combat, gain +1 coin."
 base_attack = 3
 base_health = 3
+income_offset = 1
 cat_material = ExtResource("4_material")
+face_set = ExtResource("4_7yhp7")
 component1 = ExtResource("1_h0de8")
 component2 = ExtResource("2_6hr2d")
 metadata/_custom_type_script = "uid://c6cldhqhycnv0"
