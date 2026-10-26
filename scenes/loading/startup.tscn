@@ -1,0 +1,50 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/loading/startup.gd" id="script"]
+[node name="Startup" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("script")
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.1, 0.14, 1)
+[node name="Center" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+[node name="Content" type="VBoxContainer" parent="Center"]
+layout_mode = 2
+custom_minimum_size = Vector2(350, 0)
+theme_override_constants/separation = 22
+[node name="Title" type="Label" parent="Center/Content"]
+layout_mode = 2
+text = "Waking up the Squeebs"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.95, 0.84, 1)
+[node name="Progress" type="ProgressBar" parent="Center/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 12)
+show_percentage = false
+[node name="Status" type="Label" parent="Center/Content"]
+layout_mode = 2
+text = "Getting ready..."
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.75, 0.81, 0.86, 1)
+[node name="WarmupViewport" type="SubViewport" parent="."]
+size = Vector2i(256, 256)
+own_world_3d = true
+render_target_update_mode = 4
+[node name="Stage" type="Node3D" parent="WarmupViewport"]
+[node name="Camera" type="Camera3D" parent="WarmupViewport"]
+position = Vector3(0, 3, -8)
+rotation_degrees = Vector3(-12, 180, 0)
+current = true
+[node name="Sun" type="DirectionalLight3D" parent="WarmupViewport"]
+rotation_degrees = Vector3(-45, 145, 0)
+shadow_enabled = true
+[node name="Fill" type="OmniLight3D" parent="WarmupViewport"]
+position = Vector3(2, 3, -3)
+omni_range = 12.0
