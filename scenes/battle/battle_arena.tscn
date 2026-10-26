@@ -65,7 +65,7 @@ transform = Transform3D(-0.49999997, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.49
 gizmo_extents = 0.9
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=235324837]
-transform = Transform3D(1, 0, 0, 0, 0.9189352, 0.3944088, 0, -0.39440876, 0.9189351, 0, 7.699321, 14.553275)
+transform = Transform3D(1, 0, 0, 0, 0.9189352, 0.39440873, 0, -0.39440876, 0.9189351, 0, 11.325235, 19.395634)
 fov = 60.0
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=665126758]
