@@ -1,7 +1,7 @@
 extends Area3D
 
 @export var cat_manager: CatManager
-@export_range(0, 100, 1) var cookie_price: int = 1
+@export_range(0, 100, 1) var cookie_price: int = 3
 @onready var panel: PanelContainer = $UI/Panel
 @onready var hint: Label = $UI/Panel/Hint
 @onready var cookie: Node3D = $HeldCookie
