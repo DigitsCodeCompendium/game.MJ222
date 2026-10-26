@@ -328,7 +328,11 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.28627452, 0.23921569, 0.21176471, 1)
 theme_override_font_sizes/font_size = 16
-text = "Team and asset credits to be added."
+text = "Data - 2D art & textures
+Just Kiddin - 3D art
+Walaby - Music & Sound
+syy1125 - Code
+binary - Code"
 autowrap_mode = 3
 
 [node name="Back" type="Button" parent="MenuUI/Interface/CreditsPanel/Content" unique_id=425627809]
@@ -370,23 +374,23 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="MusicVolumeLabel" type="Label" parent="MenuUI/Interface/SettingsPanel/Content"]
+[node name="MusicVolumeLabel" type="Label" parent="MenuUI/Interface/SettingsPanel/Content" unique_id=838858904]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.28627452, 0.23921569, 0.21176471, 1)
 text = "Music volume"
 
-[node name="MusicVolume" type="HSlider" parent="MenuUI/Interface/SettingsPanel/Content"]
+[node name="MusicVolume" type="HSlider" parent="MenuUI/Interface/SettingsPanel/Content" unique_id=203292714]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="EffectsVolumeLabel" type="Label" parent="MenuUI/Interface/SettingsPanel/Content"]
+[node name="EffectsVolumeLabel" type="Label" parent="MenuUI/Interface/SettingsPanel/Content" unique_id=866549368]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.28627452, 0.23921569, 0.21176471, 1)
 text = "Effects volume"
 
-[node name="EffectsVolume" type="HSlider" parent="MenuUI/Interface/SettingsPanel/Content"]
+[node name="EffectsVolume" type="HSlider" parent="MenuUI/Interface/SettingsPanel/Content" unique_id=1184344841]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
