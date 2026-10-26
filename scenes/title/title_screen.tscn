@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bi2yitb3npxxu"]
 
 [ext_resource type="Script" uid="uid://qs78bxwfhcb5" path="res://scripts/title/title_screen.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bb1sy26u0wbn1" path="res://assets/ui/title.png" id="2_84bpe"]
 [ext_resource type="PackedScene" uid="uid://dv0bksd40gv7w" path="res://scenes/cat/prep_cat.tscn" id="2_qrms8"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="3_8xedo"]
 [ext_resource type="NavigationMesh" uid="uid://dl0qw1jkceuo" path="res://resources/title_navigation.tres" id="4_navigation"]
 [ext_resource type="Texture2D" uid="uid://1vmgykdcxwl3" path="res://assets/floor/ss1-4.png" id="5_floor"]
-[ext_resource type="Texture2D" uid="uid://bgrg7yeromgpj" path="res://assets/ui/title_screen.png" id="6_background"]
 
 [sub_resource type="Environment" id="Environment_iy4b5"]
 background_mode = 1
@@ -18,7 +18,7 @@ ambient_light_energy = 0.5
 
 [sub_resource type="StandardMaterial3D" id="BackgroundMaterial"]
 shading_mode = 0
-albedo_texture = ExtResource("6_background")
+albedo_texture = ExtResource("2_84bpe")
 
 [sub_resource type="QuadMesh" id="BackgroundQuad"]
 material = SubResource("BackgroundMaterial")
@@ -120,6 +120,22 @@ roughness = 0.9
 [sub_resource type="BoxMesh" id="BoxMesh_2egvm"]
 size = Vector3(0.4, 1, 0.45)
 
+[sub_resource type="StyleBoxFlat" id="TitlePanelStyle"]
+content_margin_left = 24.0
+content_margin_top = 10.0
+content_margin_right = 24.0
+content_margin_bottom = 10.0
+bg_color = Color(0.95, 0.91, 0.83, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.42, 0.32, 0.22, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1h35s"]
 content_margin_left = 28.0
 content_margin_top = 24.0
@@ -135,15 +151,15 @@ corner_radius_bottom_left = 18
 bg_color = Color(0.42, 0.36, 0.29, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
-corner_radius_bottom_left = 8
 corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="BackButtonHover"]
 bg_color = Color(0.55, 0.45, 0.34, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
-corner_radius_bottom_left = 8
 corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="TitleRoom" type="Node3D" unique_id=1974146091]
 script = ExtResource("1")
@@ -297,14 +313,24 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Title" type="Label" parent="MenuUI/Interface" unique_id=1045278497]
-layout_mode = 0
-anchor_right = 1.0
-offset_top = 20.0
-offset_bottom = 70.0
+[node name="TitlePanel" type="PanelContainer" parent="MenuUI/Interface" unique_id=1598624882]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -172.0
+offset_top = 16.0
+offset_right = 175.0
+offset_bottom = 88.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("TitlePanelStyle")
+
+[node name="Title" type="Label" parent="MenuUI/Interface/TitlePanel" unique_id=1045278497]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.28627452, 0.23921569, 0.21176471, 1)
 theme_override_font_sizes/font_size = 36
-text = "Attack of the Squeebs"
+text = "Squeeb Attack"
 horizontal_alignment = 1
 
 [node name="CreditsPanel" type="PanelContainer" parent="MenuUI/Interface" unique_id=1044985195]
