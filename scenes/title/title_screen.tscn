@@ -14,7 +14,7 @@ background_energy_multiplier = 0.8
 background_canvas_max_layer = -1
 ambient_light_source = 2
 ambient_light_color = Color(1, 0.94509804, 0.8627451, 1)
-ambient_light_energy = 0.7
+ambient_light_energy = 0.5
 
 [sub_resource type="StandardMaterial3D" id="BackgroundMaterial"]
 shading_mode = 0
@@ -144,7 +144,7 @@ light_energy = 0.111
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=858516789]
-transform = Transform3D(1, 0, 0, 0, 0.78086877, 0.62469506, 0, -0.62469506, 0.78086877, 0, 12, 15)
+transform = Transform3D(0.867073, -0.3112113, 0.3890141, 0, 0.78086877, 0.6246951, -0.4981811, -0.5416562, 0.67707026, 6.059337, 12.000002, 11.02782)
 projection = 1
 current = true
 size = 17.5
