@@ -8,7 +8,6 @@ extends Area3D
 
 @onready var input_a: CatBed = $InputA
 @onready var input_b: CatBed = $InputB
-@onready var output_bed: CatBed = $Output
 @onready var panel: PanelContainer = $OutputUI/Panel
 @onready var result_label: Label = $OutputUI/Panel/Content/Result
 @onready var stats_label: Label = $OutputUI/Panel/Content/Stats
@@ -26,7 +25,7 @@ var _orb_hovered = false
 
 func _ready() -> void:
 	if not show_bed_labels:
-		for bed in [input_a, input_b, output_bed]:
+		for bed in [input_a, input_b]:
 			bed.get_node("Label").hide()
 	input_event.connect(_on_device_input)
 	mouse_entered.connect(_set_orb_hovered.bind(true))
@@ -116,9 +115,7 @@ func _refresh_preview() -> void:
 	result_label.text = " + ".join(names)
 	stats_label.text = "\n".join(stats)
 	description_label.text = "\n\n".join(descriptions)
-	if _output_is_occupied():
-		hint_label.text = "Pick up the output Squeeb before merging again"
-	elif not GameManager.can_afford(GameManager.MERGE_PRICE):
+	if not GameManager.can_afford(GameManager.MERGE_PRICE):
 		hint_label.text = "Not enough coins — merging costs %d coins" % GameManager.MERGE_PRICE
 	else:
 		hint_label.text = "Click the glowing core to merge — %d coins" % GameManager.MERGE_PRICE
@@ -161,10 +158,6 @@ func _on_device_input(_camera: Node, event: InputEvent, _position: Vector3, _nor
 		_merging = true
 		merge_cats.call_deferred()
 
-func _output_is_occupied() -> bool:
-	output_bed._update_occupant()
-	return is_instance_valid(output_bed.placed_cat) and not output_bed.placed_cat.is_queued_for_deletion()
-
 func merge_cats() -> void:
 	if not is_instance_valid(cat_manager) or cat_manager._starting_battle:
 		_merging = false
@@ -176,7 +169,7 @@ func merge_cats() -> void:
 		return
 	_refresh_preview()
 	var cats = _input_cats()
-	if _preview_results.is_empty() or cats.is_empty() or _output_is_occupied():
+	if _preview_results.is_empty() or cats.is_empty():
 		AudioManager.play_effect("huff")
 		_merging = false
 		return
@@ -191,13 +184,14 @@ func merge_cats() -> void:
 	input_a._release_cat()
 	input_b._release_cat()
 	for index in range(results.size()):
-		# Cleansing can return a second cat; keep it on a now-empty input bed.
-		var bed = output_bed if index == 0 else input_a
-		var cat = cat_manager.spawn_cat(bed.get_placement_position(), results[index])
+		# Cleansing can return a second Squeeb to the now-empty input bed.
+		var spawn_position = cat_spawn_pos.global_position if index == 0 else input_a.get_placement_position()
+		var cat = cat_manager.spawn_cat(spawn_position, results[index])
 		if cat != null:
 			AudioManager.play_effect("purr")
-			cat.global_rotation.y = bed.global_rotation.y
-			bed.try_place_cat(cat, bed == output_bed)
+			cat.global_rotation.y = cat_spawn_pos.global_rotation.y if index == 0 else input_a.global_rotation.y
+			if index > 0:
+				input_a.try_place_cat(cat)
 	_preview_key = ""
 	_preview_results.clear()
 	_preview_cache.clear()

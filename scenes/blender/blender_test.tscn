@@ -61,7 +61,7 @@ corner_radius_bottom_left = 12
 
 [node name="MergeStation" type="Area3D" unique_id=2054684803 node_paths=PackedStringArray("cat_spawn_pos")]
 script = ExtResource("script")
-cat_spawn_pos = NodePath("Output/PlacementPoint")
+cat_spawn_pos = NodePath("OutputPoint")
 corrupted_enchantment = ExtResource("corrupted")
 reroll_enchantments = Array[ExtResource("enchantment")]([ExtResource("air"), ExtResource("earth"), ExtResource("fire"), ExtResource("water")])
 
@@ -95,15 +95,8 @@ bed_label = "Input 2"
 cushion_color = Color(0.92507684, 0.4610378, 0.3244161, 1)
 lock_cat_to_bed = true
 
-[node name="Output" parent="." unique_id=2027097759 instance=ExtResource("bed")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0078089237, 0, 3.4385147)
-bed_label = "Output"
-prevent_insertion = true
-cushion_color = Color(0.6268186, 0.82907254, 0.46897507, 1)
-lock_cat_to_bed = true
-
 [node name="OutputPoint" type="Marker3D" parent="." unique_id=2111150054]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, -3.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0078089237, 0.12, 3.4385147)
 
 [node name="OutputUI" type="CanvasLayer" parent="." unique_id=465471965]
 layer = 4
