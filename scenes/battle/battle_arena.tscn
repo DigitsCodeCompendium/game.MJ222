@@ -6,72 +6,138 @@
 [ext_resource type="PackedScene" uid="uid://dhsuwj8ueqoh1" path="res://scenes/battle/environments/forest_environment.tscn" id="forest_environment"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="hover_card"]
 [ext_resource type="Script" uid="uid://dvc3s1a6aqihw" path="res://scripts/battle/battle_hover_info.gd" id="hover_script"]
+[ext_resource type="Script" uid="uid://blas5foc8rs85" path="res://scripts/battle/battle_result.gd" id="result_script"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_gpf5u"]
-font_size = 24
+[sub_resource type="StyleBoxFlat" id="ResultBackdrop"]
+bg_color = Color(0.025, 0.035, 0.05, 0.82)
 
-[sub_resource type="LabelSettings" id="LabelSettings_i8s75"]
-font_size = 12
-font_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
+[sub_resource type="StyleBoxFlat" id="ResultCard"]
+content_margin_left = 36.0
+content_margin_top = 30.0
+content_margin_right = 36.0
+content_margin_bottom = 30.0
+bg_color = Color(0.08, 0.1, 0.14, 0.98)
+border_width_left = 3
+border_width_top = 5
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.55, 0.85, 0.65, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="ResultButton"]
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.22, 0.29, 0.36, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="ResultButtonHover"]
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.31, 0.4, 0.48, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="BattleArena" type="Node3D" unique_id=1369554804]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=665126758]
 unique_name_in_owner = true
 
-[node name="ResultUI" type="CanvasLayer" parent="." unique_id=998411976]
+[node name="ResultUI" type="CanvasLayer" parent="." unique_id=2064539621]
 layer = 10
 
-[node name="ResultContainer" type="PanelContainer" parent="ResultUI" unique_id=1543508629]
+[node name="ResultContainer" type="PanelContainer" parent="ResultUI" unique_id=1288515105]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("ResultBackdrop")
+script = ExtResource("result_script")
 
-[node name="CenterContainer" type="CenterContainer" parent="ResultUI/ResultContainer" unique_id=1184375359]
+[node name="CenterContainer" type="CenterContainer" parent="ResultUI/ResultContainer" unique_id=2008732532]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ResultUI/ResultContainer/CenterContainer" unique_id=1618653248]
+[node name="Card" type="PanelContainer" parent="ResultUI/ResultContainer/CenterContainer" unique_id=574343975]
+custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("ResultCard")
 
-[node name="ResultLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1932118407]
+[node name="Content" type="VBoxContainer" parent="ResultUI/ResultContainer/CenterContainer/Card" unique_id=597766130]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="RoundLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/Card/Content" unique_id=760789685]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Result"
-label_settings = SubResource("LabelSettings_gpf5u")
+theme_override_colors/font_color = Color(0.7, 0.85, 0.78, 1)
+theme_override_font_sizes/font_size = 14
+text = "ROUND COMPLETE"
+horizontal_alignment = 1
 
-[node name="PlayerLifeLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1803470448]
+[node name="ResultLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/Card/Content" unique_id=1236230500]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Life Remaining: 3"
+theme_override_colors/font_color = Color(0.55, 0.87, 0.67, 1)
+theme_override_font_sizes/font_size = 48
+text = "Victory!"
+horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=276303357]
-custom_minimum_size = Vector2(0, 20)
+[node name="LifeLossLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/Card/Content" unique_id=1549571898]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.42, 0.4, 1)
+theme_override_font_sizes/font_size = 28
+text = "Lost 1 life!"
+horizontal_alignment = 1
 
-[node name="ReturnTimerLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1938738238]
+[node name="PlayerLifeLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/Card/Content" unique_id=1646279321]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Continuing in "
+theme_override_colors/font_color = Color(1, 0.95, 0.84, 1)
+theme_override_font_sizes/font_size = 23
+text = "3 lives remaining"
+horizontal_alignment = 1
 
-[node name="SkipLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1977671175]
+[node name="ReturnTimerLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/Card/Content" unique_id=1587576305]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = "(click here to skip)"
-label_settings = SubResource("LabelSettings_i8s75")
+theme_override_colors/font_color = Color(0.8, 0.84, 0.9, 1)
+theme_override_font_sizes/font_size = 16
+text = "Returning to prep in 3..."
+horizontal_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=726754677]
+[node name="SkipLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/Card/Content" unique_id=1718229291]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Main Menu"
+theme_override_colors/font_color = Color(0.58, 0.65, 0.73, 1)
+theme_override_font_sizes/font_size = 14
+text = "Click anywhere to continue"
+horizontal_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="ResultUI/ResultContainer/CenterContainer/Card/Content" unique_id=2061319685]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("ResultButton")
+theme_override_styles/hover = SubResource("ResultButtonHover")
+theme_override_styles/focus = SubResource("ResultButtonHover")
+text = "Back to main menu"
 
 [node name="BattleHoverInfo" parent="." unique_id=1024046952 node_paths=PackedStringArray("battle_manager") instance=ExtResource("hover_card")]
 process_mode = 3

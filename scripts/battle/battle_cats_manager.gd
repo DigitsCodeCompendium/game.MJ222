@@ -15,6 +15,7 @@ extends Node3D
 @export var battle_end_countdown = 3
 
 var turn_index: int
+var _lives_lost: int = 0
 # Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
@@ -35,7 +36,9 @@ func _ready():
 	
 	GameManager.is_battle_won = cats_left.size() > 0
 	AudioManager.play_battle_result(GameManager.is_battle_won)
+	var previous_lives = GameManager.player_life
 	GameManager.do_end_of_battle_calcs()
+	_lives_lost = maxi(0, previous_lives - GameManager.player_life)
 	await animate_end_of_round_screen()
 	GameManager.exit_battle()
 
@@ -249,25 +252,28 @@ func animate_death_and_despawn(cat: BattleCat):
 	cat.queue_free()
 
 func animate_end_of_round_screen():
-	%PlayerLifeLabel.text = "Life Remaining: %s" % GameManager.player_life
-		
+	var run_finished = GameManager.is_run_lost or GameManager.is_run_won
+	var title: String
+	var accent: Color
 	if GameManager.is_run_lost:
-		%ResultLabel.text = "Run Lost"
-		%ResultContainer.visible = true
-		await wait_for_player_continue()
+		title = "Run over"
+		accent = Color("ee8a82")
 	elif GameManager.is_run_won:
-		%ResultLabel.text = "Run Won"
-		%ResultContainer.visible = true
+		title = "Run won!"
+		accent = Color("efd17c")
+	elif cats_left.is_empty() and cats_right.is_empty():
+		title = "Draw"
+		accent = Color("a6bddf")
+	elif cats_right.is_empty():
+		title = "Victory!"
+		accent = Color("88d6a4")
+	else:
+		title = "Defeat"
+		accent = Color("ee8a82")
+	%ResultContainer.present(title, accent, GameManager.stage_index, GameManager.player_life, run_finished, _lives_lost)
+	if run_finished:
 		await wait_for_player_continue()
 	else:
-		if cats_left.size() <= 0:
-			if cats_right.size() <= 0:
-				%ResultLabel.text = "Round %s Tied" % GameManager.stage_index # GameManager should've already incremented the stage index by now
-			else:
-				%ResultLabel.text = "Round %s Lost" % GameManager.stage_index
-		elif cats_right.size() <= 0:
-			%ResultLabel.text = "Round %s Won" % GameManager.stage_index
-		%ResultContainer.visible = true
 		await do_continue_countdown()
 
 func wait_for_player_continue():
@@ -278,7 +284,7 @@ func wait_for_player_continue():
 
 func do_continue_countdown():
 	var tween = create_tween()
-	var set_timer_text = func(t): %ReturnTimerLabel.text = "Continuing in %s" % t
+	var set_timer_text = func(t): %ReturnTimerLabel.text = "Returning to prep in %s..." % t
 	set_timer_text.call(battle_end_countdown)
 	for i in range(battle_end_countdown, 0, -1):
 		tween.tween_callback(set_timer_text.bind(i))
@@ -295,6 +301,7 @@ func do_continue_countdown():
 	%ResultContainer.gui_input.connect(handle_gui_input)
 	
 	await tween.finished
+	%ResultContainer.gui_input.disconnect(handle_gui_input)
 
 func get_cat_team(cat: BattleCat) -> Array[BattleCat]:
 	if cat in cats_left:
