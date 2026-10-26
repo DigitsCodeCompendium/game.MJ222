@@ -1,62 +1,82 @@
 [gd_scene format=3 uid="uid://bo5ljrf3icgfb"]
 
-[ext_resource type="Script" uid="uid://xxhurhj7e8j4" path="res://scripts/battle/battle_cat_ui.gd" id="1_yxbhp"]
+[ext_resource type="Script" uid="uid://xxhurhj7e8j4" path="res://scripts/battle/battle_cat_ui.gd" id="script"]
 
-[node name="BattleCatUI" type="Control" unique_id=491608465]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_yxbhp")
+[sub_resource type="StyleBoxFlat" id="Card"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.08, 0.1, 0.14, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.5, 0.58, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
 
-[node name="PanelTop" type="VBoxContainer" parent="." unique_id=1147459913]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -628.0
-offset_top = -492.0
-offset_right = -524.0
-offset_bottom = -415.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
+[node name="BattleCatUI" type="Control"]
+layout_mode = 0
+mouse_filter = 2
+script = ExtResource("script")
 
-[node name="NameLabel" type="Label" parent="PanelTop" unique_id=986938142]
+[node name="Panel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(120, 0)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Card")
+
+[node name="Content" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Name"
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Name" type="Label" parent="Panel/Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.84, 1)
+theme_override_font_sizes/font_size = 17
+text = "Squeeb"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Type" type="Label" parent="Panel/Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 14
+text = "Type"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Stats" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Attack" type="Label" parent="Panel/Content/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.98, 0.79, 0.54, 1)
+theme_override_font_sizes/font_size = 14
+text = "ATK 0"
 horizontal_alignment = 1
 
-[node name="EnchantmentLabel" type="Label" parent="PanelTop" unique_id=214730710]
+[node name="Health" type="Label" parent="Panel/Content/Stats"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Enchantment"
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.73, 0.9, 0.73, 1)
+theme_override_font_sizes/font_size = 14
+text = "HP 0"
 horizontal_alignment = 1
 
-[node name="StatusLabel" type="Label" parent="PanelTop" unique_id=2139380095]
+[node name="Status" type="Label" parent="Panel/Content"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_font_sizes/font_size = 13
 text = "Shrouded"
 horizontal_alignment = 1
-
-[node name="AttackLabel" type="Label" parent="." unique_id=75693117]
-layout_mode = 0
-offset_left = -91.0
-offset_top = -5.0
-offset_right = -14.0
-offset_bottom = 18.0
-text = "A: 12"
-horizontal_alignment = 2
-
-[node name="HealthLabel" type="Label" parent="." unique_id=1581550923]
-layout_mode = 0
-offset_left = 9.0
-offset_top = -5.0
-offset_right = 88.0
-offset_bottom = 18.0
-text = "H: 12"

@@ -140,6 +140,7 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	var cat_ui = battle_cat_ui_scene.instantiate()
 	cat_ui.camera = $"../Camera3D"
 	cat_ui.attached_cat = cat
+	cat_ui.is_enemy = team == cats_right
 	cat.attached_ui = cat_ui
 	cat_ui.update_cat()
 	
