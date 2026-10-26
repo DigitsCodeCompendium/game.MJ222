@@ -16,7 +16,7 @@ func present(title: String, accent: Color, round_number: int, lives: int, run_fi
 	%LifeLossLabel.visible = lives_lost > 0
 	%LifeLossLabel.text = "Lost %d %s!" % [lives_lost, "life" if lives_lost == 1 else "lives"]
 	if lives_lost > 0:
-		%PlayerLifeLabel.text = "Lives: %d → %d" % [lives + lives_lost, maxi(lives, 0)]
+		%PlayerLifeLabel.text = "Lives: %d to %d" % [lives + lives_lost, maxi(lives, 0)]
 	%ContinueButton.text = "Back to main menu"
 	show()
 	if _entrance != null:
