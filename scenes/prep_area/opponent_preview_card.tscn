@@ -1,0 +1,39 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/prep_area/opponent_preview_card.gd" id="script"]
+[sub_resource type="StyleBoxFlat" id="Card"]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 5.0
+content_margin_bottom = 6.0
+bg_color = Color(0.96, 0.91, 0.81, 1)
+border_width_bottom = 3
+border_width_top = 1
+border_width_left = 1
+border_width_right = 1
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+[node name="OpponentCard" type="PanelContainer"]
+custom_minimum_size = Vector2(82, 0)
+script = ExtResource("script")
+theme_override_styles/panel = SubResource("Card")
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+[node name="Type" type="Label" parent="Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.24, 0.19, 0.14, 1)
+horizontal_alignment = 1
+text_overrun_behavior = 3
+text = "Type"
+[node name="Stats" type="Label" parent="Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.35, 0.29, 0.23, 1)
+horizontal_alignment = 1
+text = "0 ATK  0 HP"

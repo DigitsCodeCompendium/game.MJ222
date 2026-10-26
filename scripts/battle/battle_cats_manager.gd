@@ -50,10 +50,7 @@ func load_cats():
 	else:
 		load_cats_from_data(cats_left, GameManager.player_cats_team)
 		
-		var rng = RandomNumberGenerator.new()
-		rng.seed = GameManager.enemy_seed
-		var game_progress = float(GameManager.stage_index) / (GameManager.total_rounds - 1)
-		var opponent_team = TeamGenerator.generate_random_team(rng, GameManager.TEAM_SIZE, GameManager.enemy_team_cost, game_progress, GameManager.enemy_extra_cost)
+		var opponent_team = GameManager.get_next_opponent_team()
 		load_cats_from_data(cats_right, opponent_team)
 	
 	move_all_cats(true)

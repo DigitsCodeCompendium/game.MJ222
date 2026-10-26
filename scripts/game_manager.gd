@@ -126,3 +126,9 @@ func exit_battle():
 		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
 	else:
 		get_tree().change_scene_to_packed(PREP_AREA_SCENE)
+
+func get_next_opponent_team() -> Array[CatData]:
+	var opponent_rng = RandomNumberGenerator.new()
+	opponent_rng.seed = enemy_seed
+	var progress = float(stage_index) / maxf(1.0, total_rounds - 1)
+	return TeamGenerator.generate_random_team(opponent_rng, TEAM_SIZE, enemy_team_cost, progress, enemy_extra_cost)

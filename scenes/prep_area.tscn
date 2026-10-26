@@ -8,12 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://dvyymv650jnrw" path="res://scenes/blender/blender_test.tscn" id="10_l6pdx"]
 [ext_resource type="Script" uid="uid://bsnkyfoa04553" path="res://scripts/player/player.gd" id="11_8y3rt"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="11_sux85"]
-[ext_resource type="Script" uid="uid://dyrehwyioh2sg" path="res://scripts/prep_area/enemy_team_preview.gd" id="13_edtl5"]
+[ext_resource type="PackedScene" path="res://scenes/prep_area/enemy_team_preview.tscn" id="13_edtl5"]
 [ext_resource type="Script" uid="uid://jmc1ahkygkdl" path="res://scripts/prep_area/battle_transition.gd" id="battle_transition"]
 [ext_resource type="PackedScene" uid="uid://bdexqndp3ng0p" path="res://scenes/prep_area/cat_house.tscn" id="cat_house"]
 [ext_resource type="PackedScene" uid="uid://bifa8bgtfyvhm" path="res://scenes/prep_area/cookie_jar.tscn" id="cookie_jar"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 [ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
+
+[ext_resource type="PackedScene" path="res://scenes/prep_area/run_status.tscn" id="run_status"]
 
 [sub_resource type="Environment" id="Environment_gpf5u"]
 background_mode = 1
@@ -637,13 +639,15 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="EnemyTeamPreview" type="Label" parent="Player/UI/MarginContainer" unique_id=927568673]
+[node name="RunStatus" parent="Player/UI/MarginContainer" instance=ExtResource("run_status")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="EnemyTeamPreview" parent="Player/UI/MarginContainer" instance=ExtResource("13_edtl5")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-text = "Opponent team:"
-label_settings = SubResource("LabelSettings_q226r")
-script = ExtResource("13_edtl5")
 
 [node name="CatPickupInfo" parent="." unique_id=2114418831 node_paths=PackedStringArray("cat_manager") instance=ExtResource("pickup_info")]
 cat_manager = NodePath("../Props/CatManager")
