@@ -10,6 +10,8 @@ extends Node3D
 @export var move_duration = 0.5
 @export var rotate_duration = 0.2
 
+@export var direct_attack_hurt_delay = 0.5
+
 @export var battle_end_countdown = 3
 
 var turn_index: int
@@ -73,7 +75,7 @@ func do_turn():
 	cats_right[0].did_attack = true
 	sync_ui()
 	
-	await play_attack_and_hurt_animations()
+	await animate_attack_and_hurt(direct_attack_hurt_delay)
 	
 	# Save a snapshot of which cats should get the "ally attacked" event, because the cats order may change
 	var ally_cats_left = cats_left.slice(1)
@@ -85,7 +87,7 @@ func do_turn():
 	])
 	sync_ui()
 	
-	await play_attack_and_hurt_animations()
+	await animate_attack_and_hurt()
 	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
@@ -100,7 +102,7 @@ func do_turn():
 	await Promise.all(animations)
 	sync_ui()
 	
-	await play_attack_and_hurt_animations()
+	await animate_attack_and_hurt()
 	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
@@ -111,7 +113,7 @@ func do_turn():
 	await Promise.all(animations)
 	sync_ui()
 	
-	await play_attack_and_hurt_animations()
+	await animate_attack_and_hurt()
 	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
 		return
@@ -148,7 +150,7 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	
 	return cat
 
-func play_attack_and_hurt_animations():	
+func animate_attack_and_hurt(hurt_delay: float = 0):
 	var animations: Array[Promise] = []
 	
 	for cat in get_all_cats():
@@ -158,9 +160,13 @@ func play_attack_and_hurt_animations():
 			animations.append(Promise.new(cat.animate_attack))
 		elif cat.was_damaged:
 			cat.was_damaged = false
-			animations.append(Promise.new(cat.animate_hurt))
+			animations.append(Promise.new(animate_hurt_cat_with_delay.bind(cat, hurt_delay)))
 	
 	await Promise.all(animations)
+
+func animate_hurt_cat_with_delay(cat: BattleCat, delay: float):
+	await get_tree().create_timer(delay).timeout
+	await cat.animate_hurt()
 
 func move_all_cats(instant: bool = false):
 	var animations: Array[Promise] = []

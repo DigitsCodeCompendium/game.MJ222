@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://d1d5vmowdglqo"]
+
+[ext_resource type="Script" uid="uid://bmj3q34tu5y4a" path="res://scripts/battle/lightning_effect.gd" id="1_kgyll"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgyll"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kgyll"]
+
+[node name="Lightning" type="Node3D" unique_id=332891382]
+script = ExtResource("1_kgyll")
+turns_max_offset = 0.4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=430226835]
+material_override = SubResource("StandardMaterial3D_kgyll")
+mesh = SubResource("CylinderMesh_kgyll")

@@ -4,26 +4,30 @@
 [ext_resource type="Script" uid="uid://co8rveipkqimf" path="res://scripts/cat/cat_data.gd" id="2_esejm"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="3_hwi6o"]
 [ext_resource type="Resource" uid="uid://cm7s3dgfu7w4h" path="res://resources/enchantments/composite/steam.tres" id="4_b3td0"]
-[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="5_71tbm"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="5_0dvih"]
 
 [sub_resource type="Resource" id="Resource_onvjh"]
 script = ExtResource("2_esejm")
+health_offset = 100
 enchantment = ExtResource("3_hwi6o")
 metadata/_custom_type_script = "uid://co8rveipkqimf"
 
 [sub_resource type="Resource" id="Resource_8ajim"]
 script = ExtResource("2_esejm")
+health_offset = 100
 enchantment = ExtResource("3_hwi6o")
 metadata/_custom_type_script = "uid://co8rveipkqimf"
 
 [sub_resource type="Resource" id="Resource_0deji"]
 script = ExtResource("2_esejm")
+health_offset = 100
 enchantment = ExtResource("4_b3td0")
 metadata/_custom_type_script = "uid://co8rveipkqimf"
 
 [sub_resource type="Resource" id="Resource_7bjbe"]
 script = ExtResource("2_esejm")
-enchantment = ExtResource("5_71tbm")
+health_offset = 100
+enchantment = ExtResource("5_0dvih")
 metadata/_custom_type_script = "uid://co8rveipkqimf"
 
 [node name="BattleTest" type="Node" unique_id=1657690964]
