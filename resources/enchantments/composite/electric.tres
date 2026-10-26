@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://p3ohst0t200x" path="res://assets/cat/elements/electric_cat.tres" id="1_8attb"]
 [ext_resource type="Script" uid="uid://bsja6rxfqlbx7" path="res://scripts/enchantments/composite/enchantment_electric.gd" id="1_gv125"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="2_ajdcb"]
-[ext_resource type="PackedScene" uid="uid://d1d5vmowdglqo" path="res://scenes/battle/effects/lightning.tscn" id="4_i20lq"]
+[ext_resource type="PackedScene" uid="uid://d1d5vmowdglqo" path="res://scenes/battle/effects/electric_lightning.tscn" id="4_i20lq"]
 
 [resource]
 script = ExtResource("1_gv125")
