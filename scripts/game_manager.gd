@@ -15,6 +15,9 @@ var total_rounds: int:
 	get: return player_life_stakes.size()
 
 const TEAM_SIZE = 5
+const SCENE_FADE = preload("res://scenes/loading/scene_fade.tscn")
+var _exiting_battle = false
+var _starting_game = false
 
 const MAIN_MENU_SCENE = preload("res://scenes/title/title_screen.tscn")
 const PREP_AREA_SCENE = preload("res://scenes/prep_area.tscn")
@@ -54,8 +57,14 @@ func _ready():
 	reset_game()
 	
 func start_new_game():
+	if _starting_game:
+		return
+	_starting_game = true
 	reset_game()
-	get_tree().change_scene_to_packed(PREP_AREA_SCENE)
+	var transition = SCENE_FADE.instantiate()
+	get_tree().root.add_child(transition)
+	await transition.change_scene(PREP_AREA_SCENE)
+	_starting_game = false
 
 func reset_game():
 	rng = RandomNumberGenerator.new()
@@ -118,14 +127,15 @@ func exit_battle():
 		get_tree().change_scene_to_packed(TEST_BATTLE_SCENE)
 		return
 
-	if is_run_lost:
-		# TODO separate "you lose the run" screen
-		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
-	elif is_run_won:
-		# TODO separate "you win the run" screen
-		get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
-	else:
-		get_tree().change_scene_to_packed(PREP_AREA_SCENE)
+	if _exiting_battle:
+		return
+	_exiting_battle = true
+	var destination = MAIN_MENU_SCENE if is_run_lost or is_run_won else PREP_AREA_SCENE
+	var transition = SCENE_FADE.instantiate()
+	get_tree().root.add_child(transition)
+	await transition.change_scene(destination)
+	_exiting_battle = false
+
 
 func get_next_opponent_team() -> Array[CatData]:
 	var opponent_rng = RandomNumberGenerator.new()

@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://bifa8bgtfyvhm" path="res://scenes/prep_area/cookie_jar.tscn" id="cookie_jar"]
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 [ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
-
 [ext_resource type="PackedScene" path="res://scenes/prep_area/run_status.tscn" id="run_status"]
 
 [sub_resource type="Environment" id="Environment_gpf5u"]
@@ -25,8 +24,8 @@ ambient_light_color = Color(1, 0.945, 0.863, 1)
 ambient_light_energy = 0.45
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g543r"]
-vertices = PackedVector3Array(-6.25, 0.5, 11.5, -10.25, 0.5, 14.5, -8.75, 0.5, 14.75, 14.75, 0.5, 1, -9.5, 0.5, 0, -10, 0.5, 1.75, -5.75, 0.5, 5, -9.5, 0.5, -5.75, 14.75, 0.5, -6, -5.5, 0.5, 7.5)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(4, 7, 6), PackedInt32Array(6, 7, 3), PackedInt32Array(3, 7, 8), PackedInt32Array(0, 9, 3), PackedInt32Array(9, 6, 3)]
+vertices = PackedVector3Array(-6.25, 0.5, 11.5, -10.25, 0.5, 14.5, -8.75, 0.5, 14.75, 10.25, 0.5, 2.5, -9.5, 0.5, 0, -10, 0.5, 1.75, -5.75, 0.5, 5, 10.5, 0.5, 1.5, 10.5, 0.5, -6, -9.5, 0.5, -5.75, -5.5, 0.5, 7.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(7, 3, 8), PackedInt32Array(8, 3, 6), PackedInt32Array(8, 6, 4), PackedInt32Array(8, 4, 9), PackedInt32Array(3, 10, 6), PackedInt32Array(10, 3, 0)]
 agent_radius = 1.25
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j2t3p"]
@@ -82,12 +81,20 @@ material = SubResource("RoomWood")
 size = Vector3(0.18, 0.25, 31.843287)
 
 [sub_resource type="StandardMaterial3D" id="RoomRug"]
-albedo_color = Color(0.9031827, 0.64368516, 0.35789654, 1)
+albedo_color = Color(0.90602815, 0.6374955, 0.40032732, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BedRugMesh"]
 material = SubResource("RoomRug")
 size = Vector3(25, 0.035, 4.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_os6ue"]
+albedo_color = Color(0.91204774, 0.6274541, 0.48752356, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_qtuiy"]
+material = SubResource("StandardMaterial3D_os6ue")
+size = Vector3(16.097153, 0.035, 12.035498)
 
 [sub_resource type="BoxMesh" id="Window1FrameMesh"]
 material = SubResource("RoomWood")
@@ -274,11 +281,6 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="LabelSettings" id="LabelSettings_q226r"]
-font_size = 24
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=371378319]
@@ -321,7 +323,7 @@ affect_navigation_mesh = true
 
 [node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="Level/NavigationRegion3D" unique_id=838575396]
 height = 6.0
-vertices = PackedVector3Array(15.442864, 0, 1.899723, -7.905996, 0, 15.512686, 6.0483937, 0, 15.700511, 15.338604, 0, 15.672065, 15.362537, 0, 10.316718)
+vertices = PackedVector3Array(11.590832, 0, 2.952567, -7.905996, 0, 15.512686, 15.699145, 0, 15.695488, 15.298095, 0, -6.931761, 11.892721, 0, -6.5909595)
 affect_navigation_mesh = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=880522691]
@@ -373,6 +375,10 @@ mesh = SubResource("LeftSkirtingMesh")
 [node name="BedRug" type="MeshInstance3D" parent="Level/Room" unique_id=849451548]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -11.112743)
 mesh = SubResource("BedRugMesh")
+
+[node name="BedRug" type="MeshInstance3D" parent="Level/Room/BedRug" unique_id=823175255]
+transform = Transform3D(0.99989134, 0, -0.014738421, 0, 1, 0, 0.014738421, 0, 0.99989134, -1.7243594, 0.025000954, 10.207772)
+mesh = SubResource("BoxMesh_qtuiy")
 
 [node name="Window1" type="Node3D" parent="Level/Room" unique_id=35554364]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9435735, 0, -15.209819)
@@ -639,12 +645,12 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="RunStatus" parent="Player/UI/MarginContainer" instance=ExtResource("run_status")]
+[node name="RunStatus" parent="Player/UI/MarginContainer" unique_id=941987877 instance=ExtResource("run_status")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="EnemyTeamPreview" parent="Player/UI/MarginContainer" instance=ExtResource("13_edtl5")]
+[node name="EnemyTeamPreview" parent="Player/UI/MarginContainer" unique_id=1960537980 instance=ExtResource("13_edtl5")]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -664,6 +670,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
+
+[node name="SettingsBed" parent="." unique_id=328772757 instance=ExtResource("11_sux85")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 14.091479, 0, -2.4165754)
+bed_label = "Settings"
+cushion_color = Color(0.6627451, 0.78039217, 0.83137256, 1)
+lock_cat_to_bed = true
 
 [connection signal="disabled_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
 [connection signal="on_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
