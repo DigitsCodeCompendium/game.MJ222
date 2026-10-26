@@ -26,7 +26,7 @@ func _ready():
 	
 	load_cats()
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	
 	turn_index = 0
 	while not is_battle_over():
@@ -165,7 +165,7 @@ func animate_attack_and_hurt(hurt_delay: float = 0):
 	await Promise.all(animations)
 
 func animate_hurt_cat_with_delay(cat: BattleCat, delay: float):
-	await get_tree().create_timer(delay).timeout
+	await get_tree().create_timer(delay, false).timeout
 	await cat.animate_hurt()
 
 func move_all_cats(instant: bool = false):

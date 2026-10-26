@@ -4,11 +4,13 @@
 [ext_resource type="PackedScene" path="res://scenes/cat/cat_visual.tscn" id="2_y1v3c"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gpf5u"]
+radius = 1.1
 
 [node name="BattleCat" type="Area3D" unique_id=103363178]
 script = ExtResource("1_0xck0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2062784825]
+position = Vector3(0, 1, 0)
 shape = SubResource("SphereShape3D_gpf5u")
 
 [node name="CatVisual" parent="." unique_id=972832430 instance=ExtResource("2_y1v3c")]

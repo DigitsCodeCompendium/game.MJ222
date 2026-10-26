@@ -27,6 +27,9 @@ func _process(_delta: float) -> void:
 		shown_cat = cat_manager.get_held_cat()
 		if shown_cat == null and get_viewport().gui_get_hovered_control() == null:
 			shown_cat = cat_manager.get_hovered_bed_cat(camera, get_viewport().get_mouse_position())
+	_show_cat(shown_cat, camera)
+
+func _show_cat(shown_cat: Node3D, camera: Camera3D) -> void:
 	if shown_cat == null or camera == null or camera.is_position_behind(shown_cat.global_position):
 		panel.hide()
 		return
@@ -44,15 +47,17 @@ func _process(_delta: float) -> void:
 	at.y = clampf(at.y, 12.0, maxf(12.0, viewport_size.y - panel.size.y - 12.0))
 	panel.position = at
 
-func _update_content(cat: Cat) -> void:
+func _update_content(cat: Node3D) -> void:
 	name_label.text = cat.cat_name
+	name_label.visible = not (cat is BattleCat and is_instance_valid(cat.attached_ui) and cat.attached_ui.is_enemy)
 	var enchantment = cat.enchantment
 	_panel_style.border_color = enchantment.primary_color if enchantment != null else _default_border_color
-	var attack = cat.attack_offset
-	var health = cat.health_offset
+	var attack: int = cat.attack if cat is BattleCat else cat.attack_offset
+	var health: int = cat.health if cat is BattleCat else cat.health_offset
 	if enchantment != null:
-		attack += enchantment.base_attack
-		health += enchantment.base_health
+		if not cat is BattleCat:
+			attack += enchantment.base_attack
+			health += enchantment.base_health
 		enchantment_label.text = enchantment.display_name
 		enchantment_label.add_theme_color_override("font_color", enchantment.primary_color.lightened(0.4))
 		description_label.text = enchantment.description if not enchantment.description.strip_edges().is_empty() else "No special ability."

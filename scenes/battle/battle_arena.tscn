@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://den4o5q0vyw3x" path="res://scenes/battle/battle_cat.tscn" id="2_i8s75"]
 [ext_resource type="PackedScene" uid="uid://bo5ljrf3icgfb" path="res://scenes/battle/battle_cat_ui.tscn" id="3_onjye"]
 [ext_resource type="PackedScene" uid="uid://dhsuwj8ueqoh1" path="res://scenes/battle/environments/forest_environment.tscn" id="forest_environment"]
+[ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="hover_card"]
+[ext_resource type="Script" uid="uid://dvc3s1a6aqihw" path="res://scripts/battle/battle_hover_info.gd" id="hover_script"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gpf5u"]
 font_size = 24
@@ -13,6 +15,68 @@ font_size = 12
 font_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
 
 [node name="BattleArena" type="Node3D" unique_id=1369554804]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=665126758]
+unique_name_in_owner = true
+
+[node name="ResultUI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="ResultContainer" type="PanelContainer" parent="ResultUI" unique_id=1543508629]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ResultUI/ResultContainer" unique_id=1184375359]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResultUI/ResultContainer/CenterContainer" unique_id=1618653248]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1932118407]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Result"
+label_settings = SubResource("LabelSettings_gpf5u")
+
+[node name="PlayerLifeLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1803470448]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Life Remaining: 3"
+
+[node name="Spacer" type="Control" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=276303357]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ReturnTimerLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1938738238]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Continuing in "
+
+[node name="SkipLabel" type="Label" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1977671175]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "(click here to skip)"
+label_settings = SubResource("LabelSettings_i8s75")
+
+[node name="ContinueButton" type="Button" parent="ResultUI/ResultContainer/CenterContainer/VBoxContainer" unique_id=726754677]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Main Menu"
+
+[node name="BattleHoverInfo" parent="." unique_id=1024046952 node_paths=PackedStringArray("battle_manager") instance=ExtResource("hover_card")]
+process_mode = 3
+script = ExtResource("hover_script")
+battle_manager = NodePath("../Cats")
 
 [node name="Environment" parent="." unique_id=288375888 instance=ExtResource("forest_environment")]
 
@@ -67,57 +131,3 @@ gizmo_extents = 0.9
 [node name="Camera3D" type="Camera3D" parent="." unique_id=235324837]
 transform = Transform3D(1, 0, 0, 0, 0.9189352, 0.39440873, 0, -0.39440876, 0.9189351, 0, 11.325235, 19.395634)
 fov = 60.0
-
-[node name="UI" type="CanvasLayer" parent="." unique_id=665126758]
-unique_name_in_owner = true
-
-[node name="ResultContainer" type="PanelContainer" parent="UI" unique_id=1543508629]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/ResultContainer" unique_id=1184375359]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/ResultContainer/CenterContainer" unique_id=1618653248]
-layout_mode = 2
-
-[node name="ResultLabel" type="Label" parent="UI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1932118407]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Result"
-label_settings = SubResource("LabelSettings_gpf5u")
-
-[node name="PlayerLifeLabel" type="Label" parent="UI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1803470448]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Life Remaining: 3"
-
-[node name="Spacer" type="Control" parent="UI/ResultContainer/CenterContainer/VBoxContainer" unique_id=276303357]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="ReturnTimerLabel" type="Label" parent="UI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1938738238]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Continuing in "
-
-[node name="SkipLabel" type="Label" parent="UI/ResultContainer/CenterContainer/VBoxContainer" unique_id=1977671175]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "(click here to skip)"
-label_settings = SubResource("LabelSettings_i8s75")
-
-[node name="ContinueButton" type="Button" parent="UI/ResultContainer/CenterContainer/VBoxContainer" unique_id=726754677]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Main Menu"
