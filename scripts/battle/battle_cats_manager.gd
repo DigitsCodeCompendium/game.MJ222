@@ -94,10 +94,10 @@ func do_turn():
 	
 	var animations: Array[Promise] = []
 	for cat in ally_cats_left:
-		if cat in cats_left:
+		if is_instance_valid(cat) and cat in cats_left:
 			animations.append(Promise.new(cat.enchantment.after_ally_attack.bind(self, cat)))
 	for cat in ally_cats_right:
-		if cat in cats_right:
+		if is_instance_valid(cat) and cat in cats_right:
 			animations.append(Promise.new(cat.enchantment.after_ally_attack.bind(self, cat)))
 	await Promise.all(animations)
 	sync_ui()
