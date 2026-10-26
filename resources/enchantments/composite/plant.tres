@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byipkniu07x1c" path="res://scripts/enchantments/composite/enchantment_plant.gd" id="1_4ab1k"]
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="1_axuep"]
+[ext_resource type="PackedScene" uid="uid://laun7bn5g22y" path="res://scenes/battle/effects/plant_water_orb.tscn" id="1_wdkl7"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="2_p807g"]
 [ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="3_rfyp0"]
 [ext_resource type="Material" uid="uid://bfw2nsgrgf8gd" path="res://assets/cat/elements/plant_cat.tres" id="material"]
@@ -10,6 +11,7 @@
 [resource]
 script = ExtResource("1_4ab1k")
 enchantment_cat = ExtResource("3_rfyp0")
+absorb_orb_scene = ExtResource("1_wdkl7")
 display_name = "Plant"
 primary_color = Color(0.2509804, 0.56078434, 0.3372549, 1)
 description = "Before attacking, absorb up to 1 Water from each adjacent squeeb. Gain 1/1 for each Water absorbed.
