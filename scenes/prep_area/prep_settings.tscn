@@ -1,0 +1,100 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/prep_area/prep_settings.gd" id="script"]
+[sub_resource type="StyleBoxFlat" id="Panel"]
+content_margin_left = 30.0
+content_margin_right = 30.0
+content_margin_top = 26.0
+content_margin_bottom = 26.0
+bg_color = Color(0.95, 0.91, 0.83, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+[sub_resource type="StyleBoxFlat" id="Button"]
+bg_color = Color(0.42, 0.36, 0.29, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+[sub_resource type="StyleBoxFlat" id="ButtonHover"]
+bg_color = Color(0.55, 0.45, 0.34, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+[sub_resource type="StyleBoxFlat" id="EndButton"]
+bg_color = Color(0.56, 0.23, 0.21, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+[node name="PrepSettings" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+script = ExtResource("script")
+[node name="Overlay" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.03, 0.025, 0.02, 0.5)
+[node name="Center" type="CenterContainer" parent="Overlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+[node name="Panel" type="PanelContainer" parent="Overlay/Center"]
+layout_mode = 2
+custom_minimum_size = Vector2(440, 0)
+theme_override_styles/panel = SubResource("Panel")
+[node name="Content" type="VBoxContainer" parent="Overlay/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+[node name="Heading" type="Label" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.28, 0.23, 0.19, 1)
+text = "Settings"
+[node name="MasterLabel" type="Label" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28, 0.23, 0.19, 1)
+text = "Master volume"
+[node name="Master" type="HSlider" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+[node name="MusicLabel" type="Label" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28, 0.23, 0.19, 1)
+text = "Music volume"
+[node name="Music" type="HSlider" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+[node name="EffectsLabel" type="Label" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28, 0.23, 0.19, 1)
+text = "Effects volume"
+[node name="Effects" type="HSlider" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+[node name="Fullscreen" type="CheckButton" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28, 0.23, 0.19, 1)
+text = "Fullscreen"
+[node name="Back" type="Button" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+theme_override_styles/normal = SubResource("Button")
+theme_override_styles/hover = SubResource("ButtonHover")
+text = "Back to prep"
+[node name="EndRun" type="Button" parent="Overlay/Center/Panel/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+theme_override_styles/normal = SubResource("EndButton")
+theme_override_styles/hover = SubResource("ButtonHover")
+text = "End run"

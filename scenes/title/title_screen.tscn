@@ -131,6 +131,20 @@ corner_radius_top_right = 18
 corner_radius_bottom_right = 18
 corner_radius_bottom_left = 18
 
+[sub_resource type="StyleBoxFlat" id="BackButton"]
+bg_color = Color(0.42, 0.36, 0.29, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="BackButtonHover"]
+bg_color = Color(0.55, 0.45, 0.34, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
 [node name="TitleRoom" type="Node3D" unique_id=1974146091]
 script = ExtResource("1")
 
@@ -339,7 +353,9 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_vertical = 10
-text = "Back to room"
+theme_override_styles/normal = SubResource("BackButton")
+theme_override_styles/hover = SubResource("BackButtonHover")
+text = "Back to title"
 
 [node name="SettingsPanel" type="PanelContainer" parent="MenuUI/Interface" unique_id=438091326]
 layout_mode = 0
@@ -405,4 +421,6 @@ text = "Fullscreen"
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_vertical = 10
-text = "Back to room"
+theme_override_styles/normal = SubResource("BackButton")
+theme_override_styles/hover = SubResource("BackButtonHover")
+text = "Back to title"

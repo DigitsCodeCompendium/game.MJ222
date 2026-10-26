@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
 [ext_resource type="PackedScene" path="res://scenes/prep_area/run_status.tscn" id="run_status"]
 
+[ext_resource type="PackedScene" path="res://scenes/prep_area/prep_settings.tscn" id="prep_settings"]
+
 [sub_resource type="Environment" id="Environment_gpf5u"]
 background_mode = 1
 background_color = Color(0.9059, 0.8667, 0.8157, 1)
@@ -677,6 +679,8 @@ bed_label = "Settings"
 cushion_color = Color(0.6627451, 0.78039217, 0.83137256, 1)
 lock_cat_to_bed = true
 
+[node name="PrepSettings" parent="." instance=ExtResource("prep_settings")]
+
 [connection signal="disabled_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
 [connection signal="on_clicked" from="Level/Room/Door" to="Props/CatManager" method="_on_door_clicked"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed1" to="Props/CatManager" method="_on_cat_placed"]
@@ -684,3 +688,5 @@ lock_cat_to_bed = true
 [connection signal="cat_placed" from="Props/CatBeds/CatBed3" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed4" to="Props/CatManager" method="_on_cat_placed"]
 [connection signal="cat_placed" from="Props/CatBeds/CatBed5" to="Props/CatManager" method="_on_cat_placed"]
+
+[connection signal="cat_placed" from="SettingsBed" to="PrepSettings" method="_on_cat_placed"]

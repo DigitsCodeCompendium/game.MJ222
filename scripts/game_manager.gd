@@ -142,3 +142,14 @@ func get_next_opponent_team() -> Array[CatData]:
 	opponent_rng.seed = enemy_seed
 	var progress = float(stage_index) / maxf(1.0, total_rounds - 1)
 	return TeamGenerator.generate_random_team(opponent_rng, TEAM_SIZE, enemy_team_cost, progress, enemy_extra_cost)
+
+func end_run() -> void:
+	if _exiting_battle or _starting_game:
+		return
+	_exiting_battle = true
+	is_test_env = false
+	reset_game()
+	var transition = SCENE_FADE.instantiate()
+	get_tree().root.add_child(transition)
+	await transition.change_scene(MAIN_MENU_SCENE)
+	_exiting_battle = false
