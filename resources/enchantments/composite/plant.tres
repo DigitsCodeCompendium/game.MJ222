@@ -4,6 +4,8 @@
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="1_axuep"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="2_p807g"]
 [ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="3_rfyp0"]
+[ext_resource type="Material" uid="uid://bfw2nsgrgf8gd" path="res://assets/cat/elements/plant_cat.tres" id="material"]
+[ext_resource type="PackedScene" path="res://scenes/cat/models/plant_cat.tscn" id="model"]
 
 [resource]
 script = ExtResource("1_4ab1k")
@@ -15,6 +17,8 @@ Absorbing water from a composite element converts it to the remaining component.
 Effect does not persist after the end of combat."
 base_attack = 2
 base_health = 4
+cat_material = ExtResource("material")
+cat_scene = ExtResource("model")
 component1 = ExtResource("1_axuep")
 component2 = ExtResource("2_p807g")
 metadata/_custom_type_script = "uid://byipkniu07x1c"

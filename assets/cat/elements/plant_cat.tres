@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bfw2nsgrgf8gd"]
+
+[ext_resource type="Texture2D" uid="uid://ctg04mbavc5qy" path="res://assets/cat/elements/Plant_Cat_Texture_base.png" id="base"]
+[ext_resource type="Texture2D" uid="uid://du1ddlp6oqt2q" path="res://assets/cat/elements/Plant_Cat_Texture_metal.png" id="metal"]
+[ext_resource type="Texture2D" uid="uid://g607adls8e4s" path="res://assets/cat/elements/Plant_Cat_Texture_nor.png" id="nor"]
+[ext_resource type="Texture2D" uid="uid://cl7esgl0itpwa" path="res://assets/cat/elements/Plant_Cat_Texture_occ.png" id="occ"]
+[ext_resource type="Texture2D" uid="uid://u3m06hi1agta" path="res://assets/cat/elements/Plant_Cat_Texture_rough.png" id="rough"]
+
+[resource]
+albedo_texture = ExtResource("base")
+metallic = 1.0
+metallic_texture = ExtResource("metal")
+roughness_texture = ExtResource("rough")
+normal_enabled = true
+normal_texture = ExtResource("nor")
+ao_enabled = true
+ao_texture = ExtResource("occ")

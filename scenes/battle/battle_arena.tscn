@@ -19,7 +19,7 @@ font_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
 [node name="UI" type="CanvasLayer" parent="." unique_id=665126758]
 unique_name_in_owner = true
 
-[node name="ResultUI" type="CanvasLayer" parent="."]
+[node name="ResultUI" type="CanvasLayer" parent="." unique_id=998411976]
 layer = 10
 
 [node name="ResultContainer" type="PanelContainer" parent="ResultUI" unique_id=1543508629]

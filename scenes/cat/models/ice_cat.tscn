@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/cat/models/ice_cat/IceCat.fbx" id="model"]
+[ext_resource type="Script" path="res://scripts/cat/cat_model.gd" id="script"]
+
+[node name="IceCat" instance=ExtResource("model")]
+rotation_degrees = Vector3(0, 180, 0)
+script = ExtResource("script")
+body_mesh_path = NodePath("Armature/Skeleton3D/Cube_011")
+paw_mesh_path = NodePath("Armature/Skeleton3D/Cube_011")
+face_mesh_path = NodePath("Armature/Skeleton3D/Cube_011")
+paw_surface = 2
+face_surface = 1
+
+[node name="Effects" type="Node3D" parent="."]

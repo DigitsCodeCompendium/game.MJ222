@@ -3,6 +3,8 @@
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="1_fx4ty"]
 [ext_resource type="Script" uid="uid://bi1rol8rd0tfn" path="res://scripts/enchantments/composite/enchantment_ice.gd" id="1_y8mkm"]
 [ext_resource type="Resource" uid="uid://bbbwvxwqx0s2h" path="res://resources/enchantments/special/ice_statue.tres" id="3_gk7ps"]
+[ext_resource type="Material" uid="uid://bgmrxvvdll7e1" path="res://assets/cat/elements/ice_cat.tres" id="material"]
+[ext_resource type="PackedScene" path="res://scenes/cat/models/ice_cat.tscn" id="model"]
 
 [resource]
 script = ExtResource("1_y8mkm")
@@ -12,6 +14,8 @@ primary_color = Color(0.09803922, 0.36078432, 0.42352942, 1)
 description = "Upon fainting, summon an ice statue with half of the stats of this squeeb."
 base_attack = 3
 base_health = 5
+cat_material = ExtResource("material")
+cat_scene = ExtResource("model")
 component1 = ExtResource("1_fx4ty")
 component2 = ExtResource("1_fx4ty")
 metadata/_custom_type_script = "uid://bi1rol8rd0tfn"
