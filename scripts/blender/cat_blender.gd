@@ -166,9 +166,17 @@ func _output_is_occupied() -> bool:
 	return is_instance_valid(output_bed.placed_cat) and not output_bed.placed_cat.is_queued_for_deletion()
 
 func merge_cats() -> void:
+	if not is_instance_valid(cat_manager) or cat_manager._starting_battle:
+		_merging = false
+		return
+	# Report insufficient coins even when the beds aren't ready to merge yet.
+	if not GameManager.check_purchase_funds(GameManager.MERGE_PRICE):
+		AudioManager.play_effect("huff")
+		_merging = false
+		return
 	_refresh_preview()
 	var cats = _input_cats()
-	if not is_instance_valid(cat_manager) or _preview_results.is_empty() or cats.is_empty() or _output_is_occupied():
+	if _preview_results.is_empty() or cats.is_empty() or _output_is_occupied():
 		AudioManager.play_effect("huff")
 		_merging = false
 		return

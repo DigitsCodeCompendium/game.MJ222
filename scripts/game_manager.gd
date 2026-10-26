@@ -1,6 +1,7 @@
 extends Node
 
 signal money_changed(balance: int)
+signal insufficient_funds(cost: int)
 
 @export_range(0, 100, 1) var prep_income: int = 5
 
@@ -91,10 +92,17 @@ func can_afford(cost: int) -> bool:
 	return cost >= 0 and player_money >= cost
 
 func try_spend_coins(cost: int) -> bool:
-	if not can_afford(cost):
+	if not check_purchase_funds(cost):
 		return false
 	player_money -= cost
 	return true
+
+func check_purchase_funds(cost: int) -> bool:
+	if can_afford(cost):
+		return true
+	if cost > player_money:
+		insufficient_funds.emit(cost)
+	return false
 
 func do_end_of_battle_calcs():
 	if not is_battle_won:

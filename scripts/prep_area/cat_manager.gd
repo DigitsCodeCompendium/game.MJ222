@@ -115,7 +115,7 @@ func get_hovered_bed_cat(camera: Camera3D, mouse_position: Vector2) -> Cat:
 
 ## Charges only for a successfully purchased cat.
 func buy_cat(at: Variant = null) -> Cat:
-	if not can_spawn_cat() or not GameManager.can_afford(GameManager.CAT_PRICE):
+	if not can_spawn_cat() or not GameManager.check_purchase_funds(GameManager.CAT_PRICE):
 		return null
 	var cat = spawn_cat(find_random_cat_spawn_pos() if at == null else at)
 	if cat != null:
