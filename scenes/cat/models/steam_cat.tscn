@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dfimhiuoaltsd"]
 
 [ext_resource type="PackedScene" path="res://scenes/cat/models/base_cat_model.tscn" id="1"]
-[ext_resource type="Material" uid="uid://dqgnw5w3x3w67" path="res://assets/cat/elements/steam_cat.tres" id="2_furs8"]
 
 [sub_resource type="Gradient" id="PuffShape"]
 offsets = PackedFloat32Array(0, 0.25, 0.65, 1)
@@ -43,9 +42,6 @@ point_count = 2
 
 [node name="SteamCat" unique_id=1653476378 instance=ExtResource("1")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-
-[node name="Cat" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(115205953) index="0" unique_id=909556822]
-material_override = ExtResource("2_furs8")
 
 [node name="Steam" type="CPUParticles3D" parent="Effects" index="0" unique_id=1110019188]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.614298e-09, 0.8085333, -0.012902595)
