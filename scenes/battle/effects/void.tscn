@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://g4ocjqm2anr"]
+
+[ext_resource type="Script" uid="uid://cr20norwvq0gv" path="res://scripts/battle/effects/void_effect.gd" id="1_hhkxv"]
+
+[sub_resource type="Gradient" id="Gradient_xclqg"]
+offsets = PackedFloat32Array(0, 0.35, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.65, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hhkxv"]
+gradient = SubResource("Gradient_xclqg")
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ib78o"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_hhkxv")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_xclqg"]
+material = SubResource("StandardMaterial3D_ib78o")
+
+[sub_resource type="Gradient" id="Gradient_hhkxv"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.078431375)
+
+[node name="Void" type="Node3D" unique_id=1493003038]
+script = ExtResource("1_hhkxv")
+
+[node name="Particles" type="CPUParticles3D" parent="." unique_id=1633361925]
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.6
+mesh = SubResource("QuadMesh_xclqg")
+emission_shape = 2
+emission_sphere_radius = 2.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -16.0
+radial_accel_max = -10.0
+scale_amount_min = 0.0
+color = Color(0, 0, 0, 1)
+color_ramp = SubResource("Gradient_hhkxv")

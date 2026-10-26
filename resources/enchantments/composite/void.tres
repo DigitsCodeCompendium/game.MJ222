@@ -4,9 +4,11 @@
 [ext_resource type="Material" uid="uid://bn35cc70o5luj" path="res://assets/cat/elements/void_cat.tres" id="1_oqdgo"]
 [ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="1_w7ywk"]
 [ext_resource type="Resource" uid="uid://dlrbiv0tr6g04" path="res://resources/cat_faces/void.tres" id="3_p3tgr"]
+[ext_resource type="PackedScene" uid="uid://g4ocjqm2anr" path="res://scenes/battle/effects/void.tscn" id="5_p3tgr"]
 
 [resource]
 script = ExtResource("1_5q1tr")
+void_effect_scene = ExtResource("5_p3tgr")
 display_name = "Void"
 primary_color = Color(0.18039216, 0.13725491, 0.24705882, 1)
 description = "Upon fainting, deal 2 damage to ALL squeebs."

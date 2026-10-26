@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d1d5vmowdglqo"]
 
-[ext_resource type="Script" uid="uid://bmj3q34tu5y4a" path="res://scripts/battle/lightning_effect.gd" id="1_kgyll"]
+[ext_resource type="Script" uid="uid://bmj3q34tu5y4a" path="res://scripts/battle/effects/lightning_effect.gd" id="1_kgyll"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgyll"]
 shading_mode = 0
