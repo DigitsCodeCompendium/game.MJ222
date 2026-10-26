@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://co8rveipkqimf" path="res://scripts/cat/cat_data.gd" id="2_esejm"]
 [ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/composite/void.tres" id="3_esejm"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="3_hwi6o"]
-[ext_resource type="Resource" uid="uid://cm7s3dgfu7w4h" path="res://resources/enchantments/composite/steam.tres" id="4_b3td0"]
 [ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="5_0dvih"]
+[ext_resource type="Resource" uid="uid://c3lym23b4q8y5" path="res://resources/enchantments/composite/lava.tres" id="5_esejm"]
 
 [sub_resource type="Resource" id="Resource_onvjh"]
 script = ExtResource("2_esejm")
@@ -21,7 +21,7 @@ metadata/_custom_type_script = "uid://co8rveipkqimf"
 [sub_resource type="Resource" id="Resource_0deji"]
 script = ExtResource("2_esejm")
 health_offset = 100
-enchantment = ExtResource("4_b3td0")
+enchantment = ExtResource("5_esejm")
 metadata/_custom_type_script = "uid://co8rveipkqimf"
 
 [sub_resource type="Resource" id="Resource_7bjbe"]
