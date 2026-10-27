@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://crmbhdx52yxvw"]
+
+[sub_resource type="StandardMaterial3D" id="RoomTrim"]
+albedo_color = Color(0.98, 0.92, 0.81, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="CabinetShelf0Mesh"]
+material = SubResource("RoomTrim")
+size = Vector3(2.6, 0.12, 4.1)
+
+[sub_resource type="BoxMesh" id="CabinetShelf1Mesh"]
+material = SubResource("RoomTrim")
+size = Vector3(2.6, 0.12, 4.1)
+
+[sub_resource type="BoxMesh" id="CabinetShelf2Mesh"]
+material = SubResource("RoomTrim")
+size = Vector3(2.6, 0.12, 4.1)
+
+[sub_resource type="BoxShape3D" id="CabinetShape"]
+size = Vector3(2.5, 2.4, 4)
+
+[sub_resource type="StandardMaterial3D" id="RoomWood"]
+albedo_color = Color(0.659, 0.525, 0.396, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="CabinetMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.5, 2.4, 4)
+
+[node name="Cabinet" type="Node3D" unique_id=93692936]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CabinetShelf0" type="MeshInstance3D" parent="." unique_id=1918141321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 0.3, -2.0303473)
+mesh = SubResource("CabinetShelf0Mesh")
+
+[node name="CabinetShelf1" type="MeshInstance3D" parent="." unique_id=999208972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.1, -2.0303473)
+mesh = SubResource("CabinetShelf1Mesh")
+
+[node name="CabinetShelf2" type="MeshInstance3D" parent="." unique_id=1251346877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.9, -2.0303473)
+mesh = SubResource("CabinetShelf2Mesh")
+
+[node name="CabinetBody" type="StaticBody3D" parent="." unique_id=1584035849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.2, -2.0303473)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CabinetBody" unique_id=337401268]
+shape = SubResource("CabinetShape")
+
+[node name="Cabinet" type="MeshInstance3D" parent="." unique_id=1911258274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.354001, 1.2, -2.0303473)
+mesh = SubResource("CabinetMesh")

@@ -38,7 +38,6 @@ func _release_ai_lock() -> void:
 func _release_cat() -> void:
 	_release_ai_lock()
 	placed_cat = null
-
 func _exit_tree() -> void:
 	_release_cat()
 
@@ -65,7 +64,6 @@ func _update_occupant() -> void:
 			placed_cat.lock_ai_state = true
 			placed_cat._enter_behavior(Cat.State.WATCHING)
 		placed_cat.global_position = get_placement_position()
-
 func contains_point(world_position: Vector3) -> bool:
 	var local = to_local(world_position)
 	return absf(local.x) < 1.65 and absf(local.z) < 1.3

@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dvyymv650jnrw"]
 
-[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="air"]
-[ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat/cat_bed.tscn" id="bed"]
-[ext_resource type="Resource" uid="uid://dtpywd7n86tr4" path="res://resources/enchantments/special/corrupted.tres" id="corrupted"]
-[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="earth"]
-[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="enchantment"]
-[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="fire"]
-[ext_resource type="Script" uid="uid://c3f4haqr266eo" path="res://scripts/blender/cat_blender.gd" id="script"]
-[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="water"]
+[ext_resource type="Script" uid="uid://c3f4haqr266eo" path="res://scripts/blender/cat_blender.gd" id="1_rb53a"]
+[ext_resource type="Resource" uid="uid://dtpywd7n86tr4" path="res://resources/enchantments/special/corrupted.tres" id="2_guen3"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="3_ybpdp"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="4_2gook"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_hw64b"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="6_pfnsb"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_7d2y4"]
+[ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat_bed/cat_bed.tscn" id="8_5bsa6"]
 
 [sub_resource type="StandardMaterial3D" id="Metal"]
 albedo_color = Color(0.27, 0.36, 0.4, 1)
@@ -60,10 +60,10 @@ corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
 [node name="MergeStation" type="Area3D" unique_id=2054684803 node_paths=PackedStringArray("cat_spawn_pos")]
-script = ExtResource("script")
+script = ExtResource("1_rb53a")
 cat_spawn_pos = NodePath("OutputPoint")
-corrupted_enchantment = ExtResource("corrupted")
-reroll_enchantments = Array[ExtResource("enchantment")]([ExtResource("air"), ExtResource("earth"), ExtResource("fire"), ExtResource("water")])
+corrupted_enchantment = ExtResource("2_guen3")
+reroll_enchantments = Array[ExtResource("3_ybpdp")]([ExtResource("4_2gook"), ExtResource("5_hw64b"), ExtResource("6_pfnsb"), ExtResource("7_7d2y4")])
 
 [node name="Device" type="Node3D" parent="." unique_id=645874984]
 
@@ -83,14 +83,14 @@ mesh = SubResource("Core")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.72584, 0)
 shape = SubResource("SphereShape3D_wy7w1")
 
-[node name="InputA" parent="." unique_id=399207243 instance=ExtResource("bed")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 0, 0)
+[node name="InputA" parent="." unique_id=399207243 instance=ExtResource("8_5bsa6")]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -2, 0, 3)
 bed_label = "Input 1"
 cushion_color = Color(0.37081766, 0.83230853, 0.91138256, 1)
 lock_cat_to_bed = true
 
-[node name="InputB" parent="." unique_id=1960006699 instance=ExtResource("bed")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1, 0, 0)
+[node name="InputB" parent="." unique_id=1960006699 instance=ExtResource("8_5bsa6")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 2, 0, 3)
 bed_label = "Input 2"
 cushion_color = Color(0.92507684, 0.4610378, 0.3244161, 1)
 lock_cat_to_bed = true
