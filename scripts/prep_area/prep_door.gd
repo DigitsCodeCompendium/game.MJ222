@@ -5,7 +5,7 @@ signal on_clicked
 signal disabled_clicked
 
 @export var disabled: bool
-@export var hover_color: Color = Color(0.3, 1.0, 0.35)
+@export var hover_color: Color = Color("55df78")
 @export var open_duration: float = 0.75
 
 var _hover_materials: Array[StandardMaterial3D] = []
@@ -20,7 +20,7 @@ func _ready() -> void:
 	input_event.connect(_on_input_event)
 	mouse_entered.connect(_set_hovered.bind(true))
 	mouse_exited.connect(_set_hovered.bind(false))
-	for part in ["Panel", "UpperInset", "LowerInset"]:
+	for part in ["Panel", "UpperInset", "LowerInset", "HandlePlate", "Handle"]:
 		var mesh = $Hinge.get_node(part) as MeshInstance3D
 		var material = mesh.get_active_material(0).duplicate() as StandardMaterial3D
 		mesh.material_override = material

@@ -266,14 +266,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.772908, -1.4305115e-06, -
 [node name="PiggyBank2" parent="Level/Room/SideTable" unique_id=930116859 instance=ExtResource("piggy_bank")]
 transform = Transform3D(1.3506707, 0, 0.6524483, 0, 1.5, 0, -0.6524483, 0, 1.3506707, -1.5003605, 1.7125522, -1.43218)
 
-[node name="DoorwayRightBody" type="StaticBody3D" parent="Level/Room" unique_id=50049673]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.563816, 3, -16)
-
-[node name="DoorwayTopBody" type="StaticBody3D" parent="Level/Room" unique_id=354915825]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.927633, 5.4, -16)
-
 [node name="Door" parent="Level/Room" unique_id=1176558404 instance=ExtResource("6_jmhco")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.613432, -4.7683716e-07, -15.796571)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.613432, -4.7683716e-07, -15.75555)
 disabled = false
 
 [node name="StaircaseUp" parent="Level/Room" unique_id=1745634609 instance=ExtResource("stairs")]
