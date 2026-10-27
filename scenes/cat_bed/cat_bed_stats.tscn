@@ -1,40 +1,46 @@
-[gd_scene format=3]
-[ext_resource type="Script" path="res://scripts/cat/cat_bed_stats.gd" id="script"]
+[gd_scene format=3 uid="uid://dny871bwieii"]
+
+[ext_resource type="Script" uid="uid://d0wraifc3rqv8" path="res://scripts/cat/cat_bed_stats.gd" id="script"]
+
 [sub_resource type="StyleBoxFlat" id="Card"]
 content_margin_left = 28.0
-content_margin_right = 28.0
 content_margin_top = 20.0
+content_margin_right = 28.0
 content_margin_bottom = 20.0
 bg_color = Color(0.08, 0.1, 0.14, 0.98)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
+border_width_left = 40
+border_width_top = 40
+border_width_right = 40
+border_width_bottom = 40
 border_color = Color(0.42, 0.32, 0.22, 1)
 corner_radius_top_left = 256
 corner_radius_top_right = 256
-corner_radius_bottom_left = 256
 corner_radius_bottom_right = 256
-corner_detail = 24
-anti_aliasing = true
-[node name="CatBedStats" type="Control"]
+corner_radius_bottom_left = 256
+corner_detail = 20
+
+[node name="CatBedStats" type="Control" unique_id=1377601994]
+layout_mode = 3
+anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("script")
-[node name="Center" type="CenterContainer" parent="."]
-anchors_preset = 15
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1211230555]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-[node name="Card" type="PanelContainer" parent="Center"]
-layout_mode = 2
+
+[node name="Card" type="PanelContainer" parent="Center" unique_id=649466300]
 custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Card")
-[node name="Stats" type="Label" parent="Center/Card"]
+
+[node name="Stats" type="Label" parent="Center/Card" unique_id=1975609960]
 layout_mode = 2
-mouse_filter = 2
-theme_override_font_sizes/font_size = 160
 theme_override_colors/font_color = Color(1, 0.95, 0.84, 1)
+theme_override_font_sizes/font_size = 160
 text = "0/0"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -7,6 +7,8 @@
 [ext_resource type="NavigationMesh" uid="uid://dl0qw1jkceuo" path="res://resources/title_navigation.tres" id="4_navigation"]
 [ext_resource type="Texture2D" uid="uid://1vmgykdcxwl3" path="res://assets/floor/ss1-4.png" id="5_floor"]
 
+[ext_resource type="PackedScene" path="res://scenes/environment/staircase_down.tscn" id="stairs"]
+
 [sub_resource type="Environment" id="Environment_iy4b5"]
 background_mode = 1
 background_color = Color(0.90588236, 0.8666667, 0.8156863, 1)
@@ -458,3 +460,6 @@ size_flags_vertical = 10
 theme_override_styles/normal = SubResource("BackButton")
 theme_override_styles/hover = SubResource("BackButtonHover")
 text = "Back to title"
+[node name="StaircaseDown" parent="Room" instance=ExtResource("stairs")]
+position = Vector3(4.8, 0, 5.45)
+rotation = Vector3(0, 0, 0)

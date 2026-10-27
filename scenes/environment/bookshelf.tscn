@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://crw1dxglyyl5c"]
+
+[ext_resource type="Script" uid="uid://q63rq7p1rjqu" path="res://scripts/environment/bookshelf.gd" id="script"]
+
+[node name="Bookshelf" type="Node3D" unique_id=1093275550]
+script = ExtResource("script")

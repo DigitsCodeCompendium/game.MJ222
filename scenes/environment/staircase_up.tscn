@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://di8yjq4w5jepk"]
+
+[ext_resource type="PackedScene" path="res://scenes/environment/staircase.tscn" id="base"]
+
+[node name="StaircaseUp" unique_id=1745634609 instance=ExtResource("base")]
+show_railings = true
+railing_height = 0.95
+generate_collisions = false

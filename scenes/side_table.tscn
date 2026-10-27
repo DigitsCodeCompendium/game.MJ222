@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dfxxyesjg4qwi"]
+
+[sub_resource type="StandardMaterial3D" id="RoomWood"]
+albedo_color = Color(0.659, 0.525, 0.396, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="SideTableMesh"]
+material = SubResource("RoomWood")
+size = Vector3(2.6, 0.25, 3)
+
+[sub_resource type="BoxShape3D" id="SideTableShape"]
+size = Vector3(2.6, 0.25, 3)
+
+[sub_resource type="BoxMesh" id="TableLeg0Mesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.25, 1.5, 0.25)
+
+[sub_resource type="BoxMesh" id="TableLeg1Mesh"]
+material = SubResource("RoomWood")
+size = Vector3(0.25, 1.5, 0.25)
+
+[node name="SideTable" type="Node3D" unique_id=1542714383]
+
+[node name="SideTable" type="MeshInstance3D" parent="." unique_id=1824249453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 1.6, -1.3593318)
+mesh = SubResource("SideTableMesh")
+
+[node name="SideTableBody" type="StaticBody3D" parent="." unique_id=1733476423]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3210444, 1.6, -1.3593318)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SideTableBody" unique_id=2130463434]
+shape = SubResource("SideTableShape")
+
+[node name="TableLeg0" type="MeshInstance3D" parent="." unique_id=1074650048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38063633, 0.75, -2.459332)
+mesh = SubResource("TableLeg0Mesh")
+
+[node name="TableLeg1" type="MeshInstance3D" parent="." unique_id=1896909789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38063633, 0.75, -0.25933194)
+mesh = SubResource("TableLeg1Mesh")
+
+[node name="TableLeg2" type="MeshInstance3D" parent="." unique_id=245712379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2646477, 0.73175883, -2.4338443)
+mesh = SubResource("TableLeg0Mesh")
+
+[node name="TableLeg3" type="MeshInstance3D" parent="." unique_id=1546624965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2646477, 0.73175883, -0.2338444)
+mesh = SubResource("TableLeg1Mesh")
