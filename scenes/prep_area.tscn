@@ -276,9 +276,8 @@ width = 4.0
 step_height = 0.65
 step_count = 10
 step_length = 0.8
-railing_height = 2.8499999999999996
-wood_color = Color(0.8394865, 0.60978466, 0.45116383, 1)
-trim_color = Color(0.47051966, 0.3184972, 0.16583234, 1)
+railing_height = 2.6999999999999997
+generate_collisions = true
 
 [node name="Bookshelf" parent="Level/Room" unique_id=1093275550 instance=ExtResource("9_8y3rt")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.241966, 0.031623125, -7.5513716)
