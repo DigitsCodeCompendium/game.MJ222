@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cw1dc24lyftci"
 path.s3tc="res://.godot/imported/FireCatTexture_metal.png-0e97146ee79abfda3ce0f7008d33d14c.s3tc.ctex"
+path.etc2="res://.godot/imported/FireCatTexture_metal.png-0e97146ee79abfda3ce0f7008d33d14c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/FireCatTexture_metal.png"
-dest_files=["res://.godot/imported/FireCatTexture_metal.png-0e97146ee79abfda3ce0f7008d33d14c.s3tc.ctex"]
+dest_files=["res://.godot/imported/FireCatTexture_metal.png-0e97146ee79abfda3ce0f7008d33d14c.s3tc.ctex", "res://.godot/imported/FireCatTexture_metal.png-0e97146ee79abfda3ce0f7008d33d14c.etc2.ctex"]
 
 [params]
 

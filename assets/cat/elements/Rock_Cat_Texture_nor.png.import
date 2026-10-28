@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://be7au21r702b0"
 path.s3tc="res://.godot/imported/Rock_Cat_Texture_nor.png-3f160f195a31900f2f1fe69801654be4.s3tc.ctex"
+path.etc2="res://.godot/imported/Rock_Cat_Texture_nor.png-3f160f195a31900f2f1fe69801654be4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/Rock_Cat_Texture_nor.png"
-dest_files=["res://.godot/imported/Rock_Cat_Texture_nor.png-3f160f195a31900f2f1fe69801654be4.s3tc.ctex"]
+dest_files=["res://.godot/imported/Rock_Cat_Texture_nor.png-3f160f195a31900f2f1fe69801654be4.s3tc.ctex", "res://.godot/imported/Rock_Cat_Texture_nor.png-3f160f195a31900f2f1fe69801654be4.etc2.ctex"]
 
 [params]
 

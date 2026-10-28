@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cl7esgl0itpwa"
 path.s3tc="res://.godot/imported/Plant_Cat_Texture_occ.png-3cc753fdb72660af93f20e054148c191.s3tc.ctex"
+path.etc2="res://.godot/imported/Plant_Cat_Texture_occ.png-3cc753fdb72660af93f20e054148c191.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/Plant_Cat_Texture_occ.png"
-dest_files=["res://.godot/imported/Plant_Cat_Texture_occ.png-3cc753fdb72660af93f20e054148c191.s3tc.ctex"]
+dest_files=["res://.godot/imported/Plant_Cat_Texture_occ.png-3cc753fdb72660af93f20e054148c191.s3tc.ctex", "res://.godot/imported/Plant_Cat_Texture_occ.png-3cc753fdb72660af93f20e054148c191.etc2.ctex"]
 
 [params]
 

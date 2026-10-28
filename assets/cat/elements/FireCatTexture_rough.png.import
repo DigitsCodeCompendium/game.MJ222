@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cb2q63y2hj4td"
 path.s3tc="res://.godot/imported/FireCatTexture_rough.png-a8530107c9e8bfdd7a13ea3ba3fd355e.s3tc.ctex"
+path.etc2="res://.godot/imported/FireCatTexture_rough.png-a8530107c9e8bfdd7a13ea3ba3fd355e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/FireCatTexture_rough.png"
-dest_files=["res://.godot/imported/FireCatTexture_rough.png-a8530107c9e8bfdd7a13ea3ba3fd355e.s3tc.ctex"]
+dest_files=["res://.godot/imported/FireCatTexture_rough.png-a8530107c9e8bfdd7a13ea3ba3fd355e.s3tc.ctex", "res://.godot/imported/FireCatTexture_rough.png-a8530107c9e8bfdd7a13ea3ba3fd355e.etc2.ctex"]
 
 [params]
 

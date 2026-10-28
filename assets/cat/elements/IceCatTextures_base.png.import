@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://y4sqlgnxoju1"
 path.s3tc="res://.godot/imported/IceCatTextures_base.png-3cdeed7fcf13b3196ef5494842199f77.s3tc.ctex"
+path.etc2="res://.godot/imported/IceCatTextures_base.png-3cdeed7fcf13b3196ef5494842199f77.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/IceCatTextures_base.png"
-dest_files=["res://.godot/imported/IceCatTextures_base.png-3cdeed7fcf13b3196ef5494842199f77.s3tc.ctex"]
+dest_files=["res://.godot/imported/IceCatTextures_base.png-3cdeed7fcf13b3196ef5494842199f77.s3tc.ctex", "res://.godot/imported/IceCatTextures_base.png-3cdeed7fcf13b3196ef5494842199f77.etc2.ctex"]
 
 [params]
 

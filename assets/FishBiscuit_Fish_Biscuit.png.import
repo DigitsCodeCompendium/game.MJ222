@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cju1whv3myj1y"
 path.s3tc="res://.godot/imported/FishBiscuit_Fish_Biscuit.png-467913e98ff8603a3b7e6d3ff4be5d90.s3tc.ctex"
+path.etc2="res://.godot/imported/FishBiscuit_Fish_Biscuit.png-467913e98ff8603a3b7e6d3ff4be5d90.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/FishBiscuit_Fish_Biscuit.png"
-dest_files=["res://.godot/imported/FishBiscuit_Fish_Biscuit.png-467913e98ff8603a3b7e6d3ff4be5d90.s3tc.ctex"]
+dest_files=["res://.godot/imported/FishBiscuit_Fish_Biscuit.png-467913e98ff8603a3b7e6d3ff4be5d90.s3tc.ctex", "res://.godot/imported/FishBiscuit_Fish_Biscuit.png-467913e98ff8603a3b7e6d3ff4be5d90.etc2.ctex"]
 
 [params]
 

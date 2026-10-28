@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5u8seovdfo4a"
 path.s3tc="res://.godot/imported/Steam_Cat.png-3184dea97ee8bb2b610b1a64c1c1be9c.s3tc.ctex"
+path.etc2="res://.godot/imported/Steam_Cat.png-3184dea97ee8bb2b610b1a64c1c1be9c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/Steam_Cat.png"
-dest_files=["res://.godot/imported/Steam_Cat.png-3184dea97ee8bb2b610b1a64c1c1be9c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Steam_Cat.png-3184dea97ee8bb2b610b1a64c1c1be9c.s3tc.ctex", "res://.godot/imported/Steam_Cat.png-3184dea97ee8bb2b610b1a64c1c1be9c.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dr8sr2w0dmshr"
 path.s3tc="res://.godot/imported/Storm_Cat.png-bb68dc5381152e6cb74fa96b2a4129ba.s3tc.ctex"
+path.etc2="res://.godot/imported/Storm_Cat.png-bb68dc5381152e6cb74fa96b2a4129ba.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/Storm_Cat.png"
-dest_files=["res://.godot/imported/Storm_Cat.png-bb68dc5381152e6cb74fa96b2a4129ba.s3tc.ctex"]
+dest_files=["res://.godot/imported/Storm_Cat.png-bb68dc5381152e6cb74fa96b2a4129ba.s3tc.ctex", "res://.godot/imported/Storm_Cat.png-bb68dc5381152e6cb74fa96b2a4129ba.etc2.ctex"]
 
 [params]
 

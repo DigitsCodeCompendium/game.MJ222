@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://vsmgocxhocn1"
 path.s3tc="res://.godot/imported/Plasma_Cat.png-3b7498525d6d48de83d39e198ff9f0a1.s3tc.ctex"
+path.etc2="res://.godot/imported/Plasma_Cat.png-3b7498525d6d48de83d39e198ff9f0a1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/Plasma_Cat.png"
-dest_files=["res://.godot/imported/Plasma_Cat.png-3b7498525d6d48de83d39e198ff9f0a1.s3tc.ctex"]
+dest_files=["res://.godot/imported/Plasma_Cat.png-3b7498525d6d48de83d39e198ff9f0a1.s3tc.ctex", "res://.godot/imported/Plasma_Cat.png-3b7498525d6d48de83d39e198ff9f0a1.etc2.ctex"]
 
 [params]
 

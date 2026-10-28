@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://33hvkv80o0ef"
 path.s3tc="res://.godot/imported/Tornado_Cat.png-774f0059a4ecd5aeba29736aa832a08e.s3tc.ctex"
+path.etc2="res://.godot/imported/Tornado_Cat.png-774f0059a4ecd5aeba29736aa832a08e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/cat/elements/Tornado_Cat.png"
-dest_files=["res://.godot/imported/Tornado_Cat.png-774f0059a4ecd5aeba29736aa832a08e.s3tc.ctex"]
+dest_files=["res://.godot/imported/Tornado_Cat.png-774f0059a4ecd5aeba29736aa832a08e.s3tc.ctex", "res://.godot/imported/Tornado_Cat.png-774f0059a4ecd5aeba29736aa832a08e.etc2.ctex"]
 
 [params]
 

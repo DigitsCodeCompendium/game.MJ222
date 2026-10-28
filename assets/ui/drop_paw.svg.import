@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjh4my245riuy"
 path.s3tc="res://.godot/imported/drop_paw.svg-7f575591e030de4b0d7bf288fa16f630.s3tc.ctex"
+path.etc2="res://.godot/imported/drop_paw.svg-7f575591e030de4b0d7bf288fa16f630.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/ui/drop_paw.svg"
-dest_files=["res://.godot/imported/drop_paw.svg-7f575591e030de4b0d7bf288fa16f630.s3tc.ctex"]
+dest_files=["res://.godot/imported/drop_paw.svg-7f575591e030de4b0d7bf288fa16f630.s3tc.ctex", "res://.godot/imported/drop_paw.svg-7f575591e030de4b0d7bf288fa16f630.etc2.ctex"]
 
 [params]
 
