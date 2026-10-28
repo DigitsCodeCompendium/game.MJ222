@@ -107,7 +107,7 @@ func _set_model_scene(scene: PackedScene) -> bool:
 			return false
 		if existing != null:
 			remove_child(existing)
-			existing.queue_free()
+			_retire_model(existing)
 		instance.name = "Cat"
 		add_child(instance)
 		_model = instance
@@ -197,3 +197,10 @@ func set_body_material(mat: Material):
 	var mesh = _surface_mesh("body")
 	if mesh != null:
 		mesh.set_surface_override_material(_surface_index("body"), mat)
+
+func _retire_model(model: Node3D) -> void:
+	# Allow queued renderer updates to finish before releasing its materials.
+	if DisplayServer.get_name() == "headless":
+		get_tree().process_frame.connect(model.queue_free, CONNECT_ONE_SHOT)
+	else:
+		RenderingServer.frame_post_draw.connect(model.queue_free, CONNECT_ONE_SHOT)
