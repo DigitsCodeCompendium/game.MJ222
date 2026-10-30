@@ -1,6 +1,13 @@
 extends Node3D
 
 const SETTINGS_PATH = "user://title_settings.cfg"
+@export_node_path("Path3D") var entrance_path: NodePath = NodePath("WalkPath")
+
+func get_entrance_path() -> Path3D:
+	var path = get_node_or_null(entrance_path) as Path3D
+	if path == null:
+		path = get_node_or_null("Room/StaircaseDown/WalkPath") as Path3D
+	return path
 
 @onready var camera: Camera3D = $Camera3D
 @onready var cat: Cat = $MenuCat
@@ -17,11 +24,10 @@ var music_volume = 1.0
 var effects_volume = 1.0
 var volume = 1.0
 var fullscreen = false
+var starting_game = false
 
 func _ready() -> void:
 	AudioManager.play_menu_music()
-	get_viewport().size_changed.connect(_resize_background)
-	_resize_background()
 	credits_panel.hide()
 	settings_panel.hide()
 	overlay = credits_panel
@@ -38,20 +44,6 @@ func _ready() -> void:
 	effects_slider.value_changed.connect(_on_effects_volume_changed)
 	volume_slider.value_changed.connect(_on_volume_changed)
 	fullscreen_toggle.toggled.connect(_on_fullscreen_toggled)
-
-func _resize_background() -> void:
-	var viewport_size = get_viewport().get_visible_rect().size
-	if viewport_size.y <= 0.0:
-		return
-	var quad: QuadMesh = $Camera3D/TitleBackground.mesh
-	var texture: Texture2D = quad.material.albedo_texture
-	var image_aspect = float(texture.get_width()) / texture.get_height()
-	var view_aspect = viewport_size.x / viewport_size.y
-	var view_size = Vector2(camera.size * view_aspect, camera.size)
-	if camera.keep_aspect == Camera3D.KEEP_WIDTH:
-		view_size = Vector2(camera.size, camera.size / view_aspect)
-	var height = maxf(view_size.y, view_size.x / image_aspect)
-	quad.size = Vector2(height * image_aspect, height)
 
 func _on_music_volume_changed(value: float) -> void:
 	music_volume = value
@@ -81,6 +73,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if overlay.visible:
 		return
 func _physics_process(_delta: float) -> void:
+	if starting_game:
+		return
 	_set_hover(_bed_at(cat.position) if cat.is_picked else -1)
 
 func _bed_at(at: Vector3) -> int:
@@ -94,13 +88,16 @@ func _set_hover(index: int) -> void:
 	for bed_index in range(beds.size()):
 		beds[bed_index].set_highlighted(bed_index == index)
 
-func _select_bed(index: int) -> void:
+func _select_bed(index: int, from_stairs: bool = false) -> void:
+	if starting_game:
+		return
 	cat.set_process_input(false)
 	cat.input_ray_pickable = false
 	
 	match index:
 		0:
-			GameManager.start_new_game()
+			starting_game = true
+			GameManager.start_new_game(from_stairs)
 		1, 2:
 			overlay.hide()
 			overlay = credits_panel if index == 1 else settings_panel

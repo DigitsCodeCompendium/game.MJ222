@@ -1,6 +1,8 @@
 class_name Cat
 extends CharacterBody3D
 
+signal dropped(cat: Cat)
+
 @export var cat_name = "Squeeb"
 @export var movement_speed: float = 4.0
 @export var pickup_height: float = 2.0
@@ -87,6 +89,7 @@ func _physics_process(delta: float) -> void:
 		if global_position.is_equal_approx(_drop_position):
 			global_rotation = _rotation_before_pickup
 			_is_dropping = false
+			dropped.emit(self)
 			if not lock_ai_state:
 				_choose_next_behavior()
 		return

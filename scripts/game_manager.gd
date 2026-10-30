@@ -56,11 +56,19 @@ var test_team_right: Array[CatData]
 func _ready():
 	reset_game()
 	
-func start_new_game():
+func start_new_game(from_stairs: bool = false):
 	if _starting_game:
 		return
 	_starting_game = true
 	reset_game()
+	var title = get_tree().current_scene
+	if title != null and title.has_method("get_entrance_path") and title.get_entrance_path() != null:
+		var entrance = load("res://scripts/title/game_entrance.gd").new()
+		get_tree().root.add_child(entrance)
+		await entrance.play(title, PREP_AREA_SCENE, from_stairs)
+		entrance.queue_free()
+		_starting_game = false
+		return
 	var transition = SCENE_FADE.instantiate()
 	get_tree().root.add_child(transition)
 	await transition.change_scene(PREP_AREA_SCENE)

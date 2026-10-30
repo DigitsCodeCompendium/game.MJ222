@@ -19,15 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 [ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
 [ext_resource type="PackedScene" path="res://scenes/prep_area/prep_settings.tscn" id="prep_settings"]
+[ext_resource type="PackedScene" path="res://scenes/environment/room_lighting.tscn" id="room_lighting"]
 [ext_resource type="PackedScene" path="res://scenes/prep_area/run_status.tscn" id="run_status"]
 [ext_resource type="PackedScene" uid="uid://di8yjq4w5jepk" path="res://scenes/environment/staircase_up.tscn" id="stairs"]
-
-[sub_resource type="Environment" id="Environment_gpf5u"]
-background_mode = 1
-background_color = Color(0.9059, 0.8667, 0.8157, 1)
-ambient_light_source = 2
-ambient_light_color = Color(1, 0.945, 0.863, 1)
-ambient_light_energy = 0.45
+[ext_resource type="Script" uid="uid://bew84xw6wei5x" path="res://scripts/environment/stair_drop_zone.gd" id="stair_drop_zone"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_g543r"]
 vertices = PackedVector3Array(-8, 0.5, -5.5, -8, 0.5, 9, 10.5, 0.5, -3.5, 10.5, 0.5, -6)
@@ -134,10 +129,16 @@ roughness = 0.9
 material = SubResource("StandardMaterial3D_8y3rt")
 size = Vector3(0.55, 1.2, 0.38)
 
+[sub_resource type="Curve3D" id="Curve3D_entrance"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 6.62, 8, 0, 0, 0, 0, 0, 0, 0, 0.12, -0.8, 0, 0, 0, 0, 0, 0, 0.7119427, 0.120000005, -2.788271, 0, 0, 0, 0, 0, 0, 2.0970154, 0.120000005, -3.2157173, 0, 0, 0, 0, 0, 0, 3.6236057, 0.120000005, -2.3799706, 0, 0, 0, 0, 0, 0, 4.647418, 0.120000005, 1.3214855),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=371378319]
-environment = SubResource("Environment_gpf5u")
+[node name="RoomLighting" parent="." unique_id=582497219 instance=ExtResource("room_lighting")]
 
 [node name="Level" type="Node3D" parent="." unique_id=152649248]
 
@@ -172,12 +173,6 @@ affect_navigation_mesh = true
 height = 6.0
 vertices = PackedVector3Array(11.751041, 0, -3.0087051, -15.800545, 0, 15.927762, 15.699145, 0, 15.695488, 15.298095, 0, -6.931761, 11.892721, 0, -6.5909595)
 affect_navigation_mesh = true
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level" unique_id=880522691]
-transform = Transform3D(0.90630776, 0.34618863, -0.24240388, 0, 0.57357645, 0.81915206, 0.42261827, -0.74240386, 0.5198368, 0, 0, 0)
-light_color = Color(1, 0.94, 0.85, 1)
-light_energy = 0.2
-shadow_enabled = true
 
 [node name="Room" type="Node3D" parent="Level" unique_id=262220524]
 
@@ -271,13 +266,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.613432, -4.7683716e-07, -15
 disabled = false
 
 [node name="StaircaseUp" parent="Level/Room" unique_id=1745634609 instance=ExtResource("stairs")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.8206153, 0.1554656, -13.744467)
-width = 4.0
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.8206153, 0.1554656, -13.971989)
+width = 3.6
 step_height = 0.65
 step_count = 10
 step_length = 0.8
 railing_height = 2.6999999999999997
 generate_collisions = true
+
+[node name="WalkPath" type="Path3D" parent="Level/Room/StaircaseUp" unique_id=1117191627]
+curve = SubResource("Curve3D_entrance")
+
+[node name="DropZone" type="Node3D" parent="Level/Room/StaircaseUp" unique_id=448354705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25, 3.8)
+script = ExtResource("stair_drop_zone")
+action = 1
+size = Vector3(3.6, 8, 9.5)
 
 [node name="Bookshelf" parent="Level/Room" unique_id=1093275550 instance=ExtResource("9_8y3rt")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.241966, 0.031623125, -7.5513716)
