@@ -87,6 +87,8 @@ func _set_hover(index: int) -> void:
 	hovered_bed = index
 	for bed_index in range(beds.size()):
 		beds[bed_index].set_highlighted(bed_index == index)
+		var label: Label3D = beds[bed_index].get_node("RugLabel")
+		label.modulate = Color("8c542d") if bed_index == index else Color(0.29, 0.18, 0.1, 1)
 
 func _select_bed(index: int, from_stairs: bool = false) -> void:
 	if starting_game:

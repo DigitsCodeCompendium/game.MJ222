@@ -410,18 +410,18 @@ railing_height = 1.95
 
 [node name="StartGameBed" parent="Beds" unique_id=2027097759 instance=ExtResource("3_8xedo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0, 0.07024729)
-bed_label = "Start Game"
+bed_label = ""
 lock_cat_to_bed = true
 
 [node name="CreditsBed" parent="Beds" unique_id=876882655 instance=ExtResource("3_8xedo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.07024729)
-bed_label = "Credits"
+bed_label = ""
 cushion_color = Color(0.8980392, 0.7058824, 0.6117647, 1)
 lock_cat_to_bed = true
 
 [node name="SettingsBed" parent="Beds" unique_id=1091553359 instance=ExtResource("3_8xedo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0, 0.07024729)
-bed_label = "Settings"
+bed_label = ""
 cushion_color = Color(0.6627451, 0.78039217, 0.83137256, 1)
 lock_cat_to_bed = true
 
@@ -583,3 +583,39 @@ position = Vector3(0, -1.6, 2.4)
 script = ExtResource("stair_drop_zone")
 action = 0
 size = Vector3(3, 5, 6)
+
+[node name="RugLabel" type="Label3D" parent="Beds/StartGameBed"]
+position = Vector3(0, 0.1, 1.85)
+rotation_degrees = Vector3(-90, 0, 0)
+shaded = true
+cast_shadow = 0
+pixel_size = 0.009
+modulate = Color(0.29, 0.18, 0.1, 1)
+outline_modulate = Color(0.98, 0.92, 0.79, 1)
+text = "Play"
+font_size = 72
+outline_size = 8
+
+[node name="RugLabel" type="Label3D" parent="Beds/CreditsBed"]
+position = Vector3(0, 0.1, 1.85)
+rotation_degrees = Vector3(-90, 0, 0)
+shaded = true
+cast_shadow = 0
+pixel_size = 0.009
+modulate = Color(0.29, 0.18, 0.1, 1)
+outline_modulate = Color(0.98, 0.92, 0.79, 1)
+text = "Credits"
+font_size = 72
+outline_size = 8
+
+[node name="RugLabel" type="Label3D" parent="Beds/SettingsBed"]
+position = Vector3(0, 0.1, 1.85)
+rotation_degrees = Vector3(-90, 0, 0)
+shaded = true
+cast_shadow = 0
+pixel_size = 0.009
+modulate = Color(0.29, 0.18, 0.1, 1)
+outline_modulate = Color(0.98, 0.92, 0.79, 1)
+text = "Settings"
+font_size = 72
+outline_size = 8
