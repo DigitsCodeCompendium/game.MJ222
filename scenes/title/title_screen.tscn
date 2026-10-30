@@ -208,6 +208,7 @@ transform = Transform3D(0.867073, -0.3112113, 0.3890141, 0, 0.78086877, 0.624695
 projection = 1
 current = true
 size = 17.5
+far = 60.0
 
 [node name="MenuCat" parent="." unique_id=1006261867 instance=ExtResource("2_qrms8")]
 transform = Transform3D(-0.8755324, 0, -0.48315945, 0, 1, 0, 0.48315945, 0, -0.8755324, 0.05104971, 0.12, 2.9512048)
