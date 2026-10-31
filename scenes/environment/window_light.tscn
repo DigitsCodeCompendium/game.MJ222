@@ -1,0 +1,34 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scripts/environment/window_lighting_effect.gd" id="script"]
+[node name="WindowLight" type="Node3D"]
+script = ExtResource("script")
+[node name="Beams" type="Node3D" parent="."]
+visible = false
+[node name="Shafts" type="Node3D" parent="Beams"]
+[node name="WindowSunlight" type="DirectionalLight3D" parent="Beams"]
+rotation_degrees = Vector3(-153.435, 0, 0)
+light_color = Color(1, 0.86, 0.65, 1)
+light_energy = 0.65
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_normal_bias = 1.0
+directional_shadow_mode = 0
+directional_shadow_max_distance = 80.0
+directional_shadow_fade_start = 1.0
+
+[node name="WindowFill" type="OmniLight3D" parent="Beams"]
+position = Vector3(0, -0.2, 0.8)
+light_color = Color(1, 0.86, 0.71, 1)
+light_energy = 0.22
+omni_range = 8.0
+omni_attenuation = 1.0
+
+[node name="ApertureMask" type="Node3D" parent="Beams"]
+[node name="Left" type="MeshInstance3D" parent="Beams/ApertureMask"]
+cast_shadow = 3
+[node name="Right" type="MeshInstance3D" parent="Beams/ApertureMask"]
+cast_shadow = 3
+[node name="Top" type="MeshInstance3D" parent="Beams/ApertureMask"]
+cast_shadow = 3
+[node name="Bottom" type="MeshInstance3D" parent="Beams/ApertureMask"]
+cast_shadow = 3

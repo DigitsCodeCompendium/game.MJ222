@@ -14,6 +14,7 @@ extends Area3D
 @onready var description_label: Label = $OutputUI/Panel/Content/Description
 @onready var hint_label: Label = $OutputUI/Panel/Content/Hint
 @onready var core: MeshInstance3D = $Device/Core
+@onready var core_light: OmniLight3D = $Device/CoreGlow
 
 var _preview_cache: Dictionary = {}
 var _preview_results: Array[CatData] = []
@@ -135,7 +136,9 @@ func _update_core_color() -> void:
 		color = Color("55df78")
 	_core_material.albedo_color = color
 	_core_material.emission = color
-	_core_material.emission_energy_multiplier = 0.6 if _orb_hovered else (0.8 if not _preview_results.is_empty() else 0.15)
+	_core_material.emission_energy_multiplier = 0.8 if _orb_hovered else (0.9 if not _preview_results.is_empty() else 0.55)
+	core_light.light_color = color
+	core_light.light_energy = 0.9 if _orb_hovered else (1.0 if not _preview_results.is_empty() else 0.7)
 
 func _process(_delta: float) -> void:
 	_refresh_preview()

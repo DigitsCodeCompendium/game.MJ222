@@ -1,5 +1,7 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" path="res://scripts/environment/room_lighting.gd" id="theme_script"]
+
 [sub_resource type="Environment" id="Environment_room"]
 background_mode = 1
 background_color = Color(0.9059, 0.8667, 0.8157, 1)
@@ -8,6 +10,7 @@ ambient_light_color = Color(1, 0.945, 0.863, 1)
 ambient_light_energy = 0.45
 
 [node name="RoomLighting" type="Node3D"]
+script = ExtResource("theme_script")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_room")
@@ -16,4 +19,5 @@ environment = SubResource("Environment_room")
 transform = Transform3D(0.90630776, 0.34618863, -0.24240388, 0, 0.57357645, 0.81915206, 0.42261827, -0.74240386, 0.5198368, 0, 0, 0)
 light_color = Color(1, 0.94, 0.85, 1)
 light_energy = 0.2
+light_cull_mask = 1
 shadow_enabled = true

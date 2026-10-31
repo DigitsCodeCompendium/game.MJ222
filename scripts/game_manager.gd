@@ -18,6 +18,8 @@ const TEAM_SIZE = 5
 const SCENE_FADE = preload("res://scenes/loading/scene_fade.tscn")
 var _exiting_battle = false
 var _starting_game = false
+# Preserve the room theme across title, prep, and battle returns.
+var room_theme: int = -1
 
 const MAIN_MENU_SCENE = preload("res://scenes/title/title_screen.tscn")
 const PREP_AREA_SCENE = preload("res://scenes/prep_area.tscn")

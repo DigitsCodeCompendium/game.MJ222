@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bc1u5ohy5kndf" path="res://scenes/cat/cat_pickup_info.tscn" id="pickup_info"]
 [ext_resource type="PackedScene" uid="uid://bgscln160hmhq" path="res://scenes/prep_area/piggy_bank.tscn" id="piggy_bank"]
 [ext_resource type="PackedScene" path="res://scenes/prep_area/prep_settings.tscn" id="prep_settings"]
+[ext_resource type="PackedScene" path="res://scenes/environment/room_lamp.tscn" id="room_lamp"]
 [ext_resource type="PackedScene" path="res://scenes/environment/room_lighting.tscn" id="room_lighting"]
 [ext_resource type="PackedScene" path="res://scenes/prep_area/run_status.tscn" id="run_status"]
 [ext_resource type="PackedScene" uid="uid://di8yjq4w5jepk" path="res://scenes/environment/staircase_up.tscn" id="stairs"]
@@ -139,6 +140,9 @@ point_count = 6
 [node name="PrepArea" type="Node3D" unique_id=27853933]
 
 [node name="RoomLighting" parent="." unique_id=582497219 instance=ExtResource("room_lighting")]
+theme = 2
+sun_azimuth = 8.0
+sun_elevation = 24.09999999999999
 
 [node name="Level" type="Node3D" parent="." unique_id=152649248]
 
@@ -180,6 +184,7 @@ affect_navigation_mesh = true
 
 [node name="BackWall" type="MeshInstance3D" parent="Level/Room/Building" unique_id=1169011466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.062170267, 3.5, -16)
+cast_shadow = 0
 mesh = SubResource("BackWallMesh")
 
 [node name="BackWallBody" type="StaticBody3D" parent="Level/Room/Building" unique_id=247085243]
@@ -227,11 +232,27 @@ transform = Transform3D(0.99989134, 0, -0.014738421, 0, 1, 0, 0.014738421, 0, 0.
 mesh = SubResource("BoxMesh_qtuiy")
 
 [node name="BedRug3" type="MeshInstance3D" parent="Level/Room" unique_id=272668376]
-transform = Transform3D(0.9999237, 0, -0.012694366, 0, 1, 0, 0.012694366, 0, 0.9999237, 8.598548, 0.10000191, -14.339468)
+transform = Transform3D(0.9999237, 0, -0.012694366, 0, 1, 0, 0.012694366, 0, 0.9999237, 9.078206, 0.10000191, -14.339468)
 mesh = SubResource("BoxMesh_8y3rt")
 
 [node name="Window1" parent="Level/Room" unique_id=1422039906 instance=ExtResource("2_jmhco")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.271052, 3.6117206, -15.850811)
+
+[node name="Window2" parent="Level/Room" unique_id=1822054298 instance=ExtResource("2_jmhco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.496544, -0.1, -15.838799)
+width = 1.35
+height = 6.1499999999999995
+depth = 0.26
+rows = 4
+show_sill = false
+
+[node name="Window3" parent="Level/Room" unique_id=825830883 instance=ExtResource("2_jmhco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0601325, -0.1, -15.850811)
+width = 1.35
+height = 6.1499999999999995
+depth = 0.26
+rows = 4
+show_sill = false
 
 [node name="Cabinet" parent="Level/Room" unique_id=93692936 instance=ExtResource("3_l6pdx")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -10.024934, -9.536743e-07, -12.908147)
@@ -262,11 +283,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.772908, -1.4305115e-06, -
 transform = Transform3D(1.3506707, 0, 0.6524483, 0, 1.5, 0, -0.6524483, 0, 1.3506707, -1.5003605, 1.7125522, -1.43218)
 
 [node name="Door" parent="Level/Room" unique_id=1176558404 instance=ExtResource("6_jmhco")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.613432, -4.7683716e-07, -15.75555)
+transform = Transform3D(1.2362903, 0, 0, 0, 1.2362903, 0, 0, 0, 1, 7.2844753, -4.7683716e-07, -15.75555)
 disabled = false
 
 [node name="StaircaseUp" parent="Level/Room" unique_id=1745634609 instance=ExtResource("stairs")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.8206153, 0.1554656, -13.971989)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.7485833, 0.1554656, -13.971989)
 width = 3.6
 step_height = 0.65
 step_count = 10
@@ -316,6 +337,18 @@ book_fill = 0.8
 book_seed = 27
 generate_collisions = false
 shelf_color = Color(0.48, 0.3128, 0.21599999, 1)
+
+[node name="FloorLamp1" parent="Level/Room" unique_id=2077987792 instance=ExtResource("room_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2, 0, -12)
+
+[node name="FloorLamp2" parent="Level/Room" unique_id=2017295555 instance=ExtResource("room_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 3)
+
+[node name="FloorLamp3" parent="Level/Room" unique_id=423483436 instance=ExtResource("room_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 6)
+
+[node name="FloorLamp4" parent="Level/Room" unique_id=976724909 instance=ExtResource("room_lamp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -13)
 
 [node name="Props" type="Node3D" parent="." unique_id=1536109577]
 

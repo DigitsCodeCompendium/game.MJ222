@@ -33,7 +33,7 @@ outer_radius = 0.85
 albedo_color = Color(0.5, 0.8, 0.85, 1)
 emission_enabled = true
 emission = Color(0.5, 0.8, 0.85, 1)
-emission_energy_multiplier = 0.15
+emission_energy_multiplier = 0.55
 
 [sub_resource type="SphereMesh" id="Core"]
 material = SubResource("Glow")
@@ -78,6 +78,13 @@ mesh = SubResource("Ring")
 [node name="Core" type="MeshInstance3D" parent="Device" unique_id=49712379]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7202969, 0)
 mesh = SubResource("Core")
+
+[node name="CoreGlow" type="OmniLight3D" parent="Device"]
+position = Vector3(0, 2.7202969, 0)
+light_color = Color(0.5, 0.8, 0.85, 1)
+light_energy = 0.7
+omni_range = 7.0
+omni_attenuation = 1.2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1270152283]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.72584, 0)

@@ -1,55 +1,9 @@
 [gd_scene format=3 uid="uid://dyxpxrcf5f85i"]
-
-[sub_resource type="StandardMaterial3D" id="RoomWood"]
-albedo_color = Color(0.659, 0.525, 0.396, 1)
-roughness = 0.9
-
-[sub_resource type="BoxMesh" id="Window1FrameMesh"]
-material = SubResource("RoomWood")
-size = Vector3(5, 3, 0.18)
-
-[sub_resource type="StandardMaterial3D" id="RoomGlass"]
-albedo_color = Color(0.64, 0.81, 0.85, 1)
-roughness = 0.9
-
-[sub_resource type="BoxMesh" id="Window1GlassMesh"]
-material = SubResource("RoomGlass")
-size = Vector3(4.6, 2.6, 0.2)
-
-[sub_resource type="StandardMaterial3D" id="RoomTrim"]
-albedo_color = Color(0.98, 0.92, 0.81, 1)
-roughness = 0.9
-
-[sub_resource type="BoxMesh" id="Window1VerticalMesh"]
-material = SubResource("RoomTrim")
-size = Vector3(0.12, 2.6, 0.22)
-
-[sub_resource type="BoxMesh" id="Window1HorizontalMesh"]
-material = SubResource("RoomTrim")
-size = Vector3(4.6, 0.12, 0.22)
-
-[sub_resource type="BoxMesh" id="Window1SillMesh"]
-material = SubResource("RoomWood")
-size = Vector3(5.4, 0.18, 0.73964846)
-
+[ext_resource type="Script" path="res://scripts/environment/procedural_window.gd" id="script"]
+[ext_resource type="PackedScene" path="res://scenes/environment/window_light.tscn" id="effect"]
+[ext_resource type="Script" path="res://scripts/environment/window_geometry.gd" id="geometry"]
 [node name="Window1" type="Node3D" unique_id=1422039906]
-
-[node name="Window1Frame" type="MeshInstance3D" parent="." unique_id=108363293]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002821684, 1.5236034, 0.09499484)
-mesh = SubResource("Window1FrameMesh")
-
-[node name="Window1Glass" type="MeshInstance3D" parent="." unique_id=854021930]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002821684, 1.5236034, 0.118424)
-mesh = SubResource("Window1GlassMesh")
-
-[node name="Window1Vertical" type="MeshInstance3D" parent="." unique_id=381415753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002821684, 1.5236034, 0.13990194)
-mesh = SubResource("Window1VerticalMesh")
-
-[node name="Window1Horizontal" type="MeshInstance3D" parent="." unique_id=1059742262]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002821684, 1.5236034, 0.13990194)
-mesh = SubResource("Window1HorizontalMesh")
-
-[node name="Window1Sill" type="MeshInstance3D" parent="." unique_id=2099801102]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.002821684, 0.07360363, 0.3751708)
-mesh = SubResource("Window1SillMesh")
+script = ExtResource("script")
+[node name="Geometry" type="Node3D" parent="."]
+script = ExtResource("geometry")
+[node name="WindowLight" parent="." instance=ExtResource("effect")]

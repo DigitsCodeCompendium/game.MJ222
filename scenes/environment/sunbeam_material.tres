@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b4q65spibkc6f"]
+
+[ext_resource type="Shader" uid="uid://b4c1luru3nude" path="res://assets/environment/window_sunbeam.gdshader" id="shader"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("shader")
+shader_parameter/beam_color = Color(1, 0.84, 0.63, 0.075)
