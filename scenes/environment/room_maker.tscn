@@ -1,0 +1,348 @@
+[gd_scene format=3 uid="uid://buydatggdkjf5"]
+
+[ext_resource type="Script" uid="uid://cymk21uhfaj7n" path="res://addons/room_maker/room_bone.gd" id="bone"]
+[ext_resource type="Script" uid="uid://fqnmckuveatd" path="res://addons/room_maker/room_maker.gd" id="maker"]
+
+[node name="House" type="Node3D" unique_id=2078436055]
+
+[node name="MainFloor" type="Node3D" parent="." unique_id=93111703]
+script = ExtResource("maker")
+wall_height = 2.6
+wall_thickness = 0.12
+opening_snap_distance = 0.08
+
+[node name="Rooms" type="Node3D" parent="MainFloor" unique_id=1859861479]
+
+[node name="Dining" type="Node3D" parent="MainFloor/Rooms" unique_id=1309651593]
+script = ExtResource("bone")
+room_id = &"dining"
+corners = PackedVector2Array(0, 0, 5.3192, 0, 5.3192, 4.2212, 0, 4.2212)
+
+[node name="Storage" type="Node3D" parent="MainFloor/Rooms" unique_id=647188045]
+script = ExtResource("bone")
+room_id = &"storage"
+corners = PackedVector2Array(5.3192, 0, 6.466, 0, 6.466, 2.7084, 5.3192, 2.7084)
+
+[node name="Stairwell" type="Node3D" parent="MainFloor/Rooms" unique_id=908367441]
+script = ExtResource("bone")
+room_id = &"stairwell"
+corners = PackedVector2Array(5.3192, 2.7084, 6.466, 2.7084, 6.466, 4.2212, 5.3192, 4.2212)
+
+[node name="Hall" type="Node3D" parent="MainFloor/Rooms" unique_id=305676325]
+script = ExtResource("bone")
+room_id = &"hall"
+corners = PackedVector2Array(0, 4.2212, 6.466, 4.2212, 6.466, 5.7096, 0, 5.7096)
+
+[node name="Living" type="Node3D" parent="MainFloor/Rooms" unique_id=1407077103]
+script = ExtResource("bone")
+room_id = &"living"
+corners = PackedVector2Array(0, 5.7096, 4.1236, 5.7096, 4.1236, 9.9308, 0, 9.9308)
+
+[node name="Bathroom2Pc" type="Node3D" parent="MainFloor/Rooms" unique_id=1434277600]
+script = ExtResource("bone")
+room_id = &"bathroom2pc"
+corners = PackedVector2Array(4.1236, 5.7096, 6.466, 5.7096, 6.466, 7.32, 4.1236, 7.32)
+
+[node name="Utility" type="Node3D" parent="MainFloor/Rooms" unique_id=2086479326]
+script = ExtResource("bone")
+room_id = &"utility"
+corners = PackedVector2Array(4.1236, 7.32, 6.466, 7.32, 6.466, 9.9308, 4.1236, 9.9308)
+
+[node name="Kitchen" type="Node3D" parent="MainFloor/Rooms" unique_id=1918506737]
+script = ExtResource("bone")
+room_id = &"kitchen"
+corners = PackedVector2Array(6.466, 2.7084, 11.1508, 2.7084, 11.1508, 7.1492, 6.466, 7.1492)
+
+[node name="Laundry" type="Node3D" parent="MainFloor/Rooms" unique_id=2101731999]
+script = ExtResource("bone")
+room_id = &"laundry"
+corners = PackedVector2Array(11.1508, 2.7084, 13.786, 2.7084, 13.786, 7.1492, 11.1508, 7.1492)
+
+[node name="SunRoom" type="Node3D" parent="MainFloor/Rooms" unique_id=1038270840]
+script = ExtResource("bone")
+room_id = &"sunroom"
+corners = PackedVector2Array(6.466, 0.1708, 13.786, 0.1708, 13.786, 2.7084, 6.466, 2.7084)
+
+[node name="Family" type="Node3D" parent="MainFloor/Rooms" unique_id=1103644986]
+script = ExtResource("bone")
+room_id = &"family"
+corners = PackedVector2Array(13.786, 0.17080021, 17.0556, 0.17080021, 17.0556, 4.5872, 13.786, 4.5872)
+
+[node name="Kitchenette" type="Node3D" parent="MainFloor/Rooms" unique_id=1939925277]
+script = ExtResource("bone")
+room_id = &"kitchenette"
+corners = PackedVector2Array(13.786, 4.5872, 18.178, 4.5872, 18.178, 7.0028, 13.786, 7.0028)
+
+[node name="Bedroom" type="Node3D" parent="MainFloor/Rooms" unique_id=271242793]
+script = ExtResource("bone")
+room_id = &"bedroom"
+corners = PackedVector2Array(17.0556, 0.3904, 20.6912, 0.3904, 20.6912, 4.5872, 17.0556, 4.5872)
+
+[node name="Bathroom3Pc" type="Node3D" parent="MainFloor/Rooms" unique_id=1541925055]
+script = ExtResource("bone")
+room_id = &"bathroom3pc"
+corners = PackedVector2Array(18.178, 4.5872, 20.6912, 4.5872, 20.6912, 7.0028, 18.178, 7.0028)
+
+[node name="Openings" type="Node3D" parent="MainFloor" unique_id=659043071]
+
+[node name="HallExterior" type="Node3D" parent="MainFloor/Openings" unique_id=667588025]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(0, 4.6116)
+end = Vector2(0, 5.49)
+opening_height = 2.05
+
+[node name="DiningToHall" type="Node3D" parent="MainFloor/Openings" unique_id=132078173]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(1.25, 4.25)
+end = Vector2(4, 4.25)
+opening_height = 2.7
+
+[node name="HallToLiving" type="Node3D" parent="MainFloor/Openings" unique_id=1790480921]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(0, 5.7096)
+end = Vector2(3.2208, 5.7096)
+opening_height = 2.7
+
+[node name="HallToStairs" type="Node3D" parent="MainFloor/Openings" unique_id=495851211]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(5.4656, 4.2212)
+end = Vector2(6.3196, 4.2212)
+opening_height = 2.7
+
+[node name="HallToKitchen" type="Node3D" parent="MainFloor/Openings" unique_id=2094415084]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(6.466, 4.3676)
+end = Vector2(6.466, 5.4656)
+opening_height = 2.05
+
+[node name="HallToBathroom" type="Node3D" parent="MainFloor/Openings" unique_id=1114665029]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(4.5384, 5.7096)
+end = Vector2(5.368, 5.7096)
+opening_height = 2.05
+
+[node name="LivingToUtility" type="Node3D" parent="MainFloor/Openings" unique_id=2092681540]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(4.1236, 7.8568)
+end = Vector2(4.1236, 8.7596)
+opening_height = 2.05
+
+[node name="KitchenToSunRoom" type="Node3D" parent="MainFloor/Openings" unique_id=208236023]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(7.7348, 2.7084)
+end = Vector2(8.54, 2.7084)
+opening_height = 2.05
+
+[node name="KitchenToLaundry" type="Node3D" parent="MainFloor/Openings" unique_id=2091590225]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(11.1508, 4.88)
+end = Vector2(11.1508, 5.734)
+opening_height = 2.05
+
+[node name="LaundryToFamily" type="Node3D" parent="MainFloor/Openings" unique_id=302604087]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(13.786, 3.8796)
+end = Vector2(13.786, 4.7336)
+opening_height = 2.05
+
+[node name="SunRoomExterior" type="Node3D" parent="MainFloor/Openings" unique_id=55361725]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(7.7592, 0.1708)
+end = Vector2(8.6132, 0.1708)
+opening_height = 2.05
+
+[node name="SunRoomToFamily" type="Node3D" parent="MainFloor/Openings" unique_id=1712064945]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(13.786, 1.22)
+end = Vector2(13.786, 2.074)
+opening_height = 2.05
+
+[node name="FamilyExterior" type="Node3D" parent="MainFloor/Openings" unique_id=1932075153]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(14.0788, 0.1708)
+end = Vector2(14.9816, 0.1708)
+opening_height = 2.05
+
+[node name="FamilyToKitchenette" type="Node3D" parent="MainFloor/Openings" unique_id=1722814455]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(13.786, 4.5872)
+end = Vector2(17.0556, 4.5872)
+opening_height = 2.7
+
+[node name="FamilyToBedroom" type="Node3D" parent="MainFloor/Openings" unique_id=1880728165]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(18, 4.615)
+end = Vector2(17.315, 4.62)
+opening_height = 2.05
+
+[node name="KitchenetteToBathroom" type="Node3D" parent="MainFloor/Openings" unique_id=14830675]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(18.178, 4.7336)
+end = Vector2(18.178, 5.5632)
+opening_height = 2.05
+
+[node name="Node3D" type="Node3D" parent="MainFloor" unique_id=1872472833]
+
+[node name="SecondFloor" type="Node3D" parent="." unique_id=617702680]
+transform = Transform3D(-8.742278e-08, 0, -1, 0, 1, 0, 1, 0, -8.742278e-08, 6.4219894, 3, 11.034837)
+script = ExtResource("maker")
+wall_height = 0.5
+wall_thickness = 0.12
+opening_snap_distance = 0.08
+
+[node name="Rooms" type="Node3D" parent="SecondFloor" unique_id=1840029409]
+
+[node name="Hall" type="Node3D" parent="SecondFloor/Rooms" unique_id=1268641956]
+script = ExtResource("bone")
+room_id = &"hall"
+corners = PackedVector2Array(0, 0, 5.4672, 0, 5.4672, 2.3048, 0, 2.3048)
+
+[node name="InnerLanding" type="Node3D" parent="SecondFloor/Rooms/Hall" unique_id=1849264418]
+script = ExtResource("bone")
+room_id = &"hall"
+corners = PackedVector2Array(4.154, 2.3048, 5.4672, 2.3048, 5.4672, 3.1624, 4.154, 3.1624)
+
+[node name="BedroomLanding" type="Node3D" parent="SecondFloor/Rooms/Hall" unique_id=2007118420]
+script = ExtResource("bone")
+room_id = &"hall"
+corners = PackedVector2Array(4.154, 3.1624, 6.6866, 3.1624, 6.6866, 4.288, 4.154, 4.288)
+
+[node name="Stairwell" type="Node3D" parent="SecondFloor/Rooms/Hall" unique_id=858738955]
+script = ExtResource("bone")
+room_id = &"hall"
+corners = PackedVector2Array(1.273, 0, 4.2076, 0, 4.2076, 0.9782, 1.273, 0.9782)
+
+[node name="PrimaryBedroom" type="Node3D" parent="SecondFloor/Rooms" unique_id=2077459354]
+script = ExtResource("bone")
+room_id = &"primary_bedroom"
+corners = PackedVector2Array(0.5092, 2.3048, 4.154, 2.3048, 4.154, 6.365, 0.5092, 6.365)
+
+[node name="WindowSide" type="Node3D" parent="SecondFloor/Rooms/PrimaryBedroom" unique_id=129250220]
+script = ExtResource("bone")
+room_id = &"primary_bedroom"
+corners = PackedVector2Array(0, 3.5242, 0.5092, 3.5242, 0.5092, 6.365, 0, 6.365)
+
+[node name="Bedroom2" type="Node3D" parent="SecondFloor/Rooms" unique_id=1831252026]
+script = ExtResource("bone")
+room_id = &"bedroom_north_east"
+corners = PackedVector2Array(5.4672, 0, 8.107, 0, 8.107, 3.1624, 5.4672, 3.1624)
+
+[node name="WindowSide" type="Node3D" parent="SecondFloor/Rooms/Bedroom2" unique_id=1457439636]
+script = ExtResource("bone")
+room_id = &"bedroom_north_east"
+corners = PackedVector2Array(8.107, 1.0586, 9.9294, 1.0586, 9.9294, 3.1624, 8.107, 3.1624)
+
+[node name="Closet" type="Node3D" parent="SecondFloor/Rooms" unique_id=2139796879]
+script = ExtResource("bone")
+room_id = &"closet"
+corners = PackedVector2Array(8.107, 0, 9.9294, 0, 9.9294, 1.0586, 8.107, 1.0586)
+
+[node name="Bedroom3" type="Node3D" parent="SecondFloor/Rooms" unique_id=1989912250]
+script = ExtResource("bone")
+room_id = &"bedroom_south_east"
+corners = PackedVector2Array(6.6866, 3.1624, 9.9294, 3.1624, 9.9294, 6.365, 6.6866, 6.365)
+
+[node name="Bathroom4Pc" type="Node3D" parent="SecondFloor/Rooms" unique_id=1795454415]
+script = ExtResource("bone")
+room_id = &"bathroom_4pc"
+corners = PackedVector2Array(4.154, 4.288, 6.6866, 4.288, 6.6866, 6.365, 4.154, 6.365)
+
+[node name="Openings" type="Node3D" parent="SecondFloor" unique_id=1538999442]
+
+[node name="HallToPrimaryBedroom" type="Node3D" parent="SecondFloor/Openings" unique_id=277826873]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(4.154, 3.4974)
+end = Vector2(4.154, 4.1138)
+opening_height = 2.05
+
+[node name="HallToBedroom2" type="Node3D" parent="SecondFloor/Openings" unique_id=1756639522]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(5.4672, 2.5326)
+end = Vector2(5.4672, 2.9748)
+opening_height = 2.05
+
+[node name="BedroomToCloset" type="Node3D" parent="SecondFloor/Openings" unique_id=554223309]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(8.375, 1.0586)
+end = Vector2(9.5408, 1.0586)
+opening_height = 2.05
+
+[node name="HallToBedroom3" type="Node3D" parent="SecondFloor/Openings" unique_id=1537227059]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(6.6866, 3.1624)
+end = Vector2(6.6866, 4.288)
+opening_height = 2.7
+
+[node name="HallToBathroom" type="Node3D" parent="SecondFloor/Openings" unique_id=1867140882]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(5.1188, 4.288)
+end = Vector2(5.7486, 4.288)
+opening_height = 2.05
+
+[node name="Structure" type="Node3D" parent="SecondFloor" unique_id=1245229013]
+
+[node name="Basement" type="Node3D" parent="." unique_id=1964643377]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+script = ExtResource("maker")
+wall_height = 0.5
+wall_thickness = 0.3
+
+[node name="MainRoom10" type="Node3D" parent="Basement" unique_id=92633541]
+script = ExtResource("bone")
+room_id = &"kitchen"
+corners = PackedVector2Array(-1, -20.75, 8.375, -20.75, 8.375, -17.5, -1, -17.5)
+
+[node name="MainRoom11" type="Node3D" parent="Basement" unique_id=949612765]
+script = ExtResource("bone")
+room_id = &"4"
+corners = PackedVector2Array(-1, -33.5, 11.5, -33.5, 11.5, -17.5, -1, -17.5)
+
+[node name="RoomBone12" type="Node3D" parent="Basement" unique_id=500208158]
+script = ExtResource("bone")
+kind = 1
+corners = PackedVector2Array()
+start = Vector2(2.25, -20.75)
+end = Vector2(-1, -20.75)
+metadata/_custom_type_script = "uid://cymk21uhfaj7n"
