@@ -8,40 +8,10 @@
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="6_pfnsb"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_7d2y4"]
 [ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat_bed/cat_bed.tscn" id="8_5bsa6"]
+[ext_resource type="PackedScene" uid="uid://lan4sdta58h6" path="res://scenes/environment/magic_mirror.tscn" id="mirror"]
 
-[sub_resource type="StandardMaterial3D" id="Metal"]
-albedo_color = Color(0.27, 0.36, 0.4, 1)
-metallic = 0.55
-roughness = 0.32
-
-[sub_resource type="CylinderMesh" id="Pedestal"]
-material = SubResource("Metal")
-top_radius = 0.85
-bottom_radius = 1.05
-height = 0.9
-
-[sub_resource type="StandardMaterial3D" id="Wood"]
-albedo_color = Color(0.5, 0.37, 0.26, 1)
-roughness = 0.85
-
-[sub_resource type="TorusMesh" id="Ring"]
-material = SubResource("Wood")
-inner_radius = 0.65
-outer_radius = 0.85
-
-[sub_resource type="StandardMaterial3D" id="Glow"]
-albedo_color = Color(0.5, 0.8, 0.85, 1)
-emission_enabled = true
-emission = Color(0.5, 0.8, 0.85, 1)
-emission_energy_multiplier = 0.55
-
-[sub_resource type="SphereMesh" id="Core"]
-material = SubResource("Glow")
-radius = 1.5
-height = 3.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_wy7w1"]
-radius = 1.6627253
+[sub_resource type="BoxShape3D" id="MirrorShape"]
+size = Vector3(3.05, 3.9, 0.4)
 
 [sub_resource type="StyleBoxFlat" id="OutputCard"]
 content_margin_left = 16.0
@@ -59,36 +29,21 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[node name="MergeStation" type="Area3D" unique_id=2054684803 node_paths=PackedStringArray("cat_spawn_pos")]
+[node name="MergeStation" type="Area3D" unique_id=2054684803 node_paths=PackedStringArray("cat_spawn_pos", "core", "core_arch", "core_light", "mirror_runes")]
 script = ExtResource("1_rb53a")
 cat_spawn_pos = NodePath("OutputPoint")
+core = NodePath("Mirror/Core")
+core_arch = NodePath("Mirror/CoreArch")
+core_light = NodePath("Mirror/CoreGlow")
+mirror_runes = NodePath("Mirror/Runes")
 corrupted_enchantment = ExtResource("2_guen3")
 reroll_enchantments = Array[ExtResource("3_ybpdp")]([ExtResource("4_2gook"), ExtResource("5_hw64b"), ExtResource("6_pfnsb"), ExtResource("7_7d2y4")])
 
-[node name="Device" type="Node3D" parent="." unique_id=645874984]
+[node name="Mirror" parent="." unique_id=2014833961 instance=ExtResource("mirror")]
 
-[node name="Pedestal" type="MeshInstance3D" parent="Device" unique_id=1869965962]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-mesh = SubResource("Pedestal")
-
-[node name="Ring" type="MeshInstance3D" parent="Device" unique_id=745750693]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
-mesh = SubResource("Ring")
-
-[node name="Core" type="MeshInstance3D" parent="Device" unique_id=49712379]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7202969, 0)
-mesh = SubResource("Core")
-
-[node name="CoreGlow" type="OmniLight3D" parent="Device"]
-position = Vector3(0, 2.7202969, 0)
-light_color = Color(0.5, 0.8, 0.85, 1)
-light_energy = 0.7
-omni_range = 7.0
-omni_attenuation = 1.2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1270152283]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.72584, 0)
-shape = SubResource("SphereShape3D_wy7w1")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1140857094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.275, 0.15)
+shape = SubResource("MirrorShape")
 
 [node name="InputA" parent="." unique_id=399207243 instance=ExtResource("8_5bsa6")]
 transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -2, 0, 3)
@@ -149,5 +104,5 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 0.8, 1)
 theme_override_font_sizes/font_size = 14
-text = "Click the core to merge"
+text = "Click the mirror to merge"
 autowrap_mode = 3

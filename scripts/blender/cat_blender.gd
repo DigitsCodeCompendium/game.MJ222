@@ -6,6 +6,13 @@ extends Area3D
 @export var reroll_enchantments: Array[Enchantment]
 @export var show_bed_labels: bool = true
 
+@export_group("Mirror Visuals")
+@export var core: MeshInstance3D
+@export var core_arch: MeshInstance3D
+@export var core_light: OmniLight3D
+@export var mirror_runes: MeshInstance3D
+
+
 @onready var input_a: CatBed = $InputA
 @onready var input_b: CatBed = $InputB
 @onready var panel: PanelContainer = $OutputUI/Panel
@@ -13,8 +20,7 @@ extends Area3D
 @onready var stats_label: Label = $OutputUI/Panel/Content/Stats
 @onready var description_label: Label = $OutputUI/Panel/Content/Description
 @onready var hint_label: Label = $OutputUI/Panel/Content/Hint
-@onready var core: MeshInstance3D = $Device/Core
-@onready var core_light: OmniLight3D = $Device/CoreGlow
+var _rune_material: ShaderMaterial
 
 var _preview_cache: Dictionary = {}
 var _preview_results: Array[CatData] = []
@@ -35,6 +41,9 @@ func _ready() -> void:
 	panel.add_theme_stylebox_override("panel", _panel_style)
 	_core_material = core.get_active_material(0).duplicate()
 	core.material_override = _core_material
+	core_arch.material_override = _core_material
+	_rune_material = mirror_runes.get_active_material(0).duplicate()
+	mirror_runes.material_override = _rune_material
 	for control in panel.find_children("*", "Control", true, false):
 		control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.hide()
@@ -119,7 +128,7 @@ func _refresh_preview() -> void:
 	if not GameManager.can_afford(GameManager.MERGE_PRICE):
 		hint_label.text = "Not enough coins — merging costs %d coins" % GameManager.MERGE_PRICE
 	else:
-		hint_label.text = "Click the glowing core to merge — %d coins" % GameManager.MERGE_PRICE
+		hint_label.text = "Click the mirror to merge — %d coins" % GameManager.MERGE_PRICE
 	var color = _preview_results[0].enchantment.primary_color
 	_panel_style.border_color = color
 
@@ -137,6 +146,7 @@ func _update_core_color() -> void:
 	_core_material.albedo_color = color
 	_core_material.emission = color
 	_core_material.emission_energy_multiplier = 0.8 if _orb_hovered else (0.9 if not _preview_results.is_empty() else 0.55)
+	_rune_material.set_shader_parameter("tint", color)
 	core_light.light_color = color
 	core_light.light_energy = 0.9 if _orb_hovered else (1.0 if not _preview_results.is_empty() else 0.7)
 
