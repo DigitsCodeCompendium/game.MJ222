@@ -1,5 +1,7 @@
 extends Node
 
+const PRICES = preload("res://scripts/game_prices.gd")
+
 @export var cost_brackets: Array[EnchantmentCostBracket]
 
 # it's best to arrange valid_costs in decreasing order, though it should still produce the same results regardless
@@ -35,22 +37,33 @@ func calculate_team_weight(team_costs: Array, weight_t: float) -> float:
 		weight *= lerpf(bracket.weight_early, bracket.weight_late, weight_t)
 	return weight
 
-func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost: int, weight_t: float, extra_points: int = 0) -> Array[CatData]:
-	print("Generating team: max_size %s, total_cost %s, weight_t %1.3f, extra_cost %s" % [max_size, total_cost, weight_t, extra_points])
+## total_cost and extra_coins are coin budgets, not numbers of stat upgrades.
+func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost: int, weight_t: float, extra_coins: int = 0) -> Array[CatData]:
+	print("Generating team: max_size %s, total_cost %s, weight_t %1.3f, extra_coins %s" % [max_size, total_cost, weight_t, extra_coins])
 	print("RNG seed %x, state %x" % [rng.seed, rng.state])
-	
+	if max_size <= 0 or total_cost <= 0:
+		return []
 	var valid_costs: Array[int] = []
-	valid_costs.assign(cost_brackets.map(func(bracket): return bracket.cost))
-	var valid_teams = enumerate_unordered_teams(max_size, valid_costs, total_cost)	
-	var team_weights = valid_teams.map(func(t): return calculate_team_weight(t, weight_t))
-	
-	#print("Possible team plans:")
-	#for i in range(valid_teams.size()):
-		#print("%s; weight %1.3f" % [valid_teams[i], team_weights[i]])
-		
+	for bracket in cost_brackets:
+		if bracket.cost > 0 and not bracket.enchantments.is_empty():
+			valid_costs.append(bracket.cost)
+	if valid_costs.is_empty():
+		return []
+	# Prices 1/4/10 leave gaps with five slots. Buy the most expensive affordable
+	# composition, then spend leftover coins on upgrades at the player's price.
+	var base_cost = mini(total_cost, max_size * valid_costs.max())
+	var valid_teams = enumerate_unordered_teams(max_size, valid_costs, base_cost)
+	while valid_teams.is_empty() and base_cost > 0:
+		base_cost -= 1
+		valid_teams = enumerate_unordered_teams(max_size, valid_costs, base_cost)
+	if base_cost == 0:
+		return []
+	var team_weights = valid_teams.map(func(t): return calculate_team_weight(t, clampf(weight_t, 0, 1)))
+	# Some high-tier compositions have zero early-game weight. They must remain
+	# usable if every affordable composition would otherwise have weight zero.
+	if team_weights.all(func(weight): return weight <= 0.0):
+		team_weights.fill(1.0)
 	var team_index = rng.rand_weighted(team_weights)
-	#print("Chosen team %s" % [valid_teams[team_index]])
-	
 	var team: Array[CatData] = []
 	for team_member_cost in valid_teams[team_index]:
 		var cat_data = CatData.new()
@@ -59,12 +72,12 @@ func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost:
 		cat_data.health_offset = 0
 		cat_data.enchantment = bracket.enchantments[rng.randi_range(0, bracket.enchantments.size() - 1)]
 		team.append(cat_data)
-	
-	for _i in range(extra_points):
+	var upgrade_coins = total_cost - base_cost + maxi(0, extra_coins)
+	var upgrade_count = floori(float(upgrade_coins) / PRICES.UPGRADE)
+	for _i in range(upgrade_count):
 		var target_index = rng.randi_range(0, team.size() - 1)
 		team[target_index].attack_offset += 1
 		team[target_index].health_offset += 1
-	
 	return team
 
 func get_max_possible_team_cost(team_size: int):

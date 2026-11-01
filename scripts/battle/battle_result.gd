@@ -10,7 +10,7 @@ func present(title: String, accent: Color, round_number: int, lives: int, run_fi
 	%ResultLabel.text = title
 	%ResultLabel.add_theme_color_override("font_color", accent)
 	%RoundLabel.visible = not run_finished
-	%RoundLabel.text = "ROUND %d COMPLETE" % round_number
+	%RoundLabel.text = "ROUND %d COMPLETE" % round_number if GameManager.is_test_env else "STAGE %d / LEVEL %d COMPLETE" % [GameManager.last_battle_stage, GameManager.last_battle_level]
 	%RoundLabel.add_theme_color_override("font_color", accent.lightened(0.2))
 	%PlayerLifeLabel.text = "%d %s remaining" % [maxi(lives, 0), "life" if lives == 1 else "lives"]
 	%LifeLossLabel.visible = lives_lost > 0

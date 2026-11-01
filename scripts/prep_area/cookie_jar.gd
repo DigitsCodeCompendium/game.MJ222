@@ -1,7 +1,8 @@
 extends Area3D
 
+const PRICES = preload("res://scripts/game_prices.gd")
+
 @export var cat_manager: CatManager
-@export_range(0, 100, 1) var cookie_price: int = 3
 @onready var panel: PanelContainer = $UI/Panel
 @onready var hint: Label = $UI/Panel/Hint
 @onready var cookie: Node3D = $HeldCookie
@@ -50,8 +51,8 @@ func _process(_delta: float) -> void:
 			cookie.global_position = at
 	panel.visible = _hovered and not _carrying and not camera.is_position_behind($TooltipAnchor.global_position)
 	if panel.visible:
-		hint.text = "Squeeb cookie\nGives a Squeeb +1 attack and +1 defense\n%d coin%s - drag onto a Squeeb" % [cookie_price, "" if cookie_price == 1 else "s"]
-		if not GameManager.can_afford(cookie_price):
+		hint.text = "Squeeb cookie\nGives a Squeeb +1 attack and +1 defense\n%d coin%s - drag onto a Squeeb" % [PRICES.UPGRADE, "" if PRICES.UPGRADE == 1 else "s"]
+		if not GameManager.can_afford(PRICES.UPGRADE):
 			hint.text += "\nNot enough coins"
 		panel.reset_size()
 		var at = camera.unproject_position($TooltipAnchor.global_position) - Vector2(panel.size.x / 2, panel.size.y + 12)
@@ -94,7 +95,7 @@ func feed_cat(cat: Cat) -> bool:
 		return false
 	if cat.get_parent() != cat_manager or cat.is_queued_for_deletion() or cat.is_picked or cat._is_dropping:
 		return false
-	if not GameManager.try_spend_coins(cookie_price):
+	if not GameManager.try_spend_coins(PRICES.UPGRADE):
 		return false
 	cat.attack_offset += 1
 	AudioManager.play_effect("purr")

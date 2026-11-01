@@ -1,6 +1,8 @@
 extends Node3D
 class_name CatManager
 
+const PRICES = preload("res://scripts/game_prices.gd")
+
 const CAT_SCENE = preload("res://scenes/cat/prep_cat.tscn")
 
 @export var start_battle_door: PrepAreaDoor
@@ -115,11 +117,11 @@ func get_hovered_bed_cat(camera: Camera3D, mouse_position: Vector2) -> Cat:
 
 ## Charges only for a successfully purchased cat.
 func buy_cat(at: Variant = null) -> Cat:
-	if not can_spawn_cat() or not GameManager.check_purchase_funds(GameManager.CAT_PRICE):
+	if not can_spawn_cat() or not GameManager.check_purchase_funds(PRICES.CAT):
 		return null
 	var cat = spawn_cat(find_random_cat_spawn_pos() if at == null else at)
 	if cat != null:
-		GameManager.try_spend_coins(GameManager.CAT_PRICE)
+		GameManager.try_spend_coins(PRICES.CAT)
 		AudioManager.play_effect("meow")
 	return cat
 
@@ -174,6 +176,10 @@ func update_start_game_button():
 	start_battle_door.disabled = true
 
 func _on_door_clicked():
+	if GameManager.route.awaiting_choice:
+		start_battle_door.show_route_required()
+		get_tree().call_group("stage_maps", "open")
+		return
 	if _starting_battle:
 		return
 	var team_cats: Array[Node3D] = [] # Used later for checking which cats are in reserve

@@ -2,17 +2,23 @@ extends Node
 
 signal money_changed(balance: int)
 signal insufficient_funds(cost: int)
+signal progress_changed
 
 @export_range(0, 100, 1) var prep_income: int = 5
 
-const CAT_PRICE = 1
-const MERGE_PRICE = 2
 
-@export var enemy_cost_base: float = 1.45
+@export var enemy_starting_budget_modifier: int = -4
+@export var enemy_budget_modifier_per_stage: int = 2
 @export var player_initial_life: int = 3
-@export var player_life_stakes: Array[int] = [1, 1, 1, 1, 1, 1, 1, 2, 2, 3]
+@export var player_life_stakes: Array[int] = [1, 1, 1, 1, 1, 2]
+## Five stages per run. Zero creates 2-3 random choices at that depth.
+@export var stage_columns: Array[int] = [1, 0, 0, 0, 1]
+const RUN_ROUTE = preload("res://scripts/progression/run_route.gd")
+var route = RUN_ROUTE.new()
+var last_battle_stage: int = 1
+var last_battle_level: int = 1
 var total_rounds: int:
-	get: return player_life_stakes.size()
+	get: return stage_columns.size() * RUN_ROUTE.LEVELS_PER_STAGE
 
 const TEAM_SIZE = 5
 const SCENE_FADE = preload("res://scenes/loading/scene_fade.tscn")
@@ -28,8 +34,12 @@ const TEST_BATTLE_SCENE = preload("res://scenes/debug/battle_debug_launcher.tscn
 
 # Current game state
 var rng: RandomNumberGenerator
+# Completed battles across the whole run (kept for existing battle callers).
 var stage_index: int
 var player_life: int
+## All prep income granted this run, including enchantment income bonuses.
+## Spending or leaving coins behind does not reduce the enemy's budget.
+var player_total_coins_earned: int = 0
 var player_money: int:
 	set(value):
 		player_money = maxi(0, value)
@@ -46,7 +56,7 @@ var player_cats_reserve: Array[CatData]
 var is_run_lost: bool:
 	get: return player_life <= 0
 var is_run_won: bool:
-	get: return not is_run_lost and stage_index >= total_rounds
+	get: return not is_run_lost and route.finished
 
 # Temporary fields for transmitting information
 var is_battle_won: bool
@@ -78,8 +88,13 @@ func start_new_game(from_stairs: bool = false):
 
 func reset_game():
 	rng = RandomNumberGenerator.new()
+	rng.randomize()
+	route.generate(rng, stage_columns)
+	last_battle_stage = 1
+	last_battle_level = 1
 	stage_index = 0
 	player_life = player_initial_life
+	player_total_coins_earned = 0
 	player_money = 0
 	_last_paid_prep_stage = -1
 	enemy_seed = rng.randi()
@@ -87,8 +102,11 @@ func reset_game():
 	enemy_extra_cost = 0
 	player_cats_team = []
 	player_cats_reserve = []
+	progress_changed.emit()
 
 func start_battle():
+	if not is_test_env and (route.awaiting_choice or is_run_lost or is_run_won):
+		return
 	get_tree().change_scene_to_packed(BATTLE_ARENA_SCENE)
 
 func enter_prep() -> void:
@@ -97,13 +115,20 @@ func enter_prep() -> void:
 		return
 	_last_paid_prep_stage = stage_index
 	
-	player_money = prep_income
+	var income = prep_income
 	for cat_data in player_cats_team:
-		player_money += cat_data.enchantment.income_offset
+		income += cat_data.enchantment.income_offset
+	income = maxi(0, income)
+	player_total_coins_earned += income
+	player_money = income
 	
-	enemy_seed = rng.randi()
-	enemy_team_cost = roundi(pow(enemy_cost_base, stage_index))
-	var max_team_cost = TeamGenerator.get_max_possible_team_cost(5)
+	_configure_enemy()
+
+func _configure_enemy() -> void:
+	enemy_seed = route.battle_seed()
+	var modifier = enemy_starting_budget_modifier + int(route.current().get("depth", 0)) * enemy_budget_modifier_per_stage
+	enemy_team_cost = maxi(1, player_total_coins_earned + modifier)
+	var max_team_cost = TeamGenerator.get_max_possible_team_cost(TEAM_SIZE)
 	if enemy_team_cost >= max_team_cost:
 		enemy_extra_cost = enemy_team_cost - max_team_cost
 		enemy_team_cost = max_team_cost
@@ -126,11 +151,31 @@ func check_purchase_funds(cost: int) -> bool:
 		insufficient_funds.emit(cost)
 	return false
 
+func get_loss_stakes() -> int:
+	if route.is_final_level():
+		return maxi(1, player_life)
+	if player_life_stakes.is_empty():
+		return 1
+	return player_life_stakes[mini(route.level, player_life_stakes.size() - 1)]
+
+func choose_next_stage(id: String) -> bool:
+	if is_run_lost or is_run_won or not route.choose(id):
+		return false
+	_configure_enemy()
+	progress_changed.emit()
+	return true
+
 func do_end_of_battle_calcs():
+	if is_test_env or is_run_lost or is_run_won or route.awaiting_choice:
+		return
+	last_battle_stage = int(route.current().depth) + 1
+	last_battle_level = route.level + 1
 	if not is_battle_won:
-		player_life -= player_life_stakes[stage_index]
-		
+		player_life = maxi(0, player_life - get_loss_stakes())
 	stage_index += 1
+	if not is_run_lost:
+		route.complete_level()
+	progress_changed.emit()
 
 func exit_battle():
 	if is_test_env:
@@ -148,6 +193,8 @@ func exit_battle():
 
 
 func get_next_opponent_team() -> Array[CatData]:
+	if route.awaiting_choice or is_run_lost or is_run_won:
+		return []
 	var opponent_rng = RandomNumberGenerator.new()
 	opponent_rng.seed = enemy_seed
 	var progress = float(stage_index) / maxf(1.0, total_rounds - 1)

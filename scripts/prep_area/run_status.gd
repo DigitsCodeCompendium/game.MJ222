@@ -1,14 +1,17 @@
 extends PanelContainer
 
 func _ready() -> void:
+	GameManager.progress_changed.connect(_refresh)
+	_refresh()
+
+func _refresh() -> void:
 	$Content/Lives.text = "Lives left: %d" % maxi(GameManager.player_life, 0)
-	# Include the upcoming battle in the number of rounds remaining.
-	$Content/Rounds.text = "Rounds left: %d" % maxi(GameManager.total_rounds - GameManager.stage_index, 0)
-	var round_index = GameManager.stage_index
-	if round_index == GameManager.total_rounds - 1:
+	var route = GameManager.route
+	$Content/Rounds.text = "Stage %d/%d  |  Level %d/%d" % [int(route.current().get("depth", 0)) + 1, route.layers.size(), mini(route.level + 1, route.LEVELS_PER_STAGE), route.LEVELS_PER_STAGE]
+	if route.awaiting_choice:
+		$Content/Stakes.text = "Stage complete! Choose a route on the map."
+	elif route.is_final_level():
 		$Content/Stakes.text = "You must win"
-	elif round_index >= 0 and round_index < GameManager.total_rounds:
-		var stakes = GameManager.player_life_stakes[round_index]
-		$Content/Stakes.text = "Lose %d %s on defeat" % [stakes, "life" if stakes == 1 else "lives"]
 	else:
-		$Content/Stakes.hide()
+		var stakes = GameManager.get_loss_stakes()
+		$Content/Stakes.text = "Lose %d %s on defeat" % [stakes, "life" if stakes == 1 else "lives"]

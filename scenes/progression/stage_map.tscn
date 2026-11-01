@@ -1,0 +1,104 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/stage_map.gd" id="map"]
+[ext_resource type="Script" path="res://scripts/progression/stage_map_graph.gd" id="graph"]
+
+[sub_resource type="StandardMaterial3D" id="BlockMaterial"]
+albedo_color = Color(0.659, 0.525, 0.396, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BlockMesh"]
+material = SubResource("BlockMaterial")
+size = Vector3(3.4, 2.4, 0.35)
+
+[sub_resource type="BoxShape3D" id="ClickShape"]
+size = Vector3(3.4, 2.4, 0.35)
+
+[sub_resource type="StyleBoxFlat" id="Parchment"]
+content_margin_left = 28.0
+content_margin_top = 20.0
+content_margin_right = 28.0
+content_margin_bottom = 20.0
+bg_color = Color(0.93, 0.86, 0.72, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.56, 0.40, 0.25, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxFlat" id="Button"]
+bg_color = Color(0.42, 0.34, 0.25, 1)
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[node name="StageMap" type="Area3D"]
+process_mode = 3
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("map")
+
+[node name="Block" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0, 0.13)
+mesh = SubResource("BlockMesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0, 0.13)
+shape = SubResource("ClickShape")
+
+[node name="Menu" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="Overlay" type="Control" parent="Menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Menu/Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.06, 0.04, 0.03, 0.68)
+
+[node name="Margin" type="MarginContainer" parent="Menu/Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+
+[node name="Panel" type="PanelContainer" parent="Menu/Overlay/Margin"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("Parchment")
+
+[node name="Content" type="VBoxContainer" parent="Menu/Overlay/Margin/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Graph" type="Control" parent="Menu/Overlay/Margin/Panel/Content"]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("graph")
+interactive = true
+
+[node name="Close" type="Button" parent="Menu/Overlay/Margin/Panel/Content"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("Button")
+theme_override_font_sizes/font_size = 18
+text = "Back to room"

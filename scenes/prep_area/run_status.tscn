@@ -40,7 +40,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 15
 theme_override_colors/font_color = Color(0.35, 0.29, 0.23, 1)
-text = "Rounds left: 10"
+text = "Stage 1/5  |  Level 1/6"
 
 [node name="Stakes" type="Label" parent="Content"]
 layout_mode = 2

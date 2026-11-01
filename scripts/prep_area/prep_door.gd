@@ -17,6 +17,7 @@ var _warned_balance: int = -1
 
 func _ready() -> void:
 	GameManager.money_changed.connect(reset_coin_warning)
+	GameManager.progress_changed.connect(reset_coin_warning)
 	input_event.connect(_on_input_event)
 	mouse_entered.connect(_set_hovered.bind(true))
 	mouse_exited.connect(_set_hovered.bind(false))
@@ -37,7 +38,11 @@ func _set_hovered(hovered: bool) -> void:
 
 func reset_coin_warning(_balance: int = 0) -> void:
 	_warned_balance = -1
-	$UI/Tooltip/Text.text = "To battle!"
+	$UI/Tooltip/Text.text = "Choose your next stage on the map!" if GameManager.route.awaiting_choice else "To battle!"
+
+func show_route_required() -> void:
+	$UI/Tooltip/Text.text = "Stage complete! Choose your next stage on the wall map."
+	_process(0.0)
 
 func show_missing_team() -> void:
 	_warned_balance = -1

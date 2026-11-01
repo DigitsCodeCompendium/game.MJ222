@@ -1,5 +1,7 @@
 extends Area3D
 
+const PRICES = preload("res://scripts/game_prices.gd")
+
 @export var cat_manager: CatManager
 @onready var panel: PanelContainer = $UI/Panel
 @onready var hint: Label = $UI/Panel/Hint
@@ -29,12 +31,12 @@ func _process(_delta: float) -> void:
 	panel.visible = _hovered and not cat_manager._starting_battle
 	if not panel.visible:
 		return
-	hint.text = "Adopt a Squeeb: %d coin%s" % [GameManager.CAT_PRICE, "" if GameManager.CAT_PRICE == 1 else "s"]
+	hint.text = "Adopt a Squeeb: %d coin%s" % [PRICES.CAT, "" if PRICES.CAT == 1 else "s"]
 	if _emerging:
 		hint.text += "\nA Squeeb is coming out!"
 	elif not cat_manager.can_spawn_cat():
 		hint.text += "\nSqueeb limit reached"
-	elif not GameManager.can_afford(GameManager.CAT_PRICE):
+	elif not GameManager.can_afford(PRICES.CAT):
 		hint.text += "\nNot enough coins"
 	else:
 		hint.text += "\nClick to adopt"

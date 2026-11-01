@@ -1,5 +1,7 @@
 extends Area3D
 
+const PRICES = preload("res://scripts/game_prices.gd")
+
 @export var cat_manager: CatManager
 @export var cat_spawn_pos: Node3D
 @export var corrupted_enchantment: Enchantment
@@ -105,7 +107,7 @@ func _refresh_preview() -> void:
 		result_label.text = "Place Squeebs on the input beds"
 		stats_label.text = ""
 		description_label.text = "Place two Squeebs on the beds to preview their merge."
-		hint_label.text = "Merging costs %d coins." % GameManager.MERGE_PRICE
+		hint_label.text = "Merging costs %d coins." % PRICES.MERGE
 		_panel_style.border_color = Color("a9c7d4")
 		return
 	if _preview_results.is_empty():
@@ -125,10 +127,10 @@ func _refresh_preview() -> void:
 	result_label.text = " + ".join(names)
 	stats_label.text = "\n".join(stats)
 	description_label.text = "\n\n".join(descriptions)
-	if not GameManager.can_afford(GameManager.MERGE_PRICE):
-		hint_label.text = "Not enough coins — merging costs %d coins" % GameManager.MERGE_PRICE
+	if not GameManager.can_afford(PRICES.MERGE):
+		hint_label.text = "Not enough coins — merging costs %d coins" % PRICES.MERGE
 	else:
-		hint_label.text = "Click the mirror to merge — %d coins" % GameManager.MERGE_PRICE
+		hint_label.text = "Click the mirror to merge — %d coins" % PRICES.MERGE
 	var color = _preview_results[0].enchantment.primary_color
 	_panel_style.border_color = color
 
@@ -176,7 +178,7 @@ func merge_cats() -> void:
 		_merging = false
 		return
 	# Report insufficient coins even when the beds aren't ready to merge yet.
-	if not GameManager.check_purchase_funds(GameManager.MERGE_PRICE):
+	if not GameManager.check_purchase_funds(PRICES.MERGE):
 		AudioManager.play_effect("huff")
 		_merging = false
 		return
@@ -186,7 +188,7 @@ func merge_cats() -> void:
 		AudioManager.play_effect("huff")
 		_merging = false
 		return
-	if cat_manager._starting_battle or not GameManager.try_spend_coins(GameManager.MERGE_PRICE):
+	if cat_manager._starting_battle or not GameManager.try_spend_coins(PRICES.MERGE):
 		AudioManager.play_effect("huff")
 		_merging = false
 		return
