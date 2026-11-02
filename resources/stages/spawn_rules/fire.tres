@@ -7,6 +7,15 @@
 [ext_resource type="Resource" path="res://resources/enchantments/composite/lava.tres" id="e2"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/plasma.tres" id="e3"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/composite/solar_flare.tres" id="new_solar_flare"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/pyroclastic.tres" id="new_pyroclastic"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/geyser.tres" id="new_geyser"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/magma.tres" id="new_magma"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/volcano.tres" id="new_volcano"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/fusion.tres" id="new_fusion"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/obsidian.tres" id="new_obsidian"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/meteorite.tres" id="new_meteorite"]
+
 [resource]
 script = ExtResource("rules")
-allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3")])
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3"), ExtResource("new_solar_flare"), ExtResource("new_pyroclastic"), ExtResource("new_geyser"), ExtResource("new_magma"), ExtResource("new_volcano"), ExtResource("new_fusion"), ExtResource("new_obsidian"), ExtResource("new_meteorite")])

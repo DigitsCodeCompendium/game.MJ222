@@ -7,6 +7,14 @@
 [ext_resource type="Resource" path="res://resources/enchantments/basic/earth.tres" id="e2"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/plant.tres" id="e3"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/composite/mud.tres" id="new_mud"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/solar_flare.tres" id="new_solar_flare"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/clay.tres" id="new_clay"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/glass.tres" id="new_glass"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dew.tres" id="new_dew"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/life.tres" id="new_life"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dust.tres" id="new_dust"]
+
 [resource]
 script = ExtResource("rules")
-allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3")])
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3"), ExtResource("new_mud"), ExtResource("new_solar_flare"), ExtResource("new_clay"), ExtResource("new_glass"), ExtResource("new_dew"), ExtResource("new_life"), ExtResource("new_dust")])

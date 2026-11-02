@@ -7,6 +7,20 @@
 [ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="enchantment"]
 [ext_resource type="Script" uid="uid://cae1ugluq1a0x" path="res://scripts/progression/stage_spawn_rules.gd" id="rules"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/composite/mud.tres" id="new_mud"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/silicon.tres" id="new_silicon"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/glacier.tres" id="new_glacier"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/concrete.tres" id="new_concrete"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/sand_storm.tres" id="new_sand_storm"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dune.tres" id="new_dune"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/clay.tres" id="new_clay"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/glass.tres" id="new_glass"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/obsidian.tres" id="new_obsidian"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/metal.tres" id="new_metal"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/earthquake.tres" id="new_earthquake"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/strata.tres" id="new_strata"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dust.tres" id="new_dust"]
+
 [resource]
 script = ExtResource("rules")
-allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3")])
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3"), ExtResource("new_mud"), ExtResource("new_silicon"), ExtResource("new_glacier"), ExtResource("new_concrete"), ExtResource("new_sand_storm"), ExtResource("new_dune"), ExtResource("new_clay"), ExtResource("new_glass"), ExtResource("new_obsidian"), ExtResource("new_metal"), ExtResource("new_earthquake"), ExtResource("new_strata"), ExtResource("new_dust")])

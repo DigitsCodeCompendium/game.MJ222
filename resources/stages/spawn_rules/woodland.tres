@@ -7,6 +7,12 @@
 [ext_resource type="Resource" path="res://resources/enchantments/basic/water.tres" id="e2"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/plant.tres" id="e3"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/composite/mud.tres" id="new_mud"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/clay.tres" id="new_clay"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/rain.tres" id="new_rain"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dew.tres" id="new_dew"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/life.tres" id="new_life"]
+
 [resource]
 script = ExtResource("rules")
-allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3")])
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3"), ExtResource("new_mud"), ExtResource("new_clay"), ExtResource("new_rain"), ExtResource("new_dew"), ExtResource("new_life")])

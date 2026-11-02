@@ -9,6 +9,19 @@
 [ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="storm"]
 [ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/composite/void.tres" id="void"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/composite/star.tres" id="new_star"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/lightning.tres" id="new_lightning"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/solar_flare.tres" id="new_solar_flare"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/planet.tres" id="new_planet"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/fusion.tres" id="new_fusion"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/comet.tres" id="new_comet"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/energy.tres" id="new_energy"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/time.tres" id="new_time"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/matter.tres" id="new_matter"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/ion.tres" id="new_ion"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/meteorite.tres" id="new_meteorite"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/space.tres" id="new_space"]
+
 [resource]
 script = ExtResource("rules")
-allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("cat"), ExtResource("air"), ExtResource("electric"), ExtResource("plasma"), ExtResource("void"), ExtResource("storm")])
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("cat"), ExtResource("air"), ExtResource("electric"), ExtResource("plasma"), ExtResource("void"), ExtResource("storm"), ExtResource("new_star"), ExtResource("new_lightning"), ExtResource("new_solar_flare"), ExtResource("new_planet"), ExtResource("new_fusion"), ExtResource("new_comet"), ExtResource("new_energy"), ExtResource("new_time"), ExtResource("new_matter"), ExtResource("new_ion"), ExtResource("new_meteorite"), ExtResource("new_space")])
