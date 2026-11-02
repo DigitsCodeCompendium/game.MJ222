@@ -95,8 +95,8 @@ script = ExtResource("2_5mcuc")
 tier = 3
 weight_early = 0.0
 weight_late = 1.0
-base_attack = 6
-base_health = 6
+base_attack = 4
+base_health = 4
 enchantments = Array[ExtResource("3_klsnn")]([ExtResource("new_fusion"), ExtResource("new_comet"), ExtResource("new_clay"), ExtResource("new_glass"), ExtResource("new_energy"), ExtResource("new_rain"), ExtResource("new_obsidian"), ExtResource("new_current"), ExtResource("new_whirlpool"), ExtResource("new_time"), ExtResource("new_dew"), ExtResource("new_metal"), ExtResource("8_r1x1h"), ExtResource("new_earthquake"), ExtResource("new_strata"), ExtResource("new_matter"), ExtResource("new_ion"), ExtResource("new_cloud"), ExtResource("new_static"), ExtResource("new_hail"), ExtResource("new_life"), ExtResource("new_meteorite"), ExtResource("new_dust"), ExtResource("new_space")])
 
 [sub_resource type="Resource" id="Tier_4"]
@@ -104,8 +104,8 @@ script = ExtResource("2_5mcuc")
 tier = 4
 weight_early = 0.0
 weight_late = 1.0
-base_attack = 8
-base_health = 8
+base_attack = 5
+base_health = 5
 enchantments = Array[ExtResource("3_klsnn")]([ExtResource("new_star"), ExtResource("new_lightning"), ExtResource("new_solar_flare"), ExtResource("new_pyroclastic"), ExtResource("new_hurricane"), ExtResource("new_geyser"), ExtResource("new_magma"), ExtResource("new_volcano"), ExtResource("new_tesla"), ExtResource("new_silicon"), ExtResource("5_lu30a"), ExtResource("new_permafrost"), ExtResource("new_glacier"), ExtResource("new_concrete"), ExtResource("new_tornado"), ExtResource("new_sand_storm"), ExtResource("new_planet"), ExtResource("new_dune")])
 
 [node name="TeamGenerator" type="Node" unique_id=2104276785]
