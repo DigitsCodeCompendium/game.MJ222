@@ -1,6 +1,9 @@
 class_name BattleCat
 extends Node3D
 
+signal status_effects_changed
+signal battle_traits_changed
+
 var _enchantment: Enchantment
 var enchantment: Enchantment:
 	get: return _enchantment
@@ -9,10 +12,19 @@ var cat_name: String
 var base_attack: int
 var base_health: int
 var attack: int
-var health: int
+var health: int:
+	set(value):
+		if health == value:
+			return
+		health = value
+		battle_traits_changed.emit()
 
 var shroud_ability_used: bool
-var is_shrouded: bool
+var _status_effects: Array[BattleStatusEffect] = []
+var _status_visuals: Dictionary[StringName, Node3D] = {}
+var _direct_status_effects: Dictionary[StringName, BattleStatusEffect] = {}
+# Keys are the enchantment (innate effects) or battle manager (combined ally auras).
+var _status_effect_grants: Dictionary = {}
 
 var did_attack: bool
 var was_damaged: bool
@@ -20,16 +32,18 @@ var was_damaged: bool
 var attached_ui: Node
 
 @onready var visual: CatVisual = $CatVisual
-@onready var sand_shroud = $SandShroud
 
 func _ready() -> void:
 	visual.set_enchantment(enchantment)
-	sand_shroud.visible = is_shrouded
+	for effect in _status_effects:
+		_create_status_visual(effect)
 	animate_idle()
 
 @warning_ignore("shadowed_variable")
 func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	cat_name = n
+	_status_effect_grants.clear()
+	clear_status_effects()
 	set_enchantment(e)
 	self.base_attack = base_attack
 	self.base_health = base_health
@@ -37,22 +51,116 @@ func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	health = base_health
 	
 	shroud_ability_used = false
-	is_shrouded = false
 	did_attack = false
 	was_damaged = false
 
 func set_enchantment(e: Enchantment) -> void:
+	if _enchantment != null:
+		_status_effect_grants.erase(_enchantment)
 	_enchantment = e
+	if e != null:
+		_status_effect_grants[e] = e.innate_status_effects
+	_refresh_granted_status_effects()
 	if is_node_ready():
 		visual.set_enchantment(e)
+	battle_traits_changed.emit()
 
 func take_damage(amount: int):
-	if is_shrouded:
-		is_shrouded = false
-		sand_shroud.visible = false
+	# A consumed effect can remove itself while processing this hit.
+	for effect in _status_effects.duplicate():
+		if has_status_effect(effect.status_id) and effect.blocks_damage(self, amount):
+			return
+	health -= amount
+	was_damaged = true
+
+## Formation movement still works; this only governs forced movement by abilities.
+func can_be_moved_in_battle() -> bool:
+	for effect in _status_effects:
+		if not effect.allows_forced_movement(self):
+			return false
+	return true
+
+func has_status_effect(status_id: StringName) -> bool:
+	for effect in _status_effects:
+		if effect.status_id == status_id:
+			return true
+	return false
+
+## Effects do not stack: a Squeeb can have one active effect per ID.
+func add_status_effect(effect: BattleStatusEffect) -> bool:
+	if effect == null or effect.status_id.is_empty() or has_status_effect(effect.status_id):
+		return false
+	_direct_status_effects[effect.status_id] = effect
+	_activate_status_effect(effect)
+	return true
+
+func _activate_status_effect(effect: BattleStatusEffect) -> void:
+	_status_effects.append(effect)
+	if is_node_ready():
+		_create_status_visual(effect)
+	status_effects_changed.emit()
+
+func remove_status_effect(status_id: StringName) -> void:
+	_direct_status_effects.erase(status_id)
+	_deactivate_status_effect(status_id)
+	_refresh_granted_status_effects()
+
+func _deactivate_status_effect(status_id: StringName) -> void:
+	for effect in _status_effects:
+		if effect.status_id != status_id:
+			continue
+		_status_effects.erase(effect)
+		var effect_visual = get_status_visual(status_id)
+		if effect_visual != null:
+			effect_visual.hide()
+			effect_visual.queue_free()
+		_status_visuals.erase(status_id)
+		status_effects_changed.emit()
+		return
+
+func clear_status_effects() -> void:
+	_direct_status_effects.clear()
+	for effect in _status_effects.duplicate():
+		_deactivate_status_effect(effect.status_id)
+	_refresh_granted_status_effects()
+
+## Replace one source's grants, preserving effects granted by other sources.
+func set_status_effect_grants(source: Object, effects: Array[BattleStatusEffect]) -> void:
+	if effects.is_empty():
+		_status_effect_grants.erase(source)
 	else:
-		health -= amount
-		was_damaged = true
+		_status_effect_grants[source] = effects.duplicate()
+	_refresh_granted_status_effects()
+
+func _refresh_granted_status_effects() -> void:
+	var desired = _direct_status_effects.duplicate()
+	for effects in _status_effect_grants.values():
+		for effect in effects:
+			if effect != null and not effect.status_id.is_empty():
+				desired[effect.status_id] = effect
+	for effect in _status_effects.duplicate():
+		if not desired.has(effect.status_id):
+			_deactivate_status_effect(effect.status_id)
+	for effect in desired.values():
+		if not has_status_effect(effect.status_id):
+			_activate_status_effect(effect)
+
+func get_status_effects() -> Array[BattleStatusEffect]:
+	return _status_effects.duplicate()
+
+func get_status_visual(status_id: StringName) -> Node3D:
+	return _status_visuals.get(status_id)
+
+func _create_status_visual(effect: BattleStatusEffect) -> void:
+	if effect.visual_scene == null:
+		return
+	var instance = effect.visual_scene.instantiate()
+	if not instance is Node3D:
+		push_error("Status effect visual_scene must have a Node3D root.")
+		instance.free()
+		return
+	add_child(instance)
+	_status_visuals[effect.status_id] = instance
 
 func animate_idle() -> void:
 	visual.play_loop("Idle")

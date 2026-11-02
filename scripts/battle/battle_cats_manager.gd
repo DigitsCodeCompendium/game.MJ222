@@ -120,9 +120,22 @@ func do_turn():
 		return
 
 func sync_ui():
+	refresh_status_effect_auras()
 	for cat in get_all_cats():
 		if cat.attached_ui != null:
 			cat.attached_ui.update_cat()
+
+## Rebuild from the current lineup so overlapping auras never remove each other.
+func refresh_status_effect_auras() -> void:
+	for team in [cats_left, cats_right]:
+		for i in team.size():
+			var effects: Array[BattleStatusEffect] = []
+			if team[i].health > 0:
+				for j in range(maxi(0, i - 1), mini(team.size(), i + 2)):
+					var source: BattleCat = team[j]
+					if source.health > 0 and source.enchantment != null:
+						effects.append_array(source.enchantment.adjacent_status_effects)
+			team[i].set_status_effect_grants(self, effects)
 
 func load_cats_from_data(team: Array[BattleCat], cats_data: Array[CatData]):
 	for cat_data in cats_data:
@@ -139,6 +152,7 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	else:
 		team.append(cat)
 	add_child(cat)
+	cat.battle_traits_changed.connect(refresh_status_effect_auras)
 	
 	var cat_ui = battle_cat_ui_scene.instantiate()
 	cat_ui.camera = $"../Camera3D"
@@ -148,6 +162,7 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	cat_ui.update_cat()
 	
 	%UI.add_child(cat_ui)
+	refresh_status_effect_auras()
 	
 	return cat
 
@@ -217,6 +232,8 @@ func check_for_deaths_and_move_all_cats():
 					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_left[i])
 			dead_cats.append(cats_left[i])
 			cats_left.remove_at(i)
+			dead_cats.back().set_status_effect_grants(self, [])
+			refresh_status_effect_auras()
 		else:
 			i += 1
 	i = 0
@@ -228,6 +245,8 @@ func check_for_deaths_and_move_all_cats():
 					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_right[i])
 			dead_cats.append(cats_right[i])
 			cats_right.remove_at(i)
+			dead_cats.back().set_status_effect_grants(self, [])
+			refresh_status_effect_auras()
 		else:
 			i += 1
 	

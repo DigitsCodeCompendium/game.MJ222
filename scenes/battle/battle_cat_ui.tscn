@@ -78,5 +78,5 @@ visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 13
-text = "Shrouded"
+text = ""
 horizontal_alignment = 1

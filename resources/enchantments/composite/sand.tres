@@ -6,8 +6,11 @@
 [ext_resource type="Resource" uid="uid://4sguovky7lcy" path="res://resources/cat_faces/default.tres" id="4_7yhp7"]
 [ext_resource type="Material" uid="uid://c5315tccsh3ny" path="res://assets/cat/elements/sand_cat.tres" id="4_material"]
 
+[ext_resource type="Resource" path="res://resources/status_effects/shrouded.tres" id="shrouded"]
+
 [resource]
 script = ExtResource("1_de0tr")
+shrouded_effect = ExtResource("shrouded")
 display_name = "Sand"
 primary_color = Color(0.6901961, 0.6627451, 0.5254902, 1)
 description = "Once per combat, when an ally squeeb faints, give the squeeb behind it shrouded.

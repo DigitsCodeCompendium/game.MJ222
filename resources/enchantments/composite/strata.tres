@@ -4,11 +4,15 @@
 [ext_resource type="Resource" path="res://resources/enchantments/basic/earth.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/mountain.tres" id="b"]
 
+[ext_resource type="Script" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="status_script"]
+[ext_resource type="Resource" path="res://resources/status_effects/immovable.tres" id="immovable"]
+
 [resource]
 script = ExtResource("script")
 display_name = "Strata"
 primary_color = Color(0.745098, 0.592157, 0.462745, 1)
-description = "No special ability yet."
+description = "Grants Immovable to itself and the teammate on either side. Teammates lose this protection when no longer adjacent."
+adjacent_status_effects = Array[ExtResource("status_script")]([ExtResource("immovable")])
 base_attack = 6
 base_health = 6
 component1 = ExtResource("a")

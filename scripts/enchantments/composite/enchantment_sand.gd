@@ -2,6 +2,7 @@ class_name EnchantmentSand
 extends Enchantment
 
 @export var sand_shroud_move_duration = 0.4
+@export var shrouded_effect: BattleStatusEffect
 
 func before_ally_death(cats: BattleCatsManager, self_cat: BattleCat, ally_cat: BattleCat):
 	if self_cat.shroud_ability_used:
@@ -12,11 +13,11 @@ func before_ally_death(cats: BattleCatsManager, self_cat: BattleCat, ally_cat: B
 	if index < 0:
 		return
 	if index + 1 < team.size():
-		if not team[index + 1].is_shrouded:
-			team[index + 1].is_shrouded = true
-			team[index + 1].sand_shroud.visible = true
+		var target = team[index + 1]
+		if target.add_status_effect(shrouded_effect):
 			self_cat.shroud_ability_used = true
-			
-			var tween = cats.create_tween()
-			tween.tween_property(team[index + 1].sand_shroud, "global_position", team[index + 1].global_position, sand_shroud_move_duration).from(self_cat.sand_shroud.global_position)
-			await tween.finished
+			var effect_visual = target.get_status_visual(shrouded_effect.status_id)
+			if effect_visual != null:
+				var tween = effect_visual.create_tween()
+				tween.tween_property(effect_visual, "global_position", target.global_position, sand_shroud_move_duration).from(self_cat.global_position)
+				await tween.finished

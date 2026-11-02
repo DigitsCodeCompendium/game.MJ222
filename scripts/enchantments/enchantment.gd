@@ -19,6 +19,11 @@ extends Resource
 @export var component1: Enchantment
 @export var component2: Enchantment
 
+## Always active on this Squeeb; removed effects are granted again immediately.
+@export var innate_status_effects: Array[BattleStatusEffect] = []
+## Granted to this Squeeb and its immediate teammates in the battle lineup.
+@export var adjacent_status_effects: Array[BattleStatusEffect] = []
+
 func has_components() -> bool:
 	return component1 != null and component2 != null
 
@@ -48,9 +53,6 @@ func after_death(cats: BattleCatsManager, self_cat: BattleCat):
 
 func after_battle_turn(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
-
-func can_be_moved_in_battle() -> bool:
-	return true
 
 func after_prep_start():
 	pass

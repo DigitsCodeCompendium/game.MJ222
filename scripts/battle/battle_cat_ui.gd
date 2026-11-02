@@ -16,6 +16,8 @@ func _ready() -> void:
 		_style.corner_radius_top_left = 3
 		_style.corner_radius_top_right = 3
 		$Panel/Content/Type.add_theme_font_size_override("font_size", 17)
+	if is_instance_valid(attached_cat):
+		attached_cat.status_effects_changed.connect(update_cat)
 	update_cat()
 
 func _process(_delta: float) -> void:
@@ -49,5 +51,8 @@ func update_cat() -> void:
 	$Panel/Content/Type.modulate = color.lightened(0.4)
 	$Panel/Content/Stats/Attack.text = "ATK %d" % attached_cat.attack
 	$Panel/Content/Stats/Health.text = "HP %d" % attached_cat.health
-	$Panel/Content/Status.visible = attached_cat.is_shrouded
-	$Panel/Content/Status.text = "Shrouded" if attached_cat.is_shrouded else ""
+	var status_names: PackedStringArray = []
+	for effect in attached_cat.get_status_effects():
+		status_names.append(effect.display_name)
+	$Panel/Content/Status.visible = not status_names.is_empty()
+	$Panel/Content/Status.text = ", ".join(status_names)
