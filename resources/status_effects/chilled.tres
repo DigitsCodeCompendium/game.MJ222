@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ChilledStatusEffect" format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/status_effects/chilled_status_effect.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+status_id = &"chilled"
+display_name = "Chilled"
+description = "The next normal attack deals 1 less damage, to a minimum of 1. Does not stack."

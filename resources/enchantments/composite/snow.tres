@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentSnow" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_snow.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/basic/water.tres" id="a"]
+[ext_resource type="Resource" path="res://resources/status_effects/chilled.tres" id="chilled"]
 
 [resource]
 script = ExtResource("script")
+chilled_effect = ExtResource("chilled")
 display_name = "Snow"
 primary_color = Color(0.882353, 0.952941, 0.968627, 1)
-description = "No special ability yet."
+description = "Cold Snap: After attacking, Chill the target. Its next normal attack deals 1 less damage, to a minimum of 1. Does not stack."
 base_attack = 4
 base_health = 4
 component1 = ExtResource("a")

@@ -70,8 +70,17 @@ func do_turn():
 	])
 	sync_ui()
 	
-	cats_right[0].enchantment.handle_attack_damage(self, cats_right[0], cats_left[0].attack)
-	cats_left[0].enchantment.handle_attack_damage(self, cats_left[0], cats_right[0].attack)
+	# Snapshot both attacks before consuming temporary modifiers or dealing damage.
+	var left_attacker = cats_left[0]
+	var right_attacker = cats_right[0]
+	left_attacker.last_attack_target = right_attacker
+	right_attacker.last_attack_target = left_attacker
+	var left_damage = left_attacker.get_attack_damage()
+	var right_damage = right_attacker.get_attack_damage()
+	right_attacker.enchantment.handle_attack_damage(self, right_attacker, left_damage)
+	left_attacker.enchantment.handle_attack_damage(self, left_attacker, right_damage)
+	left_attacker.finish_normal_attack()
+	right_attacker.finish_normal_attack()
 	cats_left[0].did_attack = true
 	cats_right[0].did_attack = true
 	sync_ui()

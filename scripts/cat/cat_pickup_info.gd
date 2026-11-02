@@ -52,7 +52,7 @@ func _update_content(cat: Node3D) -> void:
 	name_label.visible = not (cat is BattleCat and is_instance_valid(cat.attached_ui) and cat.attached_ui.is_enemy)
 	var enchantment = cat.enchantment
 	_panel_style.border_color = enchantment.primary_color if enchantment != null else _default_border_color
-	var attack: int = cat.attack if cat is BattleCat else cat.attack_offset
+	var attack: int = cat.get_attack_damage() if cat is BattleCat else cat.attack_offset
 	var health: int = cat.health if cat is BattleCat else cat.health_offset
 	if enchantment != null:
 		if not cat is BattleCat:

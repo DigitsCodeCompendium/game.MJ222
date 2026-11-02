@@ -14,3 +14,9 @@ func blocks_damage(_cat: BattleCat, _amount: int) -> bool:
 ## Override in an effect script to control forced movement by abilities.
 func allows_forced_movement(_cat: BattleCat) -> bool:
 	return true
+
+func modify_attack_damage(_cat: BattleCat, amount: int) -> int:
+	return amount
+
+func after_normal_attack(_cat: BattleCat) -> void:
+	pass

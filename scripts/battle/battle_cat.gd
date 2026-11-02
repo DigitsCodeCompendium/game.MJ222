@@ -28,6 +28,7 @@ var _status_effect_grants: Dictionary = {}
 
 var did_attack: bool
 var was_damaged: bool
+var last_attack_target: BattleCat
 
 var attached_ui: Node
 
@@ -53,6 +54,7 @@ func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	shroud_ability_used = false
 	did_attack = false
 	was_damaged = false
+	last_attack_target = null
 
 func set_enchantment(e: Enchantment) -> void:
 	if _enchantment != null:
@@ -64,6 +66,17 @@ func set_enchantment(e: Enchantment) -> void:
 	if is_node_ready():
 		visual.set_enchantment(e)
 	battle_traits_changed.emit()
+
+func get_attack_damage() -> int:
+	var amount = attack
+	for effect in _status_effects:
+		amount = effect.modify_attack_damage(self, amount)
+	return amount
+
+func finish_normal_attack() -> void:
+	for effect in _status_effects.duplicate():
+		if has_status_effect(effect.status_id):
+			effect.after_normal_attack(self)
 
 func take_damage(amount: int):
 	# A consumed effect can remove itself while processing this hit.

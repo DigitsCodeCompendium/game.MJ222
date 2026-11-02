@@ -49,7 +49,7 @@ func update_cat() -> void:
 	var color = enchantment.primary_color if enchantment != null else Color("a9c7d4")
 	_style.border_color = color
 	$Panel/Content/Type.modulate = color.lightened(0.4)
-	$Panel/Content/Stats/Attack.text = "ATK %d" % attached_cat.attack
+	$Panel/Content/Stats/Attack.text = "ATK %d" % attached_cat.get_attack_damage()
 	$Panel/Content/Stats/Health.text = "HP %d" % attached_cat.health
 	var status_names: PackedStringArray = []
 	for effect in attached_cat.get_status_effects():
