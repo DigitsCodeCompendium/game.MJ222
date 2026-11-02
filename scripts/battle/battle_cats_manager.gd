@@ -231,6 +231,7 @@ func is_battle_over():
 	
 func check_for_deaths_and_move_all_cats():
 	var dead_cats: Array[BattleCat] = []
+	var no_effects: Array[BattleStatusEffect] = []
 	
 	var i = 0
 	while i < cats_left.size():
@@ -241,7 +242,7 @@ func check_for_deaths_and_move_all_cats():
 					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_left[i])
 			dead_cats.append(cats_left[i])
 			cats_left.remove_at(i)
-			dead_cats.back().set_status_effect_grants(self, [])
+			dead_cats.back().set_status_effect_grants(self, no_effects)
 			refresh_status_effect_auras()
 		else:
 			i += 1
@@ -254,7 +255,7 @@ func check_for_deaths_and_move_all_cats():
 					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_right[i])
 			dead_cats.append(cats_right[i])
 			cats_right.remove_at(i)
-			dead_cats.back().set_status_effect_grants(self, [])
+			dead_cats.back().set_status_effect_grants(self, no_effects)
 			refresh_status_effect_auras()
 		else:
 			i += 1
