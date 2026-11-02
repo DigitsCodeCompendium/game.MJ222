@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StageDefinition" format=3 uid="uid://cvmvuvv40mevl"]
+
+[ext_resource type="PackedScene" uid="uid://dhsuwj8ueqoh1" path="res://scenes/battle/environments/forest_environment.tscn" id="environment"]
+[ext_resource type="Resource" uid="uid://uiemvjsyb162" path="res://resources/stages/spawn_rules/all_enchantments.tres" id="rules"]
+[ext_resource type="Script" uid="uid://c6rljso0vjcwu" path="res://scripts/progression/stage_definition.gd" id="stage"]
+
+[resource]
+script = ExtResource("stage")
+stage_id = &"last_stand"
+display_name = "Last Stand"
+color = Color(0.776471, 0.592157, 0.717647, 1)
+environment_scene = ExtResource("environment")
+spawn_rules = ExtResource("rules")

@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://btvcwebt5fav4"]
+
+[ext_resource type="Shader" uid="uid://bjl2dj3hnyfv5" path="res://assets/environment/lava_surface.gdshader" id="lava"]
+
+[sub_resource type="Environment" id="World"]
+background_mode = 1
+background_color = Color(0.24, 0.12, 0.15, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.82, 0.64, 0.59, 1)
+ambient_light_energy = 0.8
+
+[sub_resource type="ShaderMaterial" id="Lava"]
+render_priority = 0
+shader = ExtResource("lava")
+shader_parameter/dark_lava = Color(0.48, 0.09, 0.025, 1)
+shader_parameter/hot_lava = Color(1, 0.52, 0.1, 1)
+
+[sub_resource type="PlaneMesh" id="LavaSea"]
+material = SubResource("Lava")
+size = Vector2(180, 180)
+
+[sub_resource type="StandardMaterial3D" id="Basalt"]
+albedo_color = Color(0.23, 0.2, 0.23, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="PlatformFoot"]
+material = SubResource("Basalt")
+size = Vector3(49, 0.5, 8.5)
+
+[sub_resource type="StandardMaterial3D" id="Walkway"]
+albedo_color = Color(0.36, 0.29, 0.29, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Platform"]
+material = SubResource("Walkway")
+size = Vector3(48, 0.8, 7.6)
+
+[sub_resource type="StandardMaterial3D" id="Glow"]
+shading_mode = 0
+albedo_color = Color(1, 0.4, 0.055, 1)
+
+[sub_resource type="QuadMesh" id="EmberQuad"]
+material = SubResource("Glow")
+size = Vector2(0.09, 0.12)
+
+[node name="VolcanoEnvironment" type="Node3D" unique_id=1498093846]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1773481607]
+environment = SubResource("World")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=129268132]
+transform = Transform3D(0.90630776, 0.3237444, -0.2716538, 0, 0.64278764, 0.76604444, 0.42261827, -0.69427204, 0.5825634, 0, 0, 0)
+light_color = Color(1, 0.87, 0.7, 1)
+light_energy = 0.9
+shadow_enabled = true
+directional_shadow_max_distance = 85.0
+
+[node name="LavaSea" type="MeshInstance3D" parent="." unique_id=48457552]
+cast_shadow = 0
+mesh = SubResource("LavaSea")
+
+[node name="BattlePlatformFoot" type="MeshInstance3D" parent="." unique_id=1409086410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("PlatformFoot")
+
+[node name="BattlePlatform" type="MeshInstance3D" parent="." unique_id=1896831624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, 0)
+mesh = SubResource("Platform")
+
+[node name="Volcanoes" type="Node3D" parent="." unique_id=385620911]
+
+[node name="LeftGlow" type="OmniLight3D" parent="." unique_id=716064783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 3, -6)
+light_color = Color(1, 0.35, 0.08, 1)
+light_energy = 0.65
+omni_range = 24.0
+omni_attenuation = 1.2
+
+[node name="RightGlow" type="OmniLight3D" parent="." unique_id=2018236270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 3, -6)
+light_color = Color(1, 0.35, 0.08, 1)
+light_energy = 0.65
+omni_range = 24.0
+omni_attenuation = 1.2
+
+[node name="FloatingEmbers" type="CPUParticles3D" parent="." unique_id=1030397324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -7)
+cast_shadow = 0
+amount = 24
+lifetime = 4.0
+preprocess = 2.0
+mesh = SubResource("EmberQuad")
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 15.0
+gravity = Vector3(0, 0.1, 0)
+initial_velocity_min = 0.4
+initial_velocity_max = 0.8
+scale_amount_min = 0.4

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://komrxe5tsgmp"]
 
 [ext_resource type="Script" uid="uid://7d48c6pomplm" path="res://scripts/prep_area/prep_door.gd" id="1_hpvv5"]
-[ext_resource type="PackedScene" uid="uid://dyxpxrcf5f85i" path="res://scenes/window.tscn" id="2_uvdjg"]
+[ext_resource type="PackedScene" uid="uid://dyxpxrcf5f85i" path="res://scenes/props/furniture/window.tscn" id="2_uvdjg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gpf5u"]
 size = Vector3(2.3974762, 4.5016174, 0.44854736)

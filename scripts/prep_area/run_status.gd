@@ -14,4 +14,4 @@ func _refresh() -> void:
 		$Content/Stakes.text = "You must win"
 	else:
 		var stakes = GameManager.get_loss_stakes()
-		$Content/Stakes.text = "Lose %d %s on defeat" % [stakes, "life" if stakes == 1 else "lives"]
+		$Content/Stakes.text = "No lives lost on defeat" if stakes == 0 else "Lose %d %s on defeat" % [stakes, "life" if stakes == 1 else "lives"]

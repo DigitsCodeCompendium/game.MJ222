@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StageSpawnRules" format=3 uid="uid://bxw4dp54pvp68"]
+
+[ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="e0"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="e1"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="e2"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="e3"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="enchantment"]
+[ext_resource type="Script" uid="uid://cae1ugluq1a0x" path="res://scripts/progression/stage_spawn_rules.gd" id="rules"]
+
+[resource]
+script = ExtResource("rules")
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3")])

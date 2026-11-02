@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StageSpawnRules" format=3 uid="uid://cu8sgmhghjniy"]
+
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="air"]
+[ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="cat"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="electric"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="enchantment"]
+[ext_resource type="Resource" uid="uid://c7rrcvdyyoqwr" path="res://resources/enchantments/composite/plasma.tres" id="plasma"]
+[ext_resource type="Script" uid="uid://cae1ugluq1a0x" path="res://scripts/progression/stage_spawn_rules.gd" id="rules"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="storm"]
+[ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/composite/void.tres" id="void"]
+
+[resource]
+script = ExtResource("rules")
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("cat"), ExtResource("air"), ExtResource("electric"), ExtResource("plasma"), ExtResource("void"), ExtResource("storm")])

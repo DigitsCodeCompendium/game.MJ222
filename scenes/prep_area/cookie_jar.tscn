@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bifa8bgtfyvhm"]
 
-[ext_resource type="PackedScene" uid="uid://buyuyvd30xb2c" path="res://scenes/fish_biscuit.tscn" id="fish_cookie"]
+[ext_resource type="PackedScene" uid="uid://buyuyvd30xb2c" path="res://scenes/props/fish_biscuit.tscn" id="fish_cookie"]
 [ext_resource type="Script" uid="uid://chjjrhvg3qo5l" path="res://scripts/prep_area/cookie_jar.gd" id="script"]
 
 [sub_resource type="CylinderShape3D" id="Shape"]

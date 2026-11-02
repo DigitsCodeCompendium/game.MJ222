@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StageDefinition" format=3 uid="uid://gwvvg2mj7122"]
+
+[ext_resource type="PackedScene" uid="uid://dhsuwj8ueqoh1" path="res://scenes/battle/environments/forest_environment.tscn" id="environment"]
+[ext_resource type="Resource" uid="uid://d1rvdd11kt6vi" path="res://resources/stages/spawn_rules/water.tres" id="rules"]
+[ext_resource type="Script" uid="uid://c6rljso0vjcwu" path="res://scripts/progression/stage_definition.gd" id="stage"]
+
+[resource]
+script = ExtResource("stage")
+stage_id = &"moonlit_marsh"
+display_name = "Moonlit Marsh"
+color = Color(0.611765, 0.670588, 0.8, 1)
+environment_scene = ExtResource("environment")
+spawn_rules = ExtResource("rules")

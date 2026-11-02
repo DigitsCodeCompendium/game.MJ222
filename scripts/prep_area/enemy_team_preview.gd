@@ -13,6 +13,8 @@ func _refresh() -> void:
 		child.queue_free()
 	team = GameManager.get_next_opponent_team()
 	$Content/Heading.text = "CHOOSE YOUR NEXT STAGE ON THE MAP" if GameManager.route.awaiting_choice else "STAGE %d / LEVEL %d  -  NEXT OPPONENT" % [int(GameManager.route.current().depth) + 1, GameManager.route.level + 1]
+	if team.is_empty() and not GameManager.route.awaiting_choice:
+		$Content/Heading.text = "NO OPPONENTS AVAILABLE"
 	for data in team:
 		var card = MEMBER_CARD.instantiate()
 		card.data = data

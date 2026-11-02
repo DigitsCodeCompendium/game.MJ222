@@ -196,6 +196,10 @@ func _on_door_clicked():
 		return
 	if get_held_cat() != null:
 		return
+	if GameManager.get_next_opponent_team().is_empty():
+		AudioManager.play_effect("huff")
+		start_battle_door.show_no_opponents()
+		return
 	if not start_battle_door.confirm_remaining_coins(GameManager.player_money):
 		return
 	_starting_battle = true

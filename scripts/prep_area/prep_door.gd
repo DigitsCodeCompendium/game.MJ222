@@ -40,6 +40,10 @@ func reset_coin_warning(_balance: int = 0) -> void:
 	_warned_balance = -1
 	$UI/Tooltip/Text.text = "Choose your next stage on the map!" if GameManager.route.awaiting_choice else "To battle!"
 
+func show_no_opponents() -> void:
+	$UI/Tooltip/Text.text = "No opponents available for this stage."
+	_process(0.0)
+
 func show_route_required() -> void:
 	$UI/Tooltip/Text.text = "Stage complete! Choose your next stage on the wall map."
 	_process(0.0)

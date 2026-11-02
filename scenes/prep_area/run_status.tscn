@@ -33,7 +33,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 17
 theme_override_colors/font_color = Color(0.24, 0.19, 0.14, 1)
-text = "Lives left: 3"
+text = "Lives left: 9"
 
 [node name="Rounds" type="Label" parent="Content"]
 layout_mode = 2
@@ -47,4 +47,4 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.65, 0.23, 0.18, 1)
-text = "Lose 1 life on defeat"
+text = "No lives lost on defeat"

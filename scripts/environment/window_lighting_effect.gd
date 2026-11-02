@@ -50,7 +50,7 @@ func refresh() -> void:
 			_shadow_defaults[backing] = original_shadow
 	if _glass != null:
 		_shadow_defaults[_glass] = _glass.cast_shadow
-	_beam_material = preload("res://scenes/environment/sunbeam_material.tres").duplicate()
+	_beam_material = preload("res://scenes/props/furniture/sunbeam_material.tres").duplicate()
 	var ray_color: Color = _beam_material.get_shader_parameter("beam_color")
 	ray_color.a = shaft_opacity
 	_beam_material.set_shader_parameter("beam_color", ray_color)

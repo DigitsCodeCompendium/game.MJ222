@@ -30,19 +30,24 @@ func _draw() -> void:
 		var current = id == route.current_id
 		var cleared = id in route.completed
 		var available = route.can_choose(id)
-		var color = Color("8eada1") if cleared else (Color("edc96b") if current else (Color("f0dcb0") if available else Color("d7c9b1")))
-		draw_circle(position, 24 if current else 20, Color("76583e"), true, -1, true)
-		draw_circle(position, 20 if current else 16, color, true, -1, true)
-		if available:
-			draw_arc(position, 26, 0, TAU, 40, Color("b77b2e"), 2.0, true)
+		var definition: Resource = route.nodes[id].get("definition")
+		var stage_color: Color = definition.color if definition != null else Color("76583e")
+		var fill_color = Color("8eada1") if cleared else (Color("edc96b") if current else (Color("f0dcb0") if available else Color("d7c9b1")))
+		draw_circle(position, 24 if current else 20, stage_color, true, -1, true)
+		draw_circle(position, 20 if current else 16, fill_color, true, -1, true)
+		if current:
+			draw_arc(position, 29, 0, TAU, 40, stage_color, 3.0, true)
+		elif available:
+			draw_arc(position, 26, 0, TAU, 40, stage_color, 2.0, true)
 		var title: String = route.nodes[id].title
 		var width = font.get_string_size(title, HORIZONTAL_ALIGNMENT_LEFT, -1, 17).x
 		draw_string(font, position + Vector2(-width / 2, 45), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color("493b2c"))
 		var count = route.LEVELS_PER_STAGE if cleared else (route.level if current else 0)
 		for i in range(route.LEVELS_PER_STAGE):
-			draw_circle(position + Vector2((i - 2.5) * 10, 60), 3.0, Color("54846b") if i < count else Color("b6a88d"), true, -1, true)
+			draw_circle(position + Vector2((i - 2.5) * 10, 60), 3.0, stage_color.darkened(0.25) if i < count else Color("b6a88d"), true, -1, true)
+		var mark_ink = Color("fff7e8") if fill_color.get_luminance() < 0.35 else Color("493b2c")
 		var mark = "OK" if cleared else (str(int(route.nodes[id].depth) + 1))
-		draw_string(font, position + Vector2(-font.get_string_size(mark, HORIZONTAL_ALIGNMENT_LEFT, -1, 17).x / 2, 6), mark, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color("493b2c"))
+		draw_string(font, position + Vector2(-font.get_string_size(mark, HORIZONTAL_ALIGNMENT_LEFT, -1, 17).x / 2, 6), mark, HORIZONTAL_ALIGNMENT_LEFT, -1, 17, mark_ink)
 
 func _gui_input(event: InputEvent) -> void:
 	if not interactive:

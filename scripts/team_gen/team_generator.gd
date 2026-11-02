@@ -38,15 +38,21 @@ func calculate_team_weight(team_costs: Array, weight_t: float) -> float:
 	return weight
 
 ## total_cost and extra_coins are coin budgets, not numbers of stat upgrades.
-func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost: int, weight_t: float, extra_coins: int = 0) -> Array[CatData]:
+func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost: int, weight_t: float, extra_coins: int = 0, spawn_rules: StageSpawnRules = null) -> Array[CatData]:
 	print("Generating team: max_size %s, total_cost %s, weight_t %1.3f, extra_coins %s" % [max_size, total_cost, weight_t, extra_coins])
 	print("RNG seed %x, state %x" % [rng.seed, rng.state])
 	if max_size <= 0 or total_cost <= 0:
 		return []
 	var valid_costs: Array[int] = []
+	var enchantments_by_cost: Dictionary = {}
 	for bracket in cost_brackets:
-		if bracket.cost > 0 and not bracket.enchantments.is_empty():
+		var allowed: Array[Enchantment] = []
+		for enchantment in bracket.enchantments:
+			if enchantment != null and (spawn_rules == null or spawn_rules.allows(enchantment)):
+				allowed.append(enchantment)
+		if bracket.cost > 0 and not allowed.is_empty():
 			valid_costs.append(bracket.cost)
+			enchantments_by_cost[bracket.cost] = allowed
 	if valid_costs.is_empty():
 		return []
 	# Prices 1/4/10 leave gaps with five slots. Buy the most expensive affordable
@@ -67,10 +73,10 @@ func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost:
 	var team: Array[CatData] = []
 	for team_member_cost in valid_teams[team_index]:
 		var cat_data = CatData.new()
-		var bracket = find_cost_bracket(team_member_cost)
 		cat_data.attack_offset = 0
 		cat_data.health_offset = 0
-		cat_data.enchantment = bracket.enchantments[rng.randi_range(0, bracket.enchantments.size() - 1)]
+		var allowed: Array = enchantments_by_cost[team_member_cost]
+		cat_data.enchantment = allowed[rng.randi_range(0, allowed.size() - 1)]
 		team.append(cat_data)
 	var upgrade_coins = total_cost - base_cost + maxi(0, extra_coins)
 	var upgrade_count = floori(float(upgrade_coins) / PRICES.UPGRADE)

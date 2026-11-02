@@ -9,10 +9,12 @@ signal progress_changed
 
 @export var enemy_starting_budget_modifier: int = -4
 @export var enemy_budget_modifier_per_stage: int = 2
-@export var player_initial_life: int = 3
-@export var player_life_stakes: Array[int] = [1, 1, 1, 1, 1, 2]
+@export var player_initial_life: int = 9
 ## Five stages per run. Zero creates 2-3 random choices at that depth.
 @export var stage_columns: Array[int] = [1, 0, 0, 0, 1]
+@export var starting_stage: StageDefinition
+@export var final_stage: StageDefinition
+@export var stage_pool: Array[StageDefinition] = []
 const RUN_ROUTE = preload("res://scripts/progression/run_route.gd")
 var route = RUN_ROUTE.new()
 var last_battle_stage: int = 1
@@ -28,7 +30,7 @@ var _starting_game = false
 var room_theme: int = -1
 
 const MAIN_MENU_SCENE = preload("res://scenes/title/title_screen.tscn")
-const PREP_AREA_SCENE = preload("res://scenes/prep_area.tscn")
+const PREP_AREA_SCENE = preload("res://scenes/props/prep_area.tscn")
 const BATTLE_ARENA_SCENE = preload("res://scenes/battle/battle_arena.tscn")
 const TEST_BATTLE_SCENE = preload("res://scenes/debug/battle_debug_launcher.tscn")
 
@@ -64,6 +66,7 @@ var is_battle_won: bool
 var is_test_env: bool = false
 var test_team_left: Array[CatData]
 var test_team_right: Array[CatData]
+var test_environment: PackedScene
 
 func _ready():
 	reset_game()
@@ -89,7 +92,7 @@ func start_new_game(from_stairs: bool = false):
 func reset_game():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
-	route.generate(rng, stage_columns)
+	route.generate(rng, stage_columns, starting_stage, final_stage, stage_pool)
 	last_battle_stage = 1
 	last_battle_level = 1
 	stage_index = 0
@@ -106,6 +109,9 @@ func reset_game():
 
 func start_battle():
 	if not is_test_env and (route.awaiting_choice or is_run_lost or is_run_won):
+		return
+	if not is_test_env and get_next_opponent_team().is_empty():
+		push_warning("Cannot start battle: stage spawn rules have no affordable, priced enemies.")
 		return
 	get_tree().change_scene_to_packed(BATTLE_ARENA_SCENE)
 
@@ -154,9 +160,8 @@ func check_purchase_funds(cost: int) -> bool:
 func get_loss_stakes() -> int:
 	if route.is_final_level():
 		return maxi(1, player_life)
-	if player_life_stakes.is_empty():
-		return 1
-	return player_life_stakes[mini(route.level, player_life_stakes.size() - 1)]
+	# Stage one is safe; later stages add one life lost per defeat.
+	return maxi(0, int(route.current().get("depth", 0)))
 
 func choose_next_stage(id: String) -> bool:
 	if is_run_lost or is_run_won or not route.choose(id):
@@ -192,13 +197,18 @@ func exit_battle():
 	_exiting_battle = false
 
 
+func get_current_stage() -> StageDefinition:
+	return route.current().get("definition") as StageDefinition
+
 func get_next_opponent_team() -> Array[CatData]:
 	if route.awaiting_choice or is_run_lost or is_run_won:
 		return []
 	var opponent_rng = RandomNumberGenerator.new()
 	opponent_rng.seed = enemy_seed
 	var progress = float(stage_index) / maxf(1.0, total_rounds - 1)
-	return TeamGenerator.generate_random_team(opponent_rng, TEAM_SIZE, enemy_team_cost, progress, enemy_extra_cost)
+	var stage = get_current_stage()
+	var rules = stage.spawn_rules if stage != null else null
+	return TeamGenerator.generate_random_team(opponent_rng, TEAM_SIZE, enemy_team_cost, progress, enemy_extra_cost, rules)
 
 func end_run() -> void:
 	if _exiting_battle or _starting_game:

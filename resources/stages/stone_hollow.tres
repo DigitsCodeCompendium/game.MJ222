@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StageDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/stage_definition.gd" id="stage"]
+[ext_resource type="PackedScene" path="res://scenes/battle/environments/forest_environment.tscn" id="environment"]
+[ext_resource type="Resource" path="res://resources/stages/spawn_rules/stone.tres" id="rules"]
+
+[resource]
+script = ExtResource("stage")
+stage_id = &"stone_hollow"
+display_name = "Stone Hollow"
+color = Color(0.690196, 0.666667, 0.627451, 1)
+environment_scene = ExtResource("environment")
+spawn_rules = ExtResource("rules")

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="StageSpawnRules" format=3 uid="uid://uiemvjsyb162"]
+
+[ext_resource type="Resource" uid="uid://bpwjkho87u0l5" path="res://resources/enchantments/basic/cat.tres" id="e0"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="e1"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="e2"]
+[ext_resource type="Resource" uid="uid://ikw6m5nlys72" path="res://resources/enchantments/composite/ice.tres" id="e3"]
+[ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="e4"]
+[ext_resource type="Resource" uid="uid://c3lym23b4q8y5" path="res://resources/enchantments/composite/lava.tres" id="e5"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="e6"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="e7"]
+[ext_resource type="Resource" uid="uid://bvt4851shyjg5" path="res://resources/enchantments/composite/mountain.tres" id="e8"]
+[ext_resource type="Resource" uid="uid://ek7ia0t8v8f1" path="res://resources/enchantments/composite/plant.tres" id="e9"]
+[ext_resource type="Resource" uid="uid://c7rrcvdyyoqwr" path="res://resources/enchantments/composite/plasma.tres" id="e10"]
+[ext_resource type="Resource" uid="uid://iinnsq87jlk6" path="res://resources/enchantments/composite/sand.tres" id="e11"]
+[ext_resource type="Resource" uid="uid://cm7s3dgfu7w4h" path="res://resources/enchantments/composite/steam.tres" id="e12"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="e13"]
+[ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/composite/void.tres" id="e14"]
+[ext_resource type="Resource" uid="uid://cl11h4rqamlk8" path="res://resources/enchantments/special/super_cat.tres" id="e15"]
+[ext_resource type="Script" uid="uid://ye2d8uylmwoh" path="res://scripts/enchantments/enchantment.gd" id="enchantment"]
+[ext_resource type="Script" uid="uid://cae1ugluq1a0x" path="res://scripts/progression/stage_spawn_rules.gd" id="rules"]
+
+[resource]
+script = ExtResource("rules")
+allowed_enchantments = Array[ExtResource("enchantment")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3"), ExtResource("e4"), ExtResource("e5"), ExtResource("e6"), ExtResource("e7"), ExtResource("e8"), ExtResource("e9"), ExtResource("e10"), ExtResource("e11"), ExtResource("e12"), ExtResource("e13"), ExtResource("e14"), ExtResource("e15")])

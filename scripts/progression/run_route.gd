@@ -10,7 +10,7 @@ var level: int = 0
 var awaiting_choice: bool = false
 var finished: bool = false
 
-func generate(random: RandomNumberGenerator, widths: Array[int]) -> void:
+func generate(random: RandomNumberGenerator, widths: Array[int], starting_stage: Resource = null, final_stage: Resource = null, stage_pool: Array = []) -> void:
 	nodes.clear()
 	layers.clear()
 	visited.clear()
@@ -18,14 +18,25 @@ func generate(random: RandomNumberGenerator, widths: Array[int]) -> void:
 	level = 0
 	awaiting_choice = false
 	finished = false
-	var names = ["Mosswood", "Sunlit Grove", "Stone Hollow", "Cloudbank", "Ember Ridge", "Moonlit Marsh", "Crystal Vale", "Fern Hollow", "Amber Fields", "Old Ruins", "Starlit Pond", "Windy Bluff", "Bloomwood", "Frost Hollow", "Silver Glade"]
+	var available_stages: Array = stage_pool.filter(func(stage): return stage != null)
 	for depth in range(widths.size()):
 		var layer = PackedStringArray()
 		var width = random.randi_range(2, 3) if widths[depth] == 0 else maxi(1, widths[depth])
 		for lane in range(width):
 			var id = "%d_%d" % [depth, lane]
-			var title = "Home Trail" if depth == 0 else ("Last Stand" if depth == widths.size() - 1 else str(names[((depth - 1) * 3 + lane) % names.size()]))
-			nodes[id] = {"id": id, "depth": depth, "lane": lane, "title": title, "seed": random.randi(), "next": PackedStringArray()}
+			var definition: Resource = null
+			if depth == 0:
+				definition = starting_stage
+			elif depth == widths.size() - 1:
+				definition = final_stage
+			else:
+				if available_stages.is_empty():
+					available_stages = stage_pool.filter(func(stage): return stage != null)
+				if not available_stages.is_empty():
+					definition = available_stages.pop_at(random.randi_range(0, available_stages.size() - 1))
+			var title = definition.display_name if definition != null else "Stage %d" % (depth + 1)
+			var stage_id: StringName = definition.stage_id if definition != null else StringName(id)
+			nodes[id] = {"id": id, "stage_id": stage_id, "definition": definition, "depth": depth, "lane": lane, "title": title, "seed": random.randi(), "next": PackedStringArray()}
 			layer.append(id)
 		layers.append(layer)
 	# Every node has a way forward and every destination has an incoming path.

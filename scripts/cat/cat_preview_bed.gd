@@ -1,7 +1,7 @@
 extends "res://scripts/cat/cat_bed.gd"
 
 ## CatBed variant with a combined attack/health display.
-const STATS_UI = preload("res://scenes/cat_bed/cat_bed_stats.tscn")
+const STATS_UI = preload("res://scenes/props/cat_bed/cat_bed_stats.tscn")
 var _stat_ui: Control
 var _attached_ui: Control
 

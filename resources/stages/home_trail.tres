@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StageDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/stage_definition.gd" id="stage"]
+[ext_resource type="PackedScene" path="res://scenes/battle/environments/forest_environment.tscn" id="environment"]
+[ext_resource type="Resource" path="res://resources/stages/spawn_rules/all_enchantments.tres" id="rules"]
+
+[resource]
+script = ExtResource("stage")
+stage_id = &"home_trail"
+display_name = "Home Trail"
+color = Color(0.901961, 0.768627, 0.462745, 1)
+environment_scene = ExtResource("environment")
+spawn_rules = ExtResource("rules")

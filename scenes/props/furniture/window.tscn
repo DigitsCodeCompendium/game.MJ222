@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dyxpxrcf5f85i"]
+
+[ext_resource type="Script" uid="uid://bocuvxbtipmhd" path="res://scripts/environment/procedural_window.gd" id="1_uaw2m"]
+[ext_resource type="Script" uid="uid://3mtct627mofw" path="res://scripts/environment/window_geometry.gd" id="2_5ai4f"]
+[ext_resource type="PackedScene" path="res://scenes/props/furniture/window_light.tscn" id="3_4be2b"]
+
+[node name="Window1" type="Node3D" unique_id=1422039906]
+script = ExtResource("1_uaw2m")
+
+[node name="Geometry" type="Node3D" parent="." unique_id=1018492114]
+script = ExtResource("2_5ai4f")
+
+[node name="WindowLight" parent="." unique_id=1178835053 instance=ExtResource("3_4be2b")]

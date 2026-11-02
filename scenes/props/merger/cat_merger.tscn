@@ -7,8 +7,8 @@
 [ext_resource type="Resource" uid="uid://c2pwv42mxvpwn" path="res://resources/enchantments/basic/earth.tres" id="5_hw64b"]
 [ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="6_pfnsb"]
 [ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="7_7d2y4"]
-[ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/cat_bed/cat_bed.tscn" id="8_5bsa6"]
-[ext_resource type="PackedScene" uid="uid://lan4sdta58h6" path="res://scenes/environment/magic_mirror.tscn" id="mirror"]
+[ext_resource type="PackedScene" uid="uid://ctjyjinqfs1b2" path="res://scenes/props/cat_bed/cat_bed.tscn" id="8_5bsa6"]
+[ext_resource type="PackedScene" uid="uid://lan4sdta58h6" path="res://scenes/props/furniture/magic_mirror.tscn" id="mirror"]
 
 [sub_resource type="BoxShape3D" id="MirrorShape"]
 size = Vector3(3.05, 3.9, 0.4)

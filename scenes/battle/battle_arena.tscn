@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://dvc3s1a6aqihw" path="res://scripts/battle/battle_hover_info.gd" id="hover_script"]
 [ext_resource type="Script" uid="uid://blas5foc8rs85" path="res://scripts/battle/battle_result.gd" id="result_script"]
 
+[ext_resource type="Script" path="res://scripts/battle/battle_environment.gd" id="environment_script"]
+
 [sub_resource type="StyleBoxFlat" id="ResultBackdrop"]
 bg_color = Color(0.025, 0.035, 0.05, 0.82)
 
@@ -144,7 +146,9 @@ process_mode = 3
 script = ExtResource("hover_script")
 battle_manager = NodePath("../Cats")
 
-[node name="Environment" parent="." unique_id=288375888 instance=ExtResource("forest_environment")]
+[node name="Environment" type="Node3D" parent="." unique_id=288375888]
+script = ExtResource("environment_script")
+fallback_environment = ExtResource("forest_environment")
 
 [node name="Cats" type="Node3D" parent="." unique_id=1907730968 node_paths=PackedStringArray("left_cat_anchors", "right_cat_anchors")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

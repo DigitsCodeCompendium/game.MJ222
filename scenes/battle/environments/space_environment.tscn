@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://nfd41fmaprrx"]
+
+[ext_resource type="PackedScene" path="res://scenes/battle/environments/star_field.tscn" id="star_field"]
+
+[sub_resource type="Environment" id="World"]
+background_mode = 1
+background_color = Color(0.035, 0.03, 0.09, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.65, 0.68, 0.91, 1)
+ambient_light_energy = 0.8
+
+[sub_resource type="StandardMaterial3D" id="MoonDust"]
+albedo_color = Color(0.47, 0.45, 0.57, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Platform"]
+material = SubResource("MoonDust")
+size = Vector3(48, 0.7, 7.6)
+
+[sub_resource type="StandardMaterial3D" id="MoonRock"]
+albedo_color = Color(0.28, 0.27, 0.38, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Underside"]
+material = SubResource("MoonRock")
+size = Vector3(46, 1.4, 6.6)
+
+[sub_resource type="SphereMesh" id="Rock"]
+material = SubResource("MoonRock")
+radius = 1.2
+height = 2.1
+radial_segments = 7
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="PlanetBlue"]
+albedo_color = Color(0.29, 0.52, 0.64, 1)
+roughness = 0.9
+
+[sub_resource type="SphereMesh" id="Planet"]
+material = SubResource("PlanetBlue")
+radius = 12.0
+height = 24.0
+radial_segments = 32
+rings = 16
+
+[sub_resource type="StandardMaterial3D" id="Rings"]
+shading_mode = 0
+albedo_color = Color(0.78, 0.65, 0.51, 1)
+
+[sub_resource type="TorusMesh" id="PlanetRings"]
+material = SubResource("Rings")
+inner_radius = 14.0
+outer_radius = 19.0
+rings = 48
+ring_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="DistantMoon"]
+albedo_color = Color(0.6, 0.55, 0.64, 1)
+roughness = 0.9
+
+[sub_resource type="SphereMesh" id="Moon"]
+material = SubResource("DistantMoon")
+radius = 5.0
+height = 10.0
+radial_segments = 20
+rings = 10
+
+[node name="SpaceEnvironment" type="Node3D" unique_id=1585194824]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=569530706]
+environment = SubResource("World")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=1955824120]
+transform = Transform3D(0.90630776, 0.3237444, -0.2716538, 0, 0.64278764, 0.76604444, 0.42261827, -0.69427204, 0.5825634, 0, 0, 0)
+light_color = Color(0.88, 0.92, 1, 1)
+light_energy = 0.9
+shadow_enabled = true
+directional_shadow_max_distance = 85.0
+
+[node name="BattlePlatform" type="MeshInstance3D" parent="." unique_id=351811651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("Platform")
+
+[node name="FloatingUnderside" type="MeshInstance3D" parent="." unique_id=1404147325]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)
+mesh = SubResource("Underside")
+
+[node name="AsteroidBase" type="MeshInstance3D" parent="." unique_id=88704815]
+transform = Transform3D(18, 0, 0, 0, 1.4, 0, 0, 0, 3, 0, -1.1, 0)
+mesh = SubResource("Rock")
+
+[node name="FloatingRocks" type="Node3D" parent="." unique_id=946019388]
+
+[node name="Asteroid00" type="MeshInstance3D" parent="FloatingRocks" unique_id=363455058]
+transform = Transform3D(1.1, 0, 0, 0, 0.77, 0, 0, 0, 1.1, -26, 1, -2)
+mesh = SubResource("Rock")
+
+[node name="Asteroid01" type="MeshInstance3D" parent="FloatingRocks" unique_id=899151410]
+transform = Transform3D(1.0507604, 0.0116098635, 0.765263, 0.17697138, 0.88145185, -0.2702852, -0.74470377, 0.22584945, 1.0155385, 26, 1.4, -1)
+mesh = SubResource("Rock")
+
+[node name="Asteroid02" type="MeshInstance3D" parent="FloatingRocks" unique_id=1930857042]
+transform = Transform3D(0.37272847, 0.20990093, 0.87815624, 0.25180724, 0.6147094, -0.40673664, -0.89312184, 0.26090991, 0.25180727, -23, 4, -16)
+mesh = SubResource("Rock")
+
+[node name="Asteroid03" type="MeshInstance3D" parent="FloatingRocks" unique_id=2060698957]
+transform = Transform3D(-0.15628618, 0.6794179, 1.1329237, 0.4935853, 0.77602744, -0.88167787, -1.4078168, 0.1966535, -0.43488863, 18, 3, -19)
+mesh = SubResource("Rock")
+
+[node name="Asteroid04" type="MeshInstance3D" parent="FloatingRocks" unique_id=1474029252]
+transform = Transform3D(-1.1741493, 1.2612163, 0.81554604, 0.81554586, 0.91360235, -1.7092332, -1.8017375, -0.40836778, -1.3051462, -33, 9, -36)
+mesh = SubResource("Rock")
+
+[node name="Asteroid05" type="MeshInstance3D" parent="FloatingRocks" unique_id=1907118337]
+transform = Transform3D(-1.4609636, 0.7339767, -0.07844022, 0.57850873, 0.48260796, -1.5588458, -0.87801635, -0.9033093, -0.89657515, 35, 10, -41)
+mesh = SubResource("Rock")
+
+[node name="Asteroid06" type="MeshInstance3D" parent="FloatingRocks" unique_id=802969856]
+transform = Transform3D(-1.5522947, 0.14161536, -0.33083636, 0.367431, 0.23158543, -1.5216905, -0.12399802, -1.0866063, -0.36743098, -12, 8, -51)
+mesh = SubResource("Rock")
+
+[node name="RingedPlanet" type="Node3D" parent="." unique_id=2007237507]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 8, -62)
+
+[node name="Planet" type="MeshInstance3D" parent="RingedPlanet" unique_id=309473146]
+mesh = SubResource("Planet")
+
+[node name="RingTilt" type="Node3D" parent="RingedPlanet" unique_id=161177219]
+transform = Transform3D(0.88294756, -0.46947157, 0, 0.45128503, 0.8487437, -0.27563736, 0.1294039, 0.24337333, 0.9612617, 0, 0, 0)
+
+[node name="Rings" type="MeshInstance3D" parent="RingedPlanet/RingTilt" unique_id=1465642785]
+transform = Transform3D(1, 0, 0, 0, 0.06, 0, 0, 0, 1, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("PlanetRings")
+
+[node name="DistantMoon" type="MeshInstance3D" parent="." unique_id=704563714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 8, -57)
+mesh = SubResource("Moon")
+
+[node name="Stars" parent="." unique_id=193622558 instance=ExtResource("star_field")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.519184, -87.5)
+star_count = 200
+
+[node name="VioletRimLight" type="OmniLight3D" parent="." unique_id=255551342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
+light_color = Color(0.69, 0.4, 1, 1)
+light_energy = 0.6
+omni_range = 35.0
+omni_attenuation = 1.3

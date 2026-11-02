@@ -2,5 +2,24 @@
 
 [ext_resource type="Script" uid="uid://dyfdphscuh4ea" path="res://scripts/game_manager.gd" id="1_ocy8r"]
 
+[ext_resource type="Script" path="res://scripts/progression/stage_definition.gd" id="stage_type"]
+[ext_resource type="Resource" path="res://resources/stages/home_trail.tres" id="home_trail"]
+[ext_resource type="Resource" path="res://resources/stages/mosswood.tres" id="mosswood"]
+[ext_resource type="Resource" path="res://resources/stages/sunlit_grove.tres" id="sunlit_grove"]
+[ext_resource type="Resource" path="res://resources/stages/stone_hollow.tres" id="stone_hollow"]
+[ext_resource type="Resource" path="res://resources/stages/cloudbank.tres" id="cloudbank"]
+[ext_resource type="Resource" path="res://resources/stages/ember_ridge.tres" id="ember_ridge"]
+[ext_resource type="Resource" path="res://resources/stages/moonlit_marsh.tres" id="moonlit_marsh"]
+[ext_resource type="Resource" path="res://resources/stages/crystal_vale.tres" id="crystal_vale"]
+[ext_resource type="Resource" path="res://resources/stages/fern_hollow.tres" id="fern_hollow"]
+[ext_resource type="Resource" path="res://resources/stages/amber_fields.tres" id="amber_fields"]
+[ext_resource type="Resource" path="res://resources/stages/last_stand.tres" id="last_stand"]
+
+[ext_resource type="Resource" path="res://resources/stages/volcanic_rift.tres" id="volcanic_rift"]
+[ext_resource type="Resource" path="res://resources/stages/starfall_expanse.tres" id="starfall_expanse"]
+
 [node name="GameManager" type="Node" unique_id=823867922]
 script = ExtResource("1_ocy8r")
+starting_stage = ExtResource("home_trail")
+final_stage = ExtResource("last_stand")
+stage_pool = Array[ExtResource("stage_type")]([ExtResource("mosswood"), ExtResource("sunlit_grove"), ExtResource("stone_hollow"), ExtResource("cloudbank"), ExtResource("ember_ridge"), ExtResource("moonlit_marsh"), ExtResource("crystal_vale"), ExtResource("fern_hollow"), ExtResource("amber_fields"), ExtResource("volcanic_rift"), ExtResource("starfall_expanse")])
