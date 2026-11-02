@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="StageDefinition" format=3]
+[gd_resource type="Resource" script_class="StageDefinition" format=3 uid="uid://b3eu4f8ap5bsy"]
 
-[ext_resource type="Script" path="res://scripts/progression/stage_definition.gd" id="stage"]
-[ext_resource type="PackedScene" path="res://scenes/battle/environments/forest_environment.tscn" id="environment"]
+[ext_resource type="PackedScene" path="res://scenes/battle/environments/sunlit_grove_environment.tscn" id="environment"]
 [ext_resource type="Resource" path="res://resources/stages/spawn_rules/meadow.tres" id="rules"]
+[ext_resource type="Script" uid="uid://c6rljso0vjcwu" path="res://scripts/progression/stage_definition.gd" id="stage"]
 
 [resource]
 script = ExtResource("stage")
 stage_id = &"sunlit_grove"
 display_name = "Sunlit Grove"
-color = Color(0.847059, 0.792157, 0.474510, 1)
+color = Color(0.847059, 0.792157, 0.47451, 1)
 environment_scene = ExtResource("environment")
 spawn_rules = ExtResource("rules")

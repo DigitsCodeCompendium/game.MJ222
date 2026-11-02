@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bgykm1elq78r7"]
+
+[sub_resource type="Environment" id="World"]
+background_mode = 1
+background_color = Color(0.56, 0.75, 0.88, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.9, 0.9, 0.88, 1)
+ambient_light_energy = 0.75
+
+[sub_resource type="StandardMaterial3D" id="PathMaterial"]
+albedo_color = Color(0.85, 0.84, 0.78, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Clearing"]
+material = SubResource("PathMaterial")
+size = Vector3(48, 0.1, 7)
+
+[sub_resource type="StandardMaterial3D" id="GroundMaterial"]
+albedo_color = Color(0.85, 0.89, 0.91, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="PlatformSide"]
+material = SubResource("GroundMaterial")
+size = Vector3(48, 1.3, 7)
+
+[node name="CloudbankEnvironment" type="Node3D" unique_id=439013368]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1858458598]
+environment = SubResource("World")
+
+[node name="Sunlight" type="DirectionalLight3D" parent="." unique_id=2128432123]
+transform = Transform3D(0.90630776, 0.3237444, -0.2716538, 0, 0.64278764, 0.76604444, 0.42261827, -0.69427204, 0.5825634, 0, 0, 0)
+light_color = Color(1, 0.94, 0.85, 1)
+light_energy = 0.7
+shadow_enabled = true
+directional_shadow_max_distance = 85.0
+
+[node name="BattleClearing" type="MeshInstance3D" parent="." unique_id=627965267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96, 0)
+mesh = SubResource("Clearing")
+
+[node name="FloatingPlatform" type="MeshInstance3D" parent="." unique_id=172276689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("PlatformSide")

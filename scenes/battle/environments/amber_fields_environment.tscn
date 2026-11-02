@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://xjmh6fj7xi87"]
+
+[sub_resource type="Environment" id="World"]
+background_mode = 1
+background_color = Color(0.85, 0.77, 0.59, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.9, 0.9, 0.88, 1)
+ambient_light_energy = 0.75
+
+[sub_resource type="StandardMaterial3D" id="GroundMaterial"]
+albedo_color = Color(0.37856096, 0.32619014, 0.14721572, 1)
+roughness = 0.9
+
+[sub_resource type="PlaneMesh" id="Ground"]
+material = SubResource("GroundMaterial")
+size = Vector2(180, 180)
+
+[sub_resource type="StandardMaterial3D" id="PathMaterial"]
+albedo_color = Color(0.47779942, 0.4040421, 0.22044274, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="Clearing"]
+material = SubResource("PathMaterial")
+size = Vector3(48, 0.1, 7)
+
+[node name="AmberFieldsEnvironment" type="Node3D" unique_id=1261345839]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=648564847]
+environment = SubResource("World")
+
+[node name="Sunlight" type="DirectionalLight3D" parent="." unique_id=667120138]
+transform = Transform3D(0.90630776, 0.3237444, -0.2716538, 0, 0.64278764, 0.76604444, 0.42261827, -0.69427204, 0.5825634, 0, 0, 0)
+light_color = Color(1, 0.89, 0.68, 1)
+light_energy = 0.7
+shadow_enabled = true
+directional_shadow_max_distance = 85.0
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=894989503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("Ground")
+
+[node name="BattleClearing" type="MeshInstance3D" parent="." unique_id=1451770237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96, 0)
+mesh = SubResource("Clearing")

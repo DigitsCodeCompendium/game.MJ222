@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="StageDefinition" format=3]
+[gd_resource type="Resource" script_class="StageDefinition" format=3 uid="uid://o1ay3vxmi24w"]
 
-[ext_resource type="Script" path="res://scripts/progression/stage_definition.gd" id="stage"]
-[ext_resource type="PackedScene" path="res://scenes/battle/environments/forest_environment.tscn" id="environment"]
-[ext_resource type="Resource" path="res://resources/stages/spawn_rules/stone.tres" id="rules"]
+[ext_resource type="PackedScene" path="res://scenes/battle/environments/stone_hollow_environment.tscn" id="environment"]
+[ext_resource type="Resource" uid="uid://bbgmj5ip5fcau" path="res://resources/stages/spawn_rules/stone.tres" id="rules"]
+[ext_resource type="Script" uid="uid://c6rljso0vjcwu" path="res://scripts/progression/stage_definition.gd" id="stage"]
 
 [resource]
 script = ExtResource("stage")
