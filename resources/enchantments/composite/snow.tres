@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+
+[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/enchantments/basic/water.tres" id="a"]
+
+[resource]
+script = ExtResource("script")
+display_name = "Snow"
+primary_color = Color(0.882353, 0.952941, 0.968627, 1)
+description = "No special ability yet."
+base_attack = 4
+base_health = 4
+component1 = ExtResource("a")
+component2 = ExtResource("a")

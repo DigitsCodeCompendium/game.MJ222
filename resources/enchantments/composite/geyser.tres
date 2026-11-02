@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+
+[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/steam.tres" id="a"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/mountain.tres" id="b"]
+
+[resource]
+script = ExtResource("script")
+display_name = "Geyser"
+primary_color = Color(0.447059, 0.847059, 0.870588, 1)
+description = "No special ability yet."
+base_attack = 8
+base_health = 8
+component1 = ExtResource("a")
+component2 = ExtResource("b")

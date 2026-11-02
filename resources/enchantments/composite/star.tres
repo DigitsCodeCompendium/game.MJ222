@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+
+[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/plasma.tres" id="a"]
+
+[resource]
+script = ExtResource("script")
+display_name = "Star"
+primary_color = Color(1.000000, 0.890196, 0.541176, 1)
+description = "No special ability yet."
+base_attack = 8
+base_health = 8
+component1 = ExtResource("a")
+component2 = ExtResource("a")

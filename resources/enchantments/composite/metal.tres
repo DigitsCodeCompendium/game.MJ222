@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+
+[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/enchantments/basic/earth.tres" id="a"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/lava.tres" id="b"]
+
+[resource]
+script = ExtResource("script")
+display_name = "Metal"
+primary_color = Color(0.627451, 0.674510, 0.717647, 1)
+description = "No special ability yet."
+base_attack = 6
+base_health = 6
+component1 = ExtResource("a")
+component2 = ExtResource("b")

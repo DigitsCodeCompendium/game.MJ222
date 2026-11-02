@@ -55,7 +55,7 @@ func generate_random_team(rng: RandomNumberGenerator, max_size: int, total_cost:
 			enchantments_by_cost[bracket.cost] = allowed
 	if valid_costs.is_empty():
 		return []
-	# Prices 1/4/10 leave gaps with five slots. Buy the most expensive affordable
+	# Merge prices leave gaps with five slots. Buy the most expensive affordable
 	# composition, then spend leftover coins on upgrades at the player's price.
 	var base_cost = mini(total_cost, max_size * valid_costs.max())
 	var valid_teams = enumerate_unordered_teams(max_size, valid_costs, base_cost)

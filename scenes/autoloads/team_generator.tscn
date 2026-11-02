@@ -20,6 +20,49 @@
 [ext_resource type="Resource" uid="uid://n7e2cfwac1q5" path="res://resources/enchantments/composite/void.tres" id="13_e3o71"]
 [ext_resource type="Resource" uid="uid://cl11h4rqamlk8" path="res://resources/enchantments/special/super_cat.tres" id="14_lu30a"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/composite/snow.tres" id="new_snow"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/mud.tres" id="new_mud"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/star.tres" id="new_star"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/lightning.tres" id="new_lightning"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/solar_flare.tres" id="new_solar_flare"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/pyroclastic.tres" id="new_pyroclastic"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/hurricane.tres" id="new_hurricane"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/geyser.tres" id="new_geyser"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/magma.tres" id="new_magma"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/volcano.tres" id="new_volcano"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/tesla.tres" id="new_tesla"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/silicon.tres" id="new_silicon"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/permafrost.tres" id="new_permafrost"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/glacier.tres" id="new_glacier"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/concrete.tres" id="new_concrete"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/tornado.tres" id="new_tornado"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/sand_storm.tres" id="new_sand_storm"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/planet.tres" id="new_planet"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dune.tres" id="new_dune"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/fusion.tres" id="new_fusion"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/comet.tres" id="new_comet"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/clay.tres" id="new_clay"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/glass.tres" id="new_glass"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/energy.tres" id="new_energy"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/rain.tres" id="new_rain"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/obsidian.tres" id="new_obsidian"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/current.tres" id="new_current"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/whirlpool.tres" id="new_whirlpool"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/time.tres" id="new_time"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dew.tres" id="new_dew"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/metal.tres" id="new_metal"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/earthquake.tres" id="new_earthquake"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/strata.tres" id="new_strata"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/matter.tres" id="new_matter"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/ion.tres" id="new_ion"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/cloud.tres" id="new_cloud"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/static.tres" id="new_static"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/hail.tres" id="new_hail"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/life.tres" id="new_life"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/meteorite.tres" id="new_meteorite"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/dust.tres" id="new_dust"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/space.tres" id="new_space"]
+
 [sub_resource type="Resource" id="Resource_5uqd6"]
 script = ExtResource("2_5mcuc")
 tier = 2
@@ -27,7 +70,7 @@ weight_early = 0.0
 weight_late = 2.0
 base_attack = 4
 base_health = 4
-enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_42vx2"), ExtResource("5_lu30a"), ExtResource("6_gwvmu"), ExtResource("7_yb3xs"), ExtResource("8_r1x1h"), ExtResource("9_qaejx"), ExtResource("10_0dsee"), ExtResource("11_g2gvh"), ExtResource("12_vh6k7"), ExtResource("13_e3o71"), ExtResource("14_lu30a")])
+enchantments = Array[ExtResource("3_klsnn")]([ExtResource("9_qaejx"), ExtResource("11_g2gvh"), ExtResource("6_gwvmu"), ExtResource("4_42vx2"), ExtResource("new_snow"), ExtResource("new_mud"), ExtResource("12_vh6k7"), ExtResource("7_yb3xs"), ExtResource("10_0dsee"), ExtResource("13_e3o71"), ExtResource("14_lu30a")])
 metadata/_custom_type_script = "uid://crtnix4jdgra8"
 
 [sub_resource type="Resource" id="Resource_42vx2"]
@@ -47,6 +90,24 @@ base_health = 1
 enchantments = Array[ExtResource("3_klsnn")]([ExtResource("4_1ippc")])
 metadata/_custom_type_script = "uid://crtnix4jdgra8"
 
+[sub_resource type="Resource" id="Tier_3"]
+script = ExtResource("2_5mcuc")
+tier = 3
+weight_early = 0.0
+weight_late = 1.0
+base_attack = 6
+base_health = 6
+enchantments = Array[ExtResource("3_klsnn")]([ExtResource("new_fusion"), ExtResource("new_comet"), ExtResource("new_clay"), ExtResource("new_glass"), ExtResource("new_energy"), ExtResource("new_rain"), ExtResource("new_obsidian"), ExtResource("new_current"), ExtResource("new_whirlpool"), ExtResource("new_time"), ExtResource("new_dew"), ExtResource("new_metal"), ExtResource("8_r1x1h"), ExtResource("new_earthquake"), ExtResource("new_strata"), ExtResource("new_matter"), ExtResource("new_ion"), ExtResource("new_cloud"), ExtResource("new_static"), ExtResource("new_hail"), ExtResource("new_life"), ExtResource("new_meteorite"), ExtResource("new_dust"), ExtResource("new_space")])
+
+[sub_resource type="Resource" id="Tier_4"]
+script = ExtResource("2_5mcuc")
+tier = 4
+weight_early = 0.0
+weight_late = 1.0
+base_attack = 8
+base_health = 8
+enchantments = Array[ExtResource("3_klsnn")]([ExtResource("new_star"), ExtResource("new_lightning"), ExtResource("new_solar_flare"), ExtResource("new_pyroclastic"), ExtResource("new_hurricane"), ExtResource("new_geyser"), ExtResource("new_magma"), ExtResource("new_volcano"), ExtResource("new_tesla"), ExtResource("new_silicon"), ExtResource("5_lu30a"), ExtResource("new_permafrost"), ExtResource("new_glacier"), ExtResource("new_concrete"), ExtResource("new_tornado"), ExtResource("new_sand_storm"), ExtResource("new_planet"), ExtResource("new_dune")])
+
 [node name="TeamGenerator" type="Node" unique_id=2104276785]
 script = ExtResource("1_8rtnf")
-cost_brackets = Array[ExtResource("2_5mcuc")]([SubResource("Resource_5uqd6"), SubResource("Resource_42vx2"), SubResource("Resource_klsnn")])
+cost_brackets = Array[ExtResource("2_5mcuc")]([SubResource("Tier_4"), SubResource("Tier_3"), SubResource("Resource_5uqd6"), SubResource("Resource_42vx2"), SubResource("Resource_klsnn")])

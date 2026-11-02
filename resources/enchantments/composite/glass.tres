@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+
+[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/enchantments/basic/fire.tres" id="a"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/sand.tres" id="b"]
+
+[resource]
+script = ExtResource("script")
+display_name = "Glass"
+primary_color = Color(0.709804, 0.898039, 0.843137, 1)
+description = "No special ability."
+base_attack = 20
+base_health = 1
+component1 = ExtResource("a")
+component2 = ExtResource("b")

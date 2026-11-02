@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+
+[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/enchantments/basic/air.tres" id="a"]
+[ext_resource type="Resource" path="res://resources/enchantments/composite/steam.tres" id="b"]
+
+[resource]
+script = ExtResource("script")
+display_name = "Cloud"
+primary_color = Color(0.858824, 0.886275, 0.909804, 1)
+description = "No special ability yet."
+base_attack = 6
+base_health = 6
+component1 = ExtResource("a")
+component2 = ExtResource("b")
