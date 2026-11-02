@@ -6,4 +6,5 @@
 script = ExtResource("script")
 status_id = &"chilled"
 display_name = "Chilled"
-description = "The next normal attack deals 1 less damage, to a minimum of 1. Does not stack."
+description = "Normal attacks deal 1 less damage, to a minimum of 1. At the end of each turn, lose 1 stack that was present at the start of that turn. Newly applied stacks last into the following turn. Abilities can also consume or remove stacks."
+stackable = true

@@ -2,16 +2,16 @@
 
 [ext_resource type="Resource" path="res://resources/enchantments/composite/snow.tres" id="1_fx4ty"]
 [ext_resource type="Script" uid="uid://bi1rol8rd0tfn" path="res://scripts/enchantments/composite/enchantment_ice.gd" id="1_y8mkm"]
-[ext_resource type="Resource" uid="uid://bbbwvxwqx0s2h" path="res://resources/enchantments/special/ice_statue.tres" id="3_gk7ps"]
+[ext_resource type="Resource" path="res://resources/status_effects/chilled.tres" id="chilled"]
 [ext_resource type="Material" uid="uid://bgmrxvvdll7e1" path="res://assets/cat/elements/ice_cat.tres" id="material"]
 [ext_resource type="PackedScene" path="res://scenes/cat/models/ice_cat.tscn" id="model"]
 
 [resource]
 script = ExtResource("1_y8mkm")
-enchantment_ice_statue = ExtResource("3_gk7ps")
+chilled_effect = ExtResource("chilled")
 display_name = "Ice"
 primary_color = Color(0.09803922, 0.36078432, 0.42352942, 1)
-description = "Upon fainting, summon an ice statue with half of the stats of this squeeb."
+description = "Before attacking, gain +1 damage for this normal attack per Chill stack on the target, then consume 1 stack. After attacking, apply 1 Chill stack to the target."
 base_attack = 3
 base_health = 5
 cat_material = ExtResource("material")

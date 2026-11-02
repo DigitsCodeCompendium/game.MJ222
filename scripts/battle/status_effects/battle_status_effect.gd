@@ -6,6 +6,7 @@ extends Resource
 @export var display_name: String
 @export_multiline var description: String
 @export var visual_scene: PackedScene
+@export var stackable: bool = false
 
 ## Return true to prevent this hit. Effects may remove themselves when consumed.
 func blocks_damage(_cat: BattleCat, _amount: int) -> bool:
@@ -19,4 +20,7 @@ func modify_attack_damage(_cat: BattleCat, amount: int) -> int:
 	return amount
 
 func after_normal_attack(_cat: BattleCat) -> void:
+	pass
+
+func after_battle_turn(_cat: BattleCat) -> void:
 	pass

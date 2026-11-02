@@ -53,6 +53,7 @@ func update_cat() -> void:
 	$Panel/Content/Stats/Health.text = "HP %d" % attached_cat.health
 	var status_names: PackedStringArray = []
 	for effect in attached_cat.get_status_effects():
-		status_names.append(effect.display_name)
+		var stacks = attached_cat.get_status_effect_stacks(effect.status_id)
+		status_names.append("%s (%d)" % [effect.display_name, stacks] if effect.stackable else effect.display_name)
 	$Panel/Content/Status.visible = not status_names.is_empty()
 	$Panel/Content/Status.text = ", ".join(status_names)

@@ -63,6 +63,8 @@ func get_all_cats() -> Array[BattleCat]:
 	return cats_left + cats_right
 
 func do_turn():
+	for cat in get_all_cats():
+		cat.begin_battle_turn()
 	print("Start turn %s: player team size %s, enemy team size %s" % [turn_index + 1, cats_left.size(), cats_right.size()])
 	await Promise.all([
 		Promise.new(cats_left[0].enchantment.before_attack.bind(self, cats_left[0])),
@@ -100,6 +102,7 @@ func do_turn():
 	await animate_attack_and_hurt()
 	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
+		_finish_status_effect_turn()
 		return
 	
 	var animations: Array[Promise] = []
@@ -115,6 +118,7 @@ func do_turn():
 	await animate_attack_and_hurt()
 	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
+		_finish_status_effect_turn()
 		return
 
 	animations = []
@@ -126,7 +130,14 @@ func do_turn():
 	await animate_attack_and_hurt()
 	await check_for_deaths_and_move_all_cats()
 	if is_battle_over():
+		_finish_status_effect_turn()
 		return
+	_finish_status_effect_turn()
+
+func _finish_status_effect_turn() -> void:
+	for cat in get_all_cats():
+		cat.finish_battle_turn()
+	sync_ui()
 
 func sync_ui():
 	refresh_status_effect_auras()
@@ -237,6 +248,10 @@ func check_for_deaths_and_move_all_cats():
 	while i < cats_left.size():
 		if cats_left[i].health <= 0:
 			cats_left[i].enchantment.before_death(self, cats_left[i])
+			if cats_left[i].health > 0:
+				sync_ui()
+				i += 1
+				continue
 			for ally_cat in cats_left:
 				if ally_cat != cats_left[i]:
 					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_left[i])
@@ -250,6 +265,10 @@ func check_for_deaths_and_move_all_cats():
 	while i < cats_right.size():
 		if cats_right[i].health <= 0:
 			cats_right[i].enchantment.before_death(self, cats_right[i])
+			if cats_right[i].health > 0:
+				sync_ui()
+				i += 1
+				continue
 			for ally_cat in cats_right:
 				if ally_cat != cats_right[i]:
 					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_right[i])

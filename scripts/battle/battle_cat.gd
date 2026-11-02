@@ -20,7 +20,11 @@ var health: int:
 		battle_traits_changed.emit()
 
 var shroud_ability_used: bool
+var preservation_used: bool
+var normal_attack_bonus: int
 var _status_effects: Array[BattleStatusEffect] = []
+var _status_stacks: Dictionary[StringName, int] = {}
+var _turn_start_status_stacks: Dictionary[StringName, int] = {}
 var _status_visuals: Dictionary[StringName, Node3D] = {}
 var _direct_status_effects: Dictionary[StringName, BattleStatusEffect] = {}
 # Keys are the enchantment (innate effects) or battle manager (combined ally auras).
@@ -52,6 +56,8 @@ func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	health = base_health
 	
 	shroud_ability_used = false
+	preservation_used = false
+	normal_attack_bonus = 0
 	did_attack = false
 	was_damaged = false
 	last_attack_target = null
@@ -68,7 +74,7 @@ func set_enchantment(e: Enchantment) -> void:
 	battle_traits_changed.emit()
 
 func get_attack_damage() -> int:
-	var amount = attack
+	var amount = attack + normal_attack_bonus
 	for effect in _status_effects:
 		amount = effect.modify_attack_damage(self, amount)
 	return amount
@@ -77,6 +83,17 @@ func finish_normal_attack() -> void:
 	for effect in _status_effects.duplicate():
 		if has_status_effect(effect.status_id):
 			effect.after_normal_attack(self)
+	normal_attack_bonus = 0
+
+func begin_battle_turn() -> void:
+	_turn_start_status_stacks = _status_stacks.duplicate()
+
+func finish_battle_turn() -> void:
+	# Freshly applied stacks get a chance to affect the following turn.
+	for effect in _status_effects.duplicate():
+		if _turn_start_status_stacks.get(effect.status_id, 0) > 0:
+			effect.after_battle_turn(self)
+	_turn_start_status_stacks.clear()
 
 func take_damage(amount: int):
 	# A consumed effect can remove itself while processing this hit.
@@ -99,16 +116,40 @@ func has_status_effect(status_id: StringName) -> bool:
 			return true
 	return false
 
-## Effects do not stack: a Squeeb can have one active effect per ID.
-func add_status_effect(effect: BattleStatusEffect) -> bool:
-	if effect == null or effect.status_id.is_empty() or has_status_effect(effect.status_id):
+## Only effects explicitly marked stackable can accumulate more than one stack.
+func add_status_effect(effect: BattleStatusEffect, stacks: int = 1) -> bool:
+	if effect == null or effect.status_id.is_empty() or stacks <= 0:
 		return false
+	if has_status_effect(effect.status_id):
+		if not effect.stackable:
+			return false
+		_status_stacks[effect.status_id] += stacks
+		status_effects_changed.emit()
+		return true
 	_direct_status_effects[effect.status_id] = effect
-	_activate_status_effect(effect)
+	_activate_status_effect(effect, stacks if effect.stackable else 1)
 	return true
 
-func _activate_status_effect(effect: BattleStatusEffect) -> void:
+func get_status_effect_stacks(status_id: StringName) -> int:
+	return _status_stacks.get(status_id, 0)
+
+## Returns how many stacks were consumed; consuming the last removes the effect.
+func consume_status_effect_stacks(status_id: StringName, amount: int = 1) -> int:
+	var consumed = mini(get_status_effect_stacks(status_id), maxi(0, amount))
+	if consumed == 0:
+		return 0
+	_status_stacks[status_id] -= consumed
+	if _turn_start_status_stacks.has(status_id):
+		_turn_start_status_stacks[status_id] = maxi(0, _turn_start_status_stacks[status_id] - consumed)
+	if _status_stacks[status_id] == 0:
+		remove_status_effect(status_id)
+	else:
+		status_effects_changed.emit()
+	return consumed
+
+func _activate_status_effect(effect: BattleStatusEffect, stacks: int = 1) -> void:
 	_status_effects.append(effect)
+	_status_stacks[effect.status_id] = stacks
 	if is_node_ready():
 		_create_status_visual(effect)
 	status_effects_changed.emit()
@@ -123,6 +164,8 @@ func _deactivate_status_effect(status_id: StringName) -> void:
 		if effect.status_id != status_id:
 			continue
 		_status_effects.erase(effect)
+		_status_stacks.erase(status_id)
+		_turn_start_status_stacks.erase(status_id)
 		var effect_visual = get_status_visual(status_id)
 		if effect_visual != null:
 			effect_visual.hide()
