@@ -12,7 +12,7 @@ inspired_effect = ExtResource("inspired")
 
 display_name = "Comet"
 primary_color = Color(0.674510, 0.811765, 0.956863, 1)
-description = "At combat start, give all teammates Inspired: on their first normal attack, strike a second time if still alive."
+description = "At combat start, give all teammates Inspired, allowing them to strike a second time on their first normal attack if still alive."
 base_attack = 4
 base_health = 4
 component1 = ExtResource("a")

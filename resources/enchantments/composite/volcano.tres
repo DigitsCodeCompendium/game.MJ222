@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentVolcano" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_volcano.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/lava.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/mountain.tres" id="b"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/composite/lava.tres" id="summon"]
+
 [resource]
 script = ExtResource("script")
+lava_enchantment = ExtResource("summon")
+
 display_name = "Volcano"
 primary_color = Color(0.650980, 0.282353, 0.196078, 1)
-description = "No special ability yet."
+description = "Once per combat, when this Squeeb first falls below half its starting health, summon a Lava Squeeb at the front of the team. If there is no free slot, the summon is tossed away."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

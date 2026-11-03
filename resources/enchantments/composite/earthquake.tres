@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentEarthquake" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_earthquake.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/basic/earth.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="b"]
 
 [resource]
 script = ExtResource("script")
+
 display_name = "Earthquake"
 primary_color = Color(0.549020, 0.454902, 0.368627, 1)
-description = "No special ability yet."
+description = "At combat start, swap the front two enemies and swap the back two enemies. Immovable enemies cannot be swapped. With fewer than four enemies, only swap the front pair."
 base_attack = 4
 base_health = 4
 component1 = ExtResource("a")

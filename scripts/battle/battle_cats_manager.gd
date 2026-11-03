@@ -65,6 +65,7 @@ func load_cats():
 	for cat in get_all_cats():
 		cat.enchantment.after_battle_start(self, cat)
 	sync_ui()
+	move_all_cats(true)
 
 func get_all_cats() -> Array[BattleCat]:
 	return cats_left + cats_right
@@ -348,7 +349,7 @@ func check_for_deaths_and_move_all_cats():
 		else:
 			i += 1
 	
-	if dead_cats.size() > 0:
+	if not dead_cats.is_empty() or not _pending_summons.is_empty():
 		var death_animations: Array[Promise] = []
 		for cat in dead_cats:
 			cat.enchantment.after_death(self, cat)
