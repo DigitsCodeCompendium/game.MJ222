@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("script")
-display_name = "Worm"
+display_name = "Shai"
 primary_color = Color(0.73, 0.51, 0.27, 1)
 description = "Has the combined attack and remaining health of the Squeebs it swallowed."
 base_attack = 1

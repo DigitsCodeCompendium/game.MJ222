@@ -333,7 +333,7 @@ func swallow_into_worm(source: BattleCat, victims: Array[BattleCat], worm: Encha
 		var no_effects: Array[BattleStatusEffect] = []
 		victim.set_status_effect_grants(self, no_effects)
 		_animate_swallowed(victim, source.position)
-	queue_summon(team, "Worm", worm, attack, health, source, team.find(source))
+	queue_summon(team, "Shai", worm, attack, health, source, team.find(source))
 	var emerging = preload("res://scenes/cat/cat_visual.tscn").instantiate() as CatVisual
 	emerging.enchantment = worm
 	emerging.name = "EmergingWorm"
