@@ -1,13 +1,23 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentStar" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_star.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/plasma.tres" id="a"]
+
+[ext_resource type="Script" path="res://scripts/battle/status_effects/star_stage_status_effect.gd" id="stage_script"]
+[ext_resource type="Resource" path="res://resources/status_effects/star_stages/nebula.tres" id="nebula"]
+[ext_resource type="Resource" path="res://resources/status_effects/star_stages/protostar.tres" id="protostar"]
+[ext_resource type="Resource" path="res://resources/status_effects/star_stages/main_sequence.tres" id="main_sequence"]
+[ext_resource type="Resource" path="res://resources/status_effects/star_stages/giant.tres" id="giant"]
+[ext_resource type="Resource" path="res://resources/status_effects/star_stages/super_giant.tres" id="super_giant"]
+[ext_resource type="Resource" path="res://resources/status_effects/star_stages/dwarf.tres" id="dwarf"]
 
 [resource]
 script = ExtResource("script")
+stages = Array[ExtResource("stage_script")]([ExtResource("nebula"), ExtResource("protostar"), ExtResource("main_sequence"), ExtResource("giant"), ExtResource("super_giant"), ExtResource("dwarf")])
+
 display_name = "Star"
 primary_color = Color(1.000000, 0.890196, 0.541176, 1)
-description = "No special ability yet."
+description = "Starts as Nebula. At each turn end, advance through Protostar (+2/+2), Main Sequence (+4/+4), Giant (+6/+6), Super Giant (+10/+10), then Dwarf (-2/+2). Each stage replaces the previous bonus. Stage changes never lower living health below 1."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

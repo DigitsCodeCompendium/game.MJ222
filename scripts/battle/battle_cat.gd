@@ -22,6 +22,8 @@ var health: int:
 var shroud_ability_used: bool
 var preservation_used: bool
 var normal_attack_bonus: int
+var has_made_normal_attack: bool
+var ability_state: Dictionary = {}
 var _status_effects: Array[BattleStatusEffect] = []
 var _status_stacks: Dictionary[StringName, int] = {}
 var _turn_start_status_stacks: Dictionary[StringName, int] = {}
@@ -58,13 +60,16 @@ func load_cat(n: String, e: Enchantment, base_attack: int, base_health: int):
 	shroud_ability_used = false
 	preservation_used = false
 	normal_attack_bonus = 0
+	has_made_normal_attack = false
 	did_attack = false
 	was_damaged = false
 	last_attack_target = null
 
 func set_enchantment(e: Enchantment) -> void:
 	if _enchantment != null:
+		_enchantment.on_battle_enchantment_removed(self)
 		_status_effect_grants.erase(_enchantment)
+	ability_state.clear()
 	_enchantment = e
 	if e != null:
 		_status_effect_grants[e] = e.innate_status_effects
@@ -84,6 +89,13 @@ func finish_normal_attack() -> void:
 		if has_status_effect(effect.status_id):
 			effect.after_normal_attack(self)
 	normal_attack_bonus = 0
+	has_made_normal_attack = true
+
+func normal_attack_count() -> int:
+	var count = 1
+	for effect in _status_effects:
+		count += maxi(0, effect.extra_normal_attacks(self))
+	return count
 
 func begin_battle_turn() -> void:
 	_turn_start_status_stacks = _status_stacks.duplicate()
@@ -100,6 +112,10 @@ func take_damage(amount: int):
 	for effect in _status_effects.duplicate():
 		if has_status_effect(effect.status_id) and effect.blocks_damage(self, amount):
 			return
+	for effect in _status_effects:
+		amount = effect.modify_incoming_damage(self, amount)
+	if amount <= 0:
+		return
 	health -= amount
 	was_damaged = true
 

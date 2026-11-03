@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StarStageStatusEffect" format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/status_effects/star_stage_status_effect.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+status_id = &"star_main_sequence"
+display_name = "Main Sequence"
+description = "Current Star stage: +4 attack / +4 health. Replaces the previous stage bonus."
+attack_bonus = 4
+health_bonus = 4

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InspiredStatusEffect" format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/status_effects/inspired_status_effect.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+status_id = &"inspired"
+display_name = "Inspired"
+description = "On its first normal attack, strike a second time if still alive. The extra strike does not cause another enemy retaliation."

@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentComet" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_comet.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/basic/fire.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/snow.tres" id="b"]
 
+[ext_resource type="Resource" path="res://resources/status_effects/inspired.tres" id="inspired"]
+
 [resource]
 script = ExtResource("script")
+inspired_effect = ExtResource("inspired")
+
 display_name = "Comet"
 primary_color = Color(0.674510, 0.811765, 0.956863, 1)
-description = "No special ability yet."
+description = "At combat start, give all teammates Inspired: on their first normal attack, strike a second time if still alive."
 base_attack = 4
 base_health = 4
 component1 = ExtResource("a")

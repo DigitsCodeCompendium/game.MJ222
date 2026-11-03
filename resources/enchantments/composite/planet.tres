@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentPlanet" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_planet.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/mountain.tres" id="a"]
+
+[ext_resource type="Resource" path="res://resources/status_effects/rings.tres" id="rings"]
+[ext_resource type="Resource" path="res://resources/enchantments/special/fragment.tres" id="fragment"]
 
 [resource]
 script = ExtResource("script")
+rings_effect = ExtResource("rings")
+fragment_enchantment = ExtResource("fragment")
+
 display_name = "Planet"
 primary_color = Color(0.419608, 0.623529, 0.533333, 1)
-description = "No special ability yet."
+description = "Adapts to every distinct base element of the teammate directly behind it, including composite ancestry. Earth: +10 attack. Water: on fainting, give the next living teammate Rings (take 2 less damage per hit). Fire: on fainting, summon two ability-free 5/5 Fragments; extras are tossed away if the team has no free slots. Air: no effect yet."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

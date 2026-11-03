@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentMeteorite" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_meteorite.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/basic/air.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/mountain.tres" id="b"]
 
+
 [resource]
 script = ExtResource("script")
+
 display_name = "Meteorite"
 primary_color = Color(0.525490, 0.427451, 0.450980, 1)
-description = "No special ability yet."
+description = "At combat start, deal 1 damage to every Squeeb on both teams, including itself, for every full 3 attack this Squeeb has."
 base_attack = 4
 base_health = 4
 component1 = ExtResource("a")

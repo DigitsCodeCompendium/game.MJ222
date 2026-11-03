@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StarStageStatusEffect" format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/status_effects/star_stage_status_effect.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+status_id = &"star_dwarf"
+display_name = "Dwarf"
+description = "Current Star stage: -2 attack / +2 health. Replaces the previous stage bonus."
+attack_bonus = -2
+health_bonus = 2

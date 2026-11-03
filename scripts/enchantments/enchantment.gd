@@ -56,3 +56,9 @@ func after_battle_turn(cats: BattleCatsManager, self_cat: BattleCat):
 
 func after_prep_start():
 	pass
+
+func refresh_battle_passives(_cats: BattleCatsManager, _self_cat: BattleCat) -> void:
+	pass
+
+func on_battle_enchantment_removed(_self_cat: BattleCat) -> void:
+	pass

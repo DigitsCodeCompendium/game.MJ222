@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RingsStatusEffect" format=3]
+
+[ext_resource type="Script" path="res://scripts/battle/status_effects/rings_status_effect.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+status_id = &"rings"
+display_name = "Rings"
+description = "Take 2 less damage from each hit, to a minimum of 0. Lasts for the rest of combat."

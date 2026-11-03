@@ -1,6 +1,8 @@
 class_name BattleCatsManager
 extends Node3D
 
+signal summon_tossed(enchantment: Enchantment)
+
 @export var battle_cat_scene: PackedScene
 @export var battle_cat_ui_scene: PackedScene
 
@@ -16,6 +18,8 @@ extends Node3D
 
 var turn_index: int
 var _lives_lost: int = 0
+var _refreshing_passives = false
+var _pending_summons: Array[Dictionary] = []
 # Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
@@ -27,6 +31,9 @@ func _ready():
 	
 	load_cats()
 	%ResultContainer.visible = false
+	# Resolve opening damage and summons before selecting the first attackers.
+	await animate_attack_and_hurt()
+	await check_for_deaths_and_move_all_cats()
 	
 	await get_tree().create_timer(1, false).timeout
 	
@@ -66,73 +73,79 @@ func do_turn():
 	for cat in get_all_cats():
 		cat.begin_battle_turn()
 	print("Start turn %s: player team size %s, enemy team size %s" % [turn_index + 1, cats_left.size(), cats_right.size()])
-	await Promise.all([
-		Promise.new(cats_left[0].enchantment.before_attack.bind(self, cats_left[0])),
-		Promise.new(cats_right[0].enchantment.before_attack.bind(self, cats_right[0]))
-	])
-	sync_ui()
-	
-	# Snapshot both attacks before consuming temporary modifiers or dealing damage.
-	var left_attacker = cats_left[0]
-	var right_attacker = cats_right[0]
-	left_attacker.last_attack_target = right_attacker
-	right_attacker.last_attack_target = left_attacker
-	var left_damage = left_attacker.get_attack_damage()
-	var right_damage = right_attacker.get_attack_damage()
-	right_attacker.enchantment.handle_attack_damage(self, right_attacker, left_damage)
-	left_attacker.enchantment.handle_attack_damage(self, left_attacker, right_damage)
-	left_attacker.finish_normal_attack()
-	right_attacker.finish_normal_attack()
-	cats_left[0].did_attack = true
-	cats_right[0].did_attack = true
-	sync_ui()
-	
-	await animate_attack_and_hurt(direct_attack_hurt_delay)
-	
-	# Save a snapshot of which cats should get the "ally attacked" event, because the cats order may change
-	var ally_cats_left = cats_left.slice(1)
-	var ally_cats_right = cats_right.slice(1)
-	
-	await Promise.all([
-		Promise.new(cats_left[0].enchantment.after_attack.bind(self, cats_left[0])),
-		Promise.new(cats_right[0].enchantment.after_attack.bind(self, cats_right[0]))
-	])
-	sync_ui()
-	
-	await animate_attack_and_hurt()
-	await check_for_deaths_and_move_all_cats()
-	if is_battle_over():
-		_finish_status_effect_turn()
-		return
-	
-	var animations: Array[Promise] = []
-	for cat in ally_cats_left:
-		if is_instance_valid(cat) and cat in cats_left:
-			animations.append(Promise.new(cat.enchantment.after_ally_attack.bind(self, cat)))
-	for cat in ally_cats_right:
-		if is_instance_valid(cat) and cat in cats_right:
-			animations.append(Promise.new(cat.enchantment.after_ally_attack.bind(self, cat)))
-	await Promise.all(animations)
-	sync_ui()
-	
-	await animate_attack_and_hurt()
-	await check_for_deaths_and_move_all_cats()
-	if is_battle_over():
-		_finish_status_effect_turn()
-		return
-
-	animations = []
-	for cat in get_all_cats():
-		animations.append(Promise.new(cat.enchantment.after_battle_turn.bind(self, cat)))
-	await Promise.all(animations)
-	sync_ui()
-	
-	await animate_attack_and_hurt()
-	await check_for_deaths_and_move_all_cats()
-	if is_battle_over():
-		_finish_status_effect_turn()
-		return
+	var original_attackers: Array[BattleCat] = [cats_left[0], cats_right[0]]
+	var attack_counts: Array[int] = []
+	for attacker in original_attackers:
+		attack_counts.append(attacker.normal_attack_count())
+	# Inspired is consumed on the first strike; cache the granted second strike.
+	for strike in range(attack_counts.max()):
+		if is_battle_over():
+			break
+		var attackers: Array[BattleCat] = []
+		for i in original_attackers.size():
+			var attacker = original_attackers[i]
+			if strike < attack_counts[i] and is_instance_valid(attacker) and attacker in get_all_cats() and attacker.health > 0:
+				attackers.append(attacker)
+		if not attackers.is_empty():
+			await _do_normal_attack_round(attackers)
+	if not is_battle_over():
+		var animations: Array[Promise] = []
+		for cat in get_all_cats():
+			animations.append(Promise.new(cat.enchantment.after_battle_turn.bind(self, cat)))
+		await Promise.all(animations)
+		sync_ui()
+		await animate_attack_and_hurt()
+		await check_for_deaths_and_move_all_cats()
 	_finish_status_effect_turn()
+
+func _do_normal_attack_round(attackers: Array[BattleCat]):
+	var animations: Array[Promise] = []
+	for attacker in attackers:
+		animations.append(Promise.new(attacker.enchantment.before_attack.bind(self, attacker)))
+	await Promise.all(animations)
+	sync_ui()
+	var targets: Array[BattleCat] = []
+	var damages: Array[int] = []
+	for attacker in attackers:
+		var opponents = get_opposing_team(get_cat_team(attacker))
+		if opponents.is_empty():
+			return
+		attacker.last_attack_target = opponents[0]
+		targets.append(opponents[0])
+		damages.append(attacker.get_attack_damage())
+	# Both sides' damage is captured before either hit or status consumption.
+	for i in attackers.size():
+		targets[i].enchantment.handle_attack_damage(self, targets[i], damages[i])
+	for attacker in attackers:
+		attacker.finish_normal_attack()
+		attacker.did_attack = true
+	sync_ui()
+	await animate_attack_and_hurt(direct_attack_hurt_delay)
+	var ally_snapshots: Array[Array] = []
+	for attacker in attackers:
+		var allies: Array[BattleCat] = []
+		for ally in get_cat_team(attacker):
+			if ally != attacker:
+				allies.append(ally)
+		ally_snapshots.append(allies)
+	animations = []
+	for attacker in attackers:
+		animations.append(Promise.new(attacker.enchantment.after_attack.bind(self, attacker)))
+	await Promise.all(animations)
+	sync_ui()
+	await animate_attack_and_hurt()
+	await check_for_deaths_and_move_all_cats()
+	if is_battle_over():
+		return
+	animations = []
+	for allies in ally_snapshots:
+		for ally in allies:
+			if is_instance_valid(ally) and ally in get_all_cats():
+				animations.append(Promise.new(ally.enchantment.after_ally_attack.bind(self, ally)))
+	await Promise.all(animations)
+	sync_ui()
+	await animate_attack_and_hurt()
+	await check_for_deaths_and_move_all_cats()
 
 func _finish_status_effect_turn() -> void:
 	for cat in get_all_cats():
@@ -145,8 +158,14 @@ func sync_ui():
 		if cat.attached_ui != null:
 			cat.attached_ui.update_cat()
 
-## Rebuild from the current lineup so overlapping auras never remove each other.
+## Refresh lineup-dependent passives and combine overlapping status auras.
 func refresh_status_effect_auras() -> void:
+	if _refreshing_passives:
+		return
+	_refreshing_passives = true
+	for cat in get_all_cats():
+		if cat.enchantment != null:
+			cat.enchantment.refresh_battle_passives(self, cat)
 	for team in [cats_left, cats_right]:
 		for i in team.size():
 			var effects: Array[BattleStatusEffect] = []
@@ -156,6 +175,7 @@ func refresh_status_effect_auras() -> void:
 					if source.health > 0 and source.enchantment != null:
 						effects.append_array(source.enchantment.adjacent_status_effects)
 			team[i].set_status_effect_grants(self, effects)
+	_refreshing_passives = false
 
 func load_cats_from_data(team: Array[BattleCat], cats_data: Array[CatData]):
 	for cat_data in cats_data:
@@ -164,6 +184,8 @@ func load_cats_from_data(team: Array[BattleCat], cats_data: Array[CatData]):
 		add_cat(team, cat_data.cat_name, cat_data.enchantment, base_attack, base_health)
 
 func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment, attack: int, health: int, index: int = -1):
+	if team.size() >= GameManager.TEAM_SIZE:
+		return null
 	var cat = battle_cat_scene.instantiate() as BattleCat
 	cat.load_cat(cat_name, enchantment, attack, health)
 	
@@ -185,6 +207,53 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	refresh_status_effect_auras()
 	
 	return cat
+
+## Queue until fainted Squeebs leave the lineup, making their slots available.
+func queue_summon(team: Array[BattleCat], cat_name: String, enchantment: Enchantment, attack: int, health: int, origin: Node3D, index: int = -1, before: BattleCat = null) -> void:
+	_pending_summons.append({
+		"team": team, "cat_name": cat_name, "enchantment": enchantment,
+		"attack": attack, "health": health, "position": origin.position,
+		"rotation": origin.rotation, "index": index, "before": before,
+		"left_team": is_same(team, cats_left),
+	})
+
+func _resolve_pending_summons() -> void:
+	var requests = _pending_summons.duplicate()
+	_pending_summons.clear()
+	for request in requests:
+		var team: Array[BattleCat] = request.team
+		if team.size() >= GameManager.TEAM_SIZE:
+			_toss_summon(request)
+			continue
+		var index: int = request.index
+		if is_instance_valid(request.before) and request.before in team:
+			index = team.find(request.before)
+		if index >= 0:
+			index = mini(index, team.size())
+		var cat = add_cat(team, request.cat_name, request.enchantment, request.attack, request.health, index)
+		cat.position = request.position
+		cat.rotation = request.rotation
+
+func _toss_summon(request: Dictionary) -> void:
+	# A visual only: never gets a field slot, collision, UI, or battle abilities.
+	var visual = preload("res://scenes/cat/cat_visual.tscn").instantiate() as CatVisual
+	visual.name = "TossedSummon"
+	visual.enchantment = request.enchantment
+	add_child(visual)
+	visual.position = request.position
+	visual.rotation = request.rotation
+	visual.play_loop("Idle")
+	var side = -1.0 if request.left_team else 1.0
+	var end = visual.position + Vector3(side * 4.5, -3.0, 2.0)
+	var tween = visual.create_tween().set_parallel()
+	tween.tween_method(_tween_toss.bind(visual, visual.position, end), 0.0, 1.0, 0.75)
+	tween.tween_property(visual, "rotation:z", visual.rotation.z + side * TAU, 0.75)
+	tween.tween_property(visual, "scale", Vector3.ONE * 0.05, 0.75).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.chain().tween_callback(visual.queue_free)
+	summon_tossed.emit(request.enchantment)
+
+func _tween_toss(t: float, visual: Node3D, start: Vector3, end: Vector3) -> void:
+	visual.position = start.lerp(end, t) + Vector3.UP * sin(t * PI) * 3.0
 
 func animate_attack_and_hurt(hurt_delay: float = 0):
 	var animations: Array[Promise] = []
@@ -285,6 +354,7 @@ func check_for_deaths_and_move_all_cats():
 			cat.enchantment.after_death(self, cat)
 			death_animations.append(Promise.new(animate_death_and_despawn.bind(cat)))
 		await Promise.all(death_animations)
+		_resolve_pending_summons()
 		sync_ui()
 		
 		# Death effects may have killed more cats, check again

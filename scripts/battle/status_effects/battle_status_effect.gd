@@ -12,6 +12,12 @@ extends Resource
 func blocks_damage(_cat: BattleCat, _amount: int) -> bool:
 	return false
 
+func modify_incoming_damage(_cat: BattleCat, amount: int) -> int:
+	return amount
+
+func extra_normal_attacks(_cat: BattleCat) -> int:
+	return 0
+
 ## Override in an effect script to control forced movement by abilities.
 func allows_forced_movement(_cat: BattleCat) -> bool:
 	return true
