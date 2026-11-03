@@ -13,7 +13,7 @@ fragment_enchantment = ExtResource("fragment")
 
 display_name = "Planet"
 primary_color = Color(0.419608, 0.623529, 0.533333, 1)
-description = "Adapts to every distinct base element of the teammate directly behind it, including composite ancestry. With Earth, gain +10 attack. With Water, on fainting, give the next living teammate Rings (take 2 less damage per hit). With Fire, on fainting, summon two ability-free 5/5 Fragments; extras are tossed away if the team has no free slots. Air currently grants no effect."
+description = "Counts every base element in the teammate directly behind it, including repeated components. After attacking, gain +1 health per Earth for the rest of combat and deal 1 damage to a random enemy per Air. On fainting, give the next living teammate 1 Rings stack per Water (each reduces incoming damage by 1, to a minimum of 1). If there is any Fire, also summon two ability-free 3/3 Fragments, each gaining +1/+1 per Fire element. Excess summons are tossed away."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

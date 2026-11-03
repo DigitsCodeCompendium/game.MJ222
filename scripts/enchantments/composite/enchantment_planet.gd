@@ -4,60 +4,49 @@ extends Enchantment
 @export var rings_effect: BattleStatusEffect
 @export var fragment_enchantment: Enchantment
 
-func refresh_battle_passives(cats: BattleCatsManager, self_cat: BattleCat) -> void:
+func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	var rear = cats.get_back_adjacent_cat(self_cat)
 	var elements = _base_elements(rear.enchantment if rear != null else null)
-	var bonus = 10 if &"earth" in elements else 0
-	var old_bonus: int = self_cat.ability_state.get(&"planet_earth_bonus", 0)
-	self_cat.ability_state[&"planet_elements"] = elements
-	self_cat.ability_state[&"planet_earth_bonus"] = bonus
-	self_cat.attack += bonus - old_bonus
-
-func before_death(cats: BattleCatsManager, self_cat: BattleCat):
-	refresh_battle_passives(cats, self_cat)
-	var elements: PackedStringArray = self_cat.ability_state.get(&"planet_elements", PackedStringArray())
-	var rear = cats.get_back_adjacent_cat(self_cat)
-	# Give Rings to the original next ally, before inserting summoned Fragments.
+	var earth_count: int = elements[&"earth"]
+	var air_count: int = elements[&"air"]
 	var activated = false
-	if "water" in elements and rear != null and rear.health > 0:
-		activated = rear.add_status_effect(rings_effect)
-	if "fire" in elements and fragment_enchantment != null:
-		var team = cats.get_cat_team(self_cat)
-		var index = team.find(self_cat)
-		if index < 0:
-			return
-		for _i in range(2):
-			cats.queue_summon(team, "Fragment", fragment_enchantment, 5, 5, self_cat, index, rear)
+	if earth_count > 0:
+		self_cat.health += earth_count
+		activated = true
+	for _i in range(air_count):
+		var opponents = cats.get_opposing_team(cats.get_cat_team(self_cat)).filter(func(cat): return cat.health > 0)
+		if opponents.is_empty():
+			break
+		var target: BattleCat = opponents[GameManager.rng.randi_range(0, opponents.size() - 1)]
+		cats.deal_ability_damage(self_cat, target, 1)
 		activated = true
 	if activated:
 		cats.notify_ability_activated(self_cat)
 
-func on_battle_enchantment_removed(self_cat: BattleCat) -> void:
-	self_cat.attack -= int(self_cat.ability_state.get(&"planet_earth_bonus", 0))
+func before_death(cats: BattleCatsManager, self_cat: BattleCat):
+	var rear = cats.get_back_adjacent_cat(self_cat)
+	var elements = _base_elements(rear.enchantment if rear != null else null)
+	# Give Rings to the original next ally, before inserting summoned Fragments.
+	var activated = false
+	var water_count: int = elements[&"water"]
+	var fire_count: int = elements[&"fire"]
+	if water_count > 0 and rear != null and rear.health > 0:
+		activated = rear.add_status_effect(rings_effect, water_count)
+	if fire_count > 0 and fragment_enchantment != null:
+		var team = cats.get_cat_team(self_cat)
+		var index = team.find(self_cat)
+		if index < 0:
+			return
+		var attack = fragment_enchantment.base_attack + fire_count
+		var health = fragment_enchantment.base_health + fire_count
+		for _i in range(2):
+			cats.queue_summon(team, "Fragment", fragment_enchantment, attack, health, self_cat, index, rear)
+		activated = true
+	if activated:
+		cats.notify_ability_activated(self_cat)
 
-func _base_elements(enchantment: Enchantment) -> PackedStringArray:
-	var result: PackedStringArray = []
-	var pending: Array[Enchantment] = []
-	var visited: Dictionary = {}
-	if enchantment != null:
-		pending.append(enchantment)
-	while not pending.is_empty():
-		var current: Enchantment = pending.pop_back()
-		if visited.has(current):
-			continue
-		visited[current] = true
-		var element = ""
-		if current is EnchantmentEarth:
-			element = "earth"
-		elif current is EnchantmentWater:
-			element = "water"
-		elif current is EnchantmentFire:
-			element = "fire"
-		elif current is EnchantmentAir:
-			element = "air"
-		if not element.is_empty() and not element in result:
-			result.append(element)
-		for component in [current.component1, current.component2]:
-			if component != null:
-				pending.append(component)
+func _base_elements(enchantment: Enchantment) -> Dictionary:
+	var result = {}
+	for element in [&"earth", &"water", &"fire", &"air"]:
+		result[element] = enchantment.count_base_element(element) if enchantment != null else 0
 	return result

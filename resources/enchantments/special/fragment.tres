@@ -6,6 +6,6 @@
 script = ExtResource("script")
 display_name = "Fragment"
 primary_color = Color(0.68, 0.72, 0.78, 1)
-description = "A 5/5 Fragment summoned by Planet. No abilities."
-base_attack = 5
-base_health = 5
+description = "A Fragment summoned by Planet."
+base_attack = 3
+base_health = 3

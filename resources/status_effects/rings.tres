@@ -6,4 +6,5 @@
 script = ExtResource("script")
 status_id = &"rings"
 display_name = "Rings"
-description = "Take 2 less damage from each hit, to a minimum of 0. Lasts for the rest of combat."
+description = "Each stack reduces damage taken from every hit by 1, to a minimum of 1. Lasts for the rest of combat."
+stackable = true
