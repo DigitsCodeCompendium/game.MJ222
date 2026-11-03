@@ -3,6 +3,7 @@ extends Node3D
 
 signal status_effects_changed
 signal battle_traits_changed
+signal damage_received(source: BattleCat, amount: int)
 
 var _enchantment: Enchantment
 var enchantment: Enchantment:
@@ -24,6 +25,7 @@ var preservation_used: bool
 var normal_attack_bonus: int
 var has_made_normal_attack: bool
 var ability_state: Dictionary = {}
+var battle_team: Array[BattleCat] = []
 var _status_effects: Array[BattleStatusEffect] = []
 var _status_stacks: Dictionary[StringName, int] = {}
 var _turn_start_status_stacks: Dictionary[StringName, int] = {}
@@ -107,17 +109,21 @@ func finish_battle_turn() -> void:
 			effect.after_battle_turn(self)
 	_turn_start_status_stacks.clear()
 
-func take_damage(amount: int):
+func take_damage(amount: int, source: BattleCat = null) -> int:
 	# A consumed effect can remove itself while processing this hit.
 	for effect in _status_effects.duplicate():
 		if has_status_effect(effect.status_id) and effect.blocks_damage(self, amount):
-			return
+			return 0
 	for effect in _status_effects:
 		amount = effect.modify_incoming_damage(self, amount)
 	if amount <= 0:
-		return
+		return 0
+	var actual_damage = mini(amount, maxi(0, health))
 	health -= amount
 	was_damaged = true
+	if actual_damage > 0:
+		damage_received.emit(source, actual_damage)
+	return actual_damage
 
 ## Formation movement still works; this only governs forced movement by abilities.
 func can_be_moved_in_battle() -> bool:

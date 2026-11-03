@@ -8,3 +8,4 @@ func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
 		team.remove_at(index)
 		team.push_front(self_cat)
 		cats.refresh_status_effect_auras()
+		cats.notify_ability_activated(self_cat)

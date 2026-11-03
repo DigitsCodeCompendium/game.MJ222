@@ -9,7 +9,10 @@ func after_battle_start(_cats: BattleCatsManager, self_cat: BattleCat):
 func after_battle_turn(_cats: BattleCatsManager, self_cat: BattleCat):
 	if not stages.is_empty():
 		var current: int = self_cat.ability_state.get(&"star_stage", 0)
-		_set_stage(self_cat, mini(current + 1, stages.size() - 1))
+		var next = mini(current + 1, stages.size() - 1)
+		if next != current:
+			_set_stage(self_cat, next)
+			_cats.notify_ability_activated(self_cat)
 
 func _set_stage(self_cat: BattleCat, index: int) -> void:
 	if stages.is_empty():

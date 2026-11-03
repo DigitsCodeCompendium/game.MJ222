@@ -14,3 +14,4 @@ func after_battle_turn(cats: BattleCatsManager, self_cat: BattleCat):
 	
 	self_cat.health -= 1
 	self_cat.attack -= 1
+	cats.notify_ability_activated(self_cat)

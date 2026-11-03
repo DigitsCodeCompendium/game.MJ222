@@ -11,13 +11,17 @@ func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	
 	var targets = opponent_team.duplicate()
 	var count = targets.size() if push_all_enemies else mini(2, maxi(0, targets.size() - 1))
+	var activated = false
 	for i in range(count):
 		var target: BattleCat = targets[i]
 		if target.can_be_moved_in_battle():
+			activated = true
 			# The backmost enemy is pushed too, but has nothing behind it to hit.
 			if i + 1 < targets.size():
-				target.take_damage(collision_damage)
+				cats.deal_ability_damage(self_cat, target, collision_damage)
 			await animate_move(target)
+	if activated:
+		cats.notify_ability_activated(self_cat)
 
 func animate_move(cat: BattleCat):
 	var start_pos = cat.position

@@ -1,0 +1,167 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/cat/cat_model.gd" id="model_script"]
+
+[sub_resource type="StandardMaterial3D" id="Sand"]
+albedo_color = Color(0.73, 0.51, 0.27, 1)
+roughness = 0.9
+[sub_resource type="StandardMaterial3D" id="Ridge"]
+albedo_color = Color(0.48, 0.29, 0.14, 1)
+roughness = 0.9
+[sub_resource type="StandardMaterial3D" id="Dark"]
+albedo_color = Color(0.08, 0.045, 0.025, 1)
+roughness = 1.0
+[sub_resource type="StandardMaterial3D" id="Ivory"]
+albedo_color = Color(0.96, 0.89, 0.7, 1)
+roughness = 0.8
+[sub_resource type="SphereMesh" id="Segment"]
+material = SubResource("Sand")
+radius = 0.5
+height = 1.0
+radial_segments = 12
+rings = 6
+[sub_resource type="TorusMesh" id="RidgeMesh"]
+material = SubResource("Ridge")
+inner_radius = 0.41
+outer_radius = 0.48
+rings = 12
+ring_segments = 6
+[sub_resource type="SphereMesh" id="MouthMesh"]
+material = SubResource("Dark")
+radius = 0.36
+height = 0.72
+radial_segments = 12
+rings = 6
+[sub_resource type="CylinderMesh" id="ToothMesh"]
+material = SubResource("Ivory")
+top_radius = 0.0
+bottom_radius = 0.095
+height = 0.2
+radial_segments = 6
+[sub_resource type="SphereMesh" id="EyeMesh"]
+material = SubResource("Dark")
+radius = 0.075
+height = 0.15
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Animation" id="Idle"]
+resource_name = "Idle"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:position")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.6, 1.2), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector3(0, 0, 0), Vector3(0, 0.05, 0), Vector3(0, 0, 0)]}
+
+[sub_resource type="Animation" id="Attack"]
+resource_name = "Attack"
+length = 0.35
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:position")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.175, 0.35), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector3(0, 0, 0), Vector3(0, 0, -0.3), Vector3(0, 0, 0)]}
+
+[sub_resource type="Animation" id="Pancake"]
+resource_name = "Pancake"
+length = 0.3
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.15, 0.3), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector3(1, 1, 1), Vector3(1.1, 0.65, 1.1), Vector3(1, 1, 1)]}
+
+[sub_resource type="Animation" id="Death"]
+resource_name = "Death"
+length = 0.4
+loop_mode = 0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:scale")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.2, 0.4), "transitions": PackedFloat32Array(1, 1, 1), "update": 0, "values": [Vector3(1, 1, 1), Vector3(1.1, 0.3, 1.1), Vector3(1.1, 0.05, 1.1)]}
+
+[sub_resource type="AnimationLibrary" id="Animations"]
+_data = {&"Idle": SubResource("Idle"), &"Walk": SubResource("Idle"), &"Attack": SubResource("Attack"), &"Pancake": SubResource("Pancake"), &"Death": SubResource("Death")}
+[node name="WormModel" type="Node3D"]
+scale = Vector3(1.75, 1.75, 1.75)
+script = ExtResource("model_script")
+body_surface = -1
+paw_surface = -1
+face_surface = -1
+[node name="Body" type="Node3D" parent="."]
+[node name="BurrowPose" type="Node3D" parent="Body"]
+position = Vector3(0, -0.3, 0)
+rotation_degrees = Vector3(60, 0, 0)
+[node name="Segment0" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.8, -0.6)
+scale = Vector3(1.1, 1.1, 1.1)
+mesh = SubResource("Segment")
+[node name="Segment1" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.55, 0.0)
+scale = Vector3(0.95, 0.95, 0.95)
+mesh = SubResource("Segment")
+[node name="Ridge1" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.55, -0.16)
+rotation_degrees = Vector3(90, 0, 0)
+scale = Vector3(0.95, 0.95, 0.95)
+mesh = SubResource("RidgeMesh")
+[node name="Segment2" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.45, 0.55)
+scale = Vector3(0.8, 0.8, 0.8)
+mesh = SubResource("Segment")
+[node name="Ridge2" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.45, 0.39)
+rotation_degrees = Vector3(90, 0, 0)
+scale = Vector3(0.8, 0.8, 0.8)
+mesh = SubResource("RidgeMesh")
+[node name="Segment3" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.35, 1.0)
+scale = Vector3(0.6, 0.6, 0.6)
+mesh = SubResource("Segment")
+[node name="Ridge3" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.35, 0.84)
+rotation_degrees = Vector3(90, 0, 0)
+scale = Vector3(0.6, 0.6, 0.6)
+mesh = SubResource("RidgeMesh")
+[node name="Segment4" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.25, 1.32)
+scale = Vector3(0.4, 0.4, 0.4)
+mesh = SubResource("Segment")
+[node name="Ridge4" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.25, 1.1600000000000001)
+rotation_degrees = Vector3(90, 0, 0)
+scale = Vector3(0.4, 0.4, 0.4)
+mesh = SubResource("RidgeMesh")
+[node name="Mouth" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0, 0.83, -1.15)
+scale = Vector3(1, 1, 0.18)
+mesh = SubResource("MouthMesh")
+[node name="Tooth0" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0.0000, 1.1100, -1.19)
+rotation_degrees = Vector3(0, 0, 180)
+mesh = SubResource("ToothMesh")
+[node name="Tooth1" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0.2425, 0.9700, -1.19)
+rotation_degrees = Vector3(0, 0, 120)
+mesh = SubResource("ToothMesh")
+[node name="Tooth2" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0.2425, 0.6900, -1.19)
+rotation_degrees = Vector3(0, 0, 60)
+mesh = SubResource("ToothMesh")
+[node name="Tooth3" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0.0000, 0.5500, -1.19)
+rotation_degrees = Vector3(0, 0, 0)
+mesh = SubResource("ToothMesh")
+[node name="Tooth4" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(-0.2425, 0.6900, -1.19)
+rotation_degrees = Vector3(0, 0, -60)
+mesh = SubResource("ToothMesh")
+[node name="Tooth5" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(-0.2425, 0.9700, -1.19)
+rotation_degrees = Vector3(0, 0, -120)
+mesh = SubResource("ToothMesh")
+[node name="LeftEye" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(-0.23, 1.12, -1.02)
+mesh = SubResource("EyeMesh")
+[node name="RightEye" type="MeshInstance3D" parent="Body/BurrowPose"]
+position = Vector3(0.23, 1.12, -1.02)
+mesh = SubResource("EyeMesh")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {&"": SubResource("Animations")}

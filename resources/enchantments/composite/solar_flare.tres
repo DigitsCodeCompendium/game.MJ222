@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentSolarFlare" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_solar_flare.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/plasma.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="b"]
 
@@ -8,7 +8,7 @@
 script = ExtResource("script")
 display_name = "Solar Flare"
 primary_color = Color(1.000000, 0.619608, 0.341176, 1)
-description = "No special ability yet."
+description = "At combat start, give each ally +3 attack for every Fire element in its enchantment, including repeated Fire components."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

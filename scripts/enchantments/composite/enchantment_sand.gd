@@ -16,6 +16,7 @@ func before_ally_death(cats: BattleCatsManager, self_cat: BattleCat, ally_cat: B
 		var target = team[index + 1]
 		if target.add_status_effect(shrouded_effect):
 			self_cat.shroud_ability_used = true
+			cats.notify_ability_activated(self_cat)
 			var effect_visual = target.get_status_visual(shrouded_effect.status_id)
 			if effect_visual != null:
 				var tween = effect_visual.create_tween()

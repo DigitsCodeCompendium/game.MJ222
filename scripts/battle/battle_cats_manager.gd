@@ -16,10 +16,13 @@ signal summon_tossed(enchantment: Enchantment)
 
 @export var battle_end_countdown = 3
 
-var turn_index: int
+var turn_index: int = -1
 var _lives_lost: int = 0
 var _refreshing_passives = false
 var _pending_summons: Array[Dictionary] = []
+var _ability_events: Array[BattleCat] = []
+var _ability_chain: Dictionary = {}
+var _processing_abilities = false
 # Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
@@ -41,6 +44,8 @@ func _ready():
 	while not is_battle_over():
 		await do_turn()
 		turn_index += 1
+		# Yield even if a faulty ability returns early instead of animating.
+		await get_tree().create_timer(0.0, false).timeout
 	
 	GameManager.is_battle_won = cats_left.size() > 0
 	AudioManager.play_battle_result(GameManager.is_battle_won)
@@ -84,8 +89,10 @@ func do_turn():
 			break
 		var attackers: Array[BattleCat] = []
 		for i in original_attackers.size():
+			if not is_instance_valid(original_attackers[i]):
+				continue
 			var attacker = original_attackers[i]
-			if strike < attack_counts[i] and is_instance_valid(attacker) and attacker in get_all_cats() and attacker.health > 0:
+			if strike < attack_counts[i] and attacker in get_all_cats() and attacker.health > 0:
 				attackers.append(attacker)
 		if not attackers.is_empty():
 			await _do_normal_attack_round(attackers)
@@ -106,6 +113,12 @@ func _do_normal_attack_round(attackers: Array[BattleCat]):
 	await Promise.all(animations)
 	sync_ui()
 	var targets: Array[BattleCat] = []
+	# Opening attack abilities can faint enemies before the normal strike.
+	await animate_attack_and_hurt()
+	await check_for_deaths_and_move_all_cats()
+	attackers = attackers.filter(func(cat): return is_instance_valid(cat) and cat in get_all_cats() and cat.health > 0)
+	if attackers.is_empty() or is_battle_over():
+		return
 	var damages: Array[int] = []
 	for attacker in attackers:
 		var opponents = get_opposing_team(get_cat_team(attacker))
@@ -116,7 +129,7 @@ func _do_normal_attack_round(attackers: Array[BattleCat]):
 		damages.append(attacker.get_attack_damage())
 	# Both sides' damage is captured before either hit or status consumption.
 	for i in attackers.size():
-		targets[i].enchantment.handle_attack_damage(self, targets[i], damages[i])
+		targets[i].enchantment.handle_attack_damage(self, targets[i], damages[i], attackers[i])
 	for attacker in attackers:
 		attacker.finish_normal_attack()
 		attacker.did_attack = true
@@ -180,15 +193,23 @@ func refresh_status_effect_auras() -> void:
 
 func load_cats_from_data(team: Array[BattleCat], cats_data: Array[CatData]):
 	for cat_data in cats_data:
+		if cat_data == null or cat_data.enchantment == null:
+			push_error("Cannot load a battle Squeeb without an enchantment.")
+			continue
 		var base_attack = cat_data.enchantment.base_attack + cat_data.attack_offset
 		var base_health = cat_data.enchantment.base_health + cat_data.health_offset
 		add_cat(team, cat_data.cat_name, cat_data.enchantment, base_attack, base_health)
 
 func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment, attack: int, health: int, index: int = -1):
+	if enchantment == null:
+		push_error("Cannot add a battle Squeeb without an enchantment.")
+		return null
 	if team.size() >= GameManager.TEAM_SIZE:
 		return null
 	var cat = battle_cat_scene.instantiate() as BattleCat
 	cat.load_cat(cat_name, enchantment, attack, health)
+	cat.battle_team = team
+	cat.damage_received.connect(_on_damage_received.bind(cat))
 	
 	if index >= 0:
 		team.insert(index, cat)
@@ -209,8 +230,39 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	
 	return cat
 
+func deal_ability_damage(source: BattleCat, target: BattleCat, amount: int) -> int:
+	return target.take_damage(amount, source)
+
+func _on_damage_received(source: BattleCat, amount: int, target: BattleCat) -> void:
+	if is_instance_valid(source) and source.enchantment != null:
+		source.enchantment.after_dealing_damage(self, source, target, amount)
+
+## Each Squeeb can react once in a cascade, preventing Lightning feedback loops.
+func notify_ability_activated(source: BattleCat) -> void:
+	if not is_instance_valid(source):
+		return
+	var id = source.get_instance_id()
+	if _processing_abilities:
+		if not _ability_chain.has(id):
+			_ability_chain[id] = true
+			_ability_events.append(source)
+		return
+	_processing_abilities = true
+	_ability_chain[id] = true
+	_ability_events.append(source)
+	while not _ability_events.is_empty():
+		var activated: BattleCat = _ability_events.pop_front()
+		for ally in activated.battle_team.duplicate():
+			if is_instance_valid(ally) and ally != activated and ally.health > 0 and not _ability_chain.has(ally.get_instance_id()):
+				ally.enchantment.after_ally_ability_activated(self, ally, activated)
+	_ability_chain.clear()
+	_processing_abilities = false
+
 ## Queue until fainted Squeebs leave the lineup, making their slots available.
 func queue_summon(team: Array[BattleCat], cat_name: String, enchantment: Enchantment, attack: int, health: int, origin: Node3D, index: int = -1, before: BattleCat = null) -> void:
+	if enchantment == null:
+		push_error("Cannot summon a battle Squeeb without an enchantment.")
+		return
 	_pending_summons.append({
 		"team": team, "cat_name": cat_name, "enchantment": enchantment,
 		"attack": attack, "health": health, "position": origin.position,
@@ -232,6 +284,8 @@ func _resolve_pending_summons() -> void:
 		if index >= 0:
 			index = mini(index, team.size())
 		var cat = add_cat(team, request.cat_name, request.enchantment, request.attack, request.health, index)
+		if cat == null:
+			continue
 		cat.position = request.position
 		cat.rotation = request.rotation
 
@@ -255,6 +309,57 @@ func _toss_summon(request: Dictionary) -> void:
 
 func _tween_toss(t: float, visual: Node3D, start: Vector3, end: Vector3) -> void:
 	visual.position = start.lerp(end, t) + Vector3.UP * sin(t * PI) * 3.0
+
+func swallow_into_worm(source: BattleCat, victims: Array[BattleCat], worm: Enchantment) -> void:
+	if worm == null:
+		push_error("Dune requires a Worm enchantment before it can swallow Squeebs.")
+		return
+	var team = get_cat_team(source)
+	if not source in team:
+		return
+	var attack = 0
+	var health = 0
+	var swallowed: Array[BattleCat] = []
+	for victim in victims:
+		if is_instance_valid(victim) and victim in get_all_cats() and not victim in swallowed:
+			swallowed.append(victim)
+			attack += maxi(0, victim.attack)
+			health += maxi(0, victim.health)
+	source.ability_state[&"swallowed_by_worm"] = true
+	for victim in swallowed:
+		if victim == source:
+			continue
+		get_cat_team(victim).erase(victim)
+		var no_effects: Array[BattleStatusEffect] = []
+		victim.set_status_effect_grants(self, no_effects)
+		_animate_swallowed(victim, source.position)
+	queue_summon(team, "Worm", worm, attack, health, source, team.find(source))
+	var emerging = preload("res://scenes/cat/cat_visual.tscn").instantiate() as CatVisual
+	emerging.enchantment = worm
+	emerging.name = "EmergingWorm"
+	add_child(emerging)
+	emerging.position = source.position + Vector3.DOWN * 1.2
+	emerging.rotation = source.rotation
+	emerging.play_loop("Attack")
+	var tween = emerging.create_tween()
+	tween.tween_property(emerging, "position:y", source.position.y, 0.2)
+	tween.tween_interval(0.3)
+	tween.tween_callback(emerging.queue_free)
+	refresh_status_effect_auras()
+	notify_ability_activated(source)
+
+func _animate_swallowed(cat: BattleCat, center: Vector3):
+	if cat.attached_ui != null:
+		cat.attached_ui.hide()
+	if cat.is_class("CollisionObject3D"):
+		cat.set("input_ray_pickable", false)
+	var tween = cat.create_tween().set_parallel()
+	tween.tween_property(cat, "position", center + Vector3.DOWN * 0.8, 0.45).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_property(cat, "scale", Vector3.ONE * 0.01, 0.45)
+	await tween.finished
+	if is_instance_valid(cat.attached_ui):
+		cat.attached_ui.queue_free()
+	cat.queue_free()
 
 func animate_attack_and_hurt(hurt_delay: float = 0):
 	var animations: Array[Promise] = []
@@ -314,41 +419,31 @@ func check_for_deaths_and_move_all_cats():
 	var dead_cats: Array[BattleCat] = []
 	var no_effects: Array[BattleStatusEffect] = []
 	
-	var i = 0
-	while i < cats_left.size():
-		if cats_left[i].health <= 0:
-			cats_left[i].enchantment.before_death(self, cats_left[i])
-			if cats_left[i].health > 0:
-				sync_ui()
+	for team in [cats_left, cats_right]:
+		var i = 0
+		while i < team.size():
+			var dying: BattleCat = team[i]
+			if dying.health > 0:
 				i += 1
 				continue
-			for ally_cat in cats_left:
-				if ally_cat != cats_left[i]:
-					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_left[i])
-			dead_cats.append(cats_left[i])
-			cats_left.remove_at(i)
-			dead_cats.back().set_status_effect_grants(self, no_effects)
-			refresh_status_effect_auras()
-		else:
-			i += 1
-	i = 0
-	while i < cats_right.size():
-		if cats_right[i].health <= 0:
-			cats_right[i].enchantment.before_death(self, cats_right[i])
-			if cats_right[i].health > 0:
-				sync_ui()
-				i += 1
+			dying.enchantment.before_death(self, dying)
+			# Swallowing can remove neighbours and shift the dying Squeeb's index.
+			var death_index: int = team.find(dying)
+			if death_index < 0:
 				continue
-			for ally_cat in cats_right:
-				if ally_cat != cats_right[i]:
-					ally_cat.enchantment.before_ally_death(self, ally_cat, cats_right[i])
-			dead_cats.append(cats_right[i])
-			cats_right.remove_at(i)
-			dead_cats.back().set_status_effect_grants(self, no_effects)
+			if dying.health > 0:
+				sync_ui()
+				i = death_index + 1
+				continue
+			for ally in team.duplicate():
+				if ally != dying and ally in team:
+					ally.enchantment.before_ally_death(self, ally, dying)
+			dead_cats.append(dying)
+			team.erase(dying)
+			dying.set_status_effect_grants(self, no_effects)
 			refresh_status_effect_auras()
-		else:
-			i += 1
-	
+			i = mini(i, death_index)
+
 	if not dead_cats.is_empty() or not _pending_summons.is_empty():
 		var death_animations: Array[Promise] = []
 		for cat in dead_cats:
@@ -364,6 +459,9 @@ func check_for_deaths_and_move_all_cats():
 		await check_for_deaths_and_move_all_cats()
 
 func animate_death_and_despawn(cat: BattleCat):
+	if cat.ability_state.get(&"swallowed_by_worm", false):
+		await _animate_swallowed(cat, cat.position)
+		return
 	await cat.animate_death()
 	cat.attached_ui.queue_free()
 	cat.queue_free()

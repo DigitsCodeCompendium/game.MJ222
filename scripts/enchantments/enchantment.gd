@@ -33,8 +33,8 @@ func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
 func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
-func handle_attack_damage(cats: BattleCatsManager, self_cat: BattleCat, amount: int):
-	self_cat.take_damage(amount)
+func handle_attack_damage(_cats: BattleCatsManager, self_cat: BattleCat, amount: int, source: BattleCat = null):
+	self_cat.take_damage(amount, source)
 
 func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
@@ -62,3 +62,28 @@ func refresh_battle_passives(_cats: BattleCatsManager, _self_cat: BattleCat) -> 
 
 func on_battle_enchantment_removed(_self_cat: BattleCat) -> void:
 	pass
+
+func after_ally_ability_activated(_cats: BattleCatsManager, _self_cat: BattleCat, _ally: BattleCat) -> void:
+	pass
+
+func after_dealing_damage(_cats: BattleCatsManager, _self_cat: BattleCat, _target: BattleCat, _amount: int) -> void:
+	pass
+
+## Count occurrences, so Fire + Fire contains two Fire elements, not one.
+func count_base_element(element: StringName) -> int:
+	return _count_base_element(element, {})
+
+func _count_base_element(element: StringName, ancestors: Dictionary) -> int:
+	if ancestors.has(self):
+		return 0
+	var script_name = get_script().get_global_name()
+	var basics = {&"fire": &"EnchantmentFire", &"water": &"EnchantmentWater", &"earth": &"EnchantmentEarth", &"air": &"EnchantmentAir"}
+	if script_name == basics.get(element, &""):
+		return 1
+	var path = ancestors.duplicate()
+	path[self] = true
+	var count = 0
+	for component in [component1, component2]:
+		if component != null:
+			count += component._count_base_element(element, path)
+	return count

@@ -6,13 +6,14 @@ extends Enchantment
 @export var lightning_duration: float = 0.4
 
 func after_ally_attack(cats: BattleCatsManager, self_cat: BattleCat):
-	var opponent_team = cats.get_opposing_team(cats.get_cat_team(self_cat))
+	var opponent_team = cats.get_opposing_team(cats.get_cat_team(self_cat)).filter(func(cat): return cat.health > 0)
 	
 	if opponent_team.size() <= 0:
 		return
 	
 	var target = opponent_team[GameManager.rng.randi_range(0, opponent_team.size() - 1)]
-	target.take_damage(1)
+	cats.deal_ability_damage(self_cat, target, 1)
+	cats.notify_ability_activated(self_cat)
 	
 	var tween = cats.create_tween()
 	tween.tween_callback(_spawn_lightning.bind(cats, self_cat.global_position, lightning_duration))

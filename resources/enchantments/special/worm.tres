@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+
+[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="PackedScene" path="res://scenes/cat/models/worm.tscn" id="model"]
+
+[resource]
+script = ExtResource("script")
+display_name = "Worm"
+primary_color = Color(0.73, 0.51, 0.27, 1)
+description = "Has the combined attack and remaining health of the Squeebs it swallowed."
+base_attack = 1
+base_health = 1
+cat_scene = ExtResource("model")

@@ -12,8 +12,10 @@ func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	if stacks > 0:
 		self_cat.normal_attack_bonus += stacks
 		target.consume_status_effect_stacks(chilled_effect.status_id)
+		cats.notify_ability_activated(self_cat)
 
-func after_attack(_cats: BattleCatsManager, self_cat: BattleCat):
+func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	var target = self_cat.last_attack_target
 	if is_instance_valid(target) and target.health > 0:
 		target.add_status_effect(chilled_effect)
+		cats.notify_ability_activated(self_cat)

@@ -1,14 +1,16 @@
 class_name EnchantmentSteam
 extends Enchantment
 
-func handle_attack_damage(cats: BattleCatsManager, self_cat: BattleCat, amount: int):
+func handle_attack_damage(cats: BattleCatsManager, self_cat: BattleCat, amount: int, source: BattleCat = null):
 	@warning_ignore("integer_division") # Transfer amount should round down
 	var transfer_amount = amount / 2
-	self_cat.take_damage(amount - transfer_amount)
+	self_cat.take_damage(amount - transfer_amount, source)
 	
 	var back_cat = cats.get_back_adjacent_cat(self_cat)
 	if back_cat != null:
-		back_cat.take_damage(transfer_amount)
+		back_cat.take_damage(transfer_amount, source)
+		if transfer_amount > 0:
+			cats.notify_ability_activated(self_cat)
 	
 	var cat_model = self_cat.visual._model
 	if cat_model != null:

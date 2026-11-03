@@ -6,4 +6,5 @@ func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
 	if damage == 0:
 		return
 	for target in cats.get_all_cats():
-		target.take_damage(damage)
+		cats.deal_ability_damage(self_cat, target, damage)
+	cats.notify_ability_activated(self_cat)

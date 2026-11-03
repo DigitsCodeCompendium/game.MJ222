@@ -7,3 +7,4 @@ func before_death(cats: BattleCatsManager, self_cat: BattleCat):
 		return
 	target.attack += 1
 	target.health += 2
+	cats.notify_ability_activated(self_cat)

@@ -1,14 +1,17 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentSandStorm" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_sand_storm.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/sand.tres" id="b"]
 
+[ext_resource type="Resource" path="res://resources/status_effects/shrouded.tres" id="shrouded"]
+
 [resource]
 script = ExtResource("script")
+shrouded_effect = ExtResource("shrouded")
 display_name = "Sand Storm"
 primary_color = Color(0.784314, 0.619608, 0.407843, 1)
-description = "No special ability yet."
+description = "Before its first normal attack, deal damage equal to half its attack, rounded down, to every enemy. Then give Shrouded to all surviving enemies."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

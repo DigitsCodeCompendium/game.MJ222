@@ -18,8 +18,9 @@ func before_death(cats: BattleCatsManager, self_cat: BattleCat):
 	var elements: PackedStringArray = self_cat.ability_state.get(&"planet_elements", PackedStringArray())
 	var rear = cats.get_back_adjacent_cat(self_cat)
 	# Give Rings to the original next ally, before inserting summoned Fragments.
+	var activated = false
 	if "water" in elements and rear != null and rear.health > 0:
-		rear.add_status_effect(rings_effect)
+		activated = rear.add_status_effect(rings_effect)
 	if "fire" in elements and fragment_enchantment != null:
 		var team = cats.get_cat_team(self_cat)
 		var index = team.find(self_cat)
@@ -27,6 +28,9 @@ func before_death(cats: BattleCatsManager, self_cat: BattleCat):
 			return
 		for _i in range(2):
 			cats.queue_summon(team, "Fragment", fragment_enchantment, 5, 5, self_cat, index, rear)
+		activated = true
+	if activated:
+		cats.notify_ability_activated(self_cat)
 
 func on_battle_enchantment_removed(self_cat: BattleCat) -> void:
 	self_cat.attack -= int(self_cat.ability_state.get(&"planet_earth_bonus", 0))

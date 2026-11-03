@@ -10,3 +10,4 @@ func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 			opponent_team.remove_at(opponent_team.size() - 1)
 			opponent_team.insert(0, last_opponent)
 			cats.refresh_status_effect_auras()
+			cats.notify_ability_activated(self_cat)

@@ -8,9 +8,10 @@ func after_death(cats: BattleCatsManager, self_cat: BattleCat):
 	var animations: Array[Promise] = []
 	
 	for cat in cats.get_all_cats():
-		cat.take_damage(2)
+		cats.deal_ability_damage(self_cat, cat, 2)
 		animations.append(Promise.new(spawn_effect.bind(cats, cat.global_position)))
 	
+	cats.notify_ability_activated(self_cat)
 	await Promise.all(animations)
 
 func spawn_effect(parent: Node3D, pos: Vector3):

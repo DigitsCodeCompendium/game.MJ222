@@ -1,14 +1,17 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentDune" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_dune.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/mountain.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/sand.tres" id="b"]
 
+[ext_resource type="Resource" path="res://resources/enchantments/special/worm.tres" id="worm"]
+
 [resource]
 script = ExtResource("script")
+worm_enchantment = ExtResource("worm")
 display_name = "Dune"
 primary_color = Color(0.882353, 0.698039, 0.450980, 1)
-description = "No special ability yet."
+description = "When this Squeeb faints, a Worm swallows it, the Squeeb immediately in front (an ally or the front enemy), and the ally immediately behind. The Worm gains their combined attack and remaining health. Swallowed Squeebs do not trigger fainting abilities."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

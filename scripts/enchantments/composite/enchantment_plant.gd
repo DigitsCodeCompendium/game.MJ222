@@ -22,6 +22,7 @@ func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	
 	if animations.size() > 0:
 		await Promise.all(animations)
+		cats.notify_ability_activated(self_cat)
 
 func absorb_water(self_cat: BattleCat, target_cat: BattleCat) -> bool:
 	if target_cat.enchantment is EnchantmentWater:

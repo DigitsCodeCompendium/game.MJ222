@@ -12,3 +12,4 @@ func refresh_battle_passives(cats: BattleCatsManager, self_cat: BattleCat) -> vo
 		self_cat.ability_state[&"volcano_erupted"] = true
 		var team = cats.get_cat_team(self_cat)
 		cats.queue_summon(team, "Lava", lava_enchantment, lava_enchantment.base_attack, lava_enchantment.base_health, self_cat, 0)
+		cats.notify_ability_activated(self_cat)
