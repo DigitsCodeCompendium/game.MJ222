@@ -12,7 +12,7 @@ func after_ally_damaged(cats: BattleCatsManager, self_cat: BattleCat, ally: Batt
 	# Only a surviving hit that crosses the halfway point can trigger a rescue.
 	if ally.health * 2 >= ally.base_health or (ally.health + amount) * 2 < ally.base_health:
 		return
-	if not ally.can_be_moved_in_battle():
+	if not cats.can_move_by_ability(ally):
 		return
 	# Commit before movement notifications, which can cause further ability damage.
 	self_cat.ability_state[&"whirlpool_rescued"] = true

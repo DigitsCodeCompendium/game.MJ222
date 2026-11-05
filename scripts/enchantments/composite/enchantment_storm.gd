@@ -6,7 +6,7 @@ func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	
 	if opponent_team.size() >= 2:
 		var last_opponent = opponent_team[opponent_team.size() - 1]
-		if last_opponent.can_be_moved_in_battle():
+		if cats.can_move_by_ability(last_opponent):
 			opponent_team.remove_at(opponent_team.size() - 1)
 			opponent_team.insert(0, last_opponent)
 			cats.refresh_status_effect_auras()

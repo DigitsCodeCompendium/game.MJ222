@@ -13,7 +13,9 @@ func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
 func _swap_pair(cats: BattleCatsManager, team: Array[BattleCat], first: int, second: int) -> bool:
 	if second >= team.size():
 		return false
-	if not team[first].can_be_moved_in_battle() or not team[second].can_be_moved_in_battle():
+	var first_movable = cats.can_move_by_ability(team[first])
+	var second_movable = cats.can_move_by_ability(team[second])
+	if not first_movable or not second_movable:
 		return false
 	var original = team[first]
 	var other = team[second]

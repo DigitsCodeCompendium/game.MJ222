@@ -242,10 +242,20 @@ func deal_ability_damage(source: BattleCat, target: BattleCat, amount: int) -> i
 func notify_ability_movement(moved: BattleCat) -> void:
 	if not is_instance_valid(moved) or not moved in get_all_cats() or moved.health <= 0:
 		return
+	moved.enchantment.after_moved_by_ability(self, moved)
 	var opponents = get_opposing_team(get_cat_team(moved)).duplicate()
 	for observer in opponents:
 		if is_instance_valid(observer) and observer in get_all_cats() and observer.health > 0:
 			observer.enchantment.after_enemy_moved_by_ability(self, observer, moved)
+
+## Keep eligibility queries pure; only real ability attempts trigger blocked reactions.
+func can_move_by_ability(cat: BattleCat) -> bool:
+	if not is_instance_valid(cat) or cat.health <= 0 or not cat in get_all_cats():
+		return false
+	if cat.can_be_moved_in_battle():
+		return true
+	cat.enchantment.after_movement_blocked(self, cat)
+	return false
 
 func _on_damage_received(source: BattleCat, amount: int, target: BattleCat) -> void:
 	for ally in get_cat_team(target).duplicate():
@@ -257,7 +267,7 @@ func _on_damage_received(source: BattleCat, amount: int, target: BattleCat) -> v
 ## Change the lineup now; animate it after the current attack has finished.
 func move_to_back_by_ability(cat: BattleCat) -> bool:
 	var team = get_cat_team(cat)
-	if team.size() < 2 or team.back() == cat or not cat.can_be_moved_in_battle():
+	if team.size() < 2 or team.back() == cat or not can_move_by_ability(cat):
 		return false
 	team.erase(cat)
 	team.append(cat)

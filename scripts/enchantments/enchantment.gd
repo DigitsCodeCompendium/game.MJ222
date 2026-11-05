@@ -78,6 +78,12 @@ func after_ally_damaged(_cats: BattleCatsManager, _self_cat: BattleCat, _ally: B
 func after_enemy_moved_by_ability(_cats: BattleCatsManager, _self_cat: BattleCat, _enemy: BattleCat) -> void:
 	pass
 
+func after_moved_by_ability(_cats: BattleCatsManager, _self_cat: BattleCat) -> void:
+	pass
+
+func after_movement_blocked(_cats: BattleCatsManager, _self_cat: BattleCat) -> void:
+	pass
+
 ## Count occurrences, so Fire + Fire contains two Fire elements, not one.
 func count_base_element(element: StringName) -> int:
 	return _count_base_element(element, {})

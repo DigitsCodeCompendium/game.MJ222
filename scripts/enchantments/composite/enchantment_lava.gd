@@ -14,7 +14,7 @@ func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	var activated = false
 	for i in range(count):
 		var target: BattleCat = targets[i]
-		if target.can_be_moved_in_battle():
+		if cats.can_move_by_ability(target):
 			activated = true
 			# The backmost enemy is pushed too, but has nothing behind it to hit.
 			if i + 1 < targets.size():
