@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="RingsStatusEffect" format=3]
+[gd_resource type="Resource" script_class="RingsStatusEffect" format=3 uid="uid://clgvul7kbn1uy"]
 
-[ext_resource type="Script" path="res://scripts/battle/status_effects/rings_status_effect.gd" id="script"]
+[ext_resource type="Script" uid="uid://b0uta2ge3bj2q" path="res://scripts/battle/status_effects/rings_status_effect.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

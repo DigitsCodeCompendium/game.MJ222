@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentDefault" format=3 uid="uid://dv6ogt7v1nlw4"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_0hwvd"]
 [ext_resource type="PackedScene" path="res://scenes/cat/models/worm.tscn" id="model"]
+[ext_resource type="Script" uid="uid://bgtys7hmqc8yo" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentEarth" format=3 uid="uid://c2pwv42mxvpwn"]
 
 [ext_resource type="Script" uid="uid://bf18rkhp4kt6h" path="res://scripts/enchantments/basic/enchantment_earth.gd" id="1_ib04u"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_ph3ys"]
 [ext_resource type="Resource" uid="uid://cbv10fdcytros" path="res://resources/cat_faces/lava.tres" id="3_sieoq"]
 [ext_resource type="Material" uid="uid://dbsn808l8d6e0" path="res://assets/cat/elements/earth_cat.tres" id="material"]
 [ext_resource type="PackedScene" path="res://scenes/cat/models/earth_cat.tscn" id="model"]

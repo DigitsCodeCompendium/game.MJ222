@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="EnchantmentAir" format=3 uid="uid://bvm82266xpvqn"]
 
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_0pmwl"]
 [ext_resource type="Material" uid="uid://cohxv7old7k17" path="res://assets/cat/elements/air_cat.tres" id="1_5h8hg"]
 [ext_resource type="Script" uid="uid://bhoi860tg2cpb" path="res://scripts/enchantments/basic/enchantment_air.gd" id="1_l2qjv"]
 

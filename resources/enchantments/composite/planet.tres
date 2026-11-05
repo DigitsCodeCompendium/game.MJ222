@@ -1,16 +1,15 @@
-[gd_resource type="Resource" script_class="EnchantmentPlanet" format=3]
+[gd_resource type="Resource" script_class="EnchantmentPlanet" format=3 uid="uid://dr4g6umpenta0"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_planet.gd" id="script"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/mountain.tres" id="a"]
-
-[ext_resource type="Resource" path="res://resources/status_effects/rings.tres" id="rings"]
-[ext_resource type="Resource" path="res://resources/enchantments/special/fragment.tres" id="fragment"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_8xmpb"]
+[ext_resource type="Resource" uid="uid://bvt4851shyjg5" path="res://resources/enchantments/composite/mountain.tres" id="a"]
+[ext_resource type="Resource" uid="uid://baevlmao7lipw" path="res://resources/enchantments/special/fragment.tres" id="fragment"]
+[ext_resource type="Resource" uid="uid://clgvul7kbn1uy" path="res://resources/status_effects/rings.tres" id="rings"]
+[ext_resource type="Script" uid="uid://cs5kuaovuih4p" path="res://scripts/enchantments/composite/enchantment_planet.gd" id="script"]
 
 [resource]
 script = ExtResource("script")
 rings_effect = ExtResource("rings")
 fragment_enchantment = ExtResource("fragment")
-
 display_name = "Planet"
 primary_color = Color(0.419608, 0.623529, 0.533333, 1)
 description = "Counts every base element in the teammate directly behind it, including repeated components. After attacking, gain +1 health per Earth for the rest of combat and deal 1 damage to a random enemy per Air. On fainting, give the next living teammate 1 Rings stack per Water (each reduces incoming damage by 1, to a minimum of 1). If there is any Fire, also summon two ability-free 3/3 Fragments, each gaining +1/+1 per Fire element. Excess summons are tossed away."

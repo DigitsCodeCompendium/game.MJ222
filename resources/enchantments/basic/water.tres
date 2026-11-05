@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="EnchantmentWater" format=3 uid="uid://o4pwc6nev4eu"]
 
 [ext_resource type="Script" uid="uid://b0fu3tdrrgk2j" path="res://scripts/enchantments/basic/enchantment_water.gd" id="1_8fewc"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_gyeeg"]
 [ext_resource type="Material" uid="uid://yx2lccpao6rr" path="res://assets/cat/elements/water_cat.tres" id="1_ju1k2"]
 
 [resource]
