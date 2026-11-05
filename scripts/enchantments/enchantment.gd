@@ -42,6 +42,9 @@ func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 func after_normal_attack_received(_cats: BattleCatsManager, _self_cat: BattleCat) -> void:
 	pass
 
+func after_normal_attack_dealt(_cats: BattleCatsManager, _self_cat: BattleCat, _target: BattleCat, _damage: int) -> void:
+	pass
+
 func after_ally_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 

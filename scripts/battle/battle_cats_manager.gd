@@ -131,6 +131,8 @@ func _do_normal_attack_round(attackers: Array[BattleCat]):
 	# Both sides' damage is captured before either hit or status consumption.
 	for i in attackers.size():
 		targets[i].enchantment.handle_attack_damage(self, targets[i], damages[i], attackers[i])
+	for i in attackers.size():
+		attackers[i].enchantment.after_normal_attack_dealt(self, attackers[i], targets[i], damages[i])
 	for attacker in attackers:
 		attacker.finish_normal_attack()
 		attacker.did_attack = true
