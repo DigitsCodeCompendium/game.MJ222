@@ -238,7 +238,7 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 	return cat
 
 func deal_ability_damage(source: BattleCat, target: BattleCat, amount: int) -> int:
-	return target.take_damage(amount, source)
+	return target.enchantment.handle_ability_damage(self, target, amount, source)
 
 ## Explicit displacements only; advancing the normal formation never calls this.
 func notify_ability_movement(moved: BattleCat) -> void:

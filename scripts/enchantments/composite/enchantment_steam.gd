@@ -8,7 +8,7 @@ func handle_attack_damage(cats: BattleCatsManager, self_cat: BattleCat, amount: 
 	
 	var back_cat = cats.get_back_adjacent_cat(self_cat)
 	if back_cat != null:
-		back_cat.take_damage(transfer_amount, source)
+		cats.deal_ability_damage(source, back_cat, transfer_amount)
 		if transfer_amount > 0:
 			cats.notify_ability_activated(self_cat)
 	

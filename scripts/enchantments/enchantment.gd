@@ -36,6 +36,9 @@ func before_attack(cats: BattleCatsManager, self_cat: BattleCat):
 func handle_attack_damage(_cats: BattleCatsManager, self_cat: BattleCat, amount: int, source: BattleCat = null):
 	self_cat.take_damage(amount, source)
 
+func handle_ability_damage(_cats: BattleCatsManager, self_cat: BattleCat, amount: int, source: BattleCat = null) -> int:
+	return self_cat.take_damage(amount, source)
+
 func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
