@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentStatic" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_static.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/basic/air.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/electric.tres" id="b"]
 
@@ -8,7 +8,7 @@
 script = ExtResource("script")
 display_name = "Static"
 primary_color = Color(0.819608, 0.768627, 0.490196, 1)
-description = "No special ability yet."
+description = "Whenever an ability moves this Squeeb, deal 3 damage to a random living enemy. Regular formation movement after a faint does not trigger this effect."
 base_attack = 4
 base_health = 4
 component1 = ExtResource("a")
