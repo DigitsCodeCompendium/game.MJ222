@@ -23,6 +23,7 @@ var _pending_summons: Array[Dictionary] = []
 var _ability_events: Array[BattleCat] = []
 var _ability_chain: Dictionary = {}
 var _processing_abilities = false
+var _ability_formation_changed = false
 # Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
@@ -133,6 +134,10 @@ func _do_normal_attack_round(attackers: Array[BattleCat]):
 	for attacker in attackers:
 		attacker.finish_normal_attack()
 		attacker.did_attack = true
+	# React after both strikes resolve, so retreating cannot redirect either hit.
+	for target in targets:
+		if is_instance_valid(target) and target in get_all_cats() and target.health > 0:
+			target.enchantment.after_normal_attack_received(self, target)
 	sync_ui()
 	await animate_attack_and_hurt(direct_attack_hurt_delay)
 	var ally_snapshots: Array[Array] = []
@@ -233,9 +238,33 @@ func add_cat(team: Array[BattleCat], cat_name: String, enchantment: Enchantment,
 func deal_ability_damage(source: BattleCat, target: BattleCat, amount: int) -> int:
 	return target.take_damage(amount, source)
 
+## Explicit displacements only; advancing the normal formation never calls this.
+func notify_ability_movement(moved: BattleCat) -> void:
+	if not is_instance_valid(moved) or not moved in get_all_cats() or moved.health <= 0:
+		return
+	var opponents = get_opposing_team(get_cat_team(moved)).duplicate()
+	for observer in opponents:
+		if is_instance_valid(observer) and observer in get_all_cats() and observer.health > 0:
+			observer.enchantment.after_enemy_moved_by_ability(self, observer, moved)
+
 func _on_damage_received(source: BattleCat, amount: int, target: BattleCat) -> void:
+	for ally in get_cat_team(target).duplicate():
+		if is_instance_valid(ally) and ally in get_all_cats() and ally.health > 0:
+			ally.enchantment.after_ally_damaged(self, ally, target, amount)
 	if is_instance_valid(source) and source.enchantment != null:
 		source.enchantment.after_dealing_damage(self, source, target, amount)
+
+## Change the lineup now; animate it after the current attack has finished.
+func move_to_back_by_ability(cat: BattleCat) -> bool:
+	var team = get_cat_team(cat)
+	if team.size() < 2 or team.back() == cat or not cat.can_be_moved_in_battle():
+		return false
+	team.erase(cat)
+	team.append(cat)
+	_ability_formation_changed = true
+	refresh_status_effect_auras()
+	notify_ability_movement(cat)
+	return true
 
 ## Each Squeeb can react once in a cascade, preventing Lightning feedback loops.
 func notify_ability_activated(source: BattleCat) -> void:
@@ -457,6 +486,9 @@ func check_for_deaths_and_move_all_cats():
 		await animate_attack_and_hurt()
 		await move_all_cats()
 		await check_for_deaths_and_move_all_cats()
+	if _ability_formation_changed:
+		_ability_formation_changed = false
+		await move_all_cats()
 
 func animate_death_and_despawn(cat: BattleCat):
 	if cat.ability_state.get(&"swallowed_by_worm", false):

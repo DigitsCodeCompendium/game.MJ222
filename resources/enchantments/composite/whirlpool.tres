@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentWhirlpool" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_whirlpool.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/status_effects/shrouded.tres" id="shrouded"]
 [ext_resource type="Resource" path="res://resources/enchantments/basic/water.tres" id="a"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="b"]
 
 [resource]
 script = ExtResource("script")
+shrouded_effect = ExtResource("shrouded")
 display_name = "Whirlpool"
 primary_color = Color(0.254902, 0.498039, 0.658824, 1)
-description = "No special ability yet."
+description = "Once per battle, when your front Squeeb survives damage that drops it below half health, move it to the back and give it Shrouded. Shrouded blocks the next hit."
 base_attack = 4
 base_health = 4
 component1 = ExtResource("a")

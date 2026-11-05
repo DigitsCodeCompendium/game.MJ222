@@ -16,7 +16,10 @@ func _swap_pair(cats: BattleCatsManager, team: Array[BattleCat], first: int, sec
 	if not team[first].can_be_moved_in_battle() or not team[second].can_be_moved_in_battle():
 		return false
 	var original = team[first]
+	var other = team[second]
 	team[first] = team[second]
 	team[second] = original
 	cats.refresh_status_effect_auras()
+	cats.notify_ability_movement(original)
+	cats.notify_ability_movement(other)
 	return true

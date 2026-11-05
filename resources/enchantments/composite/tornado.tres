@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="EnchantmentDefault" format=3]
+[gd_resource type="Resource" script_class="EnchantmentTornado" format=3]
 
-[ext_resource type="Script" path="res://scripts/enchantments/enchantment_default.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_tornado.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="a"]
 
 [resource]
 script = ExtResource("script")
 display_name = "Tornado"
 primary_color = Color(0.568627, 0.647059, 0.678431, 1)
-description = "No special ability yet."
+description = "Whenever an enemy is moved by an ability, deal 2 damage to that enemy. Regular formation movement after a faint does not trigger this effect."
 base_attack = 5
 base_health = 5
 component1 = ExtResource("a")

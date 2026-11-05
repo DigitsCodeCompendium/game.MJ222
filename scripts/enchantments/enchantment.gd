@@ -39,6 +39,9 @@ func handle_attack_damage(_cats: BattleCatsManager, self_cat: BattleCat, amount:
 func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
+func after_normal_attack_received(_cats: BattleCatsManager, _self_cat: BattleCat) -> void:
+	pass
+
 func after_ally_attack(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 
@@ -67,6 +70,12 @@ func after_ally_ability_activated(_cats: BattleCatsManager, _self_cat: BattleCat
 	pass
 
 func after_dealing_damage(_cats: BattleCatsManager, _self_cat: BattleCat, _target: BattleCat, _amount: int) -> void:
+	pass
+
+func after_ally_damaged(_cats: BattleCatsManager, _self_cat: BattleCat, _ally: BattleCat, _amount: int) -> void:
+	pass
+
+func after_enemy_moved_by_ability(_cats: BattleCatsManager, _self_cat: BattleCat, _enemy: BattleCat) -> void:
 	pass
 
 ## Count occurrences, so Fire + Fire contains two Fire elements, not one.

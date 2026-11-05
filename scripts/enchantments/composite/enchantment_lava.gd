@@ -20,6 +20,7 @@ func after_attack(cats: BattleCatsManager, self_cat: BattleCat):
 			if i + 1 < targets.size():
 				cats.deal_ability_damage(self_cat, target, collision_damage)
 			await animate_move(target)
+			cats.notify_ability_movement(target)
 	if activated:
 		cats.notify_ability_activated(self_cat)
 
