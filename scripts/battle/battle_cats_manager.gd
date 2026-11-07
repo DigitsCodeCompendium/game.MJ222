@@ -3,6 +3,8 @@ extends Node3D
 
 signal summon_tossed(enchantment: Enchantment)
 
+const GLASS_SHARDS_SCENE = preload("res://scenes/battle/effects/glass_shards.tscn")
+
 @export var battle_cat_scene: PackedScene
 @export var battle_cat_ui_scene: PackedScene
 
@@ -24,6 +26,9 @@ var _ability_events: Array[BattleCat] = []
 var _ability_chain: Dictionary = {}
 var _processing_abilities = false
 var _ability_formation_changed = false
+var _glass_shards: Array[bool] = [false, false]
+var _front_slot_ids: Array[int] = [0, 0]
+var _checking_front_slots = false
 # Both arrays are the order of cats from front to back (inner to outer)
 var cats_left: Array[BattleCat]
 var cats_right: Array[BattleCat]
@@ -69,7 +74,11 @@ func load_cats():
 	move_all_cats(true)
 	
 	for cat in get_all_cats():
+		cat.enchantment.prepare_battle_start(self, cat)
+	for cat in get_all_cats():
 		cat.enchantment.after_battle_start(self, cat)
+	for cat in get_all_cats():
+		cat.enchantment.finalize_battle_start(self, cat)
 	sync_ui()
 	move_all_cats(true)
 
@@ -174,6 +183,7 @@ func _finish_status_effect_turn() -> void:
 	sync_ui()
 
 func sync_ui():
+	check_frontline_entries()
 	refresh_status_effect_auras()
 	for cat in get_all_cats():
 		if cat.attached_ui != null:
@@ -249,6 +259,34 @@ func notify_ability_movement(moved: BattleCat) -> void:
 	for observer in opponents:
 		if is_instance_valid(observer) and observer in get_all_cats() and observer.health > 0:
 			observer.enchantment.after_enemy_moved_by_ability(self, observer, moved)
+	check_frontline_entries()
+
+## A single persistent hazard per side; additional Glass deaths do not stack damage.
+func add_glass_shards(team: Array[BattleCat]) -> void:
+	var side = 0 if is_same(team, cats_left) else 1
+	if _glass_shards[side]:
+		return
+	_glass_shards[side] = true
+	var anchors = left_cat_anchors if side == 0 else right_cat_anchors
+	if is_inside_tree() and not anchors.is_empty():
+		var shards = GLASS_SHARDS_SCENE.instantiate()
+		add_child(shards)
+		shards.position = anchors[0].position
+
+## Track slot occupancy, not animation frames or pushes that return to the same slot.
+func check_frontline_entries() -> void:
+	if _checking_front_slots:
+		return
+	_checking_front_slots = true
+	for side in range(2):
+		var team = cats_left if side == 0 else cats_right
+		var front: BattleCat = team.front() if not team.is_empty() else null
+		var id = front.get_instance_id() if front != null else 0
+		var changed = id != _front_slot_ids[side]
+		_front_slot_ids[side] = id
+		if changed and _glass_shards[side] and front != null and front.health > 0:
+			deal_ability_damage(null, front, 1)
+	_checking_front_slots = false
 
 ## Keep eligibility queries pure; only real ability attempts trigger blocked reactions.
 func can_move_by_ability(cat: BattleCat) -> bool:
@@ -421,6 +459,7 @@ func animate_hurt_cat_with_delay(cat: BattleCat, delay: float):
 	await cat.animate_hurt()
 
 func move_all_cats(instant: bool = false):
+	check_frontline_entries()
 	var animations: Array[Promise] = []
 	for i in range(cats_left.size()):
 		animations.append(Promise.new(move_cat.bind(cats_left[i], left_cat_anchors[i], instant)))
@@ -457,6 +496,7 @@ func is_battle_over():
 	return cats_left.size() <= 0 or cats_right.size() <= 0
 	
 func check_for_deaths_and_move_all_cats():
+	check_frontline_entries()
 	var dead_cats: Array[BattleCat] = []
 	var no_effects: Array[BattleStatusEffect] = []
 	

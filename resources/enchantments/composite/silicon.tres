@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="EnchantmentSilicon" format=3]
+[gd_resource type="Resource" script_class="EnchantmentSilicon" format=3 uid="uid://h8blu72ml5g8"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_silicon.gd" id="script"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/electric.tres" id="a"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/sand.tres" id="b"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_rqhg4"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="a"]
+[ext_resource type="Resource" uid="uid://iinnsq87jlk6" path="res://resources/enchantments/composite/sand.tres" id="b"]
+[ext_resource type="Script" uid="uid://dsa3bdw2dash0" path="res://scripts/enchantments/composite/enchantment_silicon.gd" id="script"]
 
 [resource]
 script = ExtResource("script")
 display_name = "Silicon"
-primary_color = Color(0.600000, 0.701961, 0.709804, 1)
+primary_color = Color(0.6, 0.701961, 0.709804, 1)
 description = "Incoming ability damage heals this Squeeb for the same amount instead. Normal attacks still deal damage."
 base_attack = 5
 base_health = 5

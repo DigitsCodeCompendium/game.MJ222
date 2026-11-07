@@ -1,15 +1,16 @@
-[gd_resource type="Resource" script_class="EnchantmentHurricane" format=3]
+[gd_resource type="Resource" script_class="EnchantmentHurricane" format=3 uid="uid://di3efvuhyruch"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_hurricane.gd" id="script"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_qlsuf"]
+[ext_resource type="Resource" uid="uid://cm7s3dgfu7w4h" path="res://resources/enchantments/composite/steam.tres" id="a"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="b"]
+[ext_resource type="Script" uid="uid://d3kp7rsgf1eb" path="res://scripts/enchantments/composite/enchantment_hurricane.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/status_effects/shrouded.tres" id="shrouded"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/steam.tres" id="a"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="b"]
 
 [resource]
 script = ExtResource("script")
 shrouded_effect = ExtResource("shrouded")
 display_name = "Hurricane"
-primary_color = Color(0.423529, 0.670588, 0.650980, 1)
+primary_color = Color(0.423529, 0.670588, 0.65098, 1)
 description = "Whenever this Squeeb survives a normal attack at the front of your team, move it to the back and give the new front Squeeb Shrouded. Shrouded blocks the next hit."
 base_attack = 5
 base_health = 5

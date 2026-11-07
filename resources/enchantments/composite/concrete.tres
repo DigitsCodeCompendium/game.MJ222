@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EnchantmentConcrete" format=3]
+[gd_resource type="Resource" script_class="EnchantmentConcrete" format=3 uid="uid://ctu4p062gdlcp"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_concrete.gd" id="script"]
-[ext_resource type="Resource" path="res://resources/status_effects/immovable.tres" id="immovable"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_ltf1u"]
 [ext_resource type="Resource" path="res://resources/enchantments/composite/mud.tres" id="a"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/sand.tres" id="b"]
+[ext_resource type="Resource" uid="uid://iinnsq87jlk6" path="res://resources/enchantments/composite/sand.tres" id="b"]
+[ext_resource type="Resource" path="res://resources/status_effects/immovable.tres" id="immovable"]
+[ext_resource type="Script" uid="uid://dxidn6s6ast7e" path="res://scripts/enchantments/composite/enchantment_concrete.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

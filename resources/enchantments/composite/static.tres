@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="EnchantmentStatic" format=3]
+[gd_resource type="Resource" script_class="EnchantmentStatic" format=3 uid="uid://bnyu30xs4vk5y"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_static.gd" id="script"]
-[ext_resource type="Resource" path="res://resources/enchantments/basic/air.tres" id="a"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/electric.tres" id="b"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_j7mlf"]
+[ext_resource type="Resource" uid="uid://bvm82266xpvqn" path="res://resources/enchantments/basic/air.tres" id="a"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="b"]
+[ext_resource type="Script" uid="uid://r0svsblcuadw" path="res://scripts/enchantments/composite/enchantment_static.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

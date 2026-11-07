@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="EnchantmentTornado" format=3]
+[gd_resource type="Resource" script_class="EnchantmentTornado" format=3 uid="uid://cv26ki4ri7vfo"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_tornado.gd" id="script"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="a"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_0ner0"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="a"]
+[ext_resource type="Script" uid="uid://curvhmgd0eoux" path="res://scripts/enchantments/composite/enchantment_tornado.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

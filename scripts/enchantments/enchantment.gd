@@ -27,6 +27,12 @@ extends Resource
 func has_components() -> bool:
 	return component1 != null and component2 != null
 
+func prepare_battle_start(_cats: BattleCatsManager, _self_cat: BattleCat) -> void:
+	pass
+
+func finalize_battle_start(_cats: BattleCatsManager, _self_cat: BattleCat) -> void:
+	pass
+
 func after_battle_start(cats: BattleCatsManager, self_cat: BattleCat):
 	pass
 

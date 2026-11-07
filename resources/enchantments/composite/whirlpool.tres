@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EnchantmentWhirlpool" format=3]
+[gd_resource type="Resource" script_class="EnchantmentWhirlpool" format=3 uid="uid://d4aembjby24ts"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_whirlpool.gd" id="script"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_fop04"]
+[ext_resource type="Resource" uid="uid://o4pwc6nev4eu" path="res://resources/enchantments/basic/water.tres" id="a"]
+[ext_resource type="Resource" uid="uid://da8qa04v2s7t" path="res://resources/enchantments/composite/storm.tres" id="b"]
+[ext_resource type="Script" uid="uid://nkef657ulpfq" path="res://scripts/enchantments/composite/enchantment_whirlpool.gd" id="script"]
 [ext_resource type="Resource" path="res://resources/status_effects/shrouded.tres" id="shrouded"]
-[ext_resource type="Resource" path="res://resources/enchantments/basic/water.tres" id="a"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/storm.tres" id="b"]
 
 [resource]
 script = ExtResource("script")

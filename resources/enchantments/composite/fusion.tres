@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="EnchantmentFusion" format=3]
+[gd_resource type="Resource" script_class="EnchantmentFusion" format=3 uid="uid://c2g7lx0mgfbg0"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_fusion.gd" id="script"]
-[ext_resource type="Resource" path="res://resources/enchantments/basic/fire.tres" id="a"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/plasma.tres" id="b"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_pnkmn"]
+[ext_resource type="Resource" uid="uid://d20wlj6j525hw" path="res://resources/enchantments/basic/fire.tres" id="a"]
+[ext_resource type="Resource" uid="uid://c7rrcvdyyoqwr" path="res://resources/enchantments/composite/plasma.tres" id="b"]
+[ext_resource type="Script" uid="uid://dfm38fcskse3r" path="res://scripts/enchantments/composite/enchantment_fusion.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

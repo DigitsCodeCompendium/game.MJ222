@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="EnchantmentTesla" format=3]
+[gd_resource type="Resource" script_class="EnchantmentTesla" format=3 uid="uid://b4augst8eml6y"]
 
-[ext_resource type="Script" path="res://scripts/enchantments/composite/enchantment_tesla.gd" id="script"]
-[ext_resource type="Resource" path="res://resources/enchantments/composite/electric.tres" id="a"]
+[ext_resource type="Script" uid="uid://bq1uohemn7usd" path="res://scripts/battle/status_effects/battle_status_effect.gd" id="1_b8flo"]
+[ext_resource type="Resource" uid="uid://bf4rgm2l0mwdv" path="res://resources/enchantments/composite/electric.tres" id="a"]
+[ext_resource type="Script" uid="uid://dn4jgt3lfixhi" path="res://scripts/enchantments/composite/enchantment_tesla.gd" id="script"]
 
 [resource]
 script = ExtResource("script")
